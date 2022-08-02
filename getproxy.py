@@ -1,0 +1,3 @@
+import ambil
+
+ambil.proxy()
