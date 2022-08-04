@@ -1,5 +1,4 @@
 
-import subprocess
 import pyrebase
 import json
 config = {
@@ -16,9 +15,6 @@ config = {
 
 firebase = pyrebase.initialize_app(config)
 db = firebase.database()
-patt = input("path packages : ")
-patt = patt.replace("\\", "/")
-
 
 while True:
     dbb = {"results": []}
@@ -42,5 +38,4 @@ while True:
 
     # print(json.dumps(dbb, indent=2))
     db.child("account").child("uid").update(dbb)
-    input("Press Enter to Delete Packages")
-    process = subprocess.Popen(['rm', '-rf', f'{patt}/packages'])
+    input(":?")
