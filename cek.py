@@ -103,6 +103,59 @@ def setpwd(x, pwnya):
         return 0
 
 
+def setemail(tkn, email, code):
+    uri = "https://wjxwd01mwyo.dt01showxx02.com/App/User_User/BindEmail"
+    headers = {
+        "User-Agent": "HS-Android Mozilla/5.0 (Linux; Android 8.12.0; Redmi 0 Plus Build/OPM1.171019.019; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/94.0.4606.85 Mobile Safari/537.36",
+        "BundleIdentifier": "user",
+        "x-token": tkn,
+        "Accept-Encoding": "identity",
+        "X-Version": persi,
+        "Content-Type": "application/x-www-form-urlencoded",
+        "Host": "wjxwd01mwyo.dt01showxx02.com",
+        "Connection": "Keep-Alive"
+    }
+    param = {
+        "email": email,
+        "code": code
+    }
+
+    try:
+        req = requests.post(uri, data=param, headers=headers)
+        ress = json.loads(req.text)
+        return ress["msg"]
+    except Exception as e:
+        print("Failed : "+str(e))
+        return 0
+
+
+def setphone(tkn, phone, code):
+    uri = "https://wjxwd01mwyo.dt01showxx02.com/App/User_User/BindPhone"
+    headers = {
+        "User-Agent": "HS-Android Mozilla/5.0 (Linux; Android 8.12.0; Redmi 0 Plus Build/OPM1.171019.019; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/94.0.4606.85 Mobile Safari/537.36",
+        "BundleIdentifier": "user",
+        "x-token": tkn,
+        "Accept-Encoding": "identity",
+        "X-Version": persi,
+        "Content-Type": "application/x-www-form-urlencoded",
+        "Host": "wjxwd01mwyo.dt01showxx02.com",
+        "Connection": "Keep-Alive"
+    }
+    param = {
+        "email": "+62",
+        "email": phone,
+        "code": code
+    }
+
+    try:
+        req = requests.post(uri, data=param, headers=headers)
+        ress = json.loads(req.text)
+        return ress["msg"]
+    except Exception as e:
+        print("Failed : "+str(e))
+        return 0
+
+
 def setbank(x, data):
     uri = "https://wjxwd01mwyo.dt01showxx02.com/App/Pay_BankCard/Add"
     headers = {
@@ -179,6 +232,32 @@ def getmsg(x):
         return krm
 
 
+def getrecord(x):
+    waktu = input("waktunya [2022-08-04] :")
+    uriweb = f"https://wjxwd01mwyo.dt01showxx02.com/App/Game_Order/GetBetList?date={waktu}&status=0&page=1"
+    headers = {
+        "user-agent": "Mozilla/5.0 (Linux; Android 8.4.0; Redmi 4 Plus Build/OPM1.171019.019; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/91.0.4472.120 Mobile Safari/537.36",
+        "bundleidentifier": "user",
+        "x-token": x,
+        "accept-encoding": "identity",
+        "host": "wjxwd01mwyo.dt01showxx02.com",
+        "connection": "keep-alive",
+    }
+    f = requests.get(uriweb, headers=headers)
+    ress = json.loads(f.text)
+    try:
+        krm = ress["result"]
+        return krm
+    except:
+        krm = [
+            "expiret",
+            0.0,
+            "expiret",
+            "expiret",
+        ]
+        return krm
+
+
 def getinfo(x):
     uriweb = "https://wjxwd01mwyo.dt01showxx02.com/App/User_User/Info"
     headers = {
@@ -197,6 +276,33 @@ def getinfo(x):
             ress["result"]["balance"],
             ress["result"]["vip_name"],
             ress["result"]["id"],
+        ]
+        return krm
+    except:
+        krm = [
+            "expiret",
+            0.0,
+            "expiret",
+            "expiret",
+        ]
+        return krm
+
+
+def getinfofull(x):
+    uriweb = "https://wjxwd01mwyo.dt01showxx02.com/App/User_User/Info"
+    headers = {
+        "user-agent": "HS-Android Mozilla/5.0 (Linux; Android 8.1.0; SM-J730F Build/M1AJQ; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/103.0.5060.129 Mobile Safari/537.36",
+        "bundleidentifier": "user",
+        "x-token": x,
+        "accept-encoding": "identity",
+        "host": "wjxwd01mwyo.dt01showxx02.com",
+        "connection": "keep-alive",
+    }
+    f = requests.get(uriweb, headers=headers)
+    ress = json.loads(f.text)
+    try:
+        krm = [
+            ress["result"]
         ]
         return krm
     except:
@@ -281,14 +387,18 @@ menu = """
 
       [MENU]
   > connection
+  > cekfull
   > cek
   > lvl
   > tu
   > reset
   > gtoken
   > gmsg
+  > grecord
   > cekbank
   > setbank
+  > setphone
+  > setemail
   > wd
   > q
 \tChoice : """
@@ -332,6 +442,20 @@ while True:
 
         print(setpwd(token, pwd))
         print(setbank(token, databank))
+    elif jlk == "setemail":
+        print("ambil codenya dr hp")
+        tokk = ambil.token()
+        token = tokk[int(input("token ke : "))-1]
+        ema = input("email : ")
+        kodd = input("kode : ")
+        print(setemail(token, ema, kodd))
+    elif jlk == "setphone":
+        print("req codenya dr hp")
+        tokk = ambil.token()
+        token = tokk[int(input("token ke : "))-1]
+        ema = input("nomer tanpa 0 : ")
+        kodd = input("kode : ")
+        print(setphone(token, ema, kodd))
     elif jlk == "wd":
         tokk = ambil.token()
         token = tokk[int(input("token ke : "))-1]
@@ -362,6 +486,34 @@ while True:
                 print(f'{tiuu["created_at"]} : {tiuu["content"]}')
                 print(
                     "==========================================================================")
+    elif jlk == "grecord":
+        tokk = ambil.token()
+        token = tokk[int(input("token ke : "))-1]
+        xxz = getrecord(token)
+        for tiu in xxz["data"]:
+            if tiu["status"] == 2:
+                wl = "Win"
+            else:
+                wl = "Lose"
+            print(
+                f'===================================[ {tiu["game_type"]} ]')
+            print(f'\tStatus : {wl}')
+            print(f'\tBet : {tiu["total_cost"]}')
+            print(f'\t<- : {tiu["win_amount"]}')
+            print(f'\tGame_number : {tiu["game_number"]}')
+            print(f'\tId : {tiu["order_id"]}')
+    elif jlk == "cekfull":
+        tokk = ambil.token()
+        token = tokk[int(input("token ke : "))-1]
+        try:
+            dtt = getinfofull(token)
+            print(json.dumps(dtt[0], indent=2))
+
+        except Exception as e:
+            print(f"error {e}")
+            tn = input("exit y/n :")
+            if tn == "y":
+                exit()
     elif jlk == "cek":
         tokk = ambil.token()
         if kusus2 == 999:

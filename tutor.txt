@@ -1,6 +1,5 @@
-$ git init
-$ git add hello-world.py
-$ git add .
-$ git commit -m "Upload file"
-$ git remote add origin https://github.com/atr10116068/httpex.git
-$ git push -u origin main
+git init
+git add .
+git commit -m "Upload file"
+git remote add origin https://github.com/atr10116068/httpex.git
+git push -u origin master

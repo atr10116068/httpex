@@ -104,7 +104,7 @@ while True:
         sys.stdout.flush()
         jam, menit, detik = pj[0], pj[1], pj[2]
         if detik == "00":
-            if int(menit) % 10 == 0:
+            if int(menit) % 1 == 0:
                 proxies = getprox()[0:50]
                 db.child("proxy").remove()
                 for x in proxies:

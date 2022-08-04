@@ -97,14 +97,14 @@ def klaim(tkn, lvl):
         for i in range(1, len(token), 1):
             cek = reciv(tkn, i, int(lvl))
             print(f'{dat["itr"]}. {cek["msg"]}')
-            time.sleep(0.1)
+            time.sleep(0.01)
     else:
         for typ in lisny:
             # print(typ)
             for id in lis["result"]["data"][typ]:
                 cek = reciv(tkn, id["type"], int(lvl))
                 print(cek)
-                time.sleep(0.1)
+                time.sleep(0.01)
 
 
 token = ambil.token()
@@ -150,12 +150,12 @@ if "-" in inp:
             dat['itr'] = aw-1
             for i in tkn:
                 dat['itr'] += 1
-                print(1)
+                print(0.1)
                 print(f"r> {dat['itr']}")
-                print(2)
+                print(0.1)
                 klop = klaim(i, lvl)
-                print(3)
-                time.sleep(5)
+                print(0.1)
+                time.sleep(0.1)
         except Exception as e:
             print(f"error claim : {e}")
 elif inp == "all":
