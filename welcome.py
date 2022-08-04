@@ -231,22 +231,24 @@ def main(ttt):
     print("\nTarget Room : " + room[int(inp) - 1]["nickname"])
 
     tokenawal = ambil.token()
-
-    gantiketek = 0
     idxakun = 0
+    if "loop" in ttt:
+        satu, dua = int(ttt.split(" ")[1]), int(ttt.split(" ")[2])
+        idxakun = satu
+    gantiketek = 0
     while True:
-        if ttt == "loop":
+        if "loop" in ttt:
             if gantiketek == 0:
                 gantiketek = 1
-                if idxakun == len(tokenawal)-1:
-                    idxakun = 0
+                if idxakun == dua:
+                    idxakun = satu
                 else:
                     idxakun += 1
                 token = tokenawal[idxakun]
             else:
                 gantiketek = 0
-                if idxakun == len(tokenawal)-1:
-                    idxakun = 0
+                if idxakun == dua:
+                    idxakun = satu
                 else:
                     idxakun += 1
                 token = tokenawal[idxakun]
@@ -429,7 +431,7 @@ def main(ttt):
     print("selesai...")
 
 
-tehj = input("Token no (loop juga bisa):")
+tehj = input("Token no (loop n-n juga bisa):")
 print(tehj)
 while True:
     main(tehj)
