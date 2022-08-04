@@ -385,7 +385,7 @@ def filterspace(x):
 
 menu = """
 
-      [MENU]
+       [MENU]
   > connection
   > cekfull
   > cek
