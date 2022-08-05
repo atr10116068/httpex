@@ -42,7 +42,7 @@ def getnum(x):
 # live_room_id=160807&game_type=toubao_1&game_sub=zonghe&game_number=202110260818&detail=zonghe_weitou%3A1%3B&multiple=1
 
 
-def bet(x, type, num):
+def bet(x, type, num,prox):
     rType = {
         "player": "zhuangxian_xian",
         "banker": "zhuangxian_zhuang",
@@ -70,7 +70,7 @@ def bet(x, type, num):
     }
 
     try:
-        req = requests.post(uri, data=json.dumps(param), headers=headers)
+        req = requests.post(uri, data=json.dumps(param), headers=headers,proxies=prox)
         ress = json.loads(req.text)
         print(ress)
     except:
@@ -100,13 +100,14 @@ print("\nTarget Room : " + room[int(inp) - 1]["nickname"])
 
 while True:
     print(menu)
+    proxx=input("proxy : ")
     predic = input("prediksi : ")
     if "all" not in predic:
         try:
             type = int(predic.split("-")[0]) - 1
             num = predic.split("-")[1]
             tkn = token[int(predic.split("-")[2])-1]
-            bet(tkn, hehe[type], num)
+            bet(tkn, hehe[type], num,proxx)
         except:
             pass
     else:
@@ -114,5 +115,5 @@ while True:
         type = int(predic.split("-")[0]) - 1
         num = predic.split("-")[1]
         for tkn in token:
-            bet(tkn, hehe[type], num)
+            bet(tkn, hehe[type], num,proxx)
         pass
