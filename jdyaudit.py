@@ -2,21 +2,29 @@ import requests
 import json
 import time
 import getlive
-import seting
+import seting,pytz
 import ambil
 import sys
+from datetime import datetime
 
-xxx, yyy = 1, 33
 persi = seting.versi()
+dat = {"jam": 0, "claim": False, "blokjam": [],"counting":0,"countTarget":int(input("Target count :"))}
+betamount=int(input("bet Amount : "))
 
-try:
-    xxx, yyy = int(input("token awal : ")), int(input("token ahir : "))
-except:
-    xxx, yyy = 0, 133
-    print("all token added")
-
-dat = {"roomid": "0"}
-
+def jam():
+    tz = pytz.timezone("Asia/Jakarta")
+    now = datetime.now(tz)
+    dat["jam"] = now.strftime("%d%b%Y-%H:%M:%S")
+    detik = now.strftime("%S")
+    if detik == "02":
+        print(f"claim ter-Unlock {dat['jam']}")
+        dat["claim"] = True
+    else:
+        sys.stdout.write(f"  {dat['jam']}  count:{dat['counting']}\r")
+        sys.stdout.flush()
+    
+    if dat['counting'] > dat['countTarget']:
+        exit()
 
 def getnum(x):
     uri = "https://wjxwd01mwyo.dt01showxx02.com/App/Game_Game/GetTypeInfo"
@@ -36,13 +44,7 @@ def getnum(x):
         return ress["result"]["current_round"]["number"]
     except:
         print("return error")
-
-
-# tripel
-# live_room_id=160807&game_type=toubao_1&game_sub=zonghe&game_number=202110260818&detail=zonghe_weitou%3A1%3B&multiple=1
-
-
-def bet(x, type, num,proxs):
+def bet(x, type, num):
     rType = {
         "player": "zhuangxian_xian",
         "banker": "zhuangxian_zhuang",
@@ -61,59 +63,50 @@ def bet(x, type, num,proxs):
         "Connection": "Keep-Alive",
     }
     param = {
-        "live_room_id": dat["roomid"],
+        "live_room_id": "",
         "game_type": "baijiale_1",
         "game_sub": "zhuangxian",
         "game_number": getnum(x),
         "detail": rType[type] + ":" + num,
         "multiple": "1",
     }
-    prox={"https":proxs}
     try:
-        req = requests.post(uri, data=json.dumps(param), headers=headers,proxies=prox)
+        req = requests.post(uri, data=json.dumps(param), headers=headers)
         ress = json.loads(req.text)
+        dat["counting"]+=betamount
         print(ress)
     except Exception as e:
         print(f"Failed : {e}")
 
 
-menu = """\t\t[ MENU ]
-1.player 2.banker 3.tie
-bet-jumlah-token"""
-hehe = ["player", "banker", "tie"]
-
-
-# token = ambil.token()[xxx:yyy]
 token = ambil.token()
-
-
-room = getlive.roomall()
-room.append({"nickname": "lobby", "live_id": ""})
-x = 1
-for i in room:
-    print("{}. {}".format(str(x), i["nickname"]))
-    x += 1
-inp = input("room nomor : ")
-dat["roomid"] = room[int(inp) - 1]["live_id"]
-print("\nTarget Room : " + room[int(inp) - 1]["nickname"])
-
-
-proxx=input("proxy : ")
+nomer=input("Token no :")
+tz = pytz.timezone("Asia/Jakarta")
+now = datetime.now(tz)
+jamm = now.strftime("%m/%d/%Y, %H:%M")
+print(f"\t\tstart in [ {jamm} ]")
 while True:
-    print(menu)
-    predic = input("prediksi : ")
-    if "all" not in predic:
-        try:
-            type = int(predic.split("-")[0]) - 1
-            num = predic.split("-")[1]
-            tkn = token[int(predic.split("-")[2])-1]
-            bet(tkn, hehe[type], num,proxx)
-        except:
-            pass
-    else:
-        print("ALL IN...")
-        type = int(predic.split("-")[0]) - 1
-        num = predic.split("-")[1]
-        for tkn in token:
-            bet(tkn, hehe[type], num,proxx)
-        pass
+    try:
+        jam()
+
+        if dat["claim"] == True:
+            datan = {"totaljam": 0, "totalakun": 0}
+            print(">claim is true")
+            tokk = ambil.token()
+            dat["token"] = tokk
+            if str(dat["jam"])[0:11] not in dat["blokjam"]:
+                dat["claim"] = False
+                print(">lolos backup waktu")
+                
+                tkn = token[int(nomer)-1]
+                bet(tkn, "banker", str(betamount))
+                print()
+                time.sleep(2)
+    except Exception as e:
+        print(f"Error : [{dat['jam']}] {e}")
+        for x in range(1, 120):
+            sys.stdout.write(f"{x}\r")
+            sys.stdout.flush()
+            time.sleep(1)
+
+    time.sleep(0.1)
