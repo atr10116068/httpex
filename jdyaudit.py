@@ -2,14 +2,17 @@ import requests
 import json
 import time
 import getlive
-import seting,pytz
+import seting
+import pytz
 import ambil
 import sys
 from datetime import datetime
 
 persi = seting.versi()
-dat = {"jam": 0, "claim": False, "blokjam": [],"counting":0,"countTarget":int(input("Target count :"))}
-betamount=int(input("bet Amount : "))
+dat = {"jam": 0, "claim": False, "blokjam": [], "counting": 0,
+       "countTarget": int(input("Target count :"))}
+betamount = int(input("bet Amount : "))
+
 
 def jam():
     tz = pytz.timezone("Asia/Jakarta")
@@ -22,9 +25,10 @@ def jam():
     else:
         sys.stdout.write(f"  {dat['jam']}  count:{dat['counting']}\r")
         sys.stdout.flush()
-    
+
     if dat['counting'] > dat['countTarget']:
         exit()
+
 
 def getnum(x):
     uri = "https://wjxwd01mwyo.dt01showxx02.com/App/Game_Game/GetTypeInfo"
@@ -44,6 +48,8 @@ def getnum(x):
         return ress["result"]["current_round"]["number"]
     except:
         print("return error")
+
+
 def bet(x, type, num):
     rType = {
         "player": "zhuangxian_xian",
@@ -73,14 +79,14 @@ def bet(x, type, num):
     try:
         req = requests.post(uri, data=json.dumps(param), headers=headers)
         ress = json.loads(req.text)
-        dat["counting"]+=betamount
+        dat["counting"] += betamount
         print(ress)
     except Exception as e:
         print(f"Failed : {e}")
 
 
 token = ambil.token()
-nomer=input("Token no :")
+nomer = input("Token no :")
 tz = pytz.timezone("Asia/Jakarta")
 now = datetime.now(tz)
 jamm = now.strftime("%m/%d/%Y, %H:%M")
@@ -97,9 +103,9 @@ while True:
             if str(dat["jam"])[0:11] not in dat["blokjam"]:
                 dat["claim"] = False
                 print(">lolos backup waktu")
-                
+
                 tkn = token[int(nomer)-1]
-                bet(tkn, "banker", str(betamount))
+                bet(tkn, "player", str(betamount))
                 print()
                 time.sleep(2)
     except Exception as e:

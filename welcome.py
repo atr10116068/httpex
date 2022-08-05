@@ -18,7 +18,7 @@ import translatepy as trs
 
 gip = {}
 host = "https://wjxwd01mwyo.dt01showxx02.com/"
-
+persi = seting.versi()
 
 konyol = [
     "Istri Tetangga Siap Melayani Anda 24 Jam!",
@@ -116,11 +116,11 @@ def getguard(id, tok):
         "bundleidentifier": "user",
         "x-token": tok,
         "accept-encoding": "identity",
-        "x-version": seting.versi(),
+        "x-version": persi,
         "host": "wjxwd01mwyo.dt01showxx02.com",
         "connection": "keep-alive",
     }
-    para = {"guard_id": "2", "live_id": id}
+    para = {"guard_id": "1", "live_id": id}
 
     req = requests.post(uri, params=para, headers=headers)
     ress = json.loads(req.text)
@@ -134,7 +134,7 @@ def getmsg(tok):
         "bundleidentifier": "user",
         "x-token": tok,
         "accept-encoding": "identity",
-        "x-version": seting.versi(),
+        "x-version": persi,
         "host": "wjxwd01mwyo.dt01showxx02.com",
         "connection": "keep-alive",
     }
@@ -152,7 +152,7 @@ def bacaivc(tok, showid):
         "bundleidentifier": "user",
         "x-token": tok,
         "accept-encoding": "identity",
-        "x-version": seting.versi(),
+        "x-version": persi,
         "host": "wjxwd01mwyo.dt01showxx02.com",
         "connection": "keep-alive",
     }
@@ -171,7 +171,7 @@ def getidol(id, tok):
         "bundleidentifier": "user",
         "x-token": tok,
         "accept-encoding": "identity",
-        "x-version": seting.versi(),
+        "x-version": persi,
         "host": "wjxwd01mwyo.dt01showxx02.com",
         "connection": "keep-alive",
     }
@@ -189,7 +189,7 @@ def nama(x):
         "bundleidentifier": "user",
         "x-token": x,
         "accept-encoding": "identity",
-        "x-version": seting.versi(),
+        "x-version": persi,
         "connection": "keep-alive",
     }
     f = requests.get(uriweb, headers=headers)
@@ -209,7 +209,7 @@ def sen(id, tok, tex):
         "bundleidentifier": "user",
         "x-token": tok,
         "accept-encoding": "identity",
-        "x-version": seting.versi(),
+        "x-version": persi,
         "connection": "keep-alive",
     }
     para = {"live_id": id, "content": tex}

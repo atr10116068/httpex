@@ -75,12 +75,13 @@ def lagi():
                 prom = datadadu[0]["data"]["msg_body"]["content"]
                 prom = trs.tpy(prom, "id")[1]
                 print(prom)
-                if len(prom) < 50:
-                    sen(idroom, token, prom)
-                    # pass
-                else:
-                    sen(idroom, token, prom[0:50])
-                    print("more then 50")
+                if len(prom) != 0:
+                    if len(prom) < 50:
+                        sen(idroom, token, prom)
+                        # pass
+                    else:
+                        sen(idroom, token, prom[0:50])
+                        print("more then 50")
 
         except:
             pass
