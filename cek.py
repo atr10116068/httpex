@@ -315,6 +315,30 @@ def getinfofull(x):
         return krm
 
 
+def getcashlog(x):
+    uriweb = f"https://wjxwd01mwyo.dt01showxx02.com/App/User_User/CashLogList?page={input('page : ')}"
+    headers = {
+        "user-agent": "HS-Android Mozilla/5.0 (Linux; Android 8.1.0; SM-J730F Build/M1AJQ; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/103.0.5060.129 Mobile Safari/537.36",
+        "bundleidentifier": "user",
+        "x-token": x,
+        "accept-encoding": "identity",
+        "host": "wjxwd01mwyo.dt01showxx02.com",
+        "connection": "keep-alive",
+    }
+    f = requests.get(uriweb, headers=headers)
+    ress = json.loads(f.text)
+    try:
+        return ress["result"]
+    except:
+        krm = [
+            "expiret",
+            0.0,
+            "expiret",
+            "expiret",
+        ]
+        return krm
+
+
 def lvl(x):
     uriweb = "https://wjxwd01mwyo.dt01showxx02.com/App/Vip_Vip/MyVip"
     headers = {
@@ -395,6 +419,7 @@ menu = """
   > gtoken
   > gmsg
   > grecord
+  > gcashlog
   > cekbank
   > setbank
   > setphone
@@ -502,11 +527,31 @@ while True:
             print(f'\t<- : {tiu["win_amount"]}')
             print(f'\tGame_number : {tiu["game_number"]}')
             print(f'\tId : {tiu["order_id"]}')
+    elif jlk == "gcashlog":
+        tokk = ambil.token()
+        token = tokk[int(input("token ke : "))-1]
+        xxz = getcashlog(token)
+        for tiu in xxz:
+            print(
+                "==========================================================================")
+            print(f"> {tiu}")
+            for tiuu in xxz[tiu]:
+                if "dealed_at" in tiuu:
+                    print(f'\tdealed_at : {tiuu["dealed_at"]}')
+                    print(f'\tcontent : {tiuu["content"]}')
+                    print(f'\tbalance_before : {tiuu["balance_before"]}')
+                    print(f'\tbalance_after : {tiuu["balance_after"]}')
+                    print(f'\ttype_name : {tiuu["type_name"]}')
+                    print(
+                        "==========================================================================")
+                else:
+                    print(tiuu)
+
     elif jlk == "cekfull":
         tokk = ambil.token()
         token = tokk[int(input("token ke : "))-1]
         try:
-            dtt = getinfofull(token)
+            dtt = getcashlog(token)
             print(json.dumps(dtt[0], indent=2))
 
         except Exception as e:

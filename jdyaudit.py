@@ -87,6 +87,7 @@ def bet(x, type, num):
 
 token = ambil.token()
 nomer = input("Token no :")
+betnya = input("betnya :")
 tz = pytz.timezone("Asia/Jakarta")
 now = datetime.now(tz)
 jamm = now.strftime("%m/%d/%Y, %H:%M")
@@ -105,7 +106,7 @@ while True:
                 print(">lolos backup waktu")
 
                 tkn = token[int(nomer)-1]
-                bet(tkn, "player", str(betamount))
+                bet(tkn, betnya, str(betamount))
                 print()
                 time.sleep(2)
     except Exception as e:

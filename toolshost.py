@@ -51,10 +51,12 @@ dbuser = {
     "1109833110": ["blue", "MS•QIN [Qinquin]"],
     "1000361907": ["blue", "VOD一KA"],
     "1022223339": ["cyan", "Zaradisca"],
+    "1208564837": ["cyan", "++D͓E͓T͓T͓O͓L͓++"],
     "1225716607": ["cyan", "Cikman_Cuek"],
     "1022223339": ["cyan", "INDO : Zaradisca"],
     "1054237274": ["cyan", "RumahBesar [Ucok]"],
     "1000897849": ["cyan", "MobilDuaPintu [Ucok]"],
+    "1005163477": ["yellow", "belaa"],
     "1208215215": ["yellow", "Save Money"],
     "1157616770": ["yellow", "sic bo forever [Jenny]"],
     "1217474222": ["yellow", "new xiee [Jenny98]"],
@@ -70,6 +72,7 @@ dbuser = {
     "1032360190": ["white", "xiexi [RBK]"],
 
     # Viwer
+    "1400113731": ["red", "Aℓiαng"],
     "1067014972": ["red", "wekawekaGONZAkatanya"],
     "1254948522": ["cyan", "RaJa TyPo [spender qin]"],
     "1223382131": ["red", "GenX"],
@@ -96,9 +99,7 @@ dbuser = {
     "1216036215": ["white", "BOOMBYSTIC"],
 }
 dbbuntut = {
-    "1119943580": {"n": "Bang ATARO", "r": ""},
-    "1000735200": {"n": "alfi", "r": ""},
-    "1019005912": {"n": "Aryho", "r": ""},
+    "1119943580": {"n": "Bang ATARO", "r": ""}
 }
 
 sett = {
@@ -267,7 +268,7 @@ def cekviwer(tkn):
                 lvl = pp["vip"]
                 aidi = pp["show_id"]
                 nama = pp["nickname"]
-                tex = f'    {sett[lvl]["lvl"]} "{aidi}" : ["white","{nama}"],'
+                tex = f'    {sett[lvl]["lvl"]} "{aidi}" : ["{sett[lvl]["clr"]}","{nama}"],'
                 if lvl != "1":
                     print(c(sett[lvl]["clr"], tex, 0))
         except:
@@ -348,7 +349,7 @@ def active(tkn):
             lvl = tt["vip"]
             aidi = tt["show_id"]
             nama = tt["nickname"]
-            tex = f'    {sett[lvl]["lvl"]} "{aidi}" : ["white","{nama}"],'
+            tex = f'    {sett[lvl]["lvl"]} "{aidi}" : ["{sett[lvl]["clr"]}","{nama}"],'
             if lvl != "1":
                 print(c(sett[lvl]["clr"], tex, 0))
         x += 1
