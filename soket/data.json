@@ -1,11 +1,1 @@
-{
-    "results": {
-        "idbot":[
-            "439135_8238",
-            "439135_1386",
-            "439135_9021",
-            "xxxxxxxxxxxxxxxxx",
-            "hai"
-    ]
-    }
-}
+{"_default": {"1": {"game": "Si", "data": {"Any": 4, "Small": 2, "Even": 1}}}}

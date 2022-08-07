@@ -22,6 +22,12 @@ def token():
     return acc
 
 
+def tokenhost():
+    req = db.child('account').child('host').get()
+    acc = req.val()["token"]
+    return acc
+
+
 def proxy():
     req = db.child('proxy').get()
     acc = req.val()

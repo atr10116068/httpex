@@ -93,6 +93,7 @@ dbuser = {
     "1259631846": ["cyan", "Calon Sarjana"],
     "1003474155": ["cyan", "~Kudaponi~ᵒᵍᵗᵍ"],
     "1006183395": ["yellow", "PΣ YΛПK"],
+    "1000735200": ["yellow", "PANGGIL _AlFI AJA"],
     "1397151468": ["white", "Bang_Jingan"],
     "1283904252": ["white", "New J1nG4n"],
     "1000190406": ["white", "Gg,bj [ALEX]"],
@@ -321,10 +322,36 @@ def find(tkn):
                             block = 1
                         print(
                             f'\t> {c(dbuser[iduser][0],dbuser[iduser][1],0)}')
+            x += 1
+        jeda(10)
 
-                        if tt["show_id"] == "1254948522":
-                            tkntyp = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJuYmYiOjE2NTA5NjcwMTkuNjI1Njg4LCJpYXQiOjE2NTA5NjcwMTkuNjI1Njg4LCJleHAiOjE2NTIxNzY2MTkuNjI1Njg4LCJpZCI6NDI5MzQ3Nywic2hvd19pZCI6IjE0Mjg0Njg1NjAiLCJzdGF0dXMiOjEsInR5cGUiOjIsImxldmVsIjozLCJ2aXAiOjEzLCJsYXN0X2FjdGl2ZV9kZXZpY2UiOjEsInBob25lX2lzX2JpbmRlZCI6MiwiZW1haWxfaXNfYmluZGVkIjoyfQ.6YQ09a5nXXw89QR8eIxSMsSrHI3zczTQ6MC5bNl8BjE"
-                            print(kirimmsg("304203", tkntyp, namarum))
+
+def findhigh(tkn):
+    print()
+    while True:
+        room = getlive.roomall()
+        x = 1
+        for i in room:
+            datas = gas2(i["live_id"], tkn)
+            sys.stdout.write(f"{str(x)} \r")
+            sys.stdout.flush()
+
+            block = 0
+            for tt in datas:
+                tex = f'{tt["vip"]} "{tt["show_id"]}" : ["white","{tt["nickname"]}"],'
+                lvl = tt["vip"]
+                aidi = tt["show_id"]
+                nama = tt["nickname"]
+
+                if lvl in ["12", "7", "8", "9", "10", "11", "3"]:
+                    if block == 0:
+                        print("\n{} {} {}".format(c("green", "====================[", 0),
+                                                  c("magenta", i["nickname"], 0), c("green", "]====================", 0)))
+                        block = 1
+                if lvl in ["12", "7", "8", "9", "10", "11", "3"]:
+                    tex = f'    {sett[lvl]["lvl"]} "{aidi}" : ["{sett[lvl]["clr"]}","{nama}"],'
+                    if lvl != "1":
+                        print(c(sett[lvl]["clr"], tex, 0))
             x += 1
         jeda(10)
 
@@ -408,6 +435,7 @@ menu = """
 4. find viwer
 5. scan Active viwer
 6. buntutin
+7. find high lvl > 8
 """
 
 while True:
@@ -427,3 +455,5 @@ while True:
         while True:
             buntut(tkn)
             jeda(10)
+    elif x == "7":
+        findhigh(tkn)
