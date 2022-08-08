@@ -132,7 +132,6 @@ targetgameid = input("nomer : ")
 idxg = 1
 for pgp in game:
     if idxg == int(targetgameid):
-        print("         ini")
         targetgame = pgp
     idxg += 1
 
@@ -196,7 +195,7 @@ def lagi():
                                 pupi = False
 
                             print(
-                                f'{room[int(inp)-1]["nickname"]}--[ {namgame} ] [ {nama} ][ {bet} ] coin:{coin}')
+                                f'{room[int(inp)-1]["nickname"]}--[{namgame}] {bet}[{coin}]\t{nama}')
                             if pupi:
                                 try:
                                     if len(db.search(tbl["game"] == namgame)) == 0:
