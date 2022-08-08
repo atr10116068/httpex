@@ -16,7 +16,7 @@ except:
     xxx, yyy = 0, 99
     print("all token added")
 
-dat = {"roomid": "0"}
+dat = {"roomid": "0","audit":0}
 
 if input("enter to skip audit target") == "":
     pass
