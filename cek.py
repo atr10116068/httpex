@@ -551,7 +551,7 @@ while True:
         tokk = ambil.token()
         token = tokk[int(input("token ke : "))-1]
         try:
-            dtt = getcashlog(token)
+            dtt = getinfofull(token)
             print(json.dumps(dtt[0], indent=2))
 
         except Exception as e:

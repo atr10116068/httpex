@@ -8,6 +8,7 @@ import sys
 persi = seting.versi()
 xxx, yyy = 0, 0
 
+
 print("token[x:y]")
 try:
     xxx, yyy = int(input("x : ")), int(input("y : "))
@@ -16,6 +17,11 @@ except:
     print("all token added")
 
 dat = {"roomid": "0"}
+
+if input("enter to skip audit target") == "":
+    pass
+else:
+    dat["audit"] = int(input("Audit : "))
 
 
 def getnum(x):
@@ -81,7 +87,7 @@ def bet(x, type, num):
 
 menu = """\t\t[ MENU ]
 1.big  2.small  3.odd  4.even 5.any
-bet-jumlah-token"""
+token-jumlah-bet"""
 hehe = ["big", "small", "odd", "even", "any triple"]
 
 token = ambil.token()[xxx:yyy]
@@ -109,18 +115,21 @@ print("\nTarget Room : " + room[int(inp) - 1]["nickname"])
 
 while True:
     print(menu)
+    print(f'Audit : {dat["audit"]}')
     predic = input("prediksi : ")
     if "all" not in predic:
-        print("ALL IN...")
         try:
-            type = int(predic.split("-")[0]) - 1
+            idxtoken = int(predic.split("-")[0]) - 1
             num = predic.split("-")[1]
-            tkn = token[int(predic.split("-")[2])-1]
+            type = int(predic.split("-")[2])-1
+            dat["audit"] -= int(num)
+            tkn = token[idxtoken]
             bet(tkn, hehe[type], num)
         except:
             pass
     else:
-        type = int(predic.split("-")[0]) - 1
+        print("ALL IN...")
+        type = int(predic.split("-")[2])-1
         num = predic.split("-")[1]
         for tkn in token:
             bet(tkn, hehe[type], num)

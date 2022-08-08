@@ -143,16 +143,13 @@ def rp(str):
 
 
 def lagi():
-    try:
-        import thread
-    except ImportError:
-        import _thread as thread
+    import _thread as thread
 
     def on_message(ws, message):
         datadadu = json.loads(message)
         try:
             if datadadu[0]["action"] == "game_lock_award":
-                print("_______[ Closing ]_______")
+                print(f'{room[int(inp)-1]["nickname"]}_______[ Closing ]')
                 db.truncate()
                 db.all()
             elif datadadu[0]["action"] == "connected":
@@ -199,7 +196,7 @@ def lagi():
                                 pupi = False
 
                             print(
-                                f'--[ {namgame} ] [ {nama} ][ {bet} ] coin:{coin}     {room[int(inp)-1]["nickname"]}')
+                                f'{room[int(inp)-1]["nickname"]}--[ {namgame} ] [ {nama} ][ {bet} ] coin:{coin}')
                             if pupi:
                                 try:
                                     if len(db.search(tbl["game"] == namgame)) == 0:

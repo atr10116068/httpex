@@ -14,11 +14,11 @@ import translatepy as trs
 
 dat = {
     "admin": [
-        "1119943580", 
+        "1119943580",
         "1696182045",
         "1665699504",
         "1037219061",
-        ],
+    ],
     "minimumlvl": 7
 }
 lepel = {
@@ -240,14 +240,15 @@ def clvl(udata):
         sen(idroom, token, f"Sudah di sett ke {udata['utex']}")
     except Exception as e:
         print(f"Error : {e}")
-gid=[]
-imb=["karena","ketika","saat","dan","melihat","mendengar"]
-game={}
+
+
+gid = []
+imb = ["karena", "ketika", "saat", "dan", "melihat", "mendengar"]
+game = {}
+
+
 def lagi():
-    try:
-        import thread
-    except ImportError:
-        import _thread as thread
+    import _thread as thread
 
     def on_message(ws, message):
         datadadu = json.loads(message)
@@ -305,24 +306,24 @@ def lagi():
                             sen(idroom, token, tex)
                         if udata['utex'] == "main":
                             if udata["uid"] in dat["admin"]:
-                                for tex in ["ketik .add [nama]-[kerja]-[nama]-[kerja]",'contoh .add budi-terkejut-alex-uncep']:
+                                for tex in ["ketik .add [nama]-[kerja]-[nama]-[kerja]", 'contoh .add budi-terkejut-alex-uncep']:
                                     sen(idroom, token, tex)
-                                
+
                         elif udata['utex'] == "acak":
                             if udata["uid"] in dat["admin"]:
                                 print(gid)
                                 print(game)
-                                disp=f"{game[random.choice(gid)][0]} {game[random.choice(gid)][1]} {random.choice(imb)} {game[random.choice(gid)][2]} {game[random.choice(gid)][3]}"
+                                disp = f"{game[random.choice(gid)][0]} {game[random.choice(gid)][1]} {random.choice(imb)} {game[random.choice(gid)][2]} {game[random.choice(gid)][3]}"
                                 sen(idroom, token, disp)
                             else:
                                 tex = "Hanya adminku yang boleh"
                                 sen(idroom, token, tex)
 
                         elif udata['utex'].startswith("add "):
-                            dgame=texx.replace("add ","")
-                            dgames=dgame.split("-")
+                            dgame = texx.replace("add ", "")
+                            dgames = dgame.split("-")
                             if len(dgames) == 4:
-                                game[udata["uid"]]=dgames
+                                game[udata["uid"]] = dgames
                                 if udata["uid"] not in gid:
                                     gid.append(udata["uid"])
                                 tex = "Sudah ditambah"
@@ -394,7 +395,7 @@ def lagi():
             sys.stdout.write(f"Reconnect after {i} \r")
             sys.stdout.flush()
             time.sleep(1)
-        print("Reconnect")
+        print("\nReconnect")
         lagi()
 
     def on_open(ws):
