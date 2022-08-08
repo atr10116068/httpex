@@ -19,7 +19,7 @@ def jam():
     now = datetime.now(tz)
     dat["jam"] = now.strftime("%d%b%Y-%H:%M:%S")
     detik = now.strftime("%S")
-    if detik == "02":
+    if detik == "10":
         print(f"claim ter-Unlock {dat['jam']}")
         dat["claim"] = True
     else:
@@ -51,6 +51,8 @@ def getnum(x):
 
 
 def bet(x, type, num):
+    gamenum=getnum(x)
+    print(gamenum)
     rType = {
         "player": "zhuangxian_xian",
         "banker": "zhuangxian_zhuang",
@@ -72,7 +74,7 @@ def bet(x, type, num):
         "live_room_id": "",
         "game_type": "baijiale_1",
         "game_sub": "zhuangxian",
-        "game_number": getnum(x),
+        "game_number": gamenum,
         "detail": rType[type] + ":" + num,
         "multiple": "1",
     }
