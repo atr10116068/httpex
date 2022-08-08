@@ -381,7 +381,7 @@ def lagi():
                         print(f"Error : {e}")
 
                 print(
-                    f" > [{udata['uid']}][{udata['ulvl']}] {udata['uname']}\t: {udata['utex']}")
+                    f" > [{udata['uid']}][{lepel[udata['ulvl']]}] {udata['uname']}\t: {udata['utex']}")
             # print(datadadu)
         except:
             pass

@@ -27,8 +27,31 @@ firebase = pyrebase.initialize_app(config)
 db = firebase.database()
 
 
+def c(colr, tex, dim):
+    try:
+        w = {
+            "RED": Fore.RED,
+            "GREEN": Fore.GREEN,
+            "YELLOW": Fore.YELLOW,
+            "BLUE": Fore.BLUE,
+            "MAGENTA": Fore.MAGENTA,
+            "CYAN": Fore.CYAN,
+
+            "BLACK": Fore.BLACK,
+            "WHITE": Fore.WHITE,
+            "RESET": Fore.RESET,
+        }
+        if dim == 1:
+            return f"{Style.DIM}{w[colr.upper()]}{tex}{Style.RESET_ALL}"
+        else:
+            return f"{w[colr.upper()]}{tex}{Style.RESET_ALL}"
+    except:
+        return tex
+
+
 gip = {}
-tkn = input("token host : ")
+print(c("red", "\n\t\tTOKEN HOST", 0))
+tkn = input("token host :")
 if tkn != "":
     db.child("account").child("host").update({"token": tkn})
 
@@ -119,28 +142,6 @@ sett = {
     "13": {"clr": "white", "lvl": "2"},
     "14": {"clr": "white", "lvl": "3"},
 }
-
-
-def c(colr, tex, dim):
-    try:
-        w = {
-            "RED": Fore.RED,
-            "GREEN": Fore.GREEN,
-            "YELLOW": Fore.YELLOW,
-            "BLUE": Fore.BLUE,
-            "MAGENTA": Fore.MAGENTA,
-            "CYAN": Fore.CYAN,
-
-            "BLACK": Fore.BLACK,
-            "WHITE": Fore.WHITE,
-            "RESET": Fore.RESET,
-        }
-        if dim == 1:
-            return f"{Style.DIM}{w[colr.upper()]}{tex}{Style.RESET_ALL}"
-        else:
-            return f"{w[colr.upper()]}{tex}{Style.RESET_ALL}"
-    except:
-        return tex
 
 
 def jeda(o):
