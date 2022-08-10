@@ -71,7 +71,7 @@ while True:
                 print(json.dumps(ii, indent=2))
     elif pil == "3":
         for itr in token[itrr:itrrr]:
-            email, sign = input("email : "), input("code : ")
+            email, sign = input("email : "), input("sign : ")
             binded = getcodebind.getcode(itr, email, sign)
             print(f"respon : {binded}")
     elif pil == "4":

@@ -123,7 +123,8 @@ dbuser = {
     "1216036215": ["white", "BOOMBYSTIC"],
 }
 dbbuntut = {
-    "1119943580": {"n": "Bang ATARO", "r": ""}
+    "1119943580": {"n": "Bang ATARO", "r": ""},
+    "1067613383": {"n": "Bang AR", "r": ""}
 }
 
 sett = {
