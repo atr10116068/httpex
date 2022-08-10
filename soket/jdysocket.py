@@ -4,10 +4,8 @@ import time
 import requests
 import sys
 import seting
-import getlive
-import os
+import getlive,sys
 import ambil
-import translatepy as trs
 from tinydb import *
 
 db = TinyDB("data.json")
@@ -16,17 +14,23 @@ db.truncate()
 
 tokk = ambil.token()
 persi = seting.versi()
-token = tokk[int(input("token no : "))]
+# token = tokk[int(input("token no : "))]
+token = tokk[int(sys.argv[1])]
 
 room = getlive.roomall()
 x = 1
 for i in room:
     print("{}. {}".format(str(x), i["nickname"]))
+    if i["live_id"]==sys.argv[2]:
+        idroom=i["live_id"]
+        namanya=i["nickname"]
+        break
     x += 1
 
-inp = input("room nomor : ")
-idroom = room[int(inp)-1]["live_id"]
-print("\nTarget Room : "+room[int(inp)-1]["nickname"])
+# inp = input("room nomor : ")
+# idroom = room[int(inp)-1]["live_id"]
+# print("\nTarget Room : "+room[int(inp)-1]["nickname"])
+print(f"\nTarget Room : {namanya}")
 
 datan = b"ping"
 uriweb = "wss://dt001wsgew.qrdnk.cn/?token="+token
@@ -37,16 +41,6 @@ param = {
     "Accept-Encoding": "gzip",
     "host": "yoogs01wltb.dt01showxx03.com",
     "user-agent": "Mozilla/5.0 (Linux; Android 8.1.0; Redmi 5 Plus Build/OPM1.171019.019; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/91.0.4472.120 Mobile Safari/537.36",
-}
-game = {
-    "baijiale_1": "Ba",
-    "toubao_1": "Si",
-    "kuaisan_1": "Th",
-    "longhu_1": "Dr",
-    "lunpan_1": "Ro",
-    "honglv_1": "Co",
-    "m12_1": "M12",
-    "liuhecai_1": "M6",
 }
 
 datajuday = {
@@ -123,18 +117,18 @@ game = {
     "liuhecai_1": "M6",
 }
 
-idg = 1
-for pkp in game:
-    print(f"{idg}. {game[pkp]}")
-    idg += 1
-targetgameid = input("nomer : ")
+# idg = 1
+# for pkp in game:
+#     print(f"{idg}. {game[pkp]}")
+#     idg += 1
+# targetgameid = input("nomer : ")
 
-idxg = 1
-for pgp in game:
-    if idxg == int(targetgameid):
-        targetgame = pgp
-    idxg += 1
-
+# idxg = 1
+# for pgp in game:
+#     if idxg == int(targetgameid):
+#         targetgame = pgp
+#     idxg += 1
+targetgame=sys.argv[3]
 
 def rp(str):
     bbb = str.replace("\'", "\"")
@@ -148,7 +142,7 @@ def lagi():
         datadadu = json.loads(message)
         try:
             if datadadu[0]["action"] == "game_lock_award":
-                print(f'{room[int(inp)-1]["nickname"]}_______[ Closing ]')
+                print(f'{namanya}_______[ Closing ]')
                 db.truncate()
                 db.all()
             elif datadadu[0]["action"] == "connected":
@@ -195,7 +189,7 @@ def lagi():
                                 pupi = False
 
                             print(
-                                f'{room[int(inp)-1]["nickname"]}--[{namgame}] {bet}[{coin}]\t{nama}')
+                                f'{namanya}--[{namgame}] {bet}[{coin}]\t{nama}')
                             if pupi:
                                 try:
                                     if len(db.search(tbl["game"] == namgame)) == 0:
