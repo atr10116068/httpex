@@ -334,6 +334,7 @@ def findhigh(tkn):
     while True:
         room = getlive.roomall()
         x = 1
+        os.system("clear")
         for i in room:
             datas = gas2(i["live_id"], tkn)
             sys.stdout.write(f"{str(x)} \r")
@@ -346,17 +347,17 @@ def findhigh(tkn):
                 aidi = tt["show_id"]
                 nama = tt["nickname"]
 
-                if lvl in ["12", "7", "8", "9", "10", "11", "3"]:
+                if lvl in ["2","4","5","12", "7", "8", "9", "10", "11", "3"]:
                     if block == 0:
                         print("\n{} {} {}".format(c("green", "====================[", 0),
                                                   c("magenta", i["nickname"], 0), c("green", "]====================", 0)))
                         block = 1
-                if lvl in ["12", "7", "8", "9", "10", "11", "3"]:
+                if lvl in ["2","4","5","12", "7", "8", "9", "10", "11", "3"]:
                     tex = f'    {sett[lvl]["lvl"]} "{aidi}" : ["{sett[lvl]["clr"]}","{nama}"],'
                     if lvl != "1":
                         print(c(sett[lvl]["clr"], tex, 0))
             x += 1
-        jeda(10)
+        jeda(30)
 
 
 def active(tkn):
