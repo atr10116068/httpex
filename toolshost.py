@@ -277,7 +277,7 @@ def cekviwer(tkn):
                     print(c(sett[lvl]["clr"], tex, 0))
         except:
             print("Gagal Capture Data")
-        for t in range(5, 1, -1):
+        for t in range(10, 1, -1):
             sys.stdout.write(f"{t}\r")
             sys.stdout.flush()
             time.sleep(1)
@@ -334,7 +334,7 @@ def findhigh(tkn):
     while True:
         room = getlive.roomall()
         x = 1
-        os.system("clear")
+        os.system("cls")
         for i in room:
             datas = gas2(i["live_id"], tkn)
             sys.stdout.write(f"{str(x)} \r")

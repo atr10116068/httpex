@@ -33,5 +33,5 @@ for i in room:
     print("{}. {}".format(str(x), i["nickname"]))
     x += 1
     os.system(f'start cmd /k python jdysocket.py {x-1} {i["live_id"]} {targetgame}')
-    # if x==10:
+    # if x==5:
     #     break

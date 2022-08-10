@@ -1,0 +1,45 @@
+1. Cek type computer 64bit atau 32bit
+2. Install python 3.8.0 sesuai type computer (harus versi yg sama supaya gak ada error)
+
+Link Download Python 3.8.0
+32bit=https://www.python.org/ftp/python/3.8.0/python-3.8.0.exe
+64bit=https://www.python.org/ftp/python/3.8.0/python-3.8.0-amd64.exe
+
+3. Centang Add To Path ketika install python
+4. Buka CMD ketik pip install colorama
+5. Download dan ekstrak file yg dibutuhkan di folder baru
+6. Sudah siap di pakai
+
+
+
+CARA PAKAINYA ADA DI BAWAH
+	V
+	V
+	V
+	V
+	V
+	V
+	V
+	V
+	V
+	V
+
+Buka 2 Command Prompt (satu untuk mengupdate data, satu untuk menampilkan data)
+
+			[Menjalankan otomatis update data]
+1. Buka folder tempat menyimpan filenya
+2. Salin alamat folder (tempat menyimpan file ataro.realtime.py)
+3. Ketik "cd alamatFoldernya"
+4. Ketik "python ataro.realtime.py"
+
+			[Menjalankan menampilkan data]
+1. Buka folder tempat menyimpan filenya
+2. Salin alamat folder (tempat menyimpan file ataro.showcard.py)
+3. Ketik "cd alamatFoldernya"
+4. Ketik "python ataro.showcard.py"
+
+			[Menjalankan pencari pola]
+1. Buka folder tempat menyimpan filenya
+2. Salin alamat folder (tempat menyimpan file ataro.analisis.py)
+3. Ketik "cd alamatFoldernya"
+4. Ketik "python ataro.analisis.py"

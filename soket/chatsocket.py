@@ -41,7 +41,7 @@ lepel = {
 }
 tokk = ambil.token()
 persi = seting.versi()
-token = tokk[14]
+token = tokk[13]
 tokenhost = ambil.tokenhost()
 room = getlive.roomall()
 
@@ -203,7 +203,7 @@ def carihost(udata):
             sen(idroom, token, f"sekarang dia lagi off")
             sen(idroom, token, f"Terahir live {rekhost['last_time']}")
         else:
-            sen(idroom, token, f"Acil bingung...")
+            sen(idroom, token, f"Bang Sat bingung...")
             sen(idroom, token, "masuk")
     except Exception as e:
         print(f"Error : {e}")
@@ -296,14 +296,15 @@ def lagi():
                     "utex": utex,
                 }
 
-                if udata['utex'].lower() in ["cil", "acil"]:
+                if udata['utex'].lower() in ["sat", "bangsat","bang sat"]:
                     bawel = [
-                        "apa sih... bawel",
+                        "apa sih... cok",
                         "apaan?",
                         "oiiiii",
                         "kenapa?",
                         "gw disini...",
-                        "ada apa?...",
+                        "ada apa 𓂸",
+                        "ngomong mulu lu, ga aus apa?",
                     ]
                     tex = random.choice(bawel)
                     sen(idroom, token, tex)
@@ -353,8 +354,8 @@ def lagi():
                 except Exception as e:
                     print(e)
 
-                if utex.startswith("cil "):
-                    texx = utex.replace("cil ", "")
+                if utex.startswith("sat "):
+                    texx = utex.replace("sat ", "")
                     udata["utex"] = texx
                     try:
                         if lepel[udata["ulvl"]] >= dat["minimumlvl"] or udata["uid"] in dat["admin"]:
@@ -380,11 +381,11 @@ def lagi():
                                     sen(idroom, token, tex)
                             elif udata['utex'] == "bisa apa aja?":
                                 texs = [
-                                    "-> cil siapa aku?",
-                                    "-> cil cari [namahost]",
-                                    "-> cil cariakun [nama]",
-                                    "-> cil tr [bahasa] [text]",
-                                    "-> cil jumlah host",
+                                    "-> sat siapa aku?",
+                                    "-> sat cari [namahost]",
+                                    "-> sat cariakun [nama]",
+                                    "-> sat tr [bahasa] [text]",
+                                    "-> sat jumlah host",
                                 ]
                                 for tex in texs:
                                     sen(idroom, token, tex)

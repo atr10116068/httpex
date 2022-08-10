@@ -1,0 +1,101 @@
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): attools-cc537-default-rtdb.asia-southeast1.firebasedatabase.app:443
+DEBUG:urllib3.connectionpool:https://attools-cc537-default-rtdb.asia-southeast1.firebasedatabase.app:443 "GET /account/token.json HTTP/1.1" 200 25628
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): wjxwd01mwyo.dt01showxx02.com:443
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): wjxwd01mwyo.dt01showxx02.com:443
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): wjxwd01mwyo.dt01showxx02.com:443
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): wjxwd01mwyo.dt01showxx02.com:443
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): wjxwd01mwyo.dt01showxx02.com:443
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): wjxwd01mwyo.dt01showxx02.com:443
+DEBUG:urllib3.connectionpool:https://wjxwd01mwyo.dt01showxx02.com:443 "GET /App/Live/Index?category_id=2&page=4 HTTP/1.1" 200 None
+DEBUG:urllib3.connectionpool:https://wjxwd01mwyo.dt01showxx02.com:443 "GET /App/Live/Index?category_id=2&page=1 HTTP/1.1" 200 None
+DEBUG:urllib3.connectionpool:https://wjxwd01mwyo.dt01showxx02.com:443 "GET /App/Live/Index?category_id=2&page=6 HTTP/1.1" 200 None
+DEBUG:urllib3.connectionpool:https://wjxwd01mwyo.dt01showxx02.com:443 "GET /App/Live/Index?category_id=2&page=5 HTTP/1.1" 200 None
+DEBUG:urllib3.connectionpool:https://wjxwd01mwyo.dt01showxx02.com:443 "GET /App/Live/Index?category_id=2&page=3 HTTP/1.1" 200 None
+DEBUG:urllib3.connectionpool:https://wjxwd01mwyo.dt01showxx02.com:443 "GET /App/Live/Index?category_id=2&page=2 HTTP/1.1" 200 None
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): wjxwd01mwyo.dt01showxx02.com:443
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): wjxwd01mwyo.dt01showxx02.com:443
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): wjxwd01mwyo.dt01showxx02.com:443
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): wjxwd01mwyo.dt01showxx02.com:443
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): wjxwd01mwyo.dt01showxx02.com:443
+DEBUG:urllib3.connectionpool:https://wjxwd01mwyo.dt01showxx02.com:443 "GET /App/Live/Index?category_id=3&page=4 HTTP/1.1" 200 None
+DEBUG:urllib3.connectionpool:https://wjxwd01mwyo.dt01showxx02.com:443 "GET /App/Live/Index?category_id=3&page=2 HTTP/1.1" 200 None
+DEBUG:urllib3.connectionpool:https://wjxwd01mwyo.dt01showxx02.com:443 "GET /App/Live/Index?category_id=3&page=1 HTTP/1.1" 200 None
+DEBUG:urllib3.connectionpool:https://wjxwd01mwyo.dt01showxx02.com:443 "GET /App/Live/Index?category_id=3&page=3 HTTP/1.1" 200 None
+DEBUG:urllib3.connectionpool:https://wjxwd01mwyo.dt01showxx02.com:443 "GET /App/Live/Index?category_id=3&page=5 HTTP/1.1" 200 None
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): wjxwd01mwyo.dt01showxx02.com:443
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): wjxwd01mwyo.dt01showxx02.com:443
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): wjxwd01mwyo.dt01showxx02.com:443
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): wjxwd01mwyo.dt01showxx02.com:443
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): wjxwd01mwyo.dt01showxx02.com:443
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): wjxwd01mwyo.dt01showxx02.com:443
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): wjxwd01mwyo.dt01showxx02.com:443
+DEBUG:urllib3.connectionpool:https://wjxwd01mwyo.dt01showxx02.com:443 "GET /App/Live/Index?category_id=4&page=3 HTTP/1.1" 200 None
+DEBUG:urllib3.connectionpool:https://wjxwd01mwyo.dt01showxx02.com:443 "GET /App/Live/Index?category_id=4&page=6 HTTP/1.1" 200 None
+DEBUG:urllib3.connectionpool:https://wjxwd01mwyo.dt01showxx02.com:443 "GET /App/Live/Index?category_id=4&page=2 HTTP/1.1" 200 None
+DEBUG:urllib3.connectionpool:https://wjxwd01mwyo.dt01showxx02.com:443 "GET /App/Live/Index?category_id=4&page=5 HTTP/1.1" 200 None
+DEBUG:urllib3.connectionpool:https://wjxwd01mwyo.dt01showxx02.com:443 "GET /App/Live/Index?category_id=4&page=1 HTTP/1.1" 200 None
+DEBUG:urllib3.connectionpool:https://wjxwd01mwyo.dt01showxx02.com:443 "GET /App/Live/Index?category_id=4&page=4 HTTP/1.1" 200 None
+DEBUG:urllib3.connectionpool:https://wjxwd01mwyo.dt01showxx02.com:443 "GET /App/Live/Index?category_id=4&page=7 HTTP/1.1" 200 None
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): wjxwd01mwyo.dt01showxx02.com:443
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): wjxwd01mwyo.dt01showxx02.com:443
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): wjxwd01mwyo.dt01showxx02.com:443
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): wjxwd01mwyo.dt01showxx02.com:443
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): wjxwd01mwyo.dt01showxx02.com:443
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): wjxwd01mwyo.dt01showxx02.com:443
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): wjxwd01mwyo.dt01showxx02.com:443
+DEBUG:urllib3.connectionpool:https://wjxwd01mwyo.dt01showxx02.com:443 "GET /App/Live/RecommendList?page=1 HTTP/1.1" 200 None
+DEBUG:urllib3.connectionpool:https://wjxwd01mwyo.dt01showxx02.com:443 "GET /App/Live/RecommendList?page=4 HTTP/1.1" 200 None
+DEBUG:urllib3.connectionpool:https://wjxwd01mwyo.dt01showxx02.com:443 "GET /App/Live/RecommendList?page=6 HTTP/1.1" 200 None
+DEBUG:urllib3.connectionpool:https://wjxwd01mwyo.dt01showxx02.com:443 "GET /App/Live/RecommendList?page=7 HTTP/1.1" 200 None
+DEBUG:urllib3.connectionpool:https://wjxwd01mwyo.dt01showxx02.com:443 "GET /App/Live/RecommendList?page=2 HTTP/1.1" 200 None
+DEBUG:urllib3.connectionpool:https://wjxwd01mwyo.dt01showxx02.com:443 "GET /App/Live/RecommendList?page=5 HTTP/1.1" 200 None
+DEBUG:urllib3.connectionpool:https://wjxwd01mwyo.dt01showxx02.com:443 "GET /App/Live/RecommendList?page=3 HTTP/1.1" 200 None
+DEBUG:asyncio:Using proactor: IocpProactor
+DEBUG:websockets.client:= connection is CONNECTING
+DEBUG:websockets.client:> GET /?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJuYmYiOjE2NjAwMjQyODYuODUxMzI3LCJpYXQiOjE2NjAwMjQyODYuODUxMzI3LCJleHAiOjE2NjEyMzM4ODYuODUxMzI3LCJpZCI6NjY5NDMzNCwic2hvd19pZCI6IjE2Njg0NzcxMTciLCJzdGF0dXMiOjEsInR5cGUiOjIsImxldmVsIjozLCJ2aXAiOjEzLCJsYXN0X2FjdGl2ZV9kZXZpY2UiOjEsInBob25lX2lzX2JpbmRlZCI6MiwiZW1haWxfaXNfYmluZGVkIjoxfQ.or5CHLPiGWfDQkb5F-z1ar6N3MjF0dwW9WvMMAcdp6I HTTP/1.1
+DEBUG:websockets.client:> Host: dt001wsgew.qrdnk.cn
+DEBUG:websockets.client:> Upgrade: websocket
+DEBUG:websockets.client:> Connection: Upgrade
+DEBUG:websockets.client:> Sec-WebSocket-Key: FoAc32AbPT2lZL+hmKDYxg==
+DEBUG:websockets.client:> Sec-WebSocket-Version: 13
+DEBUG:websockets.client:> Sec-WebSocket-Extensions: permessage-deflate; client_max_window_bits
+DEBUG:websockets.client:> User-Agent: Python/3.8 websockets/10.3
+DEBUG:websockets.client:< HTTP/1.1 101 Switching Protocols
+DEBUG:websockets.client:< Date: Wed, 10 Aug 2022 15:03:33 GMT
+DEBUG:websockets.client:< Connection: upgrade
+DEBUG:websockets.client:< Sec-WebSocket-Version: 13
+DEBUG:websockets.client:< Sec-WebSocket-Accept: jwN6WGWZapOhiMjvIpcOrKr1fFw=
+DEBUG:websockets.client:< Server: workerman/4.0.6
+DEBUG:websockets.client:< Via: 1.1 jp19:5 (W)
+DEBUG:websockets.client:< X-Px: ms jp19SIN(origin)
+DEBUG:websockets.client:< Upgrade: websocket
+DEBUG:websockets.client:< X-Ws-Request-Id: 62f3c8c5_jp19_7550-17476
+DEBUG:websockets.client:= connection is OPEN
+DEBUG:websockets.client:< TEXT '{"action":"connected","client_id":"0a012c3b0bc0002791f0"}' [57 bytes]
+DEBUG:websockets.client:< TEXT '[{"type":"person","action":"connected","data":{...012c3b0bc0002791f0"}}}]' [97 bytes]
+DEBUG:websockets.client:> BINARY 70 69 6e 67 [4 bytes]
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): wjxwd01mwyo.dt01showxx02.com:443
+DEBUG:urllib3.connectionpool:https://wjxwd01mwyo.dt01showxx02.com:443 "GET /App/LiveEnter/JoinGroup?live_id=442590&client_id=0a012c3b0bc0002791f0&type=1 HTTP/1.1" 200 None
+DEBUG:websockets.client:< TEXT '[{"type":"group","action":"ticker_red_packet_re...123","amount":"0.1"}}}]' [142 bytes]
+DEBUG:websockets.client:< TEXT '[{"type":"group","action":"game_do_order","data...770","is_follow":2}}}}]' [335 bytes]
+DEBUG:websockets.client:< TEXT '[{"type":"group","action":"game_do_order","data...908","is_follow":2}}}}]' [338 bytes]
+DEBUG:websockets.client:< TEXT '[{"type":"group","action":"ticker_red_packet_re... b","amount":"0.13"}}}]' [132 bytes]
+DEBUG:websockets.client:< TEXT '[{"type":"group","action":"ticker_red_packet_re... u","amount":"0.08"}}}]' [134 bytes]
+DEBUG:websockets.client:< TEXT '[{"type":"group","action":"enter","data":{"grou...,"priority_guard":2}}}]' [465 bytes]
+DEBUG:websockets.client:< TEXT '[{"type":"group","action":"enter","data":{"grou...,"priority_guard":2}}}]' [539 bytes]
+DEBUG:websockets.client:< TEXT '[{"type":"group","action":"game_do_order","data...886","is_follow":2}}}}]' [339 bytes]
+DEBUG:websockets.client:< TEXT '[{"type":"group","action":"game_do_order","data...848","is_follow":2}}}}]' [348 bytes]
+DEBUG:websockets.client:< TEXT '[{"type":"group","action":"enter","data":{"grou...,"priority_guard":2}}}]' [556 bytes]
+DEBUG:websockets.client:< TEXT '[{"type":"group","action":"enter","data":{"grou...,"priority_guard":2}}}]' [629 bytes]
+DEBUG:websockets.client:< TEXT '[{"type":"group","action":"game_do_order","data...685","is_follow":2}}}}]' [349 bytes]
+DEBUG:websockets.client:< TEXT '[{"type":"group","action":"ticker_red_packet_re...io","amount":"0.05"}}}]' [131 bytes]
+DEBUG:websockets.client:< TEXT '[{"type":"group","action":"enter","data":{"grou...,"priority_guard":2}}}]' [565 bytes]
+DEBUG:websockets.client:< TEXT '[{"type":"group","action":"enter","data":{"grou...,"priority_guard":2}}}]' [576 bytes]
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): attools-cc537-default-rtdb.asia-southeast1.firebasedatabase.app:443
+DEBUG:urllib3.connectionpool:https://attools-cc537-default-rtdb.asia-southeast1.firebasedatabase.app:443 "GET /account/token.json HTTP/1.1" 200 25628
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): attools-cc537-default-rtdb.asia-southeast1.firebasedatabase.app:443
+DEBUG:urllib3.connectionpool:https://attools-cc537-default-rtdb.asia-southeast1.firebasedatabase.app:443 "GET /account/token.json HTTP/1.1" 200 25628
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): attools-cc537-default-rtdb.asia-southeast1.firebasedatabase.app:443
+DEBUG:urllib3.connectionpool:https://attools-cc537-default-rtdb.asia-southeast1.firebasedatabase.app:443 "GET /account/token.json HTTP/1.1" 200 25628
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): attools-cc537-default-rtdb.asia-southeast1.firebasedatabase.app:443
+DEBUG:urllib3.connectionpool:https://attools-cc537-default-rtdb.asia-southeast1.firebasedatabase.app:443 "GET /account/token.json HTTP/1.1" 200 25628
