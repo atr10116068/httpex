@@ -115,6 +115,7 @@ dbuser = {
     "1185496200": ["cyan", "༺BàŗbìęBőy༻"],
     "1259631846": ["cyan", "Calon Sarjana"],
     "1003474155": ["cyan", "~Kudaponi~ᵒᵍᵗᵍ"],
+    "1000735200" : ["yellow","PANGGIL _AlFI AJA"],
     "1006183395": ["yellow", "PΣ YΛПK"],
     "1000735200": ["yellow", "PANGGIL _AlFI AJA"],
     "1397151468": ["white", "Bang_Jingan"],

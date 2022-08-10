@@ -18,6 +18,8 @@ dat = {
         "1696182045",
         "1665699504",
         "1037219061",
+        "1188860696",
+        "1298487258"
     ],
     "minimumlvl": 7
 }
@@ -39,7 +41,7 @@ lepel = {
 }
 tokk = ambil.token()
 persi = seting.versi()
-token = tokk[20]
+token = tokk[14]
 tokenhost = ambil.tokenhost()
 room = getlive.roomall()
 
@@ -107,6 +109,21 @@ def carihos(namhost):
         datsen["status"] = False
 
     return datsen
+
+
+def jumhost():
+    rgame = getlive.roomgame(
+        {"idx": 1, "result": [], "rapihkanjson": [], "terfilter": []})
+    rindo = getlive.roomindo(
+        {"idx": 1, "result": [], "rapihkanjson": [], "terfilter": []})
+    rsexy = getlive.roomsexy(
+        {"idx": 1, "result": [], "rapihkanjson": [], "terfilter": []})
+    dat = {
+        "game": len(rgame),
+        "indo": len(rindo),
+        "sexy": len(rsexy),
+    }
+    return dat
 
 
 x = 1
@@ -363,17 +380,21 @@ def lagi():
                                     sen(idroom, token, tex)
                             elif udata['utex'] == "bisa apa aja?":
                                 texs = [
-                                    "Cek Admin : cil siapa aku?",
-                                    "Jam live host  : cil cari [namahost]",
-                                    "Letak viwer   : cil cariakun [nama]",
-                                    "Terjemahkan bahasa : cil tr [bahasa] [text]",
-                                    "ex = cil cari INDO : Bebyj",
-                                    "ex = cil cari New Xnxx",
-                                    "ex = cil tr en pagi",
+                                    "-> cil siapa aku?",
+                                    "-> cil cari [namahost]",
+                                    "-> cil cariakun [nama]",
+                                    "-> cil tr [bahasa] [text]",
+                                    "-> cil jumlah host",
                                 ]
                                 for tex in texs:
                                     sen(idroom, token, tex)
                                     time.sleep(2)
+                            elif udata['utex'] == "jumlah host":
+                                dats = jumhost()
+                                sen(idroom, token, f'{dats["game"]} host game')
+                                sen(idroom, token,
+                                    f'{dats["indo"]} host adorable')
+                                sen(idroom, token, f'{dats["sexy"]} host sexy')
                         else:
                             tex = f"Hanya dapat di gunakan oleh LVL {str(dat['minimumlvl'])} keatas"
                             sen(idroom, token, tex)

@@ -1,14 +1,34 @@
-import random
+import ambil
+import getlive
+import seting
+import json
+import requests
 
-gid=["1696182045","1696182046","1696182047","1696182048","1696182049"]
-imb=["karena","ketika","saat","dan","melihat","mendengar"]
-game={
-    '1696182045': ['satria','terkejut','saya','berenang'],
-    '1696182046': ['aku','lompat','host','menendangnya'],
-    '1696182047': ['budi','ngupil','aku','sedih'],
-    '1696182048': ['andi','makan','posa','lari'],
-    '1696182049': ['budi','reflek','radi','berenang'],
+
+host = "https://wjxwd01mwyo.dt01showxx02.com/"
+
+
+def sen(id, tok, tex):
+    uri = host + "App/Live/SendMsg"
+    headers = {
+        "user-agent": "HS-Android Mozilla/5.0 (Linux; Android 8.5.0; Redmi 2 Plus Build/OPM1.171019.019; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/95.0.4638.50 Mobile Safari/537.36",
+        "bundleidentifier": "user",
+        "x-token": tok,
+        "accept-encoding": "identity",
+        "x-version": persi,
+        "connection": "keep-alive",
     }
+    para = {"live_id": id, "content": tex}
 
-disp=f"{game[random.choice(gid)][0]} {game[random.choice(gid)][1]} {random.choice(imb)} {game[random.choice(gid)][2]} {game[random.choice(gid)][3]}"
-print(disp)
+    req = requests.get(uri, params=para, headers=headers)
+    ress = json.loads(req.text)
+    return ress
+
+
+persi = seting.versi()
+tokk = ambil.token()
+token = tokk[int(input("token no : "))]
+room = getlive.roomall()
+for id in room:
+    print(f'{id["live_id"]}-->{id["nickname"]}')
+    sen()
