@@ -15,10 +15,12 @@ import translatepy as trs
 dat = {
     "admin": [
         "1119943580",
+        "1708242561",
         "1696182045",
         "1665699504",
         "1037219061",
         "1188860696",
+        "1696985118",
         "1298487258"
     ],
     "minimumlvl": 7
@@ -41,7 +43,7 @@ lepel = {
 }
 tokk = ambil.token()
 persi = seting.versi()
-token = tokk[13]
+token = tokk[19]
 tokenhost = ambil.tokenhost()
 room = getlive.roomall()
 
@@ -133,8 +135,7 @@ for i in room:
 
 inp = input("room nomor : ")
 idroom = room[int(inp)-1]["live_id"]
-print("\nTarget Room : "+room[int(inp)-1]["nickname"])
-
+print(f'\nTarget Room : {room[int(inp)-1]["nickname"]} [{idroom}]')
 datan = b"ping"
 uriweb = "wss://dt001wsgew.qrdnk.cn/?token="+token
 
@@ -185,28 +186,26 @@ def trans(udata):
 
 
 def carihost(udata):
-    try:
-        udata["utex"] = udata["utex"].replace("cari ", "")
-        print(udata)
-        hostny = udata["utex"]
-        rekhost = carihos(hostny)
-
-        # print(f"texx : {texx}")
-        # print(f"desx : {desx}")
-        # print(f"texxx : {texxx}")
-        if rekhost["status"] == True:
-            sen(idroom, token, f"Sekarang dia lagi on")
-            sen(idroom, token, f"Durasinya {rekhost['durasi']}")
-            sen(idroom, token, f"Terahir live {rekhost['last_time']}")
-        elif rekhost["status"] == False:
-            print(rekhost)
-            sen(idroom, token, f"sekarang dia lagi off")
-            sen(idroom, token, f"Terahir live {rekhost['last_time']}")
-        else:
-            sen(idroom, token, f"Bang Sat bingung...")
-            sen(idroom, token, "masuk")
-    except Exception as e:
-        print(f"Error : {e}")
+    udata["utex"] = udata["utex"].replace("cari ", "")
+    print(udata)
+    hostny = udata["utex"]
+    rekhost = carihos(hostny)
+    if "last_time" not in rekhost:
+        rekhost['last_time']="host baru"
+    # print(f"texx : {texx}")
+    # print(f"desx : {desx}")
+    # print(f"texxx : {texxx}")
+    if rekhost["status"] == True:
+        sen(idroom, token, f"Sekarang dia lagi on")
+        sen(idroom, token, f"Durasinya {rekhost['durasi']}")
+        sen(idroom, token, f"Terahir live {rekhost['last_time']}")
+    elif rekhost["status"] == False:
+        print(rekhost)
+        sen(idroom, token, f"sekarang dia lagi off")
+        sen(idroom, token, f"Terahir live {rekhost['last_time']}")
+    else:
+        sen(idroom, token, f"Bang taro bingung...")
+        sen(idroom, token, "masuk")
 
 
 def gas2(id, tok):
@@ -296,7 +295,7 @@ def lagi():
                     "utex": utex,
                 }
 
-                if udata['utex'].lower() in ["sat", "bangsat","bang sat"]:
+                if udata['utex'].lower() in ["taro", "bangtaro","bang taro"]:
                     bawel = [
                         "apa sih... cok",
                         "apaan?",
@@ -354,8 +353,8 @@ def lagi():
                 except Exception as e:
                     print(e)
 
-                if utex.startswith("sat "):
-                    texx = utex.replace("sat ", "")
+                if utex.startswith("taro "):
+                    texx = utex.replace("taro ", "")
                     udata["utex"] = texx
                     try:
                         if lepel[udata["ulvl"]] >= dat["minimumlvl"] or udata["uid"] in dat["admin"]:
@@ -364,7 +363,10 @@ def lagi():
                             elif udata['utex'].startswith("cariakun "):
                                 cariviwer(udata)
                             elif udata['utex'].startswith("cari "):
-                                carihost(udata)
+                                try:
+                                    carihost(udata)
+                                except Exception as e:
+                                    print(f"Error : {e}")
                             elif udata['utex'].startswith("changelvl "):
                                 if udata["uid"] in dat["admin"]:
                                     clvl(udata)
@@ -381,11 +383,11 @@ def lagi():
                                     sen(idroom, token, tex)
                             elif udata['utex'] == "bisa apa aja?":
                                 texs = [
-                                    "-> sat siapa aku?",
-                                    "-> sat cari [namahost]",
-                                    "-> sat cariakun [nama]",
-                                    "-> sat tr [bahasa] [text]",
-                                    "-> sat jumlah host",
+                                    "-> taro siapa aku?",
+                                    "-> taro cari [namahost]",
+                                    "-> taro cariakun [nama]",
+                                    "-> taro tr [bahasa] [text]",
+                                    "-> taro jumlah host",
                                 ]
                                 for tex in texs:
                                     sen(idroom, token, tex)

@@ -2,7 +2,7 @@ import pyrebase
 import requests
 import json
 import seting
-import sys
+import sys,webbrowser
 import ambil
 from datetime import datetime
 persi = seting.versi()
@@ -33,6 +33,11 @@ except:
 
 ataroinvcode = "B6lixl"
 
+def oweb(url):
+    webbrowser.register('chrome',
+        None,
+        webbrowser.BackgroundBrowser("C:\\Users\\User\\AppData\\Local\\Google\\Chrome\\Application\\chrome.exe"))
+    webbrowser.get('chrome').open_new(url)
 
 def loginid(x):
     uri = "https://wjxwd01mwyo.dt01showxx02.com/App/User_LoginRegister/Login"
@@ -648,6 +653,7 @@ while True:
             xc = tu(token, mett)
             try:
                 print(xc["result"]["pay_url"])
+                oweb(xc["result"]["pay_url"])
             except:
                 print(xc)
     elif jlk == "reset":

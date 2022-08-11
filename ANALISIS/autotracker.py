@@ -4,7 +4,7 @@ import websocket
 import sys
 import time
 import pytz
-import random
+import random,ambil
 import threading
 import seting
 import datetime as dt
@@ -680,63 +680,22 @@ def cek(dataobj):
         print(f"error di {datagame} : {e}")
 
 
-def login(param):
-    aa = param.split("=")
-    bck = []
-    data = []
-    for aaa in aa:
-        aaaa = aaa.split("&")[0]
-        bck.append(aaaa)
-    bck.pop(0)
-    bck.pop(2)
-    bck.pop(2)
-    data.append(bck)
-    id = (data[0])
-
-    param = {"device_id": id[0], "sign": id[1], "invite_code": "",
-             "force_new": "2", "registration_id": id[2], "appsflyer_id": id[3]}
-
-    uri = host+"/App/User_User/LoginByDeviceId"
-    headers = {
-        "User-Agent": "Mozilla/5.0 (Linux; Android 8.1.0; Redmi 5 Plus Build/OPM1.171019.019; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/91.0.4472.120 Mobile Safari/537.36",
-        "BundleIdentifier": "user",
-        "Accept-Encoding": "identity",
-        "X-Version": dat["versi"],
-        "Content-Type": "application/x-www-form-urlencoded",
-        "Host": "dt001piwfw.d9sph.cn",
-        "Connection": "Keep-Alive"
-    }
-
-    try:
-        req = requests.post(uri, data=json.dumps(param), headers=headers)
-        ress = json.loads(req.text)
-        return [1, ress]
-    except Exception as e:
-        print("Failed : "+str(e))
-        return [0, str(e)]
 
 
 print("> "+c("green", "Start the program", 0))
-# tkn = login(xcode)
-# if tkn[0] == 0:
-#     print(f"Error : {tkn[1]}")
-
-# token = (tkn[1]["result"]["access_token"])
 
 
 def running():
     with open("user_token.json") as json_file:
         tokk = json.load(json_file)
-    token = tokk["results"][75]
+    token = ambil.token()[69]
     dat["tkn"] = token
     # sendmsg("🧧")
     send1 = b"ping"
+    
     uriweb = "wss://dt001wsgew.qrdnk.cn/?token="+token
 
-    try:
-        import thread
-    except ImportError:
-        import _thread as thread
+    import _thread as thread
 
     def on_message(ws, message):
         datadadu = json.loads(message)
