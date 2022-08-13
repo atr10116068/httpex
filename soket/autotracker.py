@@ -430,7 +430,7 @@ def dragontiger(dataobj):
             print(f'[{cnt["dragontiger"]}]DragonTiger')
 
 
-def sicbo(dataobj, st):
+def sicbo(dataobj, st,betting):
     idi = dataobj["game_number"]
     aidi = idi[8:]
     hari = int(idi[6:8])
@@ -463,9 +463,9 @@ def sicbo(dataobj, st):
         #     sendmsg(
         #         f'Cukup Aniiiii.... {dataobj["cards"][0]}{dataobj["cards"][0]}{dataobj["cards"][0]}')
         any = c("green", "ANY TRIPLE", 0)
-        disp = f'\t{wday}[{server_time}] {card}\t{any}  '
+        disp = f'\t{wday}[{server_time}] {card}\t{any}  {betting}'
     else:
-        disp = f'\t{wday}[{server_time}] {card}\t{bs} {oe}  '
+        disp = f'\t{wday}[{server_time}] {card}\t{bs} {oe}  {betting}'
 
     if dat["gamename"] != "allgame":
         print(disp)
@@ -483,6 +483,14 @@ def sicbo(dataobj, st):
         else:
             cnt[st] += 1
             print(f'[{cnt[st]}]{st}')
+    
+
+    
+    listObj={
+        "results":{"bet":[]}
+    }
+    with open("betting.json", 'w') as json_file:
+        json.dump(listObj, json_file, indent=2,  separators=(',',': '))
 
 
 def baccarat(dataobj):
@@ -648,11 +656,14 @@ def cek(dataobj):
         gn = dat["gamename"]
         datagame = dataobj["data"]["msg_body"]["game"]
         dataobj = dataobj["data"]["msg_body"]
+        
+        with open("betting.json") as json_file:
+            ngebet = json.load(json_file)["results"]["bet"]
         if dat["gamename"] == "allgame":
             if datagame == "toubao_1":
-                sicbo(dataobj, "sicbo")
+                sicbo(dataobj, "sicbo",ngebet)
             elif datagame == "kuaisan_1":
-                sicbo(dataobj, "threedice")
+                sicbo(dataobj, "threedice",ngebet)
             elif datagame == "baijiale_1":
                 baccarat(dataobj)
             # elif datagame == "lunpan_1":
@@ -665,9 +676,9 @@ def cek(dataobj):
         else:
             if dataobj["game"] == dat["typegame"] and "cards" in dataobj:
                 if gn == "sicbo":
-                    sicbo(dataobj, "sicbo")
+                    sicbo(dataobj, "sicbo",ngebet)
                 elif gn == "threedice":
-                    sicbo(dataobj, "threedice")
+                    sicbo(dataobj, "threedice",ngebet)
                 elif gn == "baccarat":
                     baccarat(dataobj)
                 # elif gn == "roulette":
@@ -686,8 +697,8 @@ print("> "+c("green", "Start the program", 0))
 
 
 def running():
-    with open("user_token.json") as json_file:
-        tokk = json.load(json_file)
+    # with open("user_token.json") as json_file:
+    #     tokk = json.load(json_file)
     token = ambil.token()[69]
     dat["tkn"] = token
     # sendmsg("🧧")

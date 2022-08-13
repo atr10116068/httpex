@@ -54,7 +54,11 @@ def getinfo(x):
 
 coin=0.0
 tokk = ambil.token()
-token = tokk[int(input("token ke : "))-1]
+if input("Enter to set token from db")!="":
+    with open("user_token.json") as json_file:
+        token = json.load(json_file)["results"][0]
+else:
+    token=tokk[int(input("token ke : "))-1]
 while True:
     tz = pytz.timezone("Asia/Jakarta")
     now = datetime.now(tz)

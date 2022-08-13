@@ -98,7 +98,7 @@ def main(ttt):
     for i in token:
         sen(idroom, "3", i)
         # sentxt(idroom, i, "numpang lewat")
-        time.sleep(random.randint(7, 15))
+        time.sleep(0.1)#random.randint(7, 15))
 
     print("selesai...")
 

@@ -6,11 +6,21 @@ import sys
 import seting
 import getlive
 import ambil
-import random
+import random 
 import pyrebase
 import pytz
 import datetime
 import translatepy as trs
+
+import asyncio
+import ssl
+import websockets
+import certifi
+# import logging
+# logging.basicConfig(filename="client.log", level=logging.DEBUG)
+ssl_context = ssl.SSLContext(ssl.PROTOCOL_TLS_CLIENT)
+ssl_context.load_verify_locations(certifi.where())
+
 
 dat = {
     "admin": [
@@ -297,195 +307,176 @@ imb = ["karena", "ketika", "saat", "dan", "melihat", "mendengar"]
 game = {}
 
 
-def lagi():
-    import _thread as thread
 
-    def on_message(ws, message):
-        datadadu = json.loads(message)
-        try:
-            if datadadu[0]["action"] == "connected":
-                print(f'\t\t{datadadu[0]["data"]["msg_body"]["client_id"]}')
-                uriweb = "https://wjxwd01mwyo.dt01showxx02.com/App/LiveEnter/JoinGroup"
-                headers = {
-                    "User-Agent": "HS-Android Mozilla/5.0 (Linux; Android 8.1.0; Pixel C Build/OPM1.171019.019; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/103.0.5060.129 Mobile Safari/537.36",
-                    "BundleIdentifier": "user",
-                    "X-Token": token,
-                    "Accept-Encoding": "identity",
-                    "X-Version": persi,
-                    "Host": "wjxwd01mwyo.dt01showxx02.com",
-                    "Connection": "Keep-Alive"
-                }
-                query = f'live_id={idroom}&client_id={datadadu[0]["data"]["msg_body"]["client_id"]}&type=1'
-                req = requests.get(uriweb, params=query, headers=headers)
-                ress = json.loads(req.text)
-                print(ress)
 
-            if datadadu[0]["action"] == "send_msg":
-                utex = datadadu[0]['data']['msg_body']['content']
-                udata = {
-                    "uid": datadadu[0]['data']['msg_body']['show_id'],
-                    "ulvl": datadadu[0]['data']['msg_body']['vip'],
-                    "uname": datadadu[0]['data']['msg_body']['nickname'],
-                    "utex": utex,
-                }
 
-                if udata['utex'].lower() in ["taro", "bangtaro","bang taro"]:
-                    bawel = [
-                        "apa sih... cok",
-                        "apaan?",
-                        "oiiiii",
-                        "kenapa?",
-                        "gw disini...",
-                        "ada apa 𓂸",
-                        "ngomong mulu lu, ga aus apa?",
-                    ]
-                    tex = random.choice(bawel)
-                    sen(idroom, token, tex)
+def xrespon(message):
+    datadadu = json.loads(message)
+    try:
+        if datadadu[0]["action"] == "connected":
+            print(f'\t\t{datadadu[0]["data"]["msg_body"]["client_id"]}')
+            uriweb = "https://wjxwd01mwyo.dt01showxx02.com/App/LiveEnter/JoinGroup"
+            headers = {
+                "User-Agent": "HS-Android Mozilla/5.0 (Linux; Android 8.1.0; Pixel C Build/OPM1.171019.019; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/103.0.5060.129 Mobile Safari/537.36",
+                "BundleIdentifier": "user",
+                "X-Token": token,
+                "Accept-Encoding": "identity",
+                "X-Version": persi,
+                "Host": "wjxwd01mwyo.dt01showxx02.com",
+                "Connection": "Keep-Alive"
+            }
+            query = f'live_id={idroom}&client_id={datadadu[0]["data"]["msg_body"]["client_id"]}&type=1'
+            req = requests.get(uriweb, params=query, headers=headers)
+            ress = json.loads(req.text)
+            print(ress)
+
+        if datadadu[0]["action"] == "send_msg":
+            utex = datadadu[0]['data']['msg_body']['content']
+            udata = {
+                "uid": datadadu[0]['data']['msg_body']['show_id'],
+                "ulvl": datadadu[0]['data']['msg_body']['vip'],
+                "uname": datadadu[0]['data']['msg_body']['nickname'],
+                "utex": utex,
+            }
+
+            if udata['utex'].lower() in ["taro", "bangtaro","bang taro"]:
+                bawel = [
+                    "apa sih... cok",
+                    "apaan?",
+                    "oiiiii",
+                    "kenapa?",
+                    "gw disini...",
+                    "ada apa 𓂸",
+                    "ngomong mulu lu, ga aus apa?",
+                ]
+                tex = random.choice(bawel)
+                sen(idroom, token, tex)
+            try:
+                if utex.startswith("."):
+                    texx = utex.replace(".", "")
+                    udata["utex"] = texx
+                    if udata['utex'] == "reset":
+                        if udata["uid"] in dat["admin"] or udata["ulvl"] in host:
+                            game.clear()
+                            gid.clear()
+                        else:
+                            tex = "Hanya adminku yang boleh"
+                            sen(idroom, token, tex)
+                    if udata['utex'] == "cek":
+                        tex = f"{len(gid)} akun ikutan"
+                        sen(idroom, token, tex)
+                    if udata['utex'] == "main":
+                        if udata["uid"] in dat["admin"] or udata["ulvl"] in host:
+                            for tex in ["ketik .add [nama]-[kerja]-[nama]-[kerja]", 'contoh .add budi-terkejut-alex-uncep']:
+                                sen(idroom, token, tex)
+
+                    elif udata['utex'] == "acak":
+                        if udata["uid"] in dat["admin"] or udata["ulvl"] in host:
+                            print(gid)
+                            print(game)
+                            disp = f"{game[random.choice(gid)][0]} {game[random.choice(gid)][1]} {random.choice(imb)} {game[random.choice(gid)][2]} {game[random.choice(gid)][3]}"
+                            sen(idroom, token, disp)
+                        else:
+                            tex = "Hanya adminku yang boleh"
+                            sen(idroom, token, tex)
+
+                    elif udata['utex'].startswith("add "):
+                        dgame = texx.replace("add ", "")
+                        dgames = dgame.split("-")
+                        if len(dgames) == 4:
+                            game[udata["uid"]] = dgames
+                            if udata["uid"] not in gid:
+                                gid.append(udata["uid"])
+                            tex = "Sudah ditambah"
+                            sen(idroom, token, tex)
+                        else:
+                            tex = "contoh nama-ekspresi-nama-ekspresi"
+                            sen(idroom, token, tex)
+                            tex = "contoh budi-terkejut-rudi-tertawa"
+                            sen(idroom, token, tex)
+            except Exception as e:
+                print(e)
+
+            if utex.lower().startswith("taro "):
+                texx = utex.lower().replace("taro ", "")
+                udata["utex"] = texx
                 try:
-                    if utex.startswith("."):
-                        texx = utex.replace(".", "")
-                        udata["utex"] = texx
-                        if udata['utex'] == "reset":
+                    if lepel[udata["ulvl"]] >= dat["minimumlvl"] or udata["uid"] in dat["admin"]:
+                        if udata['utex'].startswith("tr "):
+                            trans(udata)
+                        elif udata['utex'].startswith("cariakun "):
+                            cariviwer(udata)
+                        elif udata['utex'].startswith("cari "):
+                            try:
+                                carihost(udata)
+                            except Exception as e:
+                                print(f"Error : {e}")
+                        elif udata['utex'].startswith("changelvl "):
                             if udata["uid"] in dat["admin"] or udata["ulvl"] in host:
-                                game.clear()
-                                gid.clear()
+                                clvl(udata)
                             else:
                                 tex = "Hanya adminku yang boleh"
                                 sen(idroom, token, tex)
-                        if udata['utex'] == "cek":
-                            tex = f"{len(gid)} akun ikutan"
-                            sen(idroom, token, tex)
-                        if udata['utex'] == "main":
-                            if udata["uid"] in dat["admin"] or udata["ulvl"] in host:
-                                for tex in ["ketik .add [nama]-[kerja]-[nama]-[kerja]", 'contoh .add budi-terkejut-alex-uncep']:
-                                    sen(idroom, token, tex)
 
-                        elif udata['utex'] == "acak":
+                        if udata['utex'] == "siapa aku?":
+                            if udata["uid"] in dat["admin"]:
+                                tex = "kamu itu adminku"
+                                sen(idroom, token, tex)
+                            elif udata["ulvl"] in host:
+                                tex = "kamu itu Host"
+                                sen(idroom, token, tex)
+                            else:
+                                tex = "kamu viwer biasa"
+                                sen(idroom, token, tex)
+                        elif udata["utex"]=="cek koin":
                             if udata["uid"] in dat["admin"] or udata["ulvl"] in host:
-                                print(gid)
-                                print(game)
-                                disp = f"{game[random.choice(gid)][0]} {game[random.choice(gid)][1]} {random.choice(imb)} {game[random.choice(gid)][2]} {game[random.choice(gid)][3]}"
+                                rikues=getinfo(token)
+                                disp = f"coin di akun ini ada {rikues[1]}"
                                 sen(idroom, token, disp)
                             else:
                                 tex = "Hanya adminku yang boleh"
                                 sen(idroom, token, tex)
-
-                        elif udata['utex'].startswith("add "):
-                            dgame = texx.replace("add ", "")
-                            dgames = dgame.split("-")
-                            if len(dgames) == 4:
-                                game[udata["uid"]] = dgames
-                                if udata["uid"] not in gid:
-                                    gid.append(udata["uid"])
-                                tex = "Sudah ditambah"
+                        elif udata['utex'] == "bisa apa aja?":
+                            texs = [
+                                "-> taro siapa aku?",
+                                "-> taro cari [namahost]",
+                                "-> taro cariakun [nama]",
+                                "-> taro tr [bahasa] [text]",
+                                "-> taro jumlah host",
+                                "-> taro cek koin",
+                            ]
+                            for tex in texs:
                                 sen(idroom, token, tex)
-                            else:
-                                tex = "contoh nama-ekspresi-nama-ekspresi"
-                                sen(idroom, token, tex)
-                                tex = "contoh budi-terkejut-rudi-tertawa"
-                                sen(idroom, token, tex)
+                                time.sleep(2)
+                        elif udata['utex'] == "jumlah host":
+                            dats = jumhost()
+                            sen(idroom, token, f'{dats["game"]} host game')
+                            sen(idroom, token,
+                                f'{dats["indo"]} host adorable')
+                            sen(idroom, token, f'{dats["sexy"]} host sexy')
+                    else:
+                        tex = f"Hanya dapat di gunakan oleh LVL {str(dat['minimumlvl'])} keatas"
+                        sen(idroom, token, tex)
                 except Exception as e:
-                    print(e)
+                    print(f"Error : {e}")
 
-                if utex.lower().startswith("taro "):
-                    texx = utex.lower().replace("taro ", "")
-                    udata["utex"] = texx
-                    try:
-                        if lepel[udata["ulvl"]] >= dat["minimumlvl"] or udata["uid"] in dat["admin"]:
-                            if udata['utex'].startswith("tr "):
-                                trans(udata)
-                            elif udata['utex'].startswith("cariakun "):
-                                udata["utex"]=utex.replace("taro ", "")
-                                cariviwer(udata)
-                            elif udata['utex'].startswith("cari "):
-                                try:
-                                    udata["utex"]=utex.replace("taro ", "")
-                                    carihost(udata)
-                                except Exception as e:
-                                    print(f"Error : {e}")
-                            elif udata['utex'].startswith("changelvl "):
-                                if udata["uid"] in dat["admin"] or udata["ulvl"] in host:
-                                    clvl(udata)
-                                else:
-                                    tex = "Hanya adminku yang boleh"
-                                    sen(idroom, token, tex)
-
-                            if udata['utex'] == "siapa aku?":
-                                if udata["uid"] in dat["admin"]:
-                                    tex = "kamu itu adminku"
-                                    sen(idroom, token, tex)
-                                elif udata["ulvl"] in host:
-                                    tex = "kamu itu Host"
-                                    sen(idroom, token, tex)
-                                else:
-                                    tex = "kamu viwer biasa"
-                                    sen(idroom, token, tex)
-                            elif udata["utex"]=="cek koin":
-                                if udata["uid"] in dat["admin"] or udata["ulvl"] in host:
-                                    rikues=getinfo(token)
-                                    disp = f"coin di akun ini ada {rikues[1]}"
-                                    sen(idroom, token, disp)
-                                else:
-                                    tex = "Hanya adminku yang boleh"
-                                    sen(idroom, token, tex)
-                            elif udata['utex'] == "bisa apa aja?":
-                                texs = [
-                                    "-> taro siapa aku?",
-                                    "-> taro cari [namahost]",
-                                    "-> taro cariakun [nama]",
-                                    "-> taro tr [bahasa] [text]",
-                                    "-> taro jumlah host",
-                                    "-> taro cek koin",
-                                ]
-                                for tex in texs:
-                                    sen(idroom, token, tex)
-                                    time.sleep(2)
-                            elif udata['utex'] == "jumlah host":
-                                dats = jumhost()
-                                sen(idroom, token, f'{dats["game"]} host game')
-                                sen(idroom, token,
-                                    f'{dats["indo"]} host adorable')
-                                sen(idroom, token, f'{dats["sexy"]} host sexy')
-                        else:
-                            tex = f"Hanya dapat di gunakan oleh LVL {str(dat['minimumlvl'])} keatas"
-                            sen(idroom, token, tex)
-                    except Exception as e:
-                        print(f"Error : {e}")
-
-                print(
-                    f" > [{udata['uid']}][{lepel[udata['ulvl']]}] {udata['uname']}\t: {udata['utex']}")
-            # print(datadadu)
-        except:
-            pass
-
-    def on_error(ws, error):
+            print(
+                f" > [{udata['uid']}][{lepel[udata['ulvl']]}] {udata['uname']}\t: {udata['utex']}")
+        # print(datadadu)
+    except:
         pass
-        # print("error : "+str(error))
 
-    def on_close(ws, x, y):
-        for i in range(3):
-            sys.stdout.write(f"Reconnect after {i} \r")
-            sys.stdout.flush()
-            time.sleep(1)
-        print("\nReconnect")
-        lagi()
+while True:
+    try:
+        async def test():
+            uri = uriweb
+            async with websockets.connect(uri, ssl=ssl_context) as websocket:
+                await websocket.send(datan)
+                print("> test")
+                while True:
+                    response = await websocket.recv()
+                    xrespon(response)
 
-    def on_open(ws):
-        def run(*args):
-            ws.send(datan)
-            # ws.close()
-        thread.start_new_thread(run, ())
-
-    if __name__ == "__main__":
-        # websocket.enableTrace(True)
-        ws = websocket.WebSocketApp(uriweb,
-                                    header=param,
-                                    on_open=on_open,
-                                    on_message=on_message,
-                                    on_error=on_error,
-                                    on_close=on_close)
-
-        ws.run_forever()
-
-
-lagi()
+        asyncio.get_event_loop().run_until_complete(test())
+    except Exception as e:
+        print(f"Error : {e}")

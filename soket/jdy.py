@@ -21,7 +21,11 @@ if ty!="":
     persenan=float(ty)
 host="https://wjxwd01mwyo.dt01showxx02.com"
 tokk = ambil.token()
-token=tokk[int(input("token ke : "))-1]
+if input("Enter to set token from db")!="":
+    with open("user_token.json") as json_file:
+        token = json.load(json_file)["results"][0]
+else:
+    token=tokk[int(input("token ke : "))-1]
 print(token)
 persi = seting.versi()
 tz = pytz.timezone("Asia/Jakarta")
@@ -142,11 +146,13 @@ while True:
         print(xx)
         def betbrp(xx):
             if xx>10:
-                bett=10
+                bett=5
+            elif xx>5:
+                bett=5
             else:
                 bett=xx
             return bett
-        if True:#str(dtk)=="58":
+        if str(dtk)=="58":
             print()
             # print(ress)
             bs,oe=["",0],["",0]
@@ -170,13 +176,20 @@ while True:
                 bettoe=round(selisihoe*persenan)
             oe[1]=betbrp(bettoe)
             
+            listObj={
+                "results":{"bet":[]}
+            }
             if bs[1]!=0:
                 print(f"Selisih {selisihbs}[{bettbs}] Bet {bs[0]} {str(bs[1])} coin")
-                bet(token,bs[0],str(bs[1]))
+                listObj["results"]["bet"].append(bs[0])
+                # bet(token,bs[0],str(bs[1]))
             if oe[1]!=0:
                 print(f"Selisih {selisihoe}[{bettoe}] Bet {oe[0]} {str(oe[1])} coin")
-                bet(token,oe[0],str(oe[1]))
-            
+                listObj["results"]["bet"].append(oe[0])
+                # bet(token,oe[0],str(oe[1]))
+
+            with open("betting.json", 'w') as json_file:
+                json.dump(listObj, json_file, indent=2,  separators=(',',': '))
             time.sleep(5)
             # input("Press Enter to next")
         time.sleep(0.3)

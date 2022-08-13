@@ -1,12 +1,8 @@
-import webbrowser
+import getlive
 
-url = 'https://pythonexamples.org'
-
-
-try:
-    webbrowser.register('chrome',
-        None,
-        webbrowser.BackgroundBrowser("C:\\Users\\User\\AppData\\Local\\Google\\Chrome\\Application\\chrome.exe"))
-    webbrowser.get('chrome').open_new(url)
-except Exception as e:
-    print(f"Error : {e}")
+while True:
+    datt = {"idx": 1, "result": [], "rapihkanjson": [], "terfilter": []}
+    sss=getlive.roomall()
+    for t in sss:
+        print(t["nickname"])
+    input()

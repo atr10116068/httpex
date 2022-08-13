@@ -6,6 +6,8 @@ import sys
 import seting
 import getlive,sys
 import ambil
+from datetime import datetime
+import pytz
 from tinydb import *
 
 db = TinyDB("data.json")
@@ -135,16 +137,44 @@ def rp(str):
     return bbb
 
 
+datroom={
+    "menitclosing":"",
+    "viwermasuk":0,
+    "kosong_brp_kali":0,
+    "isexit":False
+    }
 def lagi():
     import _thread as thread
 
     def on_message(ws, message):
         datadadu = json.loads(message)
+        # print(datadadu[0])
         try:
             if datadadu[0]["action"] == "game_lock_award":
-                print(f'{namanya}_______[ Closing ]')
-                db.truncate()
-                db.all()
+                tz = pytz.timezone("Asia/Jakarta")
+                now = datetime.now(tz)
+                menit=now.strftime("%M")
+                if datroom["viwermasuk"]==0:
+                    if datroom["kosong_brp_kali"]<2:
+                        datroom["kosong_brp_kali"]+=1
+                    else:
+                        datroom["isexit"]=True
+                        sys.exit()
+                else:
+                    datroom["kosong_brp_kali"]=0
+                    
+                if datroom["menitclosing"]!=menit:
+                    print(f'\t[ Closing ] jumlah viwer masuk[{datroom["viwermasuk"]}] {namanya}')
+                    datroom["menitclosing"]=menit
+                    datroom["viwermasuk"]=0
+                    db.truncate()
+                    db.all()
+                else:
+                    pass
+            elif datadadu[0]["action"] == "enter":
+                sys.stdout.write(f'Masuk {datadadu[0]["data"]["msg_body"]["nickname"]}                      \r')
+                sys.stdout.flush()
+                datroom["viwermasuk"]+=1
             elif datadadu[0]["action"] == "connected":
                 print(f'\t\t{datadadu[0]["data"]["msg_body"]["client_id"]}')
                 uriweb = "https://wjxwd01mwyo.dt01showxx02.com/App/LiveEnter/JoinGroup"
@@ -168,8 +198,7 @@ def lagi():
                     # hapus id BOT
                     if "_" not in sid:
                         if datadadu[0]["data"]["msg_body"]["game"] == targetgame:
-                            namgame = game[datadadu[0]
-                                           ["data"]["msg_body"]["game"]]
+                            namgame = game[datadadu[0]["data"]["msg_body"]["game"]]
                             nama = datadadu[0]["data"]["msg_body"]["nickname"]
                             bet = datadadu[0]["data"]["msg_body"]["order"]["detail"]
                             try:
@@ -242,11 +271,14 @@ def lagi():
         # print("error : "+str(error))
 
     def on_close(ws, x, y):
-        for i in range(3):
-            sys.stdout.write(f"Reconnect after {i} \r")
-            sys.stdout.flush()
-            time.sleep(1)
-        lagi()
+        if datroom["isexit"]!=True:
+            for i in range(3):
+                sys.stdout.write(f"Reconnect after {i} \r")
+                sys.stdout.flush()
+                time.sleep(1)
+            lagi()
+        else:
+            sys.exit()
 
     def on_open(ws):
         def run(*args):

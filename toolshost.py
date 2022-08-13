@@ -2,15 +2,13 @@ import requests
 import seting
 import os
 import sys
-import time
+import time,ambil
 import random
 import json
 import getlive
-import pyrebase
 from colorama import Fore, Style, init
 init()
-
-persi = seting.versi()
+import pyrebase
 config = {
     "apiKey": "AIzaSyDo7m9xUXkOiCVjuS6kKwkLchejkUNl5IY",
     "authDomain": "attools-cc537.firebaseapp.com",
@@ -25,6 +23,10 @@ config = {
 
 firebase = pyrebase.initialize_app(config)
 db = firebase.database()
+
+
+persi = seting.versi()
+
 
 
 def c(colr, tex, dim):
@@ -49,15 +51,47 @@ def c(colr, tex, dim):
         return tex
 
 
-gip = {}
-print(c("red", "\n\t\tTOKEN HOST", 0))
-tkn = input("token host :")
-if tkn != "":
-    db.child("account").child("host").update({"token": tkn})
+def cekhost(x):
+    uriweb = "https://wjxwd01mwyo.dt01showxx02.com/App/User_User/Info"
+    headers = {
+        "x-ws-apm-id": "155AB2F2-DB2C-4A0D-A000-CB8C655D4223-50",
+        "user-agent": "Mozilla/5.0 (Linux; Android 8.10.0; Redmi 2 Plus Build/OPM1.171019.019; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/91.0.4472.120 Mobile Safari/537.36",
+        "bundleidentifier": "anchor",
+        "x-token": x,
+        "x-version": persi,
+        "accept-encoding": "identity",
+        "host": "wjxwd01mwyo.dt01showxx02.com",
+        "connection": "keep-alive",
+    }
+    f = requests.get(uriweb, headers=headers)
+    ress = json.loads(f.text)
+    # print(json.dumps(ress, indent=2))
+    try:
+        krm = [
+            ress["result"]["nickname"],
+            ress["result"]["balance"],
+            ress["result"]["vip_name"],
+            ress["result"]["id"],
+        ]
+        return krm
+    except:
+        krm = [
+            "expiret",
+            0.0,
+            "expiret",
+            "expiret",
+        ]
+        return True
 
-req = db.child('account').child('host').get()
-tkn = req.val()["token"]
-print(tkn)
+gip = {}
+tokenhost=ambil.tokenhost()
+expayet=cekhost(tokenhost)
+if expayet==True:
+    tokenhost = input("token host :")
+    db.child("account").child("host").update({"token": tokenhost})
+else:
+    print(expayet)
+
 dbuser = {
     # Admin
     "1146427296": ["green", "CHECKER BLING2 [Uler]"],
@@ -253,7 +287,7 @@ def gas2(id, tok):
         return [9, 9]
 
 
-def cekviwer(tkn):
+def cekviwer(tokenhost):
     room = getlive.roomall()
     x = 1
     for i in room:
@@ -268,7 +302,7 @@ def cekviwer(tkn):
         try:
             os.system("cls")
             print("\nTarget Room : " + namaroom)
-            datas = gas2(idroom, tkn)
+            datas = gas2(idroom, tokenhost)
             for pp in datas:
                 lvl = pp["vip"]
                 aidi = pp["show_id"]
@@ -284,7 +318,7 @@ def cekviwer(tkn):
             time.sleep(1)
 
 
-def ampau(tkn):
+def ampau(tokenhost):
     room = getlive.roomall()
     x = 1
     for i in room:
@@ -296,19 +330,19 @@ def ampau(tkn):
     namaroom = room[int(inp) - 1]["nickname"]
     print("\nTarget Room : " + namaroom)
 
-    print(gas(idroom, tkn))
+    print(gas(idroom, tokenhost))
 
     print("selesai...")
     exit()
 
 
-def find(tkn):
+def find(tokenhost):
     while True:
         print()
         room = getlive.roomall()
         x = 1
         for i in room:
-            datas = gas2(i["live_id"], tkn)
+            datas = gas2(i["live_id"], tokenhost)
             sys.stdout.write(f"{str(x)} \r")
             sys.stdout.flush()
             namarum = i["nickname"]
@@ -330,14 +364,14 @@ def find(tkn):
         jeda(10)
 
 
-def findhigh(tkn):
+def findhigh(tokenhost):
     print()
     while True:
         room = getlive.roomall()
         x = 1
         os.system("cls")
         for i in room:
-            datas = gas2(i["live_id"], tkn)
+            datas = gas2(i["live_id"], tokenhost)
             sys.stdout.write(f"{str(x)} \r")
             sys.stdout.flush()
 
@@ -361,12 +395,12 @@ def findhigh(tkn):
         jeda(30)
 
 
-def active(tkn):
+def active(tokenhost):
     print()
     room = getlive.roomall()
     x = 1
     for i in room:
-        datas = gas2(i["live_id"], tkn)
+        datas = gas2(i["live_id"], tokenhost)
         sys.stdout.write(f"{str(x)} \r")
         sys.stdout.flush()
 
@@ -387,7 +421,7 @@ def active(tkn):
         x += 1
 
 
-def buntut(tkn):
+def buntut(tokenhost):
     texar = [
         "Eh ada n4m disini 🤭",
         "Dorrr...  n4m kaget ga? wkwkwk",
@@ -405,7 +439,7 @@ def buntut(tkn):
         room = getlive.roomall()
         x = 1
         for i in room:
-            datas = gas2(i["live_id"], tkn)
+            datas = gas2(i["live_id"], tokenhost)
             sys.stdout.write(f"{str(x)} \r")
             sys.stdout.flush()
 
@@ -447,18 +481,18 @@ while True:
     x = input(menu+"nomer : ")
 
     if x == "1":
-        print(getinfo(tkn))
+        print(getinfo(tokenhost))
     elif x == "2":
-        print(cekviwer(tkn))
+        print(cekviwer(tokenhost))
     # elif x == "3":
-    #     print(ampau(tkn))
+    #     print(ampau(tokenhost))
     elif x == "4":
-        find(tkn)
+        find(tokenhost)
     elif x == "5":
-        print(active(tkn))
+        print(active(tokenhost))
     elif x == "6":
         while True:
-            buntut(tkn)
+            buntut(tokenhost)
             jeda(10)
     elif x == "7":
-        findhigh(tkn)
+        findhigh(tokenhost)

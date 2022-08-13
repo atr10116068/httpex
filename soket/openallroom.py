@@ -1,9 +1,8 @@
-import os,ambil,seting,getlive
+import os,seting,getlive,json,time,random
 
-tokk = ambil.token()
 persi = seting.versi()
-token = tokk[0]
-room = getlive.roomall()
+
+dat={"notoken":[]}
 
 game = {
     "baijiale_1": "Ba",
@@ -28,10 +27,29 @@ for pgp in game:
         targetgame = pgp
     idxg += 1
 
-x = 1
-for i in room:
-    print("{}. {}".format(str(x), i["nickname"]))
-    x += 1
-    os.system(f'start cmd /k python jdysocket.py {x-1} {i["live_id"]} {targetgame}')
-    # if x==5:
-    #     break
+def buka(tokenno,liveid,targetgame):
+    os.system(f'start cmd /k python jdysocket.py {tokenno} {liveid} {targetgame}')
+
+def caritkn():
+    rdmno=0
+    while True:
+        rdmno=random.randint(0,89)
+        if rdmno not in dat["notoken"]:
+            dat["notoken"].append(rdmno)
+            break
+    return rdmno
+while True:
+    room = getlive.roomall()
+    # x=0
+    for i in room:
+        # print("{}. {}".format(str(x), i["nickname"]))
+        idnya=i["live_id"]
+        if idnya not in dat:
+            tkn=caritkn()
+            buka(str(tkn),idnya,targetgame)
+            dat[idnya]=i["nickname"]
+        # x+=1
+        # if x==15:
+        #     break
+    time.sleep(120)
+    # print(json.dumps(dat,indent=2))
