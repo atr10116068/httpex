@@ -2,9 +2,12 @@ import pyrebase
 import requests
 import json
 import seting
-import sys,webbrowser
+import sys
+import webbrowser
 import ambil
 from datetime import datetime
+
+
 persi = seting.versi()
 config = {
     "apiKey": "AIzaSyDo7m9xUXkOiCVjuS6kKwkLchejkUNl5IY",
@@ -22,7 +25,9 @@ firebase = pyrebase.initialize_app(config)
 db = firebase.database()
 
 tes = True
-dat = {"jam": []}
+dat = {
+    "jam": []
+}
 try:
     kusus1 = int(sys.argv[1])
     kusus2 = int(sys.argv[2])
@@ -33,11 +38,13 @@ except:
 
 ataroinvcode = "B6lixl"
 
+
 def oweb(url):
     webbrowser.register('chrome',
-        None,
-        webbrowser.BackgroundBrowser("C:\\Users\\User\\AppData\\Local\\Google\\Chrome\\Application\\chrome.exe"))
+                        None,
+                        webbrowser.BackgroundBrowser("C:\\Users\\User\\AppData\\Local\\Google\\Chrome\\Application\\chrome.exe"))
     webbrowser.get('chrome').open_new(url)
+
 
 def loginid(x):
     uri = "https://wjxwd01mwyo.dt01showxx02.com/App/User_LoginRegister/Login"
@@ -263,10 +270,10 @@ def getrecord(x):
         return krm
 
 
-def getinfo(x):
+def getinfo(x, agent):
     uriweb = "https://wjxwd01mwyo.dt01showxx02.com/App/User_User/Info"
     headers = {
-        "user-agent": "HS-Android Mozilla/5.0 (Linux; Android 8.1.0; SM-J730F Build/M1AJQ; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/103.0.5060.129 Mobile Safari/537.36",
+        "user-agent": agent,
         "bundleidentifier": "user",
         "x-token": x,
         "accept-encoding": "identity",
@@ -344,11 +351,11 @@ def getcashlog(x):
         return krm
 
 
-def lvl(x):
+def lvl(x, agent):
     uriweb = "https://wjxwd01mwyo.dt01showxx02.com/App/Vip_Vip/MyVip"
     headers = {
         "x-ws-apm-id": "0068CBCA-9E03-4264-A904-EC90ADE4F434-259",
-        "user-agent": "HS-Android Mozilla/5.0 (Linux; Android 8.1.0; Redmi 5 Plus Build/OPM1.171019.019; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/98.0.4758.87 Mobile Safari/537.36",
+        "user-agent": agent,
         "bundleidentifier": "user",
         "x-token": x,
         "accept-encoding": "identity",
@@ -573,7 +580,7 @@ while True:
         tota = []
         for i in range(len(token)):
             try:
-                dtt = getinfo(token[i])
+                dtt = getinfo(token[i], ambil.agent())
                 # print(dtt)
                 nam, bele, rnk, idd = dtt[0], dtt[1], dtt[2], dtt[3]
                 kj = len(nam)
@@ -608,7 +615,7 @@ while True:
         tota = []
         for i in range(len(token)):
             try:
-                data = lvl(token[i])
+                data = lvl(token[i], getuagent())
                 nama = data["nickname"]
                 if len(nama) < 9:
                     nama = nama+"\t"

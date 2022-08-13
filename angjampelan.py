@@ -1,28 +1,18 @@
 from datetime import datetime
 import requests
-import threading
 import json
 import random
 import time
 import sys
 import pytz
 import ambil
+import os
 
 
 # constant vars
 claim = "https://wjxwd01mwyo.dt01showxx02.com/App/RedPacket/SystemReceive"  # URL goes here
 
-# req proxy list
-# proxreq = requests.get(
-#     "https://www.proxy-list.download/api/v1/get?type=https")
-# result = proxreq.text
-# result = result.replace(chr(10), "").replace(chr(13), "x")
-# proxies = result.split("x")
-# print(proxies)
-
 # dynamic vars
-threadLock = threading.Lock()
-threads = []
 num = 0
 
 dat = {"jam": 0, "claim": False, "blokjam": [], "tot": 0.0}
@@ -30,7 +20,7 @@ datan = {}
 # Each thread runs this function once
 
 
-def spam(threadName, proxy):
+def spam(threadName, datt):
     indicat = [
         "gagal",
         "The red envelope has been collected and cannot be collected again",
@@ -39,18 +29,20 @@ def spam(threadName, proxy):
         "VIP level not up to standard, unable to receive",
     ]
     try:
-        headers = proxy["headers"]
+        headers = datt["headers"]
+        # proxx = datt
         param = {"type": "1", "live_room_id": ""}
         # req = requests.post(claim, data=json.dumps(param), headers=headers,
         #                     proxies=proxy["proxy"], timeout=100)
         req = requests.post(claim, data=json.dumps(param),
-                            headers=headers, timeout=100)
+                            headers=headers,  timeout=100)
         ress = json.dumps(req.json())
         ress = json.loads(ress)
 
         status = req.status_code
         req.close()
-        # print(ress["msg"]) #<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<   Penting
+        # <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<   Penting
+        print(f' {ress["msg"]}')
         if status == 200:
             # f"{threadName}: Working request with proxy: {proxy['proxy']}")
             if ress["msg"] not in indicat:
@@ -74,11 +66,12 @@ def spam(threadName, proxy):
             sys.stdout.flush()
 
         else:
-            print(f"{threadName}: Connection Code Status Error:{status}")
+            print(
+                f" {threadName}: Connection Code Status Error:{status}")
     except IOError as e:
         indexhapus = dat["token"].index(headers["X-Token"])
         dat["token"].pop(indexhapus)
-        print(f"{threadName}: Connection error : {e}")
+        print(f"[{datt['proxy']}]  {threadName}: Connection error : {e}")
 
 
 try:
@@ -107,30 +100,18 @@ def jam():
 
 
 def proces():
-    class myThread(threading.Thread):
-        def __init__(self, threadID, name, counter, proxy):
-            threading.Thread.__init__(self)
-            self.threadID = threadID
-            self.name = name
-            self.counter = counter
-            self.proxy = proxy
-
-        def run(self):
-            # print("Starting " + self.name)
-            spam(self.name, proxy)
-
+    # proxxx = ambil.proxy()
+    # print(proxxx)
     num = 0
     while len(dat["token"]) > 0:
-        thread = str(num)
         num += 1
-        # prox = random.choice(proxies).strip()
+        # prox = random.choice(proxxx)
+        agee = ambil.agent()
         x = random.choice(dat["token"])
-        proxy = {
-            # "proxy": {
-            #     "https": prox
-            # },
+        datt = {
+            # "proxy": prox["https"].strip(),
             "headers": {
-                "User-Agent": "HS-Android Mozilla/5.0 (Linux; Android 8.1.0; Redmi 5 Plus Build/OPM1.171019.019; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/95.0.4638.50 Mobile Safari/537.36",
+                "User-Agent": agee,
                 "BundleIdentifier": "user",
                 "X-Token": x,
                 "Accept-Encoding": "identity",
@@ -141,13 +122,8 @@ def proces():
                 "Connection": "Keep-Alive",
             }
         }
-        thread = myThread(thread, "Thread-" + thread, num, proxy)
-        thread.start()
-        time.sleep(0.1)
-
-    # Wait for all threads to complete
-    for t in threads:
-        t.join()
+        print(f"{len(dat['token'])} {agee[0:20]} {x[::30]}")
+        spam(num, datt)
 
 
 tz = pytz.timezone("Asia/Jakarta")

@@ -1,26 +1,25 @@
 import requests,random
-import json,ambil
+import json,ambil,seting
 import threading
 
 dat = {"idx": 1, "result": [], "rapihkanjson": [], "terfilter": []}
 token=random.choice(ambil.token())
-print(token)
-
+# print(token)
+persi=seting.versi()
 def roomindo(dat):
     def doreq1():
         uriweb = "https://wjxwd01mwyo.dt01showxx02.com/App/Live/Index?category_id=2&page=1"
         headers = {
-            "user-agent": "HS-IOS_iOSLV2/2.10.4 (iPhone; iOS 15.5; Scale/3.00)",
+            "user-agent": f"HS-IOS_iOSLV1/{persi} (iPhone; iOS 15.1; Scale/3.00)",
             "bundleidentifier": "user",
             "x-token": token,
-            "x-version": "2.10.4",
+            "x-version": persi,
             "accept-encoding": "identity",
             "host": "wjxwd01mwyo.dt01showxx02.com",
             "connection": "keep-alive",
         }
         res = requests.get(uriweb, headers=headers)
         res = json.loads(res.text)
-        print(res)
         dat["result"].append(res["result"])
     doreq1()
     for i in dat["result"]:
@@ -45,9 +44,10 @@ def roomgame(dat):
     def doreq1():
         uriweb = "https://wjxwd01mwyo.dt01showxx02.com/App/Live/Index?category_id=3&page=1"
         headers = {
-            "user-agent": "HS-IOS_iOSLV2/2.10.4 (iPhone; iOS 15.5; Scale/3.00)",
+            "user-agent": f"HS-IOS_iOSLV2/{persi} (iPhone; iOS 15.1; Scale/3.00)",
             "bundleidentifier": "user",
             "x-token": token,
+            "x-version": persi,
             "accept-encoding": "identity",
             "host": "wjxwd01mwyo.dt01showxx02.com",
             "connection": "keep-alive",
@@ -59,9 +59,10 @@ def roomgame(dat):
     def doreq2():
         uriweb = "https://wjxwd01mwyo.dt01showxx02.com/App/Live/Index?category_id=3&page=2"
         headers = {
-            "user-agent": "HS-IOS_iOSLV2/2.10.4 (iPhone; iOS 15.5; Scale/3.00)",
+            "user-agent": f"HS-IOS_iOSLV2/{persi} (iPhone; iOS 15.1; Scale/3.00)",
             "bundleidentifier": "user",
             "x-token": token,
+            "x-version": persi,
             "accept-encoding": "identity",
             "host": "wjxwd01mwyo.dt01showxx02.com",
             "connection": "keep-alive",
@@ -73,9 +74,10 @@ def roomgame(dat):
     def doreq3():
         uriweb = "https://wjxwd01mwyo.dt01showxx02.com/App/Live/Index?category_id=3&page=3"
         headers = {
-            "user-agent": "HS-IOS_iOSLV2/2.10.4 (iPhone; iOS 15.5; Scale/3.00)",
+            "user-agent": f"HS-IOS_iOSLV2/{persi} (iPhone; iOS 15.1; Scale/3.00)",
             "bundleidentifier": "user",
             "x-token": token,
+            "x-version": persi,
             "accept-encoding": "identity",
             "host": "wjxwd01mwyo.dt01showxx02.com",
             "connection": "keep-alive",
@@ -124,9 +126,10 @@ def roomsexy(dat):
     def doreq1():
         uriweb = "https://wjxwd01mwyo.dt01showxx02.com/App/Live/Index?category_id=4&page=1"
         headers = {
-            "user-agent": "HS-IOS_iOSLV2/2.10.4 (iPhone; iOS 15.5; Scale/3.00)",
+            "user-agent": f"HS-IOS_iOSLV2/{persi} (iPhone; iOS 15.1; Scale/3.00)",
             "bundleidentifier": "user",
             "x-token": token,
+            "x-version": persi,
             "accept-encoding": "identity",
             "host": "wjxwd01mwyo.dt01showxx02.com",
             "connection": "keep-alive",
@@ -138,9 +141,10 @@ def roomsexy(dat):
     def doreq2():
         uriweb = "https://wjxwd01mwyo.dt01showxx02.com/App/Live/Index?category_id=4&page=2"
         headers = {
-            "user-agent": "HS-IOS_iOSLV2/2.10.4 (iPhone; iOS 15.5; Scale/3.00)",
+            "user-agent": f"HS-IOS_iOSLV2/{persi} (iPhone; iOS 15.1; Scale/3.00)",
             "bundleidentifier": "user",
             "x-token": token,
+            "x-version": persi,
             "accept-encoding": "identity",
             "host": "wjxwd01mwyo.dt01showxx02.com",
             "connection": "keep-alive",
@@ -152,9 +156,10 @@ def roomsexy(dat):
     def doreq3():
         uriweb = "https://wjxwd01mwyo.dt01showxx02.com/App/Live/Index?category_id=4&page=3"
         headers = {
-            "user-agent": "HS-IOS_iOSLV2/2.10.4 (iPhone; iOS 15.5; Scale/3.00)",
+            "user-agent": f"HS-IOS_iOSLV2/{persi} (iPhone; iOS 15.1; Scale/3.00)",
             "bundleidentifier": "user",
             "x-token": token,
+            "x-version": persi,
             "accept-encoding": "identity",
             "host": "wjxwd01mwyo.dt01showxx02.com",
             "connection": "keep-alive",
@@ -166,9 +171,10 @@ def roomsexy(dat):
     def doreq4():
         uriweb = "https://wjxwd01mwyo.dt01showxx02.com/App/Live/Index?category_id=4&page=4"
         headers = {
-            "user-agent": "HS-IOS_iOSLV2/2.10.4 (iPhone; iOS 15.5; Scale/3.00)",
+            "user-agent": f"HS-IOS_iOSLV2/{persi} (iPhone; iOS 15.1; Scale/3.00)",
             "bundleidentifier": "user",
             "x-token": token,
+            "x-version": persi,
             "accept-encoding": "identity",
             "host": "wjxwd01mwyo.dt01showxx02.com",
             "connection": "keep-alive",
@@ -220,9 +226,10 @@ def roomhot(dat):
     def doreq1():
         uriweb = "https://wjxwd01mwyo.dt01showxx02.com/App/Live/RecommendList?page=1"
         headers = {
-            "user-agent": "HS-IOS_iOSLV2/2.10.4 (iPhone; iOS 15.5; Scale/3.00)",
+            "user-agent": f"HS-IOS_iOSLV2/{persi} (iPhone; iOS 15.1; Scale/3.00)",
             "bundleidentifier": "user",
             "x-token": token,
+            "x-version": persi,
             "accept-encoding": "identity",
             "host": "wjxwd01mwyo.dt01showxx02.com",
             "connection": "keep-alive",
@@ -234,9 +241,10 @@ def roomhot(dat):
     def doreq2():
         uriweb = "https://wjxwd01mwyo.dt01showxx02.com/App/Live/RecommendList?page=2"
         headers = {
-            "user-agent": "HS-IOS_iOSLV2/2.10.4 (iPhone; iOS 15.5; Scale/3.00)",
+            "user-agent": f"HS-IOS_iOSLV2/{persi} (iPhone; iOS 15.1; Scale/3.00)",
             "bundleidentifier": "user",
             "x-token": token,
+            "x-version": persi,
             "accept-encoding": "identity",
             "host": "wjxwd01mwyo.dt01showxx02.com",
             "connection": "keep-alive",
@@ -248,9 +256,10 @@ def roomhot(dat):
     def doreq3():
         uriweb = "https://wjxwd01mwyo.dt01showxx02.com/App/Live/RecommendList?page=3"
         headers = {
-            "user-agent": "HS-IOS_iOSLV2/2.10.4 (iPhone; iOS 15.5; Scale/3.00)",
+            "user-agent": f"HS-IOS_iOSLV2/{persi} (iPhone; iOS 15.1; Scale/3.00)",
             "bundleidentifier": "user",
             "x-token": token,
+            "x-version": persi,
             "accept-encoding": "identity",
             "host": "wjxwd01mwyo.dt01showxx02.com",
             "connection": "keep-alive",
@@ -262,9 +271,10 @@ def roomhot(dat):
     def doreq4():
         uriweb = "https://wjxwd01mwyo.dt01showxx02.com/App/Live/RecommendList?page=4"
         headers = {
-            "user-agent": "HS-IOS_iOSLV2/2.10.4 (iPhone; iOS 15.5; Scale/3.00)",
+            "user-agent": f"HS-IOS_iOSLV2/{persi} (iPhone; iOS 15.1; Scale/3.00)",
             "bundleidentifier": "user",
             "x-token": token,
+            "x-version": persi,
             "accept-encoding": "identity",
             "host": "wjxwd01mwyo.dt01showxx02.com",
             "connection": "keep-alive",
@@ -316,9 +326,10 @@ def roomseduc(dat):
     def doreq1():
         uriweb = "https://wjxwd01mwyo.dt01showxx02.com/App/Live/Index?category_id=7&page=1"
         headers = {
-            "user-agent": "HS-IOS_iOSLV2/2.10.4 (iPhone; iOS 15.5; Scale/3.00)",
+            "user-agent": f"HS-IOS_iOSLV2/{persi} (iPhone; iOS 15.1; Scale/3.00)",
             "bundleidentifier": "user",
             "x-token": token,
+            "x-version": persi,
             "accept-encoding": "identity",
             "host": "wjxwd01mwyo.dt01showxx02.com",
             "connection": "keep-alive",
@@ -330,9 +341,10 @@ def roomseduc(dat):
     def doreq2():
         uriweb = "https://wjxwd01mwyo.dt01showxx02.com/App/Live/Index?category_id=7&page=2"
         headers = {
-            "user-agent": "HS-IOS_iOSLV2/2.10.4 (iPhone; iOS 15.5; Scale/3.00)",
+            "user-agent": f"HS-IOS_iOSLV2/{persi} (iPhone; iOS 15.1; Scale/3.00)",
             "bundleidentifier": "user",
             "x-token": token,
+            "x-version": persi,
             "accept-encoding": "identity",
             "host": "wjxwd01mwyo.dt01showxx02.com",
             "connection": "keep-alive",
@@ -378,9 +390,10 @@ def roomcos(dat):
     def doreq1():
         uriweb = "https://wjxwd01mwyo.dt01showxx02.com/App/Live/Index?category_id=8&page=1"
         headers = {
-            "user-agent": "HS-IOS_iOSLV2/2.10.4 (iPhone; iOS 15.5; Scale/3.00)",
+            "user-agent": f"HS-IOS_iOSLV2/{persi} (iPhone; iOS 15.1; Scale/3.00)",
             "bundleidentifier": "user",
             "x-token": token,
+            "x-version": persi,
             "accept-encoding": "identity",
             "host": "wjxwd01mwyo.dt01showxx02.com",
             "connection": "keep-alive",
@@ -392,9 +405,10 @@ def roomcos(dat):
     def doreq2():
         uriweb = "https://wjxwd01mwyo.dt01showxx02.com/App/Live/Index?category_id=8&page=2"
         headers = {
-            "user-agent": "HS-IOS_iOSLV2/2.10.4 (iPhone; iOS 15.5; Scale/3.00)",
+            "user-agent": f"HS-IOS_iOSLV2/{persi} (iPhone; iOS 15.1; Scale/3.00)",
             "bundleidentifier": "user",
             "x-token": token,
+            "x-version": persi,
             "accept-encoding": "identity",
             "host": "wjxwd01mwyo.dt01showxx02.com",
             "connection": "keep-alive",

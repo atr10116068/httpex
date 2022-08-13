@@ -1,0 +1,2 @@
+import ambil
+import random

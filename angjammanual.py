@@ -1,6 +1,5 @@
 from datetime import datetime
 import requests
-import threading
 import json
 import random
 import time
@@ -12,17 +11,6 @@ import ambil
 # constant vars
 claim = "https://wjxwd01mwyo.dt01showxx02.com/App/RedPacket/SystemReceive"  # URL goes here
 
-# req proxy list
-# proxreq = requests.get(
-#     "https://www.proxy-list.download/api/v1/get?type=https")
-# result = proxreq.text
-# result = result.replace(chr(10), "").replace(chr(13), "x")
-# proxies = result.split("x")
-# print(proxies)
-
-# dynamic vars
-threadLock = threading.Lock()
-threads = []
 num = 0
 
 dat = {"jam": 0, "claim": False, "blokjam": [], "tot": 0.0}
@@ -50,7 +38,8 @@ def spam(threadName, proxy):
 
         status = req.status_code
         req.close()
-        # print(ress["msg"]) #<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<   Penting
+        # <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<   Penting
+        print(ress["msg"])
         if status == 200:
             # f"{threadName}: Working request with proxy: {proxy['proxy']}")
             if ress["msg"] not in indicat:
@@ -60,7 +49,9 @@ def spam(threadName, proxy):
                     dat["tot"] += koin
                     datan["totalakun"] += 1
                     datan["totaljam"] += koin
-                    # print(f'{dat["token"].index(headers["X-Token"])} dapat : {koin}')
+                    dat["token"].pop(indexhapus)
+                    print(
+                        f'{dat["token"].index(headers["X-Token"])} dapat : {koin}')
                 except:
                     pass
             else:
@@ -107,24 +98,11 @@ def jam():
 
 
 def proces():
-    class myThread(threading.Thread):
-        def __init__(self, threadID, name, counter, proxy):
-            threading.Thread.__init__(self)
-            self.threadID = threadID
-            self.name = name
-            self.counter = counter
-            self.proxy = proxy
-
-        def run(self):
-            # print("Starting " + self.name)
-            spam(self.name, proxy)
-
     num = 0
-    while len(dat["token"]) > 0:
+    for x in dat["token"]:
         thread = str(num)
         num += 1
         # prox = random.choice(proxies).strip()
-        x = random.choice(dat["token"])
         proxy = {
             # "proxy": {
             #     "https": prox
@@ -141,13 +119,9 @@ def proces():
                 "Connection": "Keep-Alive",
             }
         }
-        thread = myThread(thread, "Thread-" + thread, num, proxy)
-        thread.start()
+        spam(thread, proxy)
         time.sleep(0.1)
-
-    # Wait for all threads to complete
-    for t in threads:
-        t.join()
+        input("Tekan enter untuk lanjut ke {num}")
 
 
 tz = pytz.timezone("Asia/Jakarta")
@@ -165,7 +139,9 @@ while True:
         if dat["claim"] == True:
             datan = {"totaljam": 0, "totalakun": 0}
             print(">claim is true")
-            tokk = ambil.token()
+
+            with open("user_token.json") as json_file:
+                tokk = json.load(json_file)["results"]
             dat["token"] = tokk
             if str(dat["jam"])[0:11] not in dat["blokjam"]:
                 dat["claim"] = False
