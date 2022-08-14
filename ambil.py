@@ -1,5 +1,5 @@
 
-import pyrebase
+import pyrebase,json
 import sys
 import random
 import time
@@ -22,6 +22,11 @@ db = firebase.database()
 def token():
     req = db.child('account').child('token').get()
     acc = req.val()["results"]
+    return acc
+
+def hanzo():
+    with open("user_token.json") as json_file:
+        acc = json.load(json_file)["results"]
     return acc
 
 

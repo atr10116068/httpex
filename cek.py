@@ -77,6 +77,75 @@ def loginid(x):
         print("Failed : "+str(e))
         return 0
 
+def logingame(x):
+    uri = "https://wjxwd01mwyo.dt01showxx02.com/App/ThirdGame_Index/Login"
+    headers = {
+        "User-Agent": f"HS-Android Mozilla/5.0 (Linux; Android 8.1.0; SM-J730F Build/{random.randint(1000,9999)}; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/103.0.{random.randint(1000,9999)}.129 Mobile Safari/537.36",
+        "BundleIdentifier": "user",
+        "Accept-Encoding": "identity",
+        "X-Version": persi,
+        "x-token": x,
+        "Content-Type": "application/json; charset=UTF-8",
+        "Host": "wjxwd01mwyo.dt01showxx02.com",
+        "Connection": "Keep-Alive"
+    }
+    param = {
+        "kind_id":256,
+        "live_id":0,
+        "platform":"sb"
+    }
+
+    try:
+        req = requests.post(uri, data=json.dumps(param), headers=headers)
+        ress = json.loads(req.text)
+        print(ress)
+        dispgame="""
+    1. Saldo
+    2. Saba
+    """
+        game3=input(f"{dispgame}game nomer :")
+        if game3=="1":
+            uri="https://wjxwd01mwyo.dt01showxx02.com/App/ThirdGame_Index/Accounts?platforms=sb"
+            req = requests.get(uri,  headers=headers)
+            ress = json.loads(req.text)
+            print(json.dumps(ress["result"],indent=2))
+        elif game3=="2":
+            mensaba="""
+    1. TU
+    2. WD
+    3. Open
+    """
+            sabb=input(f"{mensaba}pilih nomer :")
+            if sabb=="1":
+                uri="https://wjxwd01mwyo.dt01showxx02.com/App/ThirdGame_Index/UpperScore"
+                param={
+                    "from":"cp",
+                    "score":input("coin : "),
+                    "to":"sb"
+                }
+                req = requests.post(uri, data=json.dumps(param), headers=headers)
+                ress1 = json.loads(req.text)
+                print(ress1)
+            elif sabb=="2":
+                uri="https://wjxwd01mwyo.dt01showxx02.com/App/ThirdGame_Index/LowerScore"
+                param={
+                    "from":"sb",
+                    "score":input("coin : "),
+                    "to":"cp"
+                }
+                req = requests.post(uri, data=json.dumps(param), headers=headers)
+                ress1 = json.loads(req.text)
+                print(ress1)
+            elif sabb=="3":
+                oweb(ress["result"]["url"])
+            else:
+                print("pilihan tidak ada")
+
+        else:
+            print("pilihan tidak ada")
+    except Exception as e:
+        print("Failed : "+str(e))
+        return 0
 
 def getbankinfo(x):
     uriweb = "https://wjxwd01mwyo.dt01showxx02.com/App/Pay_BankCard/Mine"
@@ -526,6 +595,10 @@ while True:
         token = tokk[int(input("token ke : "))-1]
         gbi = getbankinfo(token)["result"]
         print(json.dumps(gbi, indent=2))
+    elif jlk == "game":
+        tokk = ambil.token()
+        token = tokk[int(input("token ke : "))-1]
+        logingame(token)
     elif jlk == "gmsg":
         tokk = ambil.token()
         token = tokk[int(input("token ke : "))-1]
