@@ -1,4 +1,4 @@
-import requests,json,ambil,time,pytz,sys
+import requests,json,ambil,time,pytz,sys,random
 from datetime import datetime
 from colorama import Fore, Style, init
 init()
@@ -26,7 +26,7 @@ def c(colr, tex, dim):
 def getinfo(x):
     uriweb = "https://wjxwd01mwyo.dt01showxx02.com/App/User_User/Info"
     headers = {
-        "user-agent": "HS-Android Mozilla/5.0 (Linux; Android 8.1.0; SM-J730F Build/M1AJQ; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/103.0.5060.129 Mobile Safari/537.36",
+        "user-agent": f"HS-Android Mozilla/5.0 (Linux; Android 8.1.0; Redmi 5 Plus Build/OPM1.17{random.randint(1000,9999)}.019; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/98.0.{random.randint(1000,9999)}.82 Mobile Safari/537.36",
         "bundleidentifier": "user",
         "x-token": x,
         "accept-encoding": "identity",
@@ -68,12 +68,15 @@ while True:
     sys.stdout.flush()
     time.sleep(0.3)
     if detik == "10":
-        xxz = getinfo(token)
-        coinbaru=float(xxz[1])
-        if coin>coinbaru:
-            tex=(f"\t{xx} : {xxz[0]} [{str(coinbaru)}] {c('red','↓ '+str(round(coin-coinbaru)),0)}")
-        else:
-            tex=(f"\t{xx} : {xxz[0]} [{str(coinbaru)}] {c('green','↑ '+str(round(coinbaru-coin)),0)}")
-        print(tex)
-        coin=coinbaru
-        time.sleep(4)
+        try:
+            xxz = getinfo(token)
+            coinbaru=float(xxz[1])
+            if coin>coinbaru:
+                tex=(f"\t{xx} : {xxz[0]} [{str(coinbaru)}] {c('red','↓ '+str(round(coin-coinbaru)),0)}")
+            else:
+                tex=(f"\t{xx} : {xxz[0]} [{str(coinbaru)}] {c('green','↑ '+str(round(coinbaru-coin)),0)}")
+            print(tex)
+            coin=coinbaru
+            time.sleep(4)
+        except Exception as e:
+            print(f"Error : {e}")

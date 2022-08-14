@@ -55,7 +55,7 @@ def cekhost(x):
     uriweb = "https://wjxwd01mwyo.dt01showxx02.com/App/User_User/Info"
     headers = {
         "x-ws-apm-id": "155AB2F2-DB2C-4A0D-A000-CB8C655D4223-50",
-        "user-agent": "Mozilla/5.0 (Linux; Android 8.10.0; Redmi 2 Plus Build/OPM1.171019.019; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/91.0.4472.120 Mobile Safari/537.36",
+        "user-agent": f"Mozilla/5.0 (Linux; Android 8.10.0; Redmi 2 Plus Build/OPM1.{random.randint(100000,999999)}.019; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/91.0.{random.randint(1000,9999)}.120 Mobile Safari/537.36",
         "bundleidentifier": "anchor",
         "x-token": x,
         "x-version": persi,
@@ -193,7 +193,7 @@ def jeda(o):
 def kirimmsg(aidi, x, zx):
     uriweb = "https://wjxwd01mwyo.dt01showxx02.com/App/Live/SendMsg"
     headers = {
-        "user-agent": "Mozilla/5.0 (Linux; Android 8.1.0; Redmi 5 Plus Build/OPM1.171019.019; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/91.0.4472.120 Mobile Safari/537.36",
+        "user-agent": f"Mozilla/5.0 (Linux; Android 8.10.0; Redmi 2 Plus Build/OPM1.{random.randint(100000,999999)}.019; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/91.0.{random.randint(1000,9999)}.120 Mobile Safari/537.36",
         "bundleidentifier": "user",
         "x-token": x,
         "accept-encoding": "identity",
@@ -213,7 +213,7 @@ def getinfo(x):
     uriweb = "https://wjxwd01mwyo.dt01showxx02.com/App/User_User/Info"
     headers = {
         "x-ws-apm-id": "155AB2F2-DB2C-4A0D-A000-CB8C655D4223-50",
-        "user-agent": "Mozilla/5.0 (Linux; Android 8.10.0; Redmi 2 Plus Build/OPM1.171019.019; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/91.0.4472.120 Mobile Safari/537.36",
+        "user-agent": f"Mozilla/5.0 (Linux; Android 8.10.0; Redmi 2 Plus Build/OPM1.{random.randint(100000,999999)}.019; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/91.0.{random.randint(1000,9999)}.120 Mobile Safari/537.36",
         "bundleidentifier": "anchor",
         "x-token": x,
         "x-version": persi,
@@ -245,7 +245,7 @@ def getinfo(x):
 def gas(id, tok):
     uri = "https://wjxwd01mwyo.dt01showxx02.com/App/RedPacket/LiveRoomAdd"
     headers = {
-        "User-Agent": "Mozilla/5.0 (Linux; Android 8.1.0; Redmi 5 Plus Build/OPM1.171019.019; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/91.0.4472.120 Mobile Safari/537.36",
+        "User-Agent": f"Mozilla/5.0 (Linux; Android 8.10.0; Redmi 2 Plus Build/OPM1.{random.randint(100000,999999)}.019; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/91.0.{random.randint(1000,9999)}.120 Mobile Safari/537.36",
         "BundleIdentifier": "anchor",
         "X-Token": tok,
         "Accept-Encoding": "identity",
@@ -271,10 +271,10 @@ def gas(id, tok):
 def gas2(id, tok):
     uri1 = f"https://wjxwd01mwyo.dt01showxx02.com/App/Live/RealTimePeopleList?live_id={id}&page=1"
     headers = {
-        "User-Agent": "Mozilla/5.0 (Linux; Android 8.1.0; Redmi 5 Plus Build/OPM1.171019.019; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/91.0.4472.120 Mobile Safari/537.36",
+        "User-Agent": f"Mozilla/5.0 (Linux; Android 8.10.0; Redmi 2 Plus Build/OPM1.{random.randint(100000,999999)}.019; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/91.0.{random.randint(1000,9999)}.120 Mobile Safari/537.36",
         "BundleIdentifier": "anchor",
         "X-Token": tok,
-        "Accept-Encoding": "identitpython host/host.pyy",
+        "Accept-Encoding": "identit",
         "X-Version": persi,
         "Host": "wjxwd01mwyo.dt01showxx02.com",
         "Connection": "Keep-Alive",

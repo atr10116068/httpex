@@ -33,142 +33,142 @@ cnt = {
 sym = "⚠️"
 
 
-def sendmsg(tex):
-    roomgame()
-    uri = host+"/App/Live/SendMsg"
-    for idr in dat["idroom"]:
-        headers = {
-            "user-agent": "HS-Android Mozilla/5.0 (Linux; Android 8.1.0; Redmi 5 Plus Build/OPM1.171019.019; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/95.0.4638.50 Mobile Safari/537.36",
-            "bundleidentifier": "user",
-            "x-token": dat["tkn"],
-            "x-version": dat["versi"],
-            "accept-encoding": "identity",
-            "connection": "keep-alive"
-        }
-        para = {"live_id": idr, "content": tex}
-        req = requests.get(uri, params=para, headers=headers)
-        # print(json.loads(req.text))
+# def sendmsg(tex):
+#     roomgame()
+#     uri = host+"/App/Live/SendMsg"
+#     for idr in dat["idroom"]:
+#         headers = {
+#             "user-agent": f"HS-Android Mozilla/5.0 (Linux; Android 8.1.0; Redmi 5 Plus Build/OPM1.17{random.randint(1000,9999)}.019; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/98.0.{random.randint(1000,9999)}.82 Mobile Safari/537.36",
+#             "bundleidentifier": "user",
+#             "x-token": dat["tkn"],
+#             "x-version": dat["versi"],
+#             "accept-encoding": "identity",
+#             "connection": "keep-alive"
+#         }
+#         para = {"live_id": idr, "content": tex}
+#         req = requests.get(uri, params=para, headers=headers)
+#         # print(json.loads(req.text))
 
 
-def roomgame():
-    dat['idroom'] = []
-    drm = {
-        "result": [],
-        "rapihkanjson": [],
-        "terfilter": []
-    }
+# def roomgame():
+#     dat['idroom'] = []
+#     drm = {
+#         "result": [],
+#         "rapihkanjson": [],
+#         "terfilter": []
+#     }
 
-    def doreq1():
-        uriweb = host+"/App/Live/Index?category_id=3&page=1"
-        headers = {
-            "user-agent": "Mozilla/5.0 (Linux; Android 8.1.0; Redmi 5 Plus Build/OPM1.171019.019; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/91.0.4472.120 Mobile Safari/537.36",
-            "bundleidentifier": "user",
-            "accept-encoding": "identity",
-            "host": "dt001piwfw.d9sph.cn",
-            "connection": "keep-alive",
-        }
-        res = requests.get(uriweb, headers=headers)
-        res = json.loads(res.text)
-        drm["result"].append(res["result"])
+#     def doreq1():
+#         uriweb = host+"/App/Live/Index?category_id=3&page=1"
+#         headers = {
+#             "user-agent": f"HS-Android Mozilla/5.0 (Linux; Android 8.1.0; Redmi 5 Plus Build/OPM1.17{random.randint(1000,9999)}.019; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/98.0.{random.randint(1000,9999)}.82 Mobile Safari/537.36",
+#             "bundleidentifier": "user",
+#             "accept-encoding": "identity",
+#             "host": "dt001piwfw.d9sph.cn",
+#             "connection": "keep-alive",
+#         }
+#         res = requests.get(uriweb, headers=headers)
+#         res = json.loads(res.text)
+#         drm["result"].append(res["result"])
 
-    def doreq2():
-        uriweb = host+"/App/Live/Index?category_id=3&page=2"
-        headers = {
-            "user-agent": "Mozilla/5.0 (Linux; Android 8.1.0; Redmi 5 Plus Build/OPM1.171019.019; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/91.0.4472.120 Mobile Safari/537.36",
-            "bundleidentifier": "user",
-            "accept-encoding": "identity",
-            "host": "dt001piwfw.d9sph.cn",
-            "connection": "keep-alive",
-        }
-        res = requests.get(uriweb, headers=headers)
-        res = json.loads(res.text)
-        drm["result"].append(res["result"])
+#     def doreq2():
+#         uriweb = host+"/App/Live/Index?category_id=3&page=2"
+#         headers = {
+#             "user-agent": f"HS-Android Mozilla/5.0 (Linux; Android 8.1.0; Redmi 5 Plus Build/OPM1.17{random.randint(1000,9999)}.019; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/98.0.{random.randint(1000,9999)}.82 Mobile Safari/537.36",
+#             "bundleidentifier": "user",
+#             "accept-encoding": "identity",
+#             "host": "dt001piwfw.d9sph.cn",
+#             "connection": "keep-alive",
+#         }
+#         res = requests.get(uriweb, headers=headers)
+#         res = json.loads(res.text)
+#         drm["result"].append(res["result"])
 
-    def doreq3():
-        uriweb = host+"/App/Live/Index?category_id=3&page=3"
-        headers = {
-            "user-agent": "Mozilla/5.0 (Linux; Android 8.1.0; Redmi 5 Plus Build/OPM1.171019.019; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/91.0.4472.120 Mobile Safari/537.36",
-            "bundleidentifier": "user",
-            "accept-encoding": "identity",
-            "host": "dt001piwfw.d9sph.cn",
-            "connection": "keep-alive",
-        }
-        res = requests.get(uriweb, headers=headers)
-        res = json.loads(res.text)
-        drm["result"].append(res["result"])
+#     def doreq3():
+#         uriweb = host+"/App/Live/Index?category_id=3&page=3"
+#         headers = {
+#             "user-agent": f"HS-Android Mozilla/5.0 (Linux; Android 8.1.0; Redmi 5 Plus Build/OPM1.17{random.randint(1000,9999)}.019; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/98.0.{random.randint(1000,9999)}.82 Mobile Safari/537.36",
+#             "bundleidentifier": "user",
+#             "accept-encoding": "identity",
+#             "host": "dt001piwfw.d9sph.cn",
+#             "connection": "keep-alive",
+#         }
+#         res = requests.get(uriweb, headers=headers)
+#         res = json.loads(res.text)
+#         drm["result"].append(res["result"])
 
-    def doreq4():
-        uriweb = host+"/App/Live/Index?category_id=3&page=4"
-        headers = {
-            "user-agent": "Mozilla/5.0 (Linux; Android 8.1.0; Redmi 5 Plus Build/OPM1.171019.019; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/91.0.4472.120 Mobile Safari/537.36",
-            "bundleidentifier": "user",
-            "accept-encoding": "identity",
-            "host": "dt001piwfw.d9sph.cn",
-            "connection": "keep-alive",
-        }
-        res = requests.get(uriweb, headers=headers)
-        res = json.loads(res.text)
-        drm["result"].append(res["result"])
+#     def doreq4():
+#         uriweb = host+"/App/Live/Index?category_id=3&page=4"
+#         headers = {
+#             "user-agent": f"HS-Android Mozilla/5.0 (Linux; Android 8.1.0; Redmi 5 Plus Build/OPM1.17{random.randint(1000,9999)}.019; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/98.0.{random.randint(1000,9999)}.82 Mobile Safari/537.36",
+#             "bundleidentifier": "user",
+#             "accept-encoding": "identity",
+#             "host": "dt001piwfw.d9sph.cn",
+#             "connection": "keep-alive",
+#         }
+#         res = requests.get(uriweb, headers=headers)
+#         res = json.loads(res.text)
+#         drm["result"].append(res["result"])
 
-    def doreq5():
-        uriweb = host+"/App/Live/Index?category_id=3&page=5"
-        headers = {
-            "user-agent": "Mozilla/5.0 (Linux; Android 8.1.0; Redmi 5 Plus Build/OPM1.171019.019; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/91.0.4472.120 Mobile Safari/537.36",
-            "bundleidentifier": "user",
-            "accept-encoding": "identity",
-            "host": "dt001piwfw.d9sph.cn",
-            "connection": "keep-alive",
-        }
-        res = requests.get(uriweb, headers=headers)
-        res = json.loads(res.text)
-        drm["result"].append(res["result"])
+#     def doreq5():
+#         uriweb = host+"/App/Live/Index?category_id=3&page=5"
+#         headers = {
+#             "user-agent": f"HS-Android Mozilla/5.0 (Linux; Android 8.1.0; Redmi 5 Plus Build/OPM1.17{random.randint(1000,9999)}.019; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/98.0.{random.randint(1000,9999)}.82 Mobile Safari/537.36",
+#             "bundleidentifier": "user",
+#             "accept-encoding": "identity",
+#             "host": "dt001piwfw.d9sph.cn",
+#             "connection": "keep-alive",
+#         }
+#         res = requests.get(uriweb, headers=headers)
+#         res = json.loads(res.text)
+#         drm["result"].append(res["result"])
 
-    threads = []
+#     threads = []
 
-    t1 = threading.Thread(target=doreq1)
-    t1.daemon = True
-    t2 = threading.Thread(target=doreq2)
-    t2.daemon = True
-    t3 = threading.Thread(target=doreq3)
-    t3.daemon = True
-    t4 = threading.Thread(target=doreq4)
-    t4.daemon = True
-    t5 = threading.Thread(target=doreq5)
-    t5.daemon = True
-    threads.append(t1)
-    threads.append(t2)
-    threads.append(t3)
-    threads.append(t4)
-    threads.append(t5)
+#     t1 = threading.Thread(target=doreq1)
+#     t1.daemon = True
+#     t2 = threading.Thread(target=doreq2)
+#     t2.daemon = True
+#     t3 = threading.Thread(target=doreq3)
+#     t3.daemon = True
+#     t4 = threading.Thread(target=doreq4)
+#     t4.daemon = True
+#     t5 = threading.Thread(target=doreq5)
+#     t5.daemon = True
+#     threads.append(t1)
+#     threads.append(t2)
+#     threads.append(t3)
+#     threads.append(t4)
+#     threads.append(t5)
 
-    for i in range(5):
-        threads[i].start()
+#     for i in range(5):
+#         threads[i].start()
 
-    for i in range(5):
-        threads[i].join()
+#     for i in range(5):
+#         threads[i].join()
 
-    for i in drm["result"]:
-        for x in i:
-            drm["rapihkanjson"].append(x)
+#     for i in drm["result"]:
+#         for x in i:
+#             drm["rapihkanjson"].append(x)
 
-    bck = []
-    for x in drm["rapihkanjson"]:
-        if x["nickname"] not in bck:
-            bck.append(x["nickname"])
-            drm["terfilter"].append(x)
+#     bck = []
+#     for x in drm["rapihkanjson"]:
+#         if x["nickname"] not in bck:
+#             bck.append(x["nickname"])
+#             drm["terfilter"].append(x)
 
-    itr = 1
-    for x in drm["terfilter"]:
-        print(f'{itr}. {x["nickname"]}')
-        itr += 1
+#     itr = 1
+#     for x in drm["terfilter"]:
+#         print(f'{itr}. {x["nickname"]}')
+#         itr += 1
 
-    for t in drm["terfilter"]:
-        dat["idroom"].append(t["live_id"])
+#     for t in drm["terfilter"]:
+#         dat["idroom"].append(t["live_id"])
 
 
-if input("connect room?") == "y":
-    dat["smsg"] = True
-    roomgame()
+# if input("connect room?") == "y":
+#     dat["smsg"] = True
+#     roomgame()
 
 
 # def dec():
@@ -345,11 +345,11 @@ def roulette(dataobj):
     else:
         if card == "0":
             print(f'Roulete\t{disp}')
-            if dat["smsg"] == True:
-                if cnt["roulete"] >= 0:
-                    sendmsg(f'{sym} 0 di Roulete {cnt["roulete"]} putaran')
-                else:
-                    sendmsg(f'{sym} 0 di Roulete')
+            # if dat["smsg"] == True:
+            #     if cnt["roulete"] >= 0:
+            #         sendmsg(f'{sym} 0 di Roulete {cnt["roulete"]} putaran')
+            #     else:
+            #         sendmsg(f'{sym} 0 di Roulete')
             cnt["roulete"] = 0
         else:
             cnt["roulete"] += 1
@@ -417,14 +417,14 @@ def dragontiger(dataobj):
     else:
         if keyw[wink[0]] == "Draw":
             print(f'DragonTiger\t{disp}')
-            if dat["smsg"] == True:
-                if cnt["dragontiger"] >= 0:
-                    sendmsg(
-                        f'{sym} Draw {dataobj["cards"]["default"][0]} di DragonTiger {cnt["dragontiger"]} putaran')
-                else:
-                    sendmsg(
-                        f'{sym} Draw {dataobj["cards"]["default"][0]} di DragonTiger')
-            cnt["dragontiger"] = 0
+            # if dat["smsg"] == True:
+            #     if cnt["dragontiger"] >= 0:
+            #         sendmsg(
+            #             f'{sym} Draw {dataobj["cards"]["default"][0]} di DragonTiger {cnt["dragontiger"]} putaran')
+            #     else:
+            #         sendmsg(
+            #             f'{sym} Draw {dataobj["cards"]["default"][0]} di DragonTiger')
+            # cnt["dragontiger"] = 0
         else:
             cnt["dragontiger"] += 1
             print(f'[{cnt["dragontiger"]}]DragonTiger')
@@ -472,13 +472,13 @@ def sicbo(dataobj, st,betting):
     else:
         if dataobj["cards"][0] == dataobj["cards"][1] and dataobj["cards"][1] == dataobj["cards"][2]:
             print(f'Sicbo\t{disp}')
-            if dat["smsg"] == True:
-                if cnt[st] >= 0:
-                    sendmsg(
-                        f'{sym} {dataobj["cards"][0]}{dataobj["cards"][0]}{dataobj["cards"][0]} di {st} {cnt[st]} putaran')
-                else:
-                    sendmsg(
-                        f'{sym} {dataobj["cards"][0]}{dataobj["cards"][0]}{dataobj["cards"][0]} di {st}')
+            # if dat["smsg"] == True:
+            #     if cnt[st] >= 0:
+            #         sendmsg(
+            #             f'{sym} {dataobj["cards"][0]}{dataobj["cards"][0]}{dataobj["cards"][0]} di {st} {cnt[st]} putaran')
+            #     else:
+            #         sendmsg(
+            #             f'{sym} {dataobj["cards"][0]}{dataobj["cards"][0]}{dataobj["cards"][0]} di {st}')
             cnt[st] = 0
         else:
             cnt[st] += 1
@@ -566,12 +566,12 @@ def baccarat(dataobj):
     else:
         if tainya == 1:
             print(f'Baccarat\t{disp}')
-            if dat["smsg"] == True:
-                if cnt["baccarat"] >= 0:
-                    sendmsg(
-                        f'{sym} Tie di Baccarat {cnt["baccarat"]} putaran')
-                else:
-                    sendmsg(f'{sym} Tie di Baccarat')
+            # if dat["smsg"] == True:
+            #     if cnt["baccarat"] >= 0:
+            #         sendmsg(
+            #             f'{sym} Tie di Baccarat {cnt["baccarat"]} putaran')
+            #     else:
+            #         sendmsg(f'{sym} Tie di Baccarat')
             cnt["baccarat"] = 0
         else:
             cnt["baccarat"] += 1
@@ -624,11 +624,11 @@ def clor(dataobj):
     else:
         if wink in janda:
             # print(f'Color\t{disp}')
-            if dat["smsg"] == True:
-                if cnt["color"] >= 0:
-                    sendmsg(f'{sym} Janda di Color {cnt["color"]} putaran')
-                else:
-                    sendmsg(f'{sym} Janda di Color')
+            # if dat["smsg"] == True:
+            #     if cnt["color"] >= 0:
+            #         sendmsg(f'{sym} Janda di Color {cnt["color"]} putaran')
+            #     else:
+            #         sendmsg(f'{sym} Janda di Color')
             cnt["color"] = 0
         else:
             cnt["color"] += 1

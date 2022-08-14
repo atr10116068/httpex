@@ -53,6 +53,7 @@ def spam(threadName, datt):
                     datan["totalakun"] += 1
                     datan["totaljam"] += koin
                     # print(f'{dat["token"].index(headers["X-Token"])} dapat : {koin}')
+                    
                 except:
                     pass
             else:
@@ -71,7 +72,7 @@ def spam(threadName, datt):
     except IOError as e:
         indexhapus = dat["token"].index(headers["X-Token"])
         dat["token"].pop(indexhapus)
-        print(f"[{datt['proxy']}]  {threadName}: Connection error : {e}")
+        print(f"[]  {threadName}: Connection error : {e}")
 
 
 try:
@@ -106,12 +107,11 @@ def proces():
     while len(dat["token"]) > 0:
         num += 1
         # prox = random.choice(proxxx)
-        agee = ambil.agent()
         x = random.choice(dat["token"])
         datt = {
             # "proxy": prox["https"].strip(),
             "headers": {
-                "User-Agent": agee,
+                "User-Agent": f"HS-Android Mozilla/5.0 (Linux; Android 8.1.0; Redmi 5 Plus Build/OPM1.17{random.randint(1000,9999)}.019; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/98.0.{random.randint(1000,9999)}.82 Mobile Safari/537.36",
                 "BundleIdentifier": "user",
                 "X-Token": x,
                 "Accept-Encoding": "identity",
@@ -122,8 +122,9 @@ def proces():
                 "Connection": "Keep-Alive",
             }
         }
-        print(f"{len(dat['token'])} {agee[0:20]} {x[::30]}")
+        print(f"{len(dat['token'])} {x[::30]}")
         spam(num, datt)
+        time.sleep(1.7)
 
 
 tz = pytz.timezone("Asia/Jakarta")

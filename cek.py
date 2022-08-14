@@ -3,7 +3,7 @@ import requests
 import json
 import seting
 import sys
-import webbrowser
+import webbrowser,random
 import ambil
 from datetime import datetime
 
@@ -39,6 +39,11 @@ except:
 ataroinvcode = "B6lixl"
 
 
+def disp(x):
+    sys.stdout.write(f"\t                   \r")
+    sys.stdout.flush()
+    sys.stdout.write(f"\t{x}\r")
+    sys.stdout.flush()
 def oweb(url):
     webbrowser.register('chrome',
                         None,
@@ -49,7 +54,7 @@ def oweb(url):
 def loginid(x):
     uri = "https://wjxwd01mwyo.dt01showxx02.com/App/User_LoginRegister/Login"
     headers = {
-        "User-Agent": "HS-Android Mozilla/5.0 (Linux; Android 8.1.0; SM-J730F Build/M1AJQ; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/103.0.5060.129 Mobile Safari/537.36",
+        "User-Agent": f"HS-Android Mozilla/5.0 (Linux; Android 8.1.0; SM-J730F Build/{random.randint(1000,9999)}; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/103.0.{random.randint(1000,9999)}.129 Mobile Safari/537.36",
         "BundleIdentifier": "user",
         "Accept-Encoding": "identity",
         "X-Version": persi,
@@ -76,7 +81,7 @@ def loginid(x):
 def getbankinfo(x):
     uriweb = "https://wjxwd01mwyo.dt01showxx02.com/App/Pay_BankCard/Mine"
     headers = {
-        "user-agent": "HS-Android Mozilla/5.0 (Linux; Android 8.1.0; SM-J730F Build/M1AJQ; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/103.0.5060.129 Mobile Safari/537.36",
+        "user-agent": f"HS-Android Mozilla/5.0 (Linux; Android 8.1.0; SM-J730F Build/{random.randint(1000,9999)}; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/103.0.{random.randint(1000,9999)}.129 Mobile Safari/537.36",
         "bundleidentifier": "user",
         "x-token": x,
         "accept-encoding": "identity",
@@ -95,7 +100,7 @@ def getbankinfo(x):
 def setpwd(x, pwnya):
     uri = "https://wjxwd01mwyo.dt01showxx02.com/App/Pay_User/SetPwd"
     headers = {
-        "User-Agent": "Mozilla/2.0 (Linux; Android 8.0.0; Redmi 2 Plus Build/OPM1.171019.019; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/91.0.4472.120 Mobile Safari/537.36",
+        "User-Agent": f"HS-Android Mozilla/5.0 (Linux; Android 8.1.0; SM-J730F Build/{random.randint(1000,9999)}; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/103.0.{random.randint(1000,9999)}.129 Mobile Safari/537.36",
         "BundleIdentifier": "user",
         "Accept-Encoding": "identity",
         "x-token": x,
@@ -118,7 +123,7 @@ def setpwd(x, pwnya):
 def setemail(tkn, email, code):
     uri = "https://wjxwd01mwyo.dt01showxx02.com/App/User_User/BindEmail"
     headers = {
-        "User-Agent": "HS-Android Mozilla/5.0 (Linux; Android 8.12.0; Redmi 0 Plus Build/OPM1.171019.019; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/94.0.4606.85 Mobile Safari/537.36",
+        "User-Agent": f"HS-Android Mozilla/5.0 (Linux; Android 8.1.0; SM-J730F Build/{random.randint(1000,9999)}; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/103.0.{random.randint(1000,9999)}.129 Mobile Safari/537.36",
         "BundleIdentifier": "user",
         "x-token": tkn,
         "Accept-Encoding": "identity",
@@ -144,7 +149,7 @@ def setemail(tkn, email, code):
 def setphone(tkn, phone, code):
     uri = "https://wjxwd01mwyo.dt01showxx02.com/App/User_User/BindPhone"
     headers = {
-        "User-Agent": "HS-Android Mozilla/5.0 (Linux; Android 8.12.0; Redmi 0 Plus Build/OPM1.171019.019; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/94.0.4606.85 Mobile Safari/537.36",
+        "User-Agent": f"HS-Android Mozilla/5.0 (Linux; Android 8.1.0; SM-J730F Build/{random.randint(1000,9999)}; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/103.0.{random.randint(1000,9999)}.129 Mobile Safari/537.36",
         "BundleIdentifier": "user",
         "x-token": tkn,
         "Accept-Encoding": "identity",
@@ -171,7 +176,7 @@ def setphone(tkn, phone, code):
 def setbank(x, data):
     uri = "https://wjxwd01mwyo.dt01showxx02.com/App/Pay_BankCard/Add"
     headers = {
-        "User-Agent": "Mozilla/2.0 (Linux; Android 8.0.0; Redmi 2 Plus Build/OPM1.171019.019; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/91.0.4472.120 Mobile Safari/537.36",
+        "User-Agent": f"HS-Android Mozilla/5.0 (Linux; Android 8.1.0; SM-J730F Build/{random.randint(1000,9999)}; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/103.0.{random.randint(1000,9999)}.129 Mobile Safari/537.36",
         "BundleIdentifier": "user",
         "Accept-Encoding": "identity",
         "x-token": x,
@@ -194,7 +199,7 @@ def setbank(x, data):
 def proseswd(x, data):
     uri = "https://wjxwd01mwyo.dt01showxx02.com/App/Pay_Withdrawal/Apply"
     headers = {
-        "User-Agent": "Mozilla/2.0 (Linux; Android 8.0.0; Redmi 4 Plus Build/OPM1.171019.019; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/91.0.4472.120 Mobile Safari/537.36",
+        "User-Agent": f"HS-Android Mozilla/5.0 (Linux; Android 8.1.0; SM-J730F Build/{random.randint(1000,9999)}; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/103.0.{random.randint(1000,9999)}.129 Mobile Safari/537.36",
         "BundleIdentifier": "user",
         "Accept-Encoding": "identity",
         "x-token": x,
@@ -220,7 +225,7 @@ def proseswd(x, data):
 def getmsg(x):
     uriweb = "https://wjxwd01mwyo.dt01showxx02.com/App/Message/List?page1"
     headers = {
-        "user-agent": "Mozilla/5.0 (Linux; Android 8.4.0; Redmi 4 Plus Build/OPM1.171019.019; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/91.0.4472.120 Mobile Safari/537.36",
+        "user-agent": f"HS-Android Mozilla/5.0 (Linux; Android 8.1.0; SM-J730F Build/{random.randint(1000,9999)}; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/103.0.{random.randint(1000,9999)}.129 Mobile Safari/537.36",
         "bundleidentifier": "user",
         "x-token": x,
         "accept-encoding": "identity",
@@ -248,7 +253,7 @@ def getrecord(x):
     waktu = input("waktunya [2022-08-04] :")
     uriweb = f"https://wjxwd01mwyo.dt01showxx02.com/App/Game_Order/GetBetList?date={waktu}&status=0&page=1"
     headers = {
-        "user-agent": "Mozilla/5.0 (Linux; Android 8.4.0; Redmi 4 Plus Build/OPM1.171019.019; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/91.0.4472.120 Mobile Safari/537.36",
+        "user-agent": f"HS-Android Mozilla/5.0 (Linux; Android 8.1.0; SM-J730F Build/{random.randint(1000,9999)}; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/103.0.{random.randint(1000,9999)}.129 Mobile Safari/537.36",
         "bundleidentifier": "user",
         "x-token": x,
         "accept-encoding": "identity",
@@ -270,40 +275,46 @@ def getrecord(x):
         return krm
 
 
-def getinfo(x, agent):
+def getinfo(x):
     uriweb = "https://wjxwd01mwyo.dt01showxx02.com/App/User_User/Info"
     headers = {
-        "user-agent": agent,
+        "user-agent": f"HS-Android Mozilla/5.0 (Linux; Android 8.1.0; SM-J730F Build/{random.randint(1000,9999)}; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/103.0.{random.randint(1000,9999)}.129 Mobile Safari/537.36",
         "bundleidentifier": "user",
         "x-token": x,
         "accept-encoding": "identity",
         "host": "wjxwd01mwyo.dt01showxx02.com",
         "connection": "keep-alive",
     }
-    f = requests.get(uriweb, headers=headers)
-    ress = json.loads(f.text)
-    try:
-        krm = [
-            ress["result"]["nickname"],
-            ress["result"]["balance"],
-            ress["result"]["vip_name"],
-            ress["result"]["id"],
-        ]
-        return krm
-    except:
-        krm = [
-            "expiret",
-            0.0,
-            "expiret",
-            "expiret",
-        ]
-        return krm
+    stat=0
+    while stat!=200:
+        f = requests.get(uriweb, headers=headers)
+        stat=f.status_code
+        if stat==200:
+            ress = json.loads(f.text)
+            try:
+                krm = [
+                    ress["result"]["nickname"],
+                    ress["result"]["balance"],
+                    ress["result"]["vip_name"],
+                    ress["result"]["id"],
+                ]
+                return krm
+            except:
+                krm = [
+                    "expiret",
+                    0.0,
+                    "expiret",
+                    "expiret",
+                ]
+        else:
+            disp("Reconnect")
+    return krm
 
 
 def getinfofull(x):
     uriweb = "https://wjxwd01mwyo.dt01showxx02.com/App/User_User/Info"
     headers = {
-        "user-agent": "HS-Android Mozilla/5.0 (Linux; Android 8.1.0; SM-J730F Build/M1AJQ; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/103.0.5060.129 Mobile Safari/537.36",
+        "user-agent": f"HS-Android Mozilla/5.0 (Linux; Android 8.1.0; SM-J730F Build/{random.randint(1000,9999)}; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/103.0.{random.randint(1000,9999)}.129 Mobile Safari/537.36",
         "bundleidentifier": "user",
         "x-token": x,
         "accept-encoding": "identity",
@@ -330,7 +341,7 @@ def getinfofull(x):
 def getcashlog(x):
     uriweb = f"https://wjxwd01mwyo.dt01showxx02.com/App/User_User/CashLogList?page={input('page : ')}"
     headers = {
-        "user-agent": "HS-Android Mozilla/5.0 (Linux; Android 8.1.0; SM-J730F Build/M1AJQ; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/103.0.5060.129 Mobile Safari/537.36",
+        "user-agent": f"HS-Android Mozilla/5.0 (Linux; Android 8.1.0; SM-J730F Build/{random.randint(1000,9999)}; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/103.0.{random.randint(1000,9999)}.129 Mobile Safari/537.36",
         "bundleidentifier": "user",
         "x-token": x,
         "accept-encoding": "identity",
@@ -351,31 +362,34 @@ def getcashlog(x):
         return krm
 
 
-def lvl(x, agent):
-    uriweb = "https://wjxwd01mwyo.dt01showxx02.com/App/Vip_Vip/MyVip"
-    headers = {
-        "x-ws-apm-id": "0068CBCA-9E03-4264-A904-EC90ADE4F434-259",
-        "user-agent": agent,
-        "bundleidentifier": "user",
-        "x-token": x,
-        "accept-encoding": "identity",
-        "x-version": persi,
-        "host": "wjxwd01mwyo.dt01showxx02.com",
-        "connection": "keep-alive"
-    }
-    f = requests.get(uriweb, headers=headers)
-    try:
-        datas = json.loads(f.text)
-        datasr = datas["result"]["nickname"]
-        return datas["result"]
-    except:
-        return 0
+def lvl(x):
+    stat=0
+    while stat!=200:
+        uriweb = "https://wjxwd01mwyo.dt01showxx02.com/App/Vip_Vip/MyVip"
+        headers = {
+            "x-ws-apm-id": "0068CBCA-9E03-4264-A904-EC90ADE4F434-259",
+            "user-agent": f"HS-Android Mozilla/5.0 (Linux; Android 8.1.0; SM-J730F Build/{random.randint(1000,9999)}; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/103.0.{random.randint(1000,9999)}.129 Mobile Safari/537.36",
+            "bundleidentifier": "user",
+            "x-token": x,
+            "accept-encoding": "identity",
+            "x-version": persi,
+            "host": "wjxwd01mwyo.dt01showxx02.com",
+            "connection": "keep-alive"
+        }
+        f = requests.get(uriweb, headers=headers)
+        stat=f.status_code
+        if stat==200:
+            datas = json.loads(f.text)
+            break
+        else:
+            disp("Reconnect")
+    return datas["result"]
 
 
 def tu(tkn, mett):
     uri = "https://wjxwd01mwyo.dt01showxx02.com/App/Pay_Recharge/Auto"
     headers = {
-        "User-Agent": "HS-Android Mozilla/5.0 (Linux; Android 8.1.0; Redmi 5 Plus Build/OPM1.171019.019; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/94.0.4606.85 Mobile Safari/537.36",
+        "User-Agent": f"HS-Android Mozilla/5.0 (Linux; Android 8.1.0; SM-J730F Build/{random.randint(1000,9999)}; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/103.0.{random.randint(1000,9999)}.129 Mobile Safari/537.36",
         "BundleIdentifier": "user",
         "x-token": tkn,
         "Accept-Encoding": "identity",
@@ -452,7 +466,7 @@ while True:
         token = tokk[0]
         uriweb = "https://wjxwd01mwyo.dt01showxx02.com/App/User_User/Info"
         headers = {
-            "user-agent": "HS-Android Mozilla/5.0 (Linux; Android 8.1.0; SM-J730F Build/M1AJQ; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/103.0.5060.129 Mobile Safari/537.36",
+            "user-agent": f"HS-Android Mozilla/5.0 (Linux; Android 8.1.0; SM-J730F Build/{random.randint(1000,9999)}; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/103.0.{random.randint(1000,9999)}.129 Mobile Safari/537.36",
             "bundleidentifier": "user",
             "x-token": token,
             "accept-encoding": "identity",
@@ -580,7 +594,7 @@ while True:
         tota = []
         for i in range(len(token)):
             try:
-                dtt = getinfo(token[i], ambil.agent())
+                dtt = getinfo(token[i])
                 # print(dtt)
                 nam, bele, rnk, idd = dtt[0], dtt[1], dtt[2], dtt[3]
                 kj = len(nam)
@@ -614,8 +628,8 @@ while True:
 
         tota = []
         for i in range(len(token)):
+            data = lvl(token[i])
             try:
-                data = lvl(token[i], getuagent())
                 nama = data["nickname"]
                 if len(nama) < 9:
                     nama = nama+"\t"
@@ -626,6 +640,7 @@ while True:
                 print(
                     f"   {i+1}. {nama}\t[{vip}] [{target}/{sudah_tu}] {expiret} days")
             except Exception as e:
+                print(data)
                 print(f"error {e}")
                 tn = input("exit y/n :")
                 if tn == "y":

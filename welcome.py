@@ -2,7 +2,7 @@ import requests
 import json
 import getlive
 import seting
-import sys
+import sys,random
 import time
 import ambil
 import random as rdm
@@ -112,7 +112,7 @@ dbb = {
 def getguard(id, tok):
     uri = "https://wjxwd01mwyo.dt01showxx02.com/App/Guard/Buy"
     headers = {
-        "user-agent": "Mozilla/5.0 (Linux; Android 8.1.0; Redmi 5 Plus Build/OPM1.171019.019; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/91.0.4472.120 Mobile Safari/537.36",
+        "user-agent": f"HS-Android Mozilla/5.0 (Linux; Android 8.1.0; Redmi 5 Plus Build/OPM1.17{random.randint(1000,9999)}.019; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/98.0.{random.randint(1000,9999)}.82 Mobile Safari/537.36",
         "bundleidentifier": "user",
         "x-token": tok,
         "accept-encoding": "identity",
@@ -130,7 +130,7 @@ def getguard(id, tok):
 def getmsg(tok):
     uri = "https://wjxwd01mwyo.dt01showxx02.com/App/BusinessCard/List?page=1"
     headers = {
-        "user-agent": "Mozilla/5.0 (Linux; Android 8.1.0; Redmi 5 Plus Build/OPM1.171019.019; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/91.0.4472.120 Mobile Safari/537.36",
+        "user-agent": f"HS-Android Mozilla/5.0 (Linux; Android 8.1.0; Redmi 5 Plus Build/OPM1.17{random.randint(1000,9999)}.019; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/98.0.{random.randint(1000,9999)}.82 Mobile Safari/537.36",
         "bundleidentifier": "user",
         "x-token": tok,
         "accept-encoding": "identity",
@@ -148,7 +148,7 @@ def getmsg(tok):
 def bacaivc(tok, showid):
     uri = f"https://wjxwd01mwyo.dt01showxx02.com/App/BusinessCard/ContentList?show_id={showid}&page=1"
     headers = {
-        "user-agent": "Mozilla/5.0 (Linux; Android 8.1.0; Redmi 5 Plus Build/OPM1.171019.019; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/91.0.4472.120 Mobile Safari/537.36",
+        "user-agent": f"HS-Android Mozilla/5.0 (Linux; Android 8.1.0; Redmi 5 Plus Build/OPM1.17{random.randint(1000,9999)}.019; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/98.0.{random.randint(1000,9999)}.82 Mobile Safari/537.36",
         "bundleidentifier": "user",
         "x-token": tok,
         "accept-encoding": "identity",
@@ -167,7 +167,7 @@ def bacaivc(tok, showid):
 def getidol(id, tok):
     uri = "https://wjxwd01mwyo.dt01showxx02.com/App/BusinessCard/UserGet"
     headers = {
-        "user-agent": "Mozilla/5.0 (Linux; Android 8.1.0; Redmi 5 Plus Build/OPM1.171019.019; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/91.0.4472.120 Mobile Safari/537.36",
+        "user-agent": f"HS-Android Mozilla/5.0 (Linux; Android 8.1.0; Redmi 5 Plus Build/OPM1.17{random.randint(1000,9999)}.019; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/98.0.{random.randint(1000,9999)}.82 Mobile Safari/537.36",
         "bundleidentifier": "user",
         "x-token": tok,
         "accept-encoding": "identity",
@@ -185,7 +185,7 @@ def getidol(id, tok):
 def nama(x):
     uriweb = host + "App/User_User/Info"
     headers = {
-        "user-agent": "HS-Android Mozilla/5.0 (Linux; Android 8.1.0; Redmi 5 Plus Build/OPM1.171019.019; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/95.0.4638.50 Mobile Safari/537.36",
+        "user-agent": f"HS-Android Mozilla/5.0 (Linux; Android 8.1.0; Redmi 5 Plus Build/OPM1.17{random.randint(1000,9999)}.019; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/98.0.{random.randint(1000,9999)}.82 Mobile Safari/537.36",
         "bundleidentifier": "user",
         "x-token": x,
         "accept-encoding": "identity",
@@ -205,7 +205,7 @@ def nama(x):
 def sen(id, tok, tex):
     uri = host + "App/Live/SendMsg"
     headers = {
-        "user-agent": "HS-Android Mozilla/5.0 (Linux; Android 8.5.0; Redmi 2 Plus Build/OPM1.171019.019; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/95.0.4638.50 Mobile Safari/537.36",
+        "user-agent": f"HS-Android Mozilla/5.0 (Linux; Android 8.1.0; Redmi 5 Plus Build/OPM1.17{random.randint(1000,9999)}.019; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/98.0.{random.randint(1000,9999)}.82 Mobile Safari/537.36",
         "bundleidentifier": "user",
         "x-token": tok,
         "accept-encoding": "identity",
