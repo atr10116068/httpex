@@ -19,7 +19,7 @@ import certifi
 ssl_context = ssl.SSLContext(ssl.PROTOCOL_TLS_CLIENT)
 ssl_context.load_verify_locations(certifi.where())
 
-
+ 
 db = TinyDB("data.json")
 tbl = Query()
 # db.truncate()
