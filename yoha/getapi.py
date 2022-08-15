@@ -128,7 +128,7 @@ def register(nomer,password):
         "referral_code":"INoQDdUI2W4TZZDd",
         "channel_code":"2",
         "unique_code":f"{rdm.randint(100000,999999)}7{rdm.randint(100000,999999)}-{rdm.randint(100000,999999)}0{rdm.randint(100000,999999)}{rdm.randint(100000,999999)}",
-        "code":input("code : "),
+        "code":input("\tcode : "),
         "pasteboard":"",
         "device_code":randcode(),
         "guest_code":"",
@@ -142,9 +142,12 @@ def register(nomer,password):
         ress=json.loads(r.text)
         try:
             dbb = {"results": []}
-            nuall={"no":nomer,"pass":password}
-            dbb["results"].append(nuall)
-            db.child("yoha").child("akun").update(dbb)
+            req = db.child('yoha').child('akun').child("results").get()
+            acc = req.val()
+            for tott in acc:
+                dbb["results"].append(tott)
+            dbb["results"].append({"no":nomer,"pass":password})
+            # db.child("yoha").child("akun").update(dbb)
             return ress
         except:
             print(f'gagal : {r.text}')

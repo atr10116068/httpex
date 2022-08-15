@@ -7,6 +7,19 @@ def proses():
     vtkn=ambil.token()
     for t in vtkn:
         getapi.claim(t,1)
+        time.sleep(30)
+        getapi.claim(t,2)
+        time.sleep(30)
+        getapi.claim(t,3)
+        time.sleep(30)
+        getapi.claim(t,4)
+        time.sleep(30)
+        getapi.claim(t,5)
+        time.sleep(30)
+        getapi.claim(t,6)
+        time.sleep(30)
+        getapi.claim(t,7)
+        time.sleep(3600)
 
 tes = True
 jamar = []

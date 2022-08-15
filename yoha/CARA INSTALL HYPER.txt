@@ -1,5 +1,0 @@
-cd hyper
-
-export CRYPTOGRAPHY_DONT_BUILD_RUSH=1
-
-python setup.py install

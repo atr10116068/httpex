@@ -63,7 +63,7 @@ def login(no,passw):
             token=f'Bearer {ress["data"]["access_token"]}'
             return token
         except:
-            print(f'gagal : {r.text}')
+            print(f'gagal : {r.text} {no}')
             return 0
     else:
         print(f"gagal status code : {r.text}")
