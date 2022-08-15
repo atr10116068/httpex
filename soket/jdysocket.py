@@ -1,10 +1,14 @@
+import _thread as thread
+import translatepy as trs
 import websockets
 import json
 import time
 import requests
 import sys
 import seting
-import getlive,sys,random
+import getlive
+import sys
+import random
 import ambil
 from datetime import datetime
 import pytz
@@ -19,7 +23,7 @@ import certifi
 ssl_context = ssl.SSLContext(ssl.PROTOCOL_TLS_CLIENT)
 ssl_context.load_verify_locations(certifi.where())
 
- 
+
 db = TinyDB("data.json")
 tbl = Query()
 # db.truncate()
@@ -33,9 +37,9 @@ room = getlive.roomall()
 x = 1
 for i in room:
     print("{}. {}".format(str(x), i["nickname"]))
-    if i["live_id"]==sys.argv[2]:
-        idroom=i["live_id"]
-        namanya=i["nickname"]
+    if i["live_id"] == sys.argv[2]:
+        idroom = i["live_id"]
+        namanya = i["nickname"]
         break
     x += 1
 
@@ -140,25 +144,25 @@ game = {
 #     if idxg == int(targetgameid):
 #         targetgame = pgp
 #     idxg += 1
-targetgame=sys.argv[3]
+targetgame = sys.argv[3]
+
 
 def rp(str):
     bbb = str.replace("\'", "\"")
     return bbb
 
 
-datroom={
-    "menitclosing":"",
-    "viwermasuk":0,
-    "kosong_brp_kali":0,
-    "isexit":False
-    }
+datroom = {
+    "menitclosing": "",
+    "viwermasuk": 0,
+    "kosong_brp_kali": 0,
+    "isexit": False,
+    "simi": False
+}
 
 
+# ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-#++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
-import translatepy as trs
 dat = {
     "admin": [
         "1119943580",
@@ -175,7 +179,7 @@ dat = {
     ],
     "minimumlvl": 7
 }
-host=["1"]
+host = ["1"]
 lepel = {
     "1": 15,  # host
     "13": 2,
@@ -194,6 +198,8 @@ lepel = {
 }
 
 tokenhost = ambil.tokenhost()
+
+
 def gas2(id, tok):
     uri1 = f"https://wjxwd01mwyo.dt01showxx02.com/App/Live/RealTimePeopleList?live_id={id}&page=1"
     headers = {
@@ -212,10 +218,11 @@ def gas2(id, tok):
     except:
         return [9, 9]
 
+
 def cekkoin(x):
     print(x)
     tokk = ambil.token()
-    tokence=tokk[int(x)-1]
+    tokence = tokk[int(x)-1]
     print(tokence)
     uriweb = "https://wjxwd01mwyo.dt01showxx02.com/App/User_User/Info"
     headers = {
@@ -235,9 +242,11 @@ def cekkoin(x):
             ress["result"]["vip_name"],
             ress["result"]["id"],
         ]
-        sen(idroom, token, f'{ress["result"]["nickname"]} ada {ress["result"]["balance"]} coin bang')
+        sen(idroom, token,
+            f'{ress["result"]["nickname"]} ada {ress["result"]["balance"]} coin bang')
     except:
         sen(idroom, token, f"rusak bang :v")
+
 
 def cariviwer(udata):
     udata["utex"] = udata["utex"].replace("cariakun ", "")
@@ -260,6 +269,7 @@ def cariviwer(udata):
     else:
         sen(idroom, token, f"Ga nemu bang")
 
+
 def clvl(udata):
     try:
         udata["utex"] = udata["utex"].replace("changelvl ", "")
@@ -267,6 +277,7 @@ def clvl(udata):
         sen(idroom, token, f"Sudah di sett ke {udata['utex']}")
     except Exception as e:
         print(f"Error : {e}")
+
 
 gid = []
 imb = ["karena", "ketika", "saat", "dan", "melihat", "mendengar"]
@@ -287,6 +298,7 @@ def jumhost():
     }
     return dat
 
+
 def sen(id, tok, tex):
     uri = "https://wjxwd01mwyo.dt01showxx02.com/App/Live/SendMsg"
     headers = {
@@ -303,12 +315,13 @@ def sen(id, tok, tex):
     ress = json.loads(req.text)
     return ress
 
+
 def trans(udata):
     try:
         udata["utex"] = udata["utex"].replace("tr ", "")
         desx = udata["utex"].split(" ")[0]
-        if desx=="cn":
-            desx="zh-tw"
+        if desx == "cn":
+            desx = "zh-tw"
         se0 = udata["utex"].split(" ")
         del se0[0]
         texxx = ""
@@ -323,9 +336,9 @@ def trans(udata):
         sen(idroom, token, hasi[1])
     except Exception as e:
         print(f"Error : {e}")
-#+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-import _thread as thread
+
 def xrespon(message):
     datadadu = json.loads(message)
     # print(datadadu[0])
@@ -333,29 +346,31 @@ def xrespon(message):
         if datadadu[0]["action"] == "game_lock_award":
             tz = pytz.timezone("Asia/Jakarta")
             now = datetime.now(tz)
-            menit=now.strftime("%M")
-            if datroom["viwermasuk"]<2:
-                if datroom["kosong_brp_kali"]<10:
-                    datroom["kosong_brp_kali"]+=1
+            menit = now.strftime("%M")
+            if datroom["viwermasuk"] < 2:
+                if datroom["kosong_brp_kali"] < 10:
+                    datroom["kosong_brp_kali"] += 1
                 else:
-                    datroom["isexit"]=True
+                    datroom["isexit"] = True
                     db.remove(where('tokenno') == sys.argv[1])
                     sys.exit()
             else:
-                datroom["kosong_brp_kali"]=0
-                
-            if datroom["menitclosing"]!=menit:
-                print(f'\t[ Closing ] jumlah viwer masuk[{datroom["viwermasuk"]}] {namanya}')
-                datroom["menitclosing"]=menit
-                datroom["viwermasuk"]=0
+                datroom["kosong_brp_kali"] = 0
+
+            if datroom["menitclosing"] != menit:
+                print(
+                    f'\t[ Closing ] jumlah viwer masuk[{datroom["viwermasuk"]}] {namanya}')
+                datroom["menitclosing"] = menit
+                datroom["viwermasuk"] = 0
                 db.truncate()
                 db.all()
             else:
                 pass
         elif datadadu[0]["action"] == "enter":
-            sys.stdout.write(f'Masuk {datadadu[0]["data"]["msg_body"]["nickname"]}                      \r')
+            sys.stdout.write(
+                f'Masuk {datadadu[0]["data"]["msg_body"]["nickname"]}                      \r')
             sys.stdout.flush()
-            datroom["viwermasuk"]+=1
+            datroom["viwermasuk"] += 1
         elif datadadu[0]["action"] == "connected":
             print(f'\t\t{datadadu[0]["data"]["msg_body"]["client_id"]}')
             uriweb = "https://wjxwd01mwyo.dt01showxx02.com/App/LiveEnter/JoinGroup"
@@ -416,14 +431,14 @@ def xrespon(message):
                                         # print(xxxx)
                                         xxxx[rp(bet)] += coin
                                         db.update({"data": xxxx},
-                                                    tbl.game == namgame)
+                                                  tbl.game == namgame)
                                     else:
                                         # print(f">>>  {bet} tidak ada")
                                         xxxx = db.get(tbl["game"] == namgame)[
                                             "data"]
                                         xxxx[rp(bet)] = coin
                                         db.update({"data": xxxx},
-                                                    tbl.game == namgame)
+                                                  tbl.game == namgame)
                                         # print(xxxx)
                             except Exception as e:
                                 print(
@@ -445,7 +460,7 @@ def xrespon(message):
                 print(datadadu[0]["data"]["msg_body"])
 
 
-#+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
         if datadadu[0]["action"] == "send_msg":
             utex = datadadu[0]['data']['msg_body']['content']
             udata = {
@@ -455,7 +470,7 @@ def xrespon(message):
                 "utex": utex,
             }
 
-            if udata['utex'].lower() in ["taro", "bangtaro","bang taro"]:
+            if udata['utex'].lower() in ["taro", "bangtaro", "bang taro"]:
                 bawel = [
                     "apa sih... cok",
                     "apaan?",
@@ -515,6 +530,27 @@ def xrespon(message):
             except Exception as e:
                 print(e)
 
+            if utex.lower().startswith("#"):
+                with open("proxy.json") as json_file:
+                    vprox = json.load(json_file)["prox"]
+
+                texx = utex[1:]
+                udata["utex"] = texx
+                if datroom["simi"] == True:
+                    xcv = ambil.simi(
+                        vprox[random.randint(1, 3)]["https"], udata["utex"])
+                    try:
+                        texnya = xcv["success"]
+                        if len(texnya) > 50:
+                            sen(idroom, token,  texnya[0:50])
+                            sen(idroom, token, texnya[50:len(texnya)])
+                        else:
+                            sen(idroom, token, texnya)
+                    except Exception as e:
+                        print(f"Error : {e}")
+                else:
+                    sen(idroom, token, "Simi sedang off")
+
             if utex.lower().startswith("taro "):
                 texx = utex.lower().replace("taro ", "")
                 udata["utex"] = texx
@@ -523,10 +559,35 @@ def xrespon(message):
                         if udata['utex'].startswith("tr "):
                             trans(udata)
                         elif udata['utex'].startswith("cariakun "):
-                            udata["utex"]=utex.replace("taro ", "")
+                            udata["utex"] = utex.replace("taro ", "")
                             cariviwer(udata)
+                        elif udata['utex'].startswith("simi "):
+                            udata["utex"] = texx.replace("simi ", "")
+                            if udata["utex"] == "on":
+                                if udata["uid"] in dat["admin"]:
+                                    if datroom["simi"] == False:
+                                        datroom["simi"] = True
+                                        sen(idroom, token, f'Simi aktif')
+                                    else:
+                                        sen(idroom, token,
+                                            f'Simi sudah aktif blok')
+                                else:
+                                    sen(idroom, token, f'Hanya adminku yang boleh')
+                            elif udata["utex"] == "off":
+                                if udata["uid"] in dat["admin"]:
+                                    if datroom["simi"] == True:
+                                        datroom["simi"] = False
+                                        sen(idroom, token, f'Simi tidak aktif')
+                                    else:
+                                        sen(idroom, token,
+                                            f'Simi sudah tidak aktif blok')
+                                else:
+                                    sen(idroom, token, f'Hanya adminku yang boleh')
+                            else:
+                                print(f'\t\t{udata["utex"]}')
+                                sen(idroom, token, f'Aku bingung :v')
                         elif udata['utex'].startswith("cek koin "):
-                            udata["utex"]=utex.replace("taro cek koin", "")
+                            udata["utex"] = utex.replace("taro cek koin", "")
                             if udata["uid"] in dat["admin"] or udata["ulvl"] in host:
                                 cekkoin(udata["utex"])
                             else:
@@ -578,7 +639,7 @@ def xrespon(message):
 
 
 while True:
-    if datroom["isexit"]==True:
+    if datroom["isexit"] == True:
         break
     try:
         async def test():

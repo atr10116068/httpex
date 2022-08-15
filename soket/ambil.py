@@ -1,6 +1,8 @@
 
 import pyrebase
 import sys
+import requests
+import json
 import random
 import time
 config = {
@@ -188,3 +190,16 @@ def agent():
             datagent["bckagent"].clear()
             # print("stop")
     return cariagen
+
+
+def simi(proxx, tex):
+    uriweb = f"https://api.simsimi.net/v2/?text={tex}&lc=id"
+    proxx = {
+        "https": proxx.strip()
+    }
+    headers = {
+        "user-agent": f"Mozilla/5.0 (Linux; Android 8.1.0; Redmi 5 Plus Build/OPM1.{random.randint(100000,999999)}.019; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/91.0.{random.randint(1000,9999)}.{random.randint(100,999)} Mobile Safari/537.36",
+    }
+    res = requests.get(uriweb, headers=headers, proxies=proxx)
+    res = json.loads(res.text)
+    return res

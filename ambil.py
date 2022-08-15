@@ -1,7 +1,10 @@
 
-import pyrebase,json
+import pyrebase
+import json
+import requests
 import sys
 import random
+import json
 import time
 config = {
     "apiKey": "AIzaSyDo7m9xUXkOiCVjuS6kKwkLchejkUNl5IY",
@@ -23,6 +26,7 @@ def token():
     req = db.child('account').child('token').get()
     acc = req.val()["results"]
     return acc
+
 
 def hanzo():
     with open("user_token.json") as json_file:
@@ -193,3 +197,13 @@ def agent():
             datagent["bckagent"].clear()
             # print("stop")
     return cariagen
+
+
+def reqsim(proxx):
+    uriweb = "https://api.simsimi.net/v2/?text=hi&lc=id"
+    headers = {
+        "user-agent": f"Mozilla/5.0 (Linux; Android 8.1.0; Redmi 5 Plus Build/OPM1.{random.randint(100000,999999)}.019; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/91.0.{random.randint(1000,9999)}.{random.randint(100,999)} Mobile Safari/537.36",
+    }
+    res = requests.get(uriweb, headers=headers, proxies=proxx)
+    res = json.dumps(res.text)
+    return res
