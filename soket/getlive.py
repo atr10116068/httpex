@@ -522,7 +522,7 @@ def roomall():
     rindo = roomindo(datt)
     rgame = roomgame(datt)
     rsexy = roomsexy(datt)
-    # rhot = roomhot(datt)
+    rhot = roomhot(datt)
 
     rall = []
     rname = []
@@ -553,13 +553,13 @@ def roomall():
             else:
                 rname.append(t["nickname"])
                 rall.append(t)
-    # for t in rhot:
-    #     if t["nickname"] not in rname:
-    #         if "6688" in t["nickname"]:
-    #             pass
-    #         elif "bling" in t["nickname"]:
-    #             pass
-    #         else:
-    #             rname.append(t["nickname"])
-    #             rall.append(t)
+    for t in rhot:
+        if t["nickname"] not in rname:
+            if "6688" in t["nickname"]:
+                pass
+            elif "bling" in t["nickname"]:
+                pass
+            else:
+                rname.append(t["nickname"])
+                rall.append(t)
     return rall

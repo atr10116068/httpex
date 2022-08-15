@@ -58,8 +58,8 @@ while True:
             dat[idnya]=i["nickname"]
             time.sleep(0.4)
         x+=1
-        if x==6:
-            break
+        # if x==6:
+        #     break
     time.sleep(120)
     # print(json.dumps(dat,indent=2))
 

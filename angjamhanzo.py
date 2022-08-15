@@ -142,9 +142,9 @@ while True:
         if dat["claim"] == True:
             datan = {"totaljam": 0, "totalakun": 0}
             print(">claim is true")
-            tokk = ambil.token()
-            dat["token"] = tokk
+            tokk = ambil.hanzo()
             dat["versi"]=seting.versi()
+            dat["token"] = tokk
             if str(dat["jam"])[0:11] not in dat["blokjam"]:
                 dat["claim"] = False
                 print(">lolos backup waktu")

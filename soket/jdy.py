@@ -162,163 +162,168 @@ else:
     ngebet=False
     
 while True:
-    os.system('cls')
-    db = TinyDB("data.json")
-    xs = db.all()
-    xnum=10
-    ress={"Big":0,"Small":0,"Odd":0,"Even":0,"Banker":0,"Player":0}
-    for x in xs:
-        print(f'__________[ {x["game"]} ]_________')
-        for xxx in x["data"]:
-            clr=""
-            clrnum="green"
-            num=x["data"][xxx]
-            if xnum<num:
-                clrnum="red"
-                xnum=num
-            else:
-                clrnum="grey"
+    try:
+        os.system('cls')
+        db = TinyDB("data.json")
+        xs = db.all()
+        xnum=10
+        ress={"Big":0,"Small":0,"Odd":0,"Even":0,"Banker":0,"Player":0}
+        for x in xs:
+            print(f'__________[ {x["game"]} ]_________')
+            for xxx in x["data"]:
+                clr=""
+                clrnum="green"
+                num=x["data"][xxx]
+                if xnum<num:
+                    clrnum="red"
+                    xnum=num
+                else:
+                    clrnum="grey"
 
-            if "Big" in xxx:
-                clr="red"
-            if "Banker" in xxx:
-                clr="red"
-            if "Small" in xxx:
-                clr="blue"
-            if "Player" in xxx:
-                clr="blue"
-            if "Odd" in xxx:
-                clr="cyan"
-            if "Even" in xxx:
-                clr="magenta"
-            if "Any" in xxx:
-                clr="purple"
-            ress[xxx]=num
-            print(f'{c(clr,xxx,0)}:{c(clrnum,num,0)}')
-    
-    if inpgame==1:
-        try:
-            now = datetime.now(tz)
-            dtk=now.strftime("%S")
-            sisahw=60-int(dtk)
-            xx=now.strftime(f"Sisah Waktu {sisahw}")
-            print(c("magenta",'_________________________',0))
-            print(xx)
-            def betbrp(xx):
-                if xx>10:
-                    bett=5
-                elif xx>5:
-                    bett=5
-                else:
-                    bett=xx
-                return bett
-            if sisahw==tanda["getnum"]:
-                dat["gamenumber"]=getnum(token)
-            if sisahw==tanda["betting"]:
-                print()
-                # print(ress)
-                bs,oe=["",0],["",0]
-                if int(ress["Small"])>int(ress["Big"]):
-                    bs[0]="big"
-                    selisihbs = int(ress["Small"])-int(ress["Big"])
-                    bettbs=round(selisihbs*persenan)
-                else:
-                    bs[0]="small"
-                    selisihbs = int(ress["Big"])-int(ress["Small"])
-                    bettbs=round(selisihbs*persenan)
-                bs[1]=betbrp(bettbs)
+                if "Big" in xxx:
+                    clr="red"
+                if "Banker" in xxx:
+                    clr="red"
+                if "Small" in xxx:
+                    clr="blue"
+                if "Player" in xxx:
+                    clr="blue"
+                if "Odd" in xxx:
+                    clr="cyan"
+                if "Even" in xxx:
+                    clr="magenta"
+                if "Any" in xxx:
+                    clr="purple"
+                ress[xxx]=num
+                print(f'{c(clr,xxx,0)}:{c(clrnum,num,0)}')
+        
+        if inpgame==1:
+            try:
+                now = datetime.now(tz)
+                dtk=now.strftime("%S")
+                sisahw=60-int(dtk)
+                xx=now.strftime(f"Sisah Waktu {sisahw}")
+                print(c("magenta",'_________________________',0))
+                print(xx)
+                def betbrp(xx):
+                    if xx>10:
+                        bett=5
+                    elif xx>5:
+                        bett=5
+                    else:
+                        bett=xx
+                    return bett
+                if sisahw==tanda["getnum"]:
+                    dat["gamenumber"]=getnum(token)
+                if sisahw==tanda["betting"]:
+                    print()
+                    # print(ress)
+                    bs,oe=["",0],["",0]
+                    if int(ress["Small"])>int(ress["Big"]):
+                        bs[0]="big"
+                        selisihbs = int(ress["Small"])-int(ress["Big"])
+                        bettbs=round(selisihbs*persenan)
+                    else:
+                        bs[0]="small"
+                        selisihbs = int(ress["Big"])-int(ress["Small"])
+                        bettbs=round(selisihbs*persenan)
+                    bs[1]=betbrp(bettbs)
 
-                if int(ress["Odd"])>int(ress["Even"]):
-                    oe[0]="even"
-                    selisihoe = int(ress["Odd"])-int(ress["Even"])
-                    bettoe=round(selisihoe*persenan)
-                else:
-                    oe[0]="odd"
-                    selisihoe = int(ress["Even"])-int(ress["Odd"])
-                    bettoe=round(selisihoe*persenan)
-                oe[1]=betbrp(bettoe)
+                    if int(ress["Odd"])>int(ress["Even"]):
+                        oe[0]="even"
+                        selisihoe = int(ress["Odd"])-int(ress["Even"])
+                        bettoe=round(selisihoe*persenan)
+                    else:
+                        oe[0]="odd"
+                        selisihoe = int(ress["Even"])-int(ress["Odd"])
+                        bettoe=round(selisihoe*persenan)
+                    oe[1]=betbrp(bettoe)
+                    
+                    listObj={
+                        "results":{"bet":[]}
+                    }
+
+                    if bs[1]!=0:
+                        # print(f"Selisih {selisihbs}[{bettbs}] Bet {bs[0]} {str(bs[1])} coin")
+                        listObj["results"]["bet"].append(f"{bs[0]}{bs[1]}")
+                        bet(token,bs[0],str(bs[1]))
+                    if oe[1]!=0:
+                        # print(f"Selisih {selisihoe}[{bettoe}] Bet {oe[0]} {str(oe[1])} coin")
+                        listObj["results"]["bet"].append(f"{oe[0]}{oe[1]}")
+                        bet(token,oe[0],str(oe[1]))
+
+                    with open("betting.json", 'w') as json_file:
+                        json.dump(listObj, json_file, indent=2,  separators=(',',': '))
+                    # input("Press Enter to next")
                 
-                listObj={
-                    "results":{"bet":[]}
-                }
+                with open("betting.json", 'r') as json_file:
+                    xbet=json.load(json_file)
+                if len(xbet["results"]["bet"])!=0:
+                    for ppop in xbet["results"]["bet"]:
+                        print(ppop)
+            except Exception as e:
+                print(f"error : {e}")
+                time.sleep(1)
+        elif inpgame==2:
+            try:
+                now = datetime.now(tz)
+                dtk=now.strftime("%S")
+                sisahw=60-int(dtk)
+                xx=now.strftime(f"Sisah Waktu {sisahw}")
+                print(c("magenta",'_________________________',0))
+                print(xx)
+                def betbrp(xx):
+                    if xx>10:
+                        bett=5
+                    elif xx>5:
+                        bett=5
+                    else:
+                        bett=xx
+                    return bett
+                if sisahw==tanda["getnum"]:
+                    dat["gamenumber"]=getnum(token)
+                if sisahw==tanda["betting"]:
+                    print()
 
-                if bs[1]!=0:
-                    # print(f"Selisih {selisihbs}[{bettbs}] Bet {bs[0]} {str(bs[1])} coin")
-                    listObj["results"]["bet"].append(f"{bs[0]}{bs[1]}")
-                    bet(token,bs[0],str(bs[1]))
-                if oe[1]!=0:
-                    # print(f"Selisih {selisihoe}[{bettoe}] Bet {oe[0]} {str(oe[1])} coin")
-                    listObj["results"]["bet"].append(f"{oe[0]}{oe[1]}")
-                    bet(token,oe[0],str(oe[1]))
+                    oe=["",0]
 
-                with open("betting.json", 'w') as json_file:
-                    json.dump(listObj, json_file, indent=2,  separators=(',',': '))
-                # input("Press Enter to next")
-            
-            with open("betting.json", 'r') as json_file:
-                xbet=json.load(json_file)
-            if len(xbet["results"]["bet"])!=0:
-                for ppop in xbet["results"]["bet"]:
-                    print(ppop)
-        except Exception as e:
-            print(f"error : {e}")
-            time.sleep(1)
-    elif inpgame==2:
-        try:
-            now = datetime.now(tz)
-            dtk=now.strftime("%S")
-            sisahw=60-int(dtk)
-            xx=now.strftime(f"Sisah Waktu {sisahw}")
-            print(c("magenta",'_________________________',0))
-            print(xx)
-            def betbrp(xx):
-                if xx>10:
-                    bett=5
-                elif xx>5:
-                    bett=5
-                else:
-                    bett=xx
-                return bett
-            if sisahw==tanda["getnum"]:
-                dat["gamenumber"]=getnum(token)
-            if sisahw==tanda["betting"]:
-                print()
+                    if int(ress["Banker"])>int(ress["Player"]):
+                        oe[0]="player"
+                        selisihoe = int(ress["Banker"])-int(ress["Player"])
+                        bettoe=round(selisihoe*persenan)
+                    else:
+                        oe[0]="banker"
+                        selisihoe = int(ress["Player"])-int(ress["Banker"])
+                        bettoe=round(selisihoe*persenan)
+                    oe[1]=betbrp(bettoe)
+                    
+                    listObj={
+                        "results":{"bet":[]}
+                    }
 
-                oe=["",0]
+                    # print(ress)
+                    if oe[1]!=0:
+                        print(f"Selisih {selisihoe}[{bettoe}] Bet {oe[0]} {str(oe[1])} coin")
+                        listObj["results"]["bet"].append(f"{oe[0]}{oe[1]}")
+                        betbac(token,oe[0],str(oe[1]))
 
-                if int(ress["Banker"])>int(ress["Player"]):
-                    oe[0]="player"
-                    selisihoe = int(ress["Banker"])-int(ress["Player"])
-                    bettoe=round(selisihoe*persenan)
-                else:
-                    oe[0]="banker"
-                    selisihoe = int(ress["Player"])-int(ress["Banker"])
-                    bettoe=round(selisihoe*persenan)
-                oe[1]=betbrp(bettoe)
+                    with open("betting.json", 'w') as json_file:
+                        json.dump(listObj, json_file, indent=2,  separators=(',',': '))
+                    # input("Press Enter to next")
                 
-                listObj={
-                    "results":{"bet":[]}
-                }
-
-                # print(ress)
-                if oe[1]!=0:
-                    print(f"Selisih {selisihoe}[{bettoe}] Bet {oe[0]} {str(oe[1])} coin")
-                    listObj["results"]["bet"].append(f"{oe[0]}{oe[1]}")
-                    betbac(token,oe[0],str(oe[1]))
-
-                with open("betting.json", 'w') as json_file:
-                    json.dump(listObj, json_file, indent=2,  separators=(',',': '))
-                # input("Press Enter to next")
-            
-            with open("betting.json", 'r') as json_file:
-                xbet=json.load(json_file)
-            if len(xbet["results"]["bet"])!=0:
-                for ppop in xbet["results"]["bet"]:
-                    print(ppop)
-        except Exception as e:
-            print(f"error : {e}")
-            time.sleep(1)
-
+                with open("betting.json", 'r') as json_file:
+                    xbet=json.load(json_file)
+                if len(xbet["results"]["bet"])!=0:
+                    for ppop in xbet["results"]["bet"]:
+                        print(ppop)
+            except Exception as e:
+                print(f"error : {e}")
+                time.sleep(1)
+    except Exception as e:
+        print(f"Error : {e}")
+        ditts={"_default": {}}
+        with open("data.json", "w") as outfile:
+            json.dump(ditts, outfile)
 
 
     time.sleep(1)
