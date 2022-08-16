@@ -1,28 +1,26 @@
 import time
 import pytz
 from datetime import datetime
-import ambil,getapi
+import ambil
+import getapi
+
+
+jde = 3
+
 
 def proses():
-    vtkn=ambil.token()
+    vtkn = ambil.token()
     for t in vtkn:
-        getapi.claim(t,1)
-        time.sleep(30)
-        getapi.claim(t,2)
-        time.sleep(30)
-        getapi.claim(t,3)
-        time.sleep(30)
-        getapi.claim(t,4)
-        time.sleep(30)
-        getapi.claim(t,5)
-        time.sleep(30)
-        getapi.claim(t,6)
-        time.sleep(30)
-        getapi.claim(t,7)
-        time.sleep(3600)
+        for tp in range(1, 7, 1):
+            tpp = getapi.claim(t, tp)
+            if tpp["code"] in [500, 4001]:
+                break
+            time.sleep(jde)
+
 
 tes = True
 jamar = []
+
 
 def jam():
     tz = pytz.timezone("Asia/Jakarta")

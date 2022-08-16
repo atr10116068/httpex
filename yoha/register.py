@@ -27,12 +27,11 @@ while True:
         tet += 1
     print(f"  total uid : {len(dbb['results'])}")
 
-    nomer=input("\tnomor : ")
+    nomer = input("\tnomor : ")
     if nomer.startswith("0"):
         print("auto change 0 to 62")
-        nomer="62"+nomer[1:]
+        nomer = "62"+nomer[1:]
     print(nomer)
     getapi.sendcode(nomer)
-    passwd="t4ufiq654321"
-    getapi.register(nomer,passwd)
-
+    passwd = "t4ufiq654321"
+    getapi.register(nomer, passwd)

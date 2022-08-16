@@ -1,16 +1,5 @@
-import collections.abc
-#hyper needs the four following aliases to be done manually.
-collections.Iterable = collections.abc.Iterable
-collections.Mapping = collections.abc.Mapping
-collections.MutableSet = collections.abc.MutableSet
-collections.MutableMapping = collections.abc.MutableMapping
-#Now import hyper
-from hyper.contrib import HTTP20Adapter
-import requests
-s = requests.Session()
-s.mount('https://http2bin.org', HTTP20Adapter())
-
 import json
+import httpx
 import time
 import pytz
 import random as rdm
@@ -35,32 +24,33 @@ firebase = pyrebase.initialize_app(config)
 db = firebase.database()
 with open("data.json") as json_file:
     data = json.load(json_file)["results"]
-persi=data["versi"]
+persi = data["versi"]
 
-head={
-  "host":"api.yoha.pro",
-  "content-type":"application/json; charset=utf-8",
-  "user-agent":f"okhttp/5.0.0-alpha.2 {rdm.randint(1111,9999)}"
+head = {
+    "host": "api.yoha.pro",
+    "content-type": "application/json; charset=utf-8",
+    "user-agent": f"okhttp/5.0.0-alpha.2 {rdm.randint(1111,9999)}"
 }
 
-def login(no,passw):
-    head["accept"]="application/json"
-    head["accept-encoding"]="gzip"
-    param={
-        "user_login":no,
-        "user_pass":passw,
-        "user_email":"",
-        "source":"",
-        "v":persi,
-        "ip":f'180.252.129.{rdm.randint(1,255)}',
-        "l":"in",
+
+def login(no, passw):
+    head["accept"] = "application/json"
+    head["accept-encoding"] = "gzip"
+    param = {
+        "user_login": no,
+        "user_pass": passw,
+        "user_email": "",
+        "source": "",
+        "v": persi,
+        "ip": f'180.252.129.{rdm.randint(1,255)}',
+        "l": "in",
     }
-    uri=f'{data["host"]}api/auth/login'
-    r = s.post(uri,params=param,headers=head)
-    if r.status_code==200:
-        ress=json.loads(r.text)
+    uri = f'{data["host"]}api/auth/login'
+    r = httpx.post(uri, params=param, headers=head)
+    if r.status_code == 200:
+        ress = json.loads(r.text)
         try:
-            token=f'Bearer {ress["data"]["access_token"]}'
+            token = f'Bearer {ress["data"]["access_token"]}'
             return token
         except:
             print(f'gagal : {r.text} {no}')
@@ -70,20 +60,21 @@ def login(no,passw):
         return 0
 
 
-
 def uid():
     uid = db.child('yoha').child('akun').get()
     acc = uid.val()["results"]
     return acc
+
+
 def reset():
-    acc=uid()
+    acc = uid()
     token = []
     itr = 0
     for id in acc:
         itr += 1
         sys.stdout.write(f"{itr}\r")
         sys.stdout.flush()
-        tkn = login(id["no"],id["pass"])
+        tkn = login(id["no"], id["pass"])
         if tkn != 0:
             try:
                 token.append(tkn)
