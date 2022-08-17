@@ -386,6 +386,12 @@ def main(ttt):
 
         elif inpt == "guard":
             print(getguard(idroom, token))
+        elif inpt.startswith("count "):
+            inpt = inpt.replace("count ", "")
+            for titr in range(int(inpt),0,-1):
+                if titr %10==0:
+                    sen(idroom, token, f"{titr} detik lagi")
+                time.sleep(1)
         elif inpt.startswith("loop "):
             inpt = inpt.replace("loop ", "")
             dbbs = inpt.split(" ")[0]

@@ -11,10 +11,10 @@ db = TinyDB("datatokenroom.json")
 tbl = Query()
 db.truncate()
 
-getproxx = ambil.proxy()
-listObj = {"prox": getproxx}
-with open("proxy.json", 'w') as json_file:
-    json.dump(listObj, json_file, indent=2,  separators=(',', ': '))
+# getproxx = ambil.proxy()
+# listObj = {"prox": getproxx}
+# with open("proxy.json", 'w') as json_file:
+#     json.dump(listObj, json_file, indent=2,  separators=(',', ': '))
 
 
 persi = seting.versi()
@@ -66,14 +66,14 @@ while True:
     room = getlive.roomall()
     x = 0
     for i in room:
-        # print("{}. {}".format(str(x), i["nickname"]))
+        print("{}. {}".format(str(x), i["nickname"]))
         idnya = i["live_id"]
         if idnya not in dat:
             buka(idnya, targetgame)
             dat[idnya] = i["nickname"]
             time.sleep(0.4)
         x += 1
-        if x == 6:
-            break
+        # if x == 11:
+        #     break
     time.sleep(120)
     # print(json.dumps(dat,indent=2))

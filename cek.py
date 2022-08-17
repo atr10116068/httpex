@@ -1,7 +1,7 @@
 import pyrebase
 import requests
 import json
-import seting
+import seting,getcodebind
 import sys
 import webbrowser,random
 import ambil
@@ -518,6 +518,7 @@ menu = """
   > cekbank
   > setbank
   > setphone
+  > getcodeemail
   > setemail
   > wd
   > q
@@ -562,6 +563,12 @@ while True:
 
         print(setpwd(token, pwd))
         print(setbank(token, databank))
+    elif jlk == "getcodeemail":
+        tokk = ambil.token()
+        token = tokk[int(input("token ke : "))-1]
+        ema = input("email : ")
+        ksign = input("sign : ")
+        print(getcodebind.getcode(token, ema, ksign))
     elif jlk == "setemail":
         print("ambil codenya dr hp")
         tokk = ambil.token()

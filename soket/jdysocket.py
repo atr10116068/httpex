@@ -279,9 +279,11 @@ def clvl(udata):
         print(f"Error : {e}")
 
 
-gid = []
 imb = ["karena", "ketika", "saat", "dan", "melihat", "mendengar"]
-gamechat = {}
+gamechat = {
+    "nama":[],
+    "kerja":[]
+    }
 
 
 def jumhost():
@@ -490,55 +492,46 @@ def xrespon(message):
                     udata["utex"] = texx
                     if udata['utex'] == "reset":
                         if udata["uid"] in dat["admin"] or udata["ulvl"] in host:
-                            gamechat.clear()
-                            gid.clear()
+                            gamechat["nama"].clear()
+                            gamechat["kerja"].clear()
                         else:
                             tex = "Hanya adminku yang boleh"
                             sen(idroom, token, tex)
                     if udata['utex'] == "cek":
-                        tex = f"{len(gid)} akun ikutan"
+                        tex = f"{len({len(gamechat['nama'])})} nama dan {len(gamechat['nama'])} kata kerja"
                         sen(idroom, token, tex)
                     if udata['utex'] == "main":
                         if udata["uid"] in dat["admin"] or udata["ulvl"] in host:
-                            for tex in ["ketik .add [nama]-[kerja]-[nama]-[kerja]", 'contoh .add budi-terkejut-alex-uncep']:
+                            for tex in ["ketik .add 1 [nama orang]", 'ketik .add 2 [kata kerja]']:
                                 sen(idroom, token, tex)
 
                     elif udata['utex'] == "acak":
                         if udata["uid"] in dat["admin"] or udata["ulvl"] in host:
-                            print(gid)
                             print(gamechat)
-                            disp = f"{gamechat[random.choice(gid)][0]} {gamechat[random.choice(gid)][1]} {random.choice(imb)} {gamechat[random.choice(gid)][2]} {gamechat[random.choice(gid)][3]}"
+                            disp = f"{random.choice(gamechat['nama'])} {random.choice(gamechat['kerja'])} {random.choice(imb)} {random.choice(gamechat['nama'])} {random.choice(gamechat['kerja'])}"
                             sen(idroom, token, disp)
                         else:
                             tex = "Hanya adminku yang boleh"
                             sen(idroom, token, tex)
 
-                    elif udata['utex'].startswith("add "):
-                        dgame = texx.replace("add ", "")
-                        dgames = dgame.split("-")
-                        if len(dgames) == 4:
-                            gamechat[udata["uid"]] = dgames
-                            if udata["uid"] not in gid:
-                                gid.append(udata["uid"])
-                            tex = "Sudah ditambah"
-                            sen(idroom, token, tex)
-                        else:
-                            tex = "contoh nama-ekspresi-nama-ekspresi"
-                            sen(idroom, token, tex)
-                            tex = "contoh budi-terkejut-rudi-tertawa"
-                            sen(idroom, token, tex)
+                    elif udata['utex'].startswith("add 1 "):
+                        dgame = texx.replace("add 1 ", "")
+                        gamechat["nama"].append(dgame)
+                        tex = "nama sudah ditambah"
+                        sen(idroom, token, tex)
+                    elif udata['utex'].startswith("add 2 "):
+                        dgame = texx.replace("add 2 ", "")
+                        gamechat["kerja"].append(dgame)
+                        tex = "kata kerja sudah ditambah"
+                        sen(idroom, token, tex)
             except Exception as e:
                 print(e)
 
             if utex.lower().startswith("#"):
-                with open("proxy.json") as json_file:
-                    vprox = json.load(json_file)["prox"]
-
                 texx = utex[1:]
                 udata["utex"] = texx
                 if datroom["simi"] == True:
-                    xcv = ambil.simi(
-                        vprox[random.randint(1, 3)]["https"], udata["utex"])
+                    xcv = ambil.simi(udata["utex"])
                     try:
                         texnya = xcv["success"]
                         if len(texnya) > 50:

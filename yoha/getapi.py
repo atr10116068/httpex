@@ -1,5 +1,5 @@
 import random as rdm
-import json
+import json,ambil
 import httpx
 
 import pyrebase
@@ -21,14 +21,24 @@ db = firebase.database()
 
 with open("data.json") as json_file:
     data = json.load(json_file)["results"]
-persi = data["versi"]
+
 
 
 head = {
     "host": "api.yoha.pro",
     "content-type": "application/json; charset=utf-8",
-    "user-agent": f"okhttp/5.0.0-alpha.2 {rdm.randint(1111,9999)}"
+    "user-agent": f"Mozilla/5.0 (iPhone13,2; U; CPU iPhone OS 14_0 like Mac OS X) AppleWebKit/602.{rdm.randint(0,255)}.{rdm.randint(0,255)} (KHTML, like Gecko) Version/10.0 Mobile/{rdm.randint(11,99)}E{rdm.randint(111,999)} Safari/602.1"
 }
+head["authorization"] = rdm.choice(ambil.token())
+uri = f'{data["host"]}api/options/index?v=2.0.8&ip=180.{rdm.randint(1,255)}.{rdm.randint(1,255)}.{rdm.randint(1,255)}&l=in'
+r = httpx.get(uri, headers=head)
+if r.status_code == 200:
+    ress = (json.loads(r.text))
+    persi=ress["data"]["apk_ver"]
+    print(f"\tCurrent Version [{persi}]")
+else:
+    print("GAGAL DETECT VERSI")
+    exit()
 
 
 def profile(token):
@@ -38,7 +48,7 @@ def profile(token):
     if r.status_code == 200:
         ress = (json.loads(r.text))
         for akun in ress["data"]:
-            # print(f"{akun} : {ress['data'][akun]}")
+            cek=ress['data'][akun]
             return ress
         else:
             print(f"gagal : {ress['message']}")
@@ -189,6 +199,49 @@ def send(token, streamid, tex):
         "l": "in"
     }
     uri = f'{data["api"]}live/sendMsg'
+    try:
+        r = httpx.post(uri, data=json.dumps(param1), headers=head, timeout=5)
+        if r.status_code == 200:
+            ressx = (json.loads(r.text))
+            return ressx
+        print(f"{r.text}")
+    except Exception as error:
+        print(error)
+    return 0
+
+def getgift(token):
+    head["authorization"] = token
+    head["host"] = "tech04.yoha.pro"
+    param1 = {
+    }
+    uri = f'{data["api"]}live/getGiftList'
+    try:
+        r = httpx.post(uri, data=json.dumps(param1), headers=head, timeout=5)
+        if r.status_code == 200:
+            ressx = (json.loads(r.text))
+            return ressx
+        print(f"{r.text}")
+    except Exception as error:
+        print(error)
+    return 0
+
+
+def gift(token,stream,idgift,liveuid,num):
+    head["authorization"] = token
+    head["host"] = "tech04.yoha.pro"
+    aipi = f'180.{rdm.randint(1,255)}.{rdm.randint(1,255)}.{rdm.randint(1,255)}'
+    param1 = {
+        "stream":stream,
+        "num":num,
+        "live_uid":liveuid,
+        "gift_id":idgift,
+        "combo":"true",
+        "type":"0",
+        "v": persi,
+        "ip": aipi,
+        "l": "in"
+    }
+    uri = f'{data["api"]}live/sendGift'
     try:
         r = httpx.post(uri, data=json.dumps(param1), headers=head, timeout=5)
         if r.status_code == 200:

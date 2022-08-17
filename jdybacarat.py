@@ -1,5 +1,5 @@
 import requests
-import json
+import json,random
 import time
 import getlive
 import seting
@@ -21,7 +21,7 @@ dat = {"roomid": "0"}
 def getnum(x):
     uri = "https://wjxwd01mwyo.dt01showxx02.com/App/Game_Game/GetTypeInfo"
     headers = {
-        "user-agent": "Mozilla/5.0 (Linux; Android 8.1.0; Redmi 5 Plus Build/OPM1.171019.019; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/91.0.4472.120 Mobile Safari/537.36",
+        "user-agent": f"HS-Android Mozilla/5.0 (Linux; Android 8.1.0; SM-J730F Build/{random.randint(1000,9999)}; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/103.0.{random.randint(1000,9999)}.129 Mobile Safari/537.36",
         "bundleidentifier": "user",
         "x-token": x,
         "accept-encoding": "identity",
@@ -50,7 +50,7 @@ def bet(x, type, num,proxs):
     }
     uri = "https://wjxwd01mwyo.dt01showxx02.com/App/Game_Order/Create"
     headers = {
-        "User-Agent": "Mozilla/5.0 (Linux; Android 8.1.0; Redmi 5 Plus Build/OPM1.171019.019; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/91.0.4472.120 Mobile Safari/537.36",
+        "User-Agent": f"HS-Android Mozilla/5.0 (Linux; Android 8.1.0; SM-J730F Build/{random.randint(1000,9999)}; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/103.0.{random.randint(1000,9999)}.129 Mobile Safari/537.36",
         "BundleIdentifier": "user",
         "X-Token": x,
         "Accept-Encoding": "identity",
