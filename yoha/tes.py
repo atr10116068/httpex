@@ -1,3 +1,7 @@
-import getapi
+from datetime import datetime
+import pytz
+import time
 
-print(getapi.versi())
+tz = pytz.timezone("Asia/Jakarta")
+now = datetime.now(tz)
+print(now.strftime("%M"))

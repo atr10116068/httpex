@@ -1,7 +1,9 @@
 import getapi
 import wnrapi
 import time
-import os
+import pytz
+import sys
+from datetime import datetime
 import pyrebase
 from tinydb import *
 config = {
@@ -53,19 +55,35 @@ while True:
         idxprod += 1
 
     idxprodinp = int(input("Produk ke : "))-1
-    lup = input("ulangi hingga : ")
     idproduk = dbproduk[idxprodinp]["id"]
     print(idopra)
     print(idproduk)
     harga = dbproduk[idxprodinp]["price"]
+    print(f"harga : {harga}")
+    lup = input("ulangi hingga : ")
     for lupp in range(int(lup), 0, -1):
-        psn = wnrapi.pesan(API_KEY, idproduk, idopra)
-        if psn["success"] == True:
-            idnum = psn["data"]["id"]
-            nomer = psn["data"]["phone_number"]
-            print(f"phone : {nomer}")
-            getcod = getapi.sendcode(nomer)
-            print(getcod)
-            tini.insert({"nomer":  nomer})
-            mybalance -= harga
-        time.sleep(20)
+        try:
+            psn = wnrapi.pesan(API_KEY, idproduk, idopra)
+            # print(psn)
+            if psn["success"] == True:
+                idnum = psn["data"]["id"]
+                nomer = psn["data"]["phone_number"]
+                print(f"phone : {nomer}")
+                getcod = getapi.sendcode(nomer)
+                print(getcod)
+
+                tz = pytz.timezone("Asia/Jakarta")
+                now = datetime.now(tz)
+                waktu = now.strftime("%Y-%m-%dT%H:%M:%S")
+
+                tini.insert({"nomer":  nomer, "id": idnum, "waktu": waktu})
+                mybalance -= harga
+            else:
+                print(psn["message"])
+        except Exception as e:
+            print(f"Error : {e}")
+
+        for rdd in range(60, 0, -1):
+            sys.stdout.write(f"Wait.. {rdd}\r")
+            sys.stdout.flush()
+            time.sleep(1)

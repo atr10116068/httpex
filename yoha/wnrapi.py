@@ -73,3 +73,18 @@ def otp(API_KEY):
     except Exception as error:
         print(error)
     return 0
+
+
+def cancel(API_KEY, idnum):
+    param = {
+        "id": idnum,
+    }
+    uri = f'https://api.wnrstore.com/api/v1/order/cancel?secret_key={API_KEY}'
+    try:
+        r = httpx.post(uri, data=param, timeout=5)
+        if r.status_code == 200:
+            ressx = json.loads(r.text)
+            return ressx
+    except Exception as error:
+        print(error)
+    return 0

@@ -19,7 +19,7 @@ def proses():
 
         xx += 1
         print()
-        for rdd in range(random.randint(2, 10), 0, -1):
+        for rdd in range(random.randint(20, 100), 0, -1):
             sys.stdout.write(f" token {xx}/{len(vtkn)} Wait.. {rdd}\r")
             sys.stdout.flush()
             time.sleep(1)
@@ -35,7 +35,7 @@ def jam():
     now = datetime.now(tz)
     jamm = now.strftime("%m/%d/%Y, %H:%M")
     minut = now.strftime("%H%M")
-    if minut == "0030" and jamm not in jamar:
+    if minut == "0630" and jamm not in jamar:
         jamar.append(str(jamm))
         print("•>> "+str(jamm))
         return True
