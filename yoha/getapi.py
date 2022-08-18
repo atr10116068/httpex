@@ -1,5 +1,6 @@
 import random as rdm
-import json,ambil
+import json
+import ambil
 import httpx
 
 import pyrebase
@@ -23,7 +24,6 @@ with open("data.json") as json_file:
     data = json.load(json_file)["results"]
 
 
-
 head = {
     "host": "api.yoha.pro",
     "content-type": "application/json; charset=utf-8",
@@ -34,7 +34,7 @@ uri = f'{data["host"]}api/options/index?v=2.0.8&ip=180.{rdm.randint(1,255)}.{rdm
 r = httpx.get(uri, headers=head)
 if r.status_code == 200:
     ress = (json.loads(r.text))
-    persi=ress["data"]["apk_ver"]
+    persi = ress["data"]["apk_ver"]
     print(f"\tCurrent Version [{persi}]")
 else:
     print("GAGAL DETECT VERSI")
@@ -48,7 +48,7 @@ def profile(token):
     if r.status_code == 200:
         ress = (json.loads(r.text))
         for akun in ress["data"]:
-            cek=ress['data'][akun]
+            cek = ress['data'][akun]
             return ress
         else:
             print(f"gagal : {ress['message']}")
@@ -123,7 +123,7 @@ def sendcode(nomer):
         print(f"gagal status code : {r.text}")
 
 
-def register(nomer, password):
+def register(nomer, password, code):
     head["accept"] = "application/json"
     head["accept-encoding"] = "gzip"
     param = {
@@ -134,7 +134,7 @@ def register(nomer, password):
         "referral_code": "INoQDdUI2W4TZZDd",
         "channel_code": "2",
         "unique_code": f"{rdm.randint(100000,999999)}7{rdm.randint(100000,999999)}-{rdm.randint(100000,999999)}0{rdm.randint(100000,999999)}{rdm.randint(100000,999999)}",
-        "code": input("\tcode : "),
+        "code": code,
         "pasteboard": "",
         "device_code": randcode(),
         "guest_code": "",
@@ -209,6 +209,7 @@ def send(token, streamid, tex):
         print(error)
     return 0
 
+
 def getgift(token):
     head["authorization"] = token
     head["host"] = "tech04.yoha.pro"
@@ -226,17 +227,17 @@ def getgift(token):
     return 0
 
 
-def gift(token,stream,idgift,liveuid,num):
+def gift(token, stream, idgift, liveuid, num):
     head["authorization"] = token
     head["host"] = "tech04.yoha.pro"
     aipi = f'180.{rdm.randint(1,255)}.{rdm.randint(1,255)}.{rdm.randint(1,255)}'
     param1 = {
-        "stream":stream,
-        "num":num,
-        "live_uid":liveuid,
-        "gift_id":idgift,
-        "combo":"true",
-        "type":"0",
+        "stream": stream,
+        "num": num,
+        "live_uid": liveuid,
+        "gift_id": idgift,
+        "combo": "true",
+        "type": "0",
         "v": persi,
         "ip": aipi,
         "l": "in"
@@ -251,3 +252,29 @@ def gift(token,stream,idgift,liveuid,num):
     except Exception as error:
         print(error)
     return 0
+
+def login(no, passw):
+    head["accept"] = "application/json"
+    head["accept-encoding"] = "gzip"
+    param = {
+        "user_login": no,
+        "user_pass": passw,
+        "user_email": "",
+        "source": "",
+        "v": persi,
+        "ip": f'180.252.129.{rdm.randint(1,255)}',
+        "l": "in",
+    }
+    uri = f'{data["host"]}api/auth/login'
+    r = httpx.post(uri, params=param, headers=head)
+    if r.status_code == 200:
+        ress = json.loads(r.text)
+        try:
+            token = f'Bearer {ress["data"]["access_token"]}'
+            return token
+        except:
+            print(f'gagal : {r.text} {no}')
+            return 0
+    else:
+        print(f"gagal status code : {r.text}")
+        return 0

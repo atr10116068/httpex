@@ -14,6 +14,8 @@ config = {
 
 firebase = pyrebase.initialize_app(config)
 db = firebase.database()
+
+
 while True:
     dbb = {"results": []}
     req = db.child('yoha').child('akun').child("results").get()
@@ -34,4 +36,5 @@ while True:
     print(nomer)
     getapi.sendcode(nomer)
     passwd = "t4ufiq654321"
-    getapi.register(nomer, passwd)
+    vcode = input("code : ")
+    getapi.register(nomer, passwd, vcode)

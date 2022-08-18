@@ -1,6 +1,6 @@
 import json
-import httpx
 import time
+import getapi
 import pytz
 import random as rdm
 import sys
@@ -22,42 +22,6 @@ config = {
 
 firebase = pyrebase.initialize_app(config)
 db = firebase.database()
-with open("data.json") as json_file:
-    data = json.load(json_file)["results"]
-persi = data["versi"]
-
-head = {
-    "host": "api.yoha.pro",
-    "content-type": "application/json; charset=utf-8",
-    "user-agent": f"okhttp/5.0.0-alpha.2 {rdm.randint(1111,9999)}"
-}
-
-
-def login(no, passw):
-    head["accept"] = "application/json"
-    head["accept-encoding"] = "gzip"
-    param = {
-        "user_login": no,
-        "user_pass": passw,
-        "user_email": "",
-        "source": "",
-        "v": persi,
-        "ip": f'180.252.129.{rdm.randint(1,255)}',
-        "l": "in",
-    }
-    uri = f'{data["host"]}api/auth/login'
-    r = httpx.post(uri, params=param, headers=head)
-    if r.status_code == 200:
-        ress = json.loads(r.text)
-        try:
-            token = f'Bearer {ress["data"]["access_token"]}'
-            return token
-        except:
-            print(f'gagal : {r.text} {no}')
-            return 0
-    else:
-        print(f"gagal status code : {r.text}")
-        return 0
 
 
 def uid():
@@ -72,9 +36,9 @@ def reset():
     itr = 0
     for id in acc:
         itr += 1
-        sys.stdout.write(f"{itr}\r")
+        sys.stdout.write(f"{itr}/{len(acc)}\r")
         sys.stdout.flush()
-        tkn = login(id["no"], id["pass"])
+        tkn = getapi.login(id["no"], id["pass"])
         if tkn != 0:
             try:
                 token.append(tkn)
@@ -83,6 +47,7 @@ def reset():
                 print(tkn)
         else:
             print("request eror")
+        time.sleep(2)
 
     tokk = {"results": token}
     db.child("yoha").child("token").update(tokk)
