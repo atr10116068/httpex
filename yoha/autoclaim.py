@@ -64,4 +64,7 @@ while True:
         resetdong = False
         print("•>> Melakukan Claim")
         proses()
-        print("•>> Selesai Claim")
+        tz = pytz.timezone("Asia/Jakarta")
+        now = datetime.now(tz)
+        waktu = now.strftime("%Y-%m-%dT%H:%M:%S")
+        print(f"•>> Selesai Claim {waktu}")
