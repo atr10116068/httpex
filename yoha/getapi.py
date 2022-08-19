@@ -52,11 +52,13 @@ with open("data.json") as json_file:
 
 head = {
     "host": "api.yoha.pro",
+    "accept":"application/json",
     "content-type": "application/json; charset=utf-8",
-    "user-agent": f"Mozilla/5.0 (iPhone13,2; U; CPU iPhone OS 14_0 like Mac OS X) AppleWebKit/602.{rdm.randint(0,255)}.{rdm.randint(0,255)} (KHTML, like Gecko) Version/10.0 Mobile/{rdm.randint(11,99)}E{rdm.randint(111,999)} Safari/602.1"
+    "user-agent": f"Mozilla/5.0 (iPhone11,2; U; CPU iPhone OS 14_0 like Mac OS X) AppleWebKit/602.{rdm.randint(0,255)}.{rdm.randint(0,255)} (KHTML, like Gecko) Version/9.0 Mobile/{rdm.randint(11,99)}E{rdm.randint(111,999)} Safari/602.1"
 }
 head["authorization"] = rdm.choice(ambil.token())
-uri = f'{data["host"]}api/options/index?v=2.0.8&ip=180.{rdm.randint(1,255)}.{rdm.randint(1,255)}.{rdm.randint(1,255)}&l=in'
+aipi = f'{rdm.randint(1,255)}.{rdm.randint(1,255)}.{rdm.randint(1,255)}.{rdm.randint(1,255)}'
+uri = f'{data["host"]}api/options/index?v=2.0.8&ip={aipi}&l=in'
 r = httpx.get(uri, headers=head)
 if r.status_code == 200:
     ress = (json.loads(r.text))
@@ -69,7 +71,8 @@ else:
 
 def profile(token):
     head["authorization"] = token
-    uri = f'{data["host"]}api/auth/me?v={persi}&ip=180.{rdm.randint(1,255)}.{rdm.randint(1,255)}.{rdm.randint(1,255)}&l=in'
+    aipi = f'{rdm.randint(1,255)}.{rdm.randint(1,255)}.{rdm.randint(1,255)}.{rdm.randint(1,255)}'
+    uri = f'{data["host"]}api/auth/me?v={persi}&ip={aipi}&l=in'
     r = httpx.get(uri, headers=head)
     if r.status_code == 200:
         ress = (json.loads(r.text))
@@ -83,26 +86,26 @@ def profile(token):
 
 def claim(token, days):
     head["authorization"] = token
-    aipi = f'180.{rdm.randint(1,255)}.{rdm.randint(1,255)}.{rdm.randint(1,255)}'
+    aipi = f'{rdm.randint(1,255)}.{rdm.randint(1,255)}.{rdm.randint(1,255)}.{rdm.randint(1,255)}'
     param1 = {
         "v": persi,
         "ip": aipi,
         "l": "in"
     }
     # entry
-    uri = f'{data["host"]}api/activity/entry?v={persi}&v={persi}&ip=180.{rdm.randint(1,255)}.{rdm.randint(1,255)}.{aipi}&l=in'
+    uri = f'{data["host"]}api/activity/entry?v={persi}&ip={aipi}&l=in'
     r = httpx.get(uri, headers=head)
     if r.status_code == 200:
         ress = (json.loads(r.text))
         print(f"Entry : {ress['status']}")
     # registerActv
-    uri = f'{data["host"]}api/registerActivity/receiveAward?v={persi}&v={persi}&ip=180.{rdm.randint(1,255)}.{rdm.randint(1,255)}.{aipi}&l=in'
+    uri = f'{data["host"]}api/registerActivity/receiveAward?v={persi}&ip={aipi}&l=in'
     r = httpx.post(uri, params=param1, headers=head)
     if r.status_code == 200:
         ress = (json.loads(r.text))
         print(f"Receive : {ress['status']}")
     # Auth
-    uri = f'{data["host"]}api/auth/me?v={persi}&v={persi}&ip=180.{rdm.randint(1,255)}.{rdm.randint(1,255)}.{aipi}&l=in'
+    uri = f'{data["host"]}api/auth/me?v={persi}&ip={aipi}&l=in'
     r = httpx.get(uri, headers=head)
     if r.status_code == 200:
         ress = (json.loads(r.text))
@@ -110,7 +113,7 @@ def claim(token, days):
             print(
                 f"Auth : [{ress['data']['coin']}]\t\t{ress['data']['user_nicename']}")
     # claim
-    uri = f'{data["host"]}api/signs/store?day={days}&sign_id={days}&v={persi}&v={persi}&ip=180.{rdm.randint(1,255)}.{rdm.randint(1,255)}.{aipi}&l=in'
+    uri = f'{data["host"]}api/signs/store?day={days}&sign_id={days}&v={persi}&v={persi}&ip={aipi}&l=in'
     r = httpx.post(uri, headers=head)
     if r.status_code == 200:
         ress = (json.loads(r.text))
@@ -206,13 +209,13 @@ def register(nomer, password, code):
 def getroom(token):
     head["authorization"] = token
     head["host"] = "tech04.yoha.pro"
-    aipi = f'180.{rdm.randint(1,255)}.{rdm.randint(1,255)}.{rdm.randint(1,255)}'
+    aipi = f'{rdm.randint(1,255)}.{rdm.randint(1,255)}.{rdm.randint(1,255)}.{rdm.randint(1,255)}'
     param1 = {
         "v": persi,
         "ip": aipi,
         "l": "in"
     }
-    uri = f'{data["api"]}live/list?type=0&page=1&per_page=100&last_ids=&v={persi}&ip=180.252.129.{rdm.randint(1,255)}&l=in'
+    uri = f'{data["api"]}live/list?type=0&page=1&per_page=100&last_ids=&v={persi}&ip={aipi}&l=in'
     try:
         r = httpx.post(uri, params=param1, headers=head, timeout=5)
         if r.status_code == 200:
@@ -232,7 +235,7 @@ def getroom(token):
 def send(token, streamid, tex):
     head["authorization"] = token
     head["host"] = "tech04.yoha.pro"
-    aipi = f'180.{rdm.randint(1,255)}.{rdm.randint(1,255)}.{rdm.randint(1,255)}'
+    aipi = f'{rdm.randint(1,255)}.{rdm.randint(1,255)}.{rdm.randint(1,255)}.{rdm.randint(1,255)}'
     param1 = {
         "stream": streamid,
         "content": tex,
@@ -272,7 +275,7 @@ def getgift(token):
 def gift(token, stream, idgift, liveuid, num):
     head["authorization"] = token
     head["host"] = "tech04.yoha.pro"
-    aipi = f'180.{rdm.randint(1,255)}.{rdm.randint(1,255)}.{rdm.randint(1,255)}'
+    aipi = f'{rdm.randint(1,255)}.{rdm.randint(1,255)}.{rdm.randint(1,255)}.{rdm.randint(1,255)}'
     param1 = {
         "stream": stream,
         "num": num,
@@ -305,7 +308,7 @@ def login(no, passw):
         "user_email": "",
         "source": "",
         "v": persi,
-        "ip": f'180.252.129.{rdm.randint(1,255)}',
+        "ip": f'{rdm.randint(1,255)}.{rdm.randint(1,255)}.{rdm.randint(1,255)}.{rdm.randint(1,255)}',
         "l": "in",
     }
     uri = f'{data["host"]}api/auth/login'
@@ -325,3 +328,56 @@ def login(no, passw):
     else:
         print(f"gagal status code : {r.text}")
         return 0
+
+def enter(token,aidi):
+    head["authorization"] = token
+    head["host"] = "tech04.yoha.pro"
+    head["accept"] = "application/json"
+    head["accept-encoding"] = "gzip"
+    aipi=f'{rdm.randint(1,255)}.{rdm.randint(1,255)}.{rdm.randint(1,255)}.{rdm.randint(1,255)}'
+    param = {
+        "v": persi,
+        "ip": aipi,
+        "l": "in",
+    }
+    uri = f'{data["host"]}live/enter?anchor_id={aidi}&v={persi}&ip={aipi}&l=in'
+    r = httpx.post(uri, params=param, headers=head)
+    if r.status_code == 200:
+        ress = json.loads(r.text)
+        return ress
+    else:
+        print(f"gagal status code : {r.text}")
+        return 0
+def kuit(token,aidi):
+    head["authorization"] = token
+    head["host"] = "tech04.yoha.pro"
+    head["accept"] = "application/json"
+    head["accept-encoding"] = "gzip"
+    aipi=f'{rdm.randint(1,255)}.{rdm.randint(1,255)}.{rdm.randint(1,255)}.{rdm.randint(1,255)}'
+    param = {
+        "v": persi,
+        "ip": aipi,
+        "l": "in",
+    }
+    uri = f'{data["host"]}live/quit?anchor_id={aidi}&watch_time={rdm.randint(7000,15000)}&v={persi}&ip={aipi}&l=in'
+    r = httpx.post(uri, params=param, headers=head)
+    if r.status_code == 200:
+        ress = json.loads(r.text)
+        return ress
+    else:
+        print(f"gagal status code : {r.text}")
+        return 0
+
+def balance(token,uid):
+    head["authorization"] = token
+    aipi=f'{rdm.randint(1,255)}.{rdm.randint(1,255)}.{rdm.randint(1,255)}.{rdm.randint(1,255)}'
+    uri = f'{data["host"]}api/user/balance?token={token}&uid={uid}&v={persi}&ip={aipi}&l=in'
+    r = httpx.get(uri, headers=head)
+    if r.status_code == 200:
+        ress = (json.loads(r.text))
+        try:
+            cek = ress['data']['diamonds']
+            return cek
+        except Exception as e:
+            print(f"gagal : {ress['message']}")
+            return 0
