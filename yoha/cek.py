@@ -35,7 +35,7 @@ menus = """
 2. get token
 3. chat
 4. gift
-4. get UID
+5. get UID
 """
 while True:
     x = input(f"{menus}-> ")
@@ -58,17 +58,24 @@ while True:
                 x = tkn1
             jumkoin = 0
             for tkn in itrtkn:
-                acc = getapi.profile(tkn)
+                try:
+                    acc = getapi.profile(tkn)
+                except:
+                    time.sleep(20)
+                    acc = getapi.profile(tkn)#percobaan ke 2
+
                 if acc != 0:
                     acc = acc["data"]
                     print(
                         f'{x}.\t{c("magenta",acc["id"],0)}\t{acc["user_nicename"]} {c("cyan",acc["diamonds"],0)} {c("yellow",acc["coin"],0)} ')
                     jumkoin += int(acc["diamonds"])
-                    time.sleep(2)
+                    time.sleep(4)
+                
                 x += 1
             print(f"jumlah Diamond +- {c('cyan',jumkoin,0)}")
         else:
             tkn1 = token[tkn-1]
+            print(tkn1)
             acc = getapi.profile(tkn1)
             acc = acc["data"]
             print(

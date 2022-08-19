@@ -1,6 +1,6 @@
 import pyrebase
 import requests
-import json
+import json,time
 import seting,getcodebind
 import sys
 import webbrowser,random
@@ -372,7 +372,7 @@ def getinfo(x):
                 krm = [
                     "expiret",
                     0.0,
-                    "expiret",
+                    str(ress),
                     "expiret",
                 ]
         else:
@@ -673,6 +673,7 @@ while True:
 
         tota = []
         for i in range(len(token)):
+            time.sleep(4)
             try:
                 dtt = getinfo(token[i])
                 # print(dtt)
@@ -708,6 +709,7 @@ while True:
 
         tota = []
         for i in range(len(token)):
+            time.sleep(4)
             data = lvl(token[i])
             try:
                 nama = data["nickname"]

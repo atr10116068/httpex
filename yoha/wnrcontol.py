@@ -1,6 +1,6 @@
 import wnrapi
 import time
-import getapi
+import getapi,ambil
 from datetime import datetime
 import pytz
 import time
@@ -42,22 +42,30 @@ while True:
     vnum = []
     for gh in tbl:
         vnum.append(gh["nomer"])
-    print(c("magenta", str(vnum), 0))
+        
+    dispjum=f"••••••••>>   jumlah : {len(ambil.uid())}"
+    print(c("magenta", f"{dispjum}", 0))
+    # print(c("magenta", f"{str(vnum)}", 0))
 
-    tz = pytz.timezone("Asia/Jakarta")
-    now = datetime.now(tz)
     try:
         for tg in msg["data"]:
             rid = tg["phone_identifier"]
             rnum = tg["phone_number"]
             rmsg = tg["phone_message"]
+            
+            tz = pytz.timezone("Asia/Jakarta")
+            now = datetime.now(tz)
             rwaktu = int(now.strftime("%M")) - \
                 int(tg["created_at"].split("T")[1][3:5])
+            #jika menit minus maka tambahin 60
+            if rwaktu<0:
+                rwaktu=int(now.strftime("%M"))+60 - int(tg["created_at"].split("T")[1][3:5])
             rstat = tg["status"]
-            if rwaktu > 15:
-                wnrapi.cancel(API_KEY, rid)
             if rnum in vnum:
                 if rstat != "Dibatalkan":
+                    if rwaktu >=5:
+                        wnrapi.cancel(API_KEY, rid)
+
                     print(
                         f'{c("green",rnum,0)}\t{c("green",rstat,0)} {c("yellow",f"{rwaktu} menit",0)}')
                     if rmsg != None:
@@ -65,14 +73,13 @@ while True:
                         code = rmsg.replace("Enter: ", "").split("\n")[0]
                         getapi.register(rnum, "t4ufiq654321", code)
                         tini.remove(where('nomer') == rnum)
-                        print("================================")
                 else:
                     # Dibatalkan
                     print(f'{c("red",rnum,0)}\t{c("red",rstat,0)}')
                     tini.remove(where('nomer') == rnum)
     except:
         pass
-    for rdd in range(30, 0, -1):
+    for rdd in range(60, 0, -1):
         sys.stdout.write(f"Wait.. {rdd}  \r")
         sys.stdout.flush()
         time.sleep(1)

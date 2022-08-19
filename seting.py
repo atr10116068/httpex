@@ -39,7 +39,8 @@ while ress["stat"]!=200:
     time.sleep(1)
   
 def versi():
-    return(ress["sett"]["result"]["android_user_version"])
+    # return(ress["sett"]["result"]["android_user_version"])
+    return "2.10.4"
 
 def sensitif():
     return(ress["sett"]["result"]["sensitive_words"].split("#"))

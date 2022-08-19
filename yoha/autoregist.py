@@ -4,22 +4,8 @@ import time
 import pytz
 import sys
 from datetime import datetime
-import pyrebase
 from tinydb import *
-config = {
-    "apiKey": "AIzaSyDo7m9xUXkOiCVjuS6kKwkLchejkUNl5IY",
-    "authDomain": "attools-cc537.firebaseapp.com",
-    "databaseURL": "https://attools-cc537-default-rtdb.asia-southeast1.firebasedatabase.app/",
-    "projectId": "attools-cc537",
-    "storageBucket": "attools-cc537.appspot.com",
-    "messagingSenderId": "181490859838",
-    "appId": "1:181490859838:web:426c0a2f365cec8206f66f",
-    "measurementId": "G-DY46HYTHT6"
-}
 
-
-firebase = pyrebase.initialize_app(config)
-db = firebase.database()
 tini = TinyDB("wnrotp.json")
 
 
@@ -59,7 +45,7 @@ while True:
     print(idopra)
     print(idproduk)
     harga = dbproduk[idxprodinp]["price"]
-    print(f"harga : {harga}")
+    print(f"harga : {harga}         autoHitung : {mybalance}/{harga}={round(mybalance/harga)}")
     lup = input("ulangi hingga : ")
     for lupp in range(int(lup), 0, -1):
         try:
@@ -84,6 +70,7 @@ while True:
             print(f"Error : {e}")
 
         for rdd in range(60, 0, -1):
-            sys.stdout.write(f"Wait.. {rdd}\r")
+            sys.stdout.write(f"Wait.. {rdd}        \r")
             sys.stdout.flush()
             time.sleep(1)
+#081346732948

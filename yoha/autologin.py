@@ -1,4 +1,3 @@
-import json
 import time
 import getapi
 import pytz
@@ -24,59 +23,79 @@ firebase = pyrebase.initialize_app(config)
 db = firebase.database()
 
 
-def uid():
-    uid = db.child('yoha').child('akun').get()
-    acc = uid.val()["results"]
-    return acc
 
 
 def reset():
-    acc = uid()
-    token = []
+    acc = ambil.uid()
+    if tkn2!=0:
+        acc=acc[tkn1:tkn2]
+    token = ambil.token()
     itr = 0
     for id in acc:
         itr += 1
-        sys.stdout.write(f"{itr}/{len(acc)}\r")
+        sys.stdout.write(f"{itr+tkn1}/{len(acc)}\r")
         sys.stdout.flush()
         tkn = getapi.login(id["no"], id["pass"])
-        if tkn != 0:
+        if tkn == 500:
+            print()
+            print(f'  idx : {itr+tkn1-1} [{id["no"]}] Akun atau kata sandi salah')
+            db.child("yoha").child("akun").child("results").child(itr+tkn1-1).update({"no":"kosong","pass":"t4ufiq654321"})
             try:
-                token.append(tkn)
+                token[itr-1+tkn1]=""
+                print(f"  add idx {itr-1+tkn1}")
             except:
-                # pass
-                print(tkn)
+                token.append(tkn)
+        elif tkn == 0:
+            print("gagal")
         else:
-            print("request eror")
-        time.sleep(5)
+            try:
+                token[itr-1+tkn1]=tkn
+                print(f"  timpa token lama {itr-1+tkn1}")
+            except:
+                token.append(tkn)
+        for rdd in range(rdm.randint(ant1,ant2), 0, -1):
+            sys.stdout.write(f"Wait.. {rdd}\r")
+            sys.stdout.flush()
+            time.sleep(1)
 
     tokk = {"results": token}
-    db.child("yoha").child("token").update(tokk)
+    try:
+        db.child("yoha").child("token").update(tokk)
+    except Exception as e:
+        print(f"Error : {e}")
     print("dah")
 
 
 tes = True
 jamar = []
+try:
+    sys.argv[3]
+    print("Test Mode...")
+    tkn1,tkn2=int(sys.argv[1])-1,int(sys.argv[2])
+    tes = True
+except:
+    tkn1,tkn2=0,0
+    tes = False
+
 
 
 def jam():
     tz = pytz.timezone("Asia/Jakarta")
     now = datetime.now(tz)
-    jamm = now.strftime("%m/%d/%Y, %H:%M")
+    jamm = now.strftime("%m/%d/%Y, %H:%M:%S")
     minut = now.strftime("%H%M")
     if minut == "0030" and jamm not in jamar:
         jamar.append(str(jamm))
         print("•>> "+str(jamm))
         return True
     else:
-        # print(""+str(jamm))
+        sys.stdout.write(f"{jamm}     \r")
+        sys.stdout.flush()
         return False
 
 
 resetdong = False
-tz = pytz.timezone("Asia/Jakarta")
-now = datetime.now(tz)
-jamm = now.strftime("%m/%d/%Y, %H:%M")
-print(jamm)
+ant1,ant2=int(input("random time 1 : ")),int(input("random time 2 : "))
 while True:
     jlk = jam()
     if tes == True:
@@ -85,13 +104,18 @@ while True:
     if jlk == False:
         pass
     else:
+        resetdong = False
         tz = pytz.timezone("Asia/Jakarta")
         now = datetime.now(tz)
-        klj = now.strftime("%m/%d/%Y, %H:%M")
-
-        resetdong = False
+        jamm = now.strftime("%m/%d/%Y, %H:%M")
         print("•>> Melakukan Reset Token")
         reset()
-        print("•>> Selesai Reset")
+        tz = pytz.timezone("Asia/Jakarta")
+        now = datetime.now(tz)
+        waktu = now.strftime("%m/%d/%Y, %H:%M")
+        print(f"•>> Selesai Login")
+        print(f"•>> Mulai   : {jamm}")
+        print(f"•>> Selesai : {waktu}")
+        print(f"•>> Jeda : {ant1} sampai {ant2} detik")
 
     time.sleep(1)

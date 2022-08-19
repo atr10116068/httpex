@@ -3,6 +3,32 @@ import json
 import ambil
 import httpx
 
+from colorama import Fore, Style, init
+init()
+
+
+def c(colr, tex, dim):
+    try:
+        w = {
+            "RED": Fore.RED,
+            "GREEN": Fore.GREEN,
+            "YELLOW": Fore.YELLOW,
+            "BLUE": Fore.BLUE,
+            "MAGENTA": Fore.MAGENTA,
+            "CYAN": Fore.CYAN,
+
+            "BLACK": Fore.BLACK,
+            "WHITE": Fore.WHITE,
+            "RESET": Fore.RESET,
+        }
+        if dim == 1:
+            return f"{Style.DIM}{w[colr.upper()]}{tex}{Style.RESET_ALL}"
+        else:
+            return f"{w[colr.upper()]}{tex}{Style.RESET_ALL}"
+    except:
+        return tex
+
+
 import pyrebase
 config = {
     "apiKey": "AIzaSyDo7m9xUXkOiCVjuS6kKwkLchejkUNl5IY",
@@ -88,7 +114,12 @@ def claim(token, days):
     r = httpx.post(uri, headers=head)
     if r.status_code == 200:
         ress = (json.loads(r.text))
-        print(f"Claim : {ress}")
+        if ress["status"]=="success":
+            msg=c('green',ress['data']['amount'],0)
+            print(f"Claim : {msg}")
+        else:
+            msg=f"{c('red',ress['status'],0)} {ress['message']}"
+            print(f"Claim : {msg}")
     return ress
 
 
@@ -145,21 +176,32 @@ def register(nomer, password, code):
     uri = f'{data["host"]}api/auth/register'
     r = httpx.post(uri, params=param, headers=head, timeout=10)
     if r.status_code == 200:
+    # if True:
         ress = json.loads(r.text)
+        # ress=""
         try:
             dbb = {"results": []}
             req = db.child('yoha').child('akun').child("results").get()
             acc = req.val()
+            idxkosong=0
+            adakosong=[]
             for tott in acc:
                 dbb["results"].append(tott)
-            dbb["results"].append({"no": nomer, "pass": password})
-            db.child("yoha").child("akun").update(dbb)
+                if tott["no"]=="kosong":
+                    adakosong.append(idxkosong)
+                idxkosong+=1
+            if len(adakosong)==0:
+                dbb["results"].append({"no": nomer, "pass": password})
+                db.child("yoha").child("akun").update(dbb)
+                print("data baru")
+            else:
+                db.child("yoha").child("akun").child("results").child(int(adakosong[0])).update({"no": nomer, "pass": password})
+                print(f"ada kosong di urutan {adakosong[0]}")
             return ress
         except:
             print(f'gagal : {r.text}')
     else:
         print(f"gagal status code : {r.text}")
-
 
 def getroom(token):
     head["authorization"] = token
@@ -270,11 +312,15 @@ def login(no, passw):
     r = httpx.post(uri, params=param, headers=head)
     if r.status_code == 200:
         ress = json.loads(r.text)
-        try:
-            token = f'Bearer {ress["data"]["access_token"]}'
-            return token
-        except:
-            print(f'gagal : {r.text} {no}')
+        # print(f'\t\tCode : {ress["code"]}')
+        if ress["code"]==500:#Akun atau kata sandi salah
+            return 500
+        else:
+            try:
+                token = f'Bearer {ress["data"]["access_token"]}'
+                return token
+            except:
+                print(f'gagal : {r.text} {no}')
             return 0
     else:
         print(f"gagal status code : {r.text}")
