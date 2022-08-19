@@ -48,6 +48,7 @@ def reset():
         elif tkn == 0:
             print("gagal")
         else:
+            getapi.claim(tkn, 1)
             try:
                 token[itr-1+tkn1]=tkn
                 print(f"  timpa token lama {itr-1+tkn1}")
@@ -64,6 +65,7 @@ def reset():
     except Exception as e:
         print(f"Error : {e}")
     print("dah")
+
 
 
 tes = True
@@ -84,7 +86,7 @@ def jam():
     now = datetime.now(tz)
     jamm = now.strftime("%m/%d/%Y, %H:%M:%S")
     minut = now.strftime("%H%M")
-    if minut == "0030" and jamm not in jamar:
+    if minut == "0240" and jamm not in jamar:
         jamar.append(str(jamm))
         print("•>> "+str(jamm))
         return True
