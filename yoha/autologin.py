@@ -47,7 +47,7 @@ def reset():
                 print(tkn)
         else:
             print("request eror")
-        time.sleep(10)
+        time.sleep(5)
 
     tokk = {"results": token}
     db.child("yoha").child("token").update(tokk)

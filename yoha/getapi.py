@@ -143,7 +143,7 @@ def register(nomer, password, code):
         "l": "in",
     }
     uri = f'{data["host"]}api/auth/register'
-    r = httpx.post(uri, params=param, headers=head)
+    r = httpx.post(uri, params=param, headers=head, timeout=10)
     if r.status_code == 200:
         ress = json.loads(r.text)
         try:
@@ -252,6 +252,7 @@ def gift(token, stream, idgift, liveuid, num):
     except Exception as error:
         print(error)
     return 0
+
 
 def login(no, passw):
     head["accept"] = "application/json"

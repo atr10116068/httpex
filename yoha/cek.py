@@ -35,6 +35,7 @@ menus = """
 2. get token
 3. chat
 4. gift
+4. get UID
 """
 while True:
     x = input(f"{menus}-> ")
@@ -134,3 +135,30 @@ while True:
             if inpp == "q":
                 break
             getapi.gift(tokengift, streamid, inpp, uid, input("jumlah : "))
+    if x == "5":
+        uaidi = ambil.uid()
+        tkn1, tkn2,  tknall, tkn = 0, 0, 0, 0
+        ftkn = input("[no] or [no-no] or enter(all): ")
+        if ftkn == "":
+            tknall = uaidi
+        else:
+            if "-" in ftkn:
+                tkn1, tkn2 = int(ftkn.split("-")[0]), int(ftkn.split("-")[1])
+            else:
+                tkn = int(ftkn)
+        if tkn1 != 0 and tkn2 != 0 or tknall != 0:
+            x = 1
+            if tknall != 0:
+                itrtkn = uaidi
+            else:
+                itrtkn = uaidi[tkn1-1:tkn2-1]
+                x = tkn1
+            for tkn in itrtkn:
+                print(
+                    f'{x}.\t{c("cyan",tkn["no"],0)}\t[{c("magenta",tkn["pass"],0)}]')
+                time.sleep(0.1)
+                x += 1
+        else:
+            tkn = uaidi[tkn-1]
+            print(
+                f'{x}.\t{c("cyan",tkn["no"],0)}\t[{c("magenta",tkn["pass"],0)}]')
