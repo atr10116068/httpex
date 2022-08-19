@@ -118,7 +118,7 @@ else:
     b = "ᅠ"
     nama(token[mode])
     cna = input("New Nickname : ")
-    cna += a
+    # cna += a
     print(f"nickbaru : {cna} {len(cna)}")
     cnama(token[mode], cna)
 input()
