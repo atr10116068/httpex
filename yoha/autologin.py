@@ -33,31 +33,38 @@ def reset():
     itr = 0
     for id in acc:
         itr += 1
-        sys.stdout.write(f"{itr+tkn1}/{len(acc)}\r")
-        sys.stdout.flush()
-        tkn = getapi.login(id["no"], id["pass"])
-        if tkn == 500:
-            print()
-            print(f'  idx : {itr+tkn1-1} [{id["no"]}] Akun atau kata sandi salah')
-            db.child("yoha").child("akun").child("results").child(itr+tkn1-1).update({"no":"kosong","pass":"t4ufiq654321"})
+        while True:
             try:
-                token[itr-1+tkn1]=""
-                print(f"  add idx {itr-1+tkn1}")
+                tkn = getapi.login(id["no"], id["pass"])
+
+                if tkn == 500:
+                    print()
+                    print(f'  idx : {itr+tkn1-1} [{id["no"]}] Akun atau kata sandi salah')
+                    db.child("yoha").child("akun").child("results").child(itr+tkn1-1).update({"no":"kosong","pass":"t4ufiq654321"})
+                    try:
+                        token[itr-1+tkn1]=""
+                        print(f"  add idx {itr-1+tkn1}")
+                    except:
+                        token.append(tkn)
+                elif tkn == 0:
+                    print("gagal")
+                else:
+                    getapi.claim(tkn, 1)
+                    try:
+                        token[itr-1+tkn1]=tkn
+                        print(f"  timpa token lama {itr+tkn1}")
+                    except:
+                        token.append(tkn)
             except:
-                token.append(tkn)
-        elif tkn == 0:
-            print("gagal")
-        else:
-            getapi.claim(tkn, 1)
-            try:
-                token[itr-1+tkn1]=tkn
-                print(f"  timpa token lama {itr-1+tkn1}")
-            except:
-                token.append(tkn)
-        for rdd in range(rdm.randint(ant1,ant2), 0, -1):
-            sys.stdout.write(f"Wait.. {rdd}\r")
-            sys.stdout.flush()
-            time.sleep(1)
+                pass
+            for rdd in range(rdm.randint(ant1,ant2), 0, -1):
+                sys.stdout.write(f"Wait.. {rdd} [{itr+tkn1}/{len(acc)}]     \r")
+                sys.stdout.flush()
+                time.sleep(1)
+
+            if len(str(tkn))>300 or tkn in [0,500]:
+                break
+
 
     tokk = {"results": token}
     try:
@@ -68,7 +75,7 @@ def reset():
 
 
 
-tes = True
+tes = False
 jamar = []
 try:
     sys.argv[3]
@@ -86,7 +93,7 @@ def jam():
     now = datetime.now(tz)
     jamm = now.strftime("%m/%d/%Y, %H:%M:%S")
     minut = now.strftime("%H%M")
-    if minut == "0240" and jamm not in jamar:
+    if minut == "1355" and jamm not in jamar:
         jamar.append(str(jamm))
         print("•>> "+str(jamm))
         return True
