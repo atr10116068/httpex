@@ -32,8 +32,8 @@ tes = False
 jamar = []
 
 try:
-    sys.argv[3]
     print("Test Mode...")
+    sys.argv[3]
     tkn1,tkn2=int(sys.argv[1])-1,int(sys.argv[2])
     tes = True
 except:

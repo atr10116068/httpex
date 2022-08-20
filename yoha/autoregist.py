@@ -47,11 +47,13 @@ while True:
     harga = dbproduk[idxprodinp]["price"]
     print(f"harga : {harga}         autoHitung : {mybalance}/{harga}={round(mybalance/harga)}")
     lup = input("ulangi hingga : ")
+    itrx=0
     for lupp in range(int(lup), 0, -1):
         try:
             psn = wnrapi.pesan(API_KEY, idproduk, idopra)
             # print(psn)
             if psn["success"] == True:
+                itrx+=1
                 idnum = psn["data"]["id"]
                 nomer = psn["data"]["phone_number"]
                 print(f"phone : {nomer}")
@@ -70,7 +72,7 @@ while True:
             print(f"Error : {e}")
 
         for rdd in range(60, 0, -1):
-            sys.stdout.write(f"Wait.. {rdd}        \r")
+            sys.stdout.write(f"Wait.. {rdd}   [{itrx}/{lup}]     \r")
             sys.stdout.flush()
             time.sleep(1)
 #081346732948

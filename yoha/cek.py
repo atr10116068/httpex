@@ -39,10 +39,13 @@ menus = """
 5. get UID
 6. enter room
 7. jastem
+8. follow
+9. cek duplikat uid
+10. cek user yoha
 """
 while True:
     x = input(f"{menus}-> ")
-    if x == "1":
+    if x == "1":#cek akun
         tkn1, tkn2,  tknall, tkn = 0, 0, 0, 0
         ftkn = input("[no] or [no-no] or enter(all): ")
         if ftkn == "":
@@ -53,7 +56,7 @@ while True:
             else:
                 tkn = int(ftkn)
         if tkn1 != 0 and tkn2 != 0 or tknall != 0:
-            x = 1
+            x = 0
             if tknall != 0:
                 itrtkn = token
             else:
@@ -63,18 +66,17 @@ while True:
             for tkn in itrtkn:
                 try:
                     acc = getapi.profile(tkn)
+                    x += 1
                 except:
-                    time.sleep(20)
-                    acc = getapi.profile(tkn)#percobaan ke 2
+                    break
 
                 if acc != 0:
                     acc = acc["data"]
                     print(
                         f'{x}.\t{c("magenta",acc["id"],0)}\t{acc["user_nicename"]} {c("cyan",acc["diamonds"],0)} {c("yellow",acc["coin"],0)} ')
                     jumkoin += int(acc["diamonds"])
-                    time.sleep(0.5)
+                    time.sleep(2)
                 
-                x += 1
             print(f"jumlah Diamond +- {c('cyan',jumkoin,0)}")
         else:
             tkn1 = token[tkn-1]
@@ -84,11 +86,11 @@ while True:
             print(
                 f'{tkn}.\t{c("magenta",acc["id"],0)}\t{acc["user_nicename"]} {c("cyan",acc["diamonds"],0)} {c("yellow",acc["coin"],0)} ')
 
-    if x == "2":
+    if x == "2":#get token
         tkn = token[int(input("token no : "))-1]
         acc = getapi.profile(tkn)
         print(acc["data"]["token"])
-    if x == "3":
+    if x == "3":#chat
         mode = input("mode [no] [loop no-no] : ")
         getidroom = getapi.getroom(random.choice(token))
         x = 1
@@ -118,7 +120,7 @@ while True:
                 if texx == "q":
                     break
                 getapi.send(tkn, idroom, texx)
-    if x == "4":
+    if x == "4":#gift
         getidroom = getapi.getroom(random.choice(token))
         x = 1
         for idr in getidroom:
@@ -145,7 +147,7 @@ while True:
             if inpp == "q":
                 break
             getapi.gift(tokengift, streamid, inpp, uid, input("jumlah : "))
-    if x == "5":
+    if x == "5":#getuid
         uaidi = ambil.uid()
         tkn1, tkn2,  tknall, tkn = 0, 0, 0, 0
         ftkn = input("[no] or [no-no] or enter(all): ")
@@ -172,7 +174,7 @@ while True:
             tkn = uaidi[tkn-1]
             print(
                 f'{x}.\t{c("cyan",tkn["no"],0)}\t[{c("magenta",tkn["pass"],0)}]')
-    if x == "6":
+    if x == "6":#enter room
         mode = input("mode [no-no] : ")
         getidroom = getapi.getroom(random.choice(token))
         x = 1
@@ -203,9 +205,10 @@ while True:
                         print(xi)
                         xi+=1
                         time.sleep(0.5)
-    if x == "7":
+    if x == "7":#jastem
+        targetgip=int(input("Target Gift : "))
         tkn1, tkn2,  tknall, tkn = 0, 0, 0, 0
-        ftkn = input("[no] or [no-no] or enter(all): ")
+        ftkn = input("[no-no] or enter(all): ")
         if ftkn == "":
             tknall = token
         else:
@@ -214,33 +217,88 @@ while True:
             else:
                 tkn = int(ftkn)
         if tkn1 != 0 and tkn2 != 0 or tknall != 0:
-            x = 1
+            x = 0
             if tknall != 0:
                 itrtkn = token
             else:
                 itrtkn = token[tkn1-1:tkn2-1]
                 x = tkn1
-            
-            jumkoin = 0
+
+
+            jumgift = 0
+            getidroom = getapi.getroom(random.choice(token))
+            xr = 1
+            for idr in getidroom:
+                print(f"{xr}. {idr['user_nicename']}")
+                xr += 1
+            idxrum=int(input("room no : "))
+            idroom = getidroom[idxrum-1]["stream"]
+            aidir = getidroom[idxrum-1]["uid"]
+
             reqdata = getapi.getgift(itrtkn[0])
             listgift = reqdata["data"]["gift_list"]
-            newlistgift = sorted(listgift, key=lambda d: d['need_coin'])
+            newlistgift = sorted(listgift, key=lambda d: d['need_coin'], reverse=True)
+            setop=False
             for tkn in itrtkn:
                 try:
                     acc = getapi.profile(tkn)
+                    x += 1
                 except:
-                    time.sleep(20)
-                    acc = getapi.profile(tkn)#percobaan ke 2
-
+                    break
                 if acc != 0:
                     acc = acc["data"]
+                    #________________________________
+                    rstream=idroom
+                    nama=acc["user_nicename"]
                     aidi=acc["id"]
-                    # DISINI CARI GIFT YG TERTINGGI LALU GIFT
-                    print(
-                        f'{x}.\t{acc["user_nicename"]} {c("cyan",acc["diamonds"],0)}')
-                    jumkoin += 1
-                    time.sleep(0.5)
+                    dm=acc["diamonds"]
+                    #________________________________
+                    #gip = token, stream, idgift, liveuid, num
+                    for tgip in newlistgift:
+                        gname= tgip["gift_name"]
+                        gdm=tgip["need_coin"]
+                        gid=tgip["id"]
+                        if jumgift>=targetgip:
+                            setop=True
+                            break
+                        if int(dm)>gdm:
+                            sisah=targetgip-(jumgift+gdm)
+                            # print(f"kurang : {sisah}")
+                            if sisah>-600:
+                                try:
+                                    getapi.gift(tkn,rstream,gid,aidir,"1")
+                                    jumgift += int(gdm)
+                                    print(f'   {x}. {c("magenta",nama,0)} [{c("cyan",dm,0)}]\tgift {c("magenta",gname,0)} [{c("red",gdm,0)}] = {c("yellow",jumgift,0)}')
+                                except Exception as e:
+                                    print(f"Gagal tidak masuk hitungan : {e}")
+                                break
+                    if setop==True:
+                        break
+                    time.sleep(1)
                 
-                x += 1
-            print(f"jumlah Diamond +- {c('cyan',jumkoin,0)}")
-
+            print(f"jumlah Gift:{c('yellow',jumgift,0)}")
+    if x == "8":#follow
+        mode = input("mode [no-no] : ")
+        aidi = input("ID target : ")
+        if "-" in mode:
+            ittkn = mode
+            tkn1 = int(ittkn.split("-")[0])
+            tkn2 = int(ittkn.split("-")[1])
+            tokenlup = token[tkn1-1:tkn2-1]
+            xi=1
+            for tkn in tokenlup:
+                plow=getapi.follow(tkn, aidi)
+                print(f'{xi}   : {c("green",plow,0)}')
+                xi+=1
+                time.sleep(0.6)
+    if x == "9":#cek uid
+        uaidi = ambil.uid()
+        bck=[]
+        for t in uaidi:
+            if t["no"] not in bck:
+                bck.append(t["no"])
+            else:
+                print(f'{t["no"]} ada yg sama')
+    if x=="10":
+        xxx=getapi.profileuser(token[0],input("id user : "))["data"]
+        print(json.dumps(xxx,indent=2))

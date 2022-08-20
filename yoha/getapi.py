@@ -70,7 +70,13 @@ else:
 
 
 def profile(token):
-    head["authorization"] = token
+    head = {
+        "authorization":token,
+        "host": "api.yoha.pro",
+        "accept":"application/json",
+        "content-type": "application/json; charset=utf-8",
+        "user-agent": f"Mozilla/5.0 (iPhone11,2; U; CPU iPhone OS 14_0 like Mac OS X) AppleWebKit/602.{rdm.randint(0,255)}.{rdm.randint(0,255)} (KHTML, like Gecko) Version/9.0 Mobile/{rdm.randint(11,99)}E{rdm.randint(111,999)} Safari/602.1"
+}
     aipi = f'{rdm.randint(1,255)}.{rdm.randint(1,255)}.{rdm.randint(1,255)}.{rdm.randint(1,255)}'
     uri = f'{data["host"]}api/auth/me?v={persi}&ip={aipi}&l=in'
     r = httpx.get(uri, headers=head)
@@ -85,7 +91,13 @@ def profile(token):
 
 
 def claim(token, days):
-    head["authorization"] = token
+    head = {
+        "authorization":token,
+        "host": "api.yoha.pro",
+        "accept":"application/json",
+        "content-type": "application/json; charset=utf-8",
+        "user-agent": f"Mozilla/5.0 (iPhone11,2; U; CPU iPhone OS 14_0 like Mac OS X) AppleWebKit/602.{rdm.randint(0,255)}.{rdm.randint(0,255)} (KHTML, like Gecko) Version/9.0 Mobile/{rdm.randint(11,99)}E{rdm.randint(111,999)} Safari/602.1"
+}
     aipi = f'{rdm.randint(1,255)}.{rdm.randint(1,255)}.{rdm.randint(1,255)}.{rdm.randint(1,255)}'
     param1 = {
         "v": persi,
@@ -136,8 +148,12 @@ def randcode():
 
 
 def sendcode(nomer):
-    head["accept"] = "application/json"
-    head["accept-encoding"] = "gzip"
+    head = {
+        "host": "api.yoha.pro",
+        "accept":"application/json",
+        "content-type": "application/json; charset=utf-8",
+        "user-agent": f"Mozilla/5.0 (iPhone11,2; U; CPU iPhone OS 14_0 like Mac OS X) AppleWebKit/602.{rdm.randint(0,255)}.{rdm.randint(0,255)} (KHTML, like Gecko) Version/9.0 Mobile/{rdm.randint(11,99)}E{rdm.randint(111,999)} Safari/602.1"
+}
     param = {
         "mobile": nomer,
         "tag": "register",
@@ -158,8 +174,12 @@ def sendcode(nomer):
 
 
 def register(nomer, password, code):
-    head["accept"] = "application/json"
-    head["accept-encoding"] = "gzip"
+    head = {
+        "host": "api.yoha.pro",
+        "accept":"application/json",
+        "content-type": "application/json; charset=utf-8",
+        "user-agent": f"Mozilla/5.0 (iPhone11,2; U; CPU iPhone OS 14_0 like Mac OS X) AppleWebKit/602.{rdm.randint(0,255)}.{rdm.randint(0,255)} (KHTML, like Gecko) Version/9.0 Mobile/{rdm.randint(11,99)}E{rdm.randint(111,999)} Safari/602.1"
+}
     param = {
         "user_login": nomer,
         "user_pass": password,
@@ -207,8 +227,13 @@ def register(nomer, password, code):
         print(f"gagal status code : {r.text}")
 
 def getroom(token):
-    head["authorization"] = token
-    head["host"] = "tech04.yoha.pro"
+    head = {
+        "authorization":token,
+        "host": "tech04.yoha.pro",
+        "accept":"application/json",
+        "content-type": "application/json; charset=utf-8",
+        "user-agent": f"Mozilla/5.0 (iPhone11,2; U; CPU iPhone OS 14_0 like Mac OS X) AppleWebKit/602.{rdm.randint(0,255)}.{rdm.randint(0,255)} (KHTML, like Gecko) Version/9.0 Mobile/{rdm.randint(11,99)}E{rdm.randint(111,999)} Safari/602.1"
+}
     aipi = f'{rdm.randint(1,255)}.{rdm.randint(1,255)}.{rdm.randint(1,255)}.{rdm.randint(1,255)}'
     param1 = {
         "v": persi,
@@ -233,8 +258,13 @@ def getroom(token):
 
 
 def send(token, streamid, tex):
-    head["authorization"] = token
-    head["host"] = "tech04.yoha.pro"
+    head = {
+        "authorization":token,
+        "host": "tech04.yoha.pro",
+        "accept":"application/json",
+        "content-type": "application/json; charset=utf-8",
+        "user-agent": f"Mozilla/5.0 (iPhone11,2; U; CPU iPhone OS 14_0 like Mac OS X) AppleWebKit/602.{rdm.randint(0,255)}.{rdm.randint(0,255)} (KHTML, like Gecko) Version/9.0 Mobile/{rdm.randint(11,99)}E{rdm.randint(111,999)} Safari/602.1"
+}
     aipi = f'{rdm.randint(1,255)}.{rdm.randint(1,255)}.{rdm.randint(1,255)}.{rdm.randint(1,255)}'
     param1 = {
         "stream": streamid,
@@ -256,8 +286,13 @@ def send(token, streamid, tex):
 
 
 def getgift(token):
-    head["authorization"] = token
-    head["host"] = "tech04.yoha.pro"
+    head = {
+        "authorization":token,
+        "host": "tech04.yoha.pro",
+        "accept":"application/json",
+        "content-type": "application/json; charset=utf-8",
+        "user-agent": f"Mozilla/5.0 (iPhone11,2; U; CPU iPhone OS 14_0 like Mac OS X) AppleWebKit/602.{rdm.randint(0,255)}.{rdm.randint(0,255)} (KHTML, like Gecko) Version/9.0 Mobile/{rdm.randint(11,99)}E{rdm.randint(111,999)} Safari/602.1"
+}
     param1 = {
     }
     uri = f'{data["api"]}live/getGiftList'
@@ -273,8 +308,13 @@ def getgift(token):
 
 
 def gift(token, stream, idgift, liveuid, num):
-    head["authorization"] = token
-    head["host"] = "tech04.yoha.pro"
+    head = {
+        "authorization":token,
+        "host": "tech04.yoha.pro",
+        "accept":"application/json",
+        "content-type": "application/json; charset=utf-8",
+        "user-agent": f"Mozilla/5.0 (iPhone11,2; U; CPU iPhone OS 14_0 like Mac OS X) AppleWebKit/602.{rdm.randint(0,255)}.{rdm.randint(0,255)} (KHTML, like Gecko) Version/9.0 Mobile/{rdm.randint(11,99)}E{rdm.randint(111,999)} Safari/602.1"
+}
     aipi = f'{rdm.randint(1,255)}.{rdm.randint(1,255)}.{rdm.randint(1,255)}.{rdm.randint(1,255)}'
     param1 = {
         "stream": stream,
@@ -300,15 +340,20 @@ def gift(token, stream, idgift, liveuid, num):
 
 
 def login(no, passw):
-    head["accept"] = "application/json"
-    head["accept-encoding"] = "gzip"
+    head = {
+        "host": "api.yoha.pro",
+        "accept":"application/json",
+        "content-type": "application/json; charset=utf-8",
+        "user-agent": f"Mozilla/5.0 (iPhone11,2; U; CPU iPhone OS 14_0 like Mac OS X) AppleWebKit/602.{rdm.randint(0,255)}.{rdm.randint(0,255)} (KHTML, like Gecko) Version/9.0 Mobile/{rdm.randint(11,99)}E{rdm.randint(111,999)} Safari/602.1"
+}
+    aipi=f'{rdm.randint(1,255)}.{rdm.randint(1,255)}.{rdm.randint(1,255)}.{rdm.randint(1,255)}'
     param = {
         "user_login": no,
         "user_pass": passw,
         "user_email": "",
         "source": "",
         "v": persi,
-        "ip": f'{rdm.randint(1,255)}.{rdm.randint(1,255)}.{rdm.randint(1,255)}.{rdm.randint(1,255)}',
+        "ip": aipi,
         "l": "in",
     }
     uri = f'{data["host"]}api/auth/login'
@@ -330,17 +375,20 @@ def login(no, passw):
         return 0
 
 def enter(token,aidi):
-    head["authorization"] = token
-    head["host"] = "tech04.yoha.pro"
-    head["accept"] = "application/json"
-    head["accept-encoding"] = "gzip"
+    head = {
+        "authorization":token,
+        "host": "tech04.yoha.pro",
+        "accept":"application/json",
+        "content-type": "application/json; charset=utf-8",
+        "user-agent": f"Mozilla/5.0 (iPhone11,2; U; CPU iPhone OS 14_0 like Mac OS X) AppleWebKit/602.{rdm.randint(0,255)}.{rdm.randint(0,255)} (KHTML, like Gecko) Version/9.0 Mobile/{rdm.randint(11,99)}E{rdm.randint(111,999)} Safari/602.1"
+}
     aipi=f'{rdm.randint(1,255)}.{rdm.randint(1,255)}.{rdm.randint(1,255)}.{rdm.randint(1,255)}'
     param = {
         "v": persi,
         "ip": aipi,
         "l": "in",
     }
-    uri = f'{data["host"]}live/enter?anchor_id={aidi}&v={persi}&ip={aipi}&l=in'
+    uri = f'{data["api"]}live/enter?anchor_id={aidi}&v={persi}&ip={aipi}&l=in'
     r = httpx.post(uri, params=param, headers=head)
     if r.status_code == 200:
         ress = json.loads(r.text)
@@ -349,17 +397,20 @@ def enter(token,aidi):
         print(f"gagal status code : {r.text}")
         return 0
 def kuit(token,aidi):
-    head["authorization"] = token
-    head["host"] = "tech04.yoha.pro"
-    head["accept"] = "application/json"
-    head["accept-encoding"] = "gzip"
+    head = {
+        "authorization":token,
+        "host": "tech04.yoha.pro",
+        "accept":"application/json",
+        "content-type": "application/json; charset=utf-8",
+        "user-agent": f"Mozilla/5.0 (iPhone11,2; U; CPU iPhone OS 14_0 like Mac OS X) AppleWebKit/602.{rdm.randint(0,255)}.{rdm.randint(0,255)} (KHTML, like Gecko) Version/9.0 Mobile/{rdm.randint(11,99)}E{rdm.randint(111,999)} Safari/602.1"
+}
     aipi=f'{rdm.randint(1,255)}.{rdm.randint(1,255)}.{rdm.randint(1,255)}.{rdm.randint(1,255)}'
     param = {
         "v": persi,
         "ip": aipi,
         "l": "in",
     }
-    uri = f'{data["host"]}live/quit?anchor_id={aidi}&watch_time={rdm.randint(7000,15000)}&v={persi}&ip={aipi}&l=in'
+    uri = f'{data["api"]}live/quit?anchor_id={aidi}&watch_time={rdm.randint(7000,15000)}&v={persi}&ip={aipi}&l=in'
     r = httpx.post(uri, params=param, headers=head)
     if r.status_code == 200:
         ress = json.loads(r.text)
@@ -369,7 +420,12 @@ def kuit(token,aidi):
         return 0
 
 def balance(token,uid):
-    head["authorization"] = token
+    head = {
+        "host": "api.yoha.pro",
+        "accept":"application/json",
+        "content-type": "application/json; charset=utf-8",
+        "user-agent": f"Mozilla/5.0 (iPhone11,2; U; CPU iPhone OS 14_0 like Mac OS X) AppleWebKit/602.{rdm.randint(0,255)}.{rdm.randint(0,255)} (KHTML, like Gecko) Version/9.0 Mobile/{rdm.randint(11,99)}E{rdm.randint(111,999)} Safari/602.1"
+}
     aipi=f'{rdm.randint(1,255)}.{rdm.randint(1,255)}.{rdm.randint(1,255)}.{rdm.randint(1,255)}'
     uri = f'{data["host"]}api/user/balance?token={token}&uid={uid}&v={persi}&ip={aipi}&l=in'
     r = httpx.get(uri, headers=head)
@@ -379,5 +435,70 @@ def balance(token,uid):
             cek = ress['data']['diamonds']
             return cek
         except Exception as e:
+            print(f"gagal : {ress['message']}")
+            return 0
+
+
+def follow(token, aidi):
+    head = {
+        "authorization":token,
+        "host": "api.yoha.pro",
+        "accept":"application/json",
+        "content-type": "application/json; charset=utf-8",
+        "user-agent": f"Mozilla/5.0 (iPhone11,2; U; CPU iPhone OS 14_0 like Mac OS X) AppleWebKit/602.{rdm.randint(0,255)}.{rdm.randint(0,255)} (KHTML, like Gecko) Version/9.0 Mobile/{rdm.randint(11,99)}E{rdm.randint(111,999)} Safari/602.1"
+}
+    aipi=f'{rdm.randint(1,255)}.{rdm.randint(1,255)}.{rdm.randint(1,255)}.{rdm.randint(1,255)}'
+    param = {
+        "v": persi,
+        "ip": aipi,
+        "l": "in",
+    }
+    uri = f'{data["host"]}api/usersAttention/follow?inRoom=0&touid={aidi}&v={persi}.2&ip={aipi}&l=in'
+    r = httpx.post(uri, params=param,headers=head)
+    if r.status_code == 200:
+        ress = (json.loads(r.text))
+        msg=ress['status']
+        return msg
+
+def updateuser(token):
+    head = {
+        "authorization":token,
+        "host": "api.yoha.pro",
+        "accept":"application/json",
+        "content-type": "application/json; charset=utf-8",
+        "user-agent": f"Mozilla/5.0 (iPhone11,2; U; CPU iPhone OS 14_0 like Mac OS X) AppleWebKit/602.{rdm.randint(0,255)}.{rdm.randint(0,255)} (KHTML, like Gecko) Version/9.0 Mobile/{rdm.randint(11,99)}E{rdm.randint(111,999)} Safari/602.1"
+}
+    param = {
+        "fields": {
+            "avatar": input("avatar : "),
+            "user_nicename": input("nama : "),
+            "sex": "1",
+        },
+    }
+    uri = f'{data["host"]}api/auth/update-user'
+    r = httpx.post(uri, params=json.dumps(param),headers=head)
+    if r.status_code == 200:
+        ress = (json.loads(r.text))
+        msg=ress['status']
+        return msg
+
+
+def profileuser(token,id):
+    head = {
+        "authorization":token,
+        "host": "api.yoha.pro",
+        "accept":"application/json",
+        "content-type": "application/json; charset=utf-8",
+        "user-agent": f"Mozilla/5.0 (iPhone11,2; U; CPU iPhone OS 14_0 like Mac OS X) AppleWebKit/602.{rdm.randint(0,255)}.{rdm.randint(0,255)} (KHTML, like Gecko) Version/9.0 Mobile/{rdm.randint(11,99)}E{rdm.randint(111,999)} Safari/602.1"
+}
+    aipi = f'{rdm.randint(1,255)}.{rdm.randint(1,255)}.{rdm.randint(1,255)}.{rdm.randint(1,255)}'
+    uri = f'{data["host"]}api/auth/me?user_id={id}&v={persi}&ip={aipi}&l=in'
+    r = httpx.get(uri, headers=head)
+    if r.status_code == 200:
+        ress = (json.loads(r.text))
+        for akun in ress["data"]:
+            cek = ress['data'][akun]
+            return ress
+        else:
             print(f"gagal : {ress['message']}")
             return 0
