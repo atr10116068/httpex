@@ -71,7 +71,7 @@ while True:
         except Exception as e:
             print(f"Error : {e}")
 
-        for rdd in range(60, 0, -1):
+        for rdd in range(30, 0, -1):
             sys.stdout.write(f"Wait.. {rdd}   [{itrx}/{lup}]     \r")
             sys.stdout.flush()
             time.sleep(1)

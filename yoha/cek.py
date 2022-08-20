@@ -75,7 +75,7 @@ while True:
                     print(
                         f'{x}.\t{c("magenta",acc["id"],0)}\t{acc["user_nicename"]} {c("cyan",acc["diamonds"],0)} {c("yellow",acc["coin"],0)} ')
                     jumkoin += int(acc["diamonds"])
-                    time.sleep(2)
+                    time.sleep(0.8)
                 
             print(f"jumlah Diamond +- {c('cyan',jumkoin,0)}")
         else:
@@ -207,6 +207,7 @@ while True:
                         time.sleep(0.5)
     if x == "7":#jastem
         targetgip=int(input("Target Gift : "))
+        jeda=int(input("jeda : "))
         tkn1, tkn2,  tknall, tkn = 0, 0, 0, 0
         ftkn = input("[no-no] or enter(all): ")
         if ftkn == "":
@@ -261,7 +262,7 @@ while True:
                         if jumgift>=targetgip:
                             setop=True
                             break
-                        if int(dm)>gdm:
+                        if int(dm)>500 and int(dm)>gdm:
                             sisah=targetgip-(jumgift+gdm)
                             # print(f"kurang : {sisah}")
                             if sisah>-600:
@@ -274,9 +275,9 @@ while True:
                                 break
                     if setop==True:
                         break
-                    time.sleep(1)
+                    time.sleep(jeda)
                 
-            print(f"jumlah Gift:{c('yellow',jumgift,0)}")
+            print(f"\tjumlah Gift:{c('yellow',jumgift,0)}")
     if x == "8":#follow
         mode = input("mode [no-no] : ")
         aidi = input("ID target : ")
@@ -302,3 +303,4 @@ while True:
     if x=="10":
         xxx=getapi.profileuser(token[0],input("id user : "))["data"]
         print(json.dumps(xxx,indent=2))
+        getapi.updateuser(input("Token : "))

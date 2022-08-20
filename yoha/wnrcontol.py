@@ -63,7 +63,7 @@ while True:
             rstat = tg["status"]
             if rnum in vnum:
                 if rstat != "Dibatalkan":
-                    if rwaktu >=5:
+                    if rwaktu >=8:
                         wnrapi.cancel(API_KEY, rid)
 
                     print(
