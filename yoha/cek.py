@@ -1,6 +1,6 @@
 import ambil
 import getapi
-import time
+import time,sys
 import random
 import json
 from colorama import Fore, Style, init
@@ -48,6 +48,7 @@ while True:
     if x == "1":#cek akun
         tkn1, tkn2,  tknall, tkn = 0, 0, 0, 0
         ftkn = input("[no] or [no-no] or enter(all): ")
+        jeda=int(input("jeda : "))
         if ftkn == "":
             tknall = token
         else:
@@ -61,7 +62,7 @@ while True:
                 itrtkn = token
             else:
                 itrtkn = token[tkn1-1:tkn2-1]
-                x = tkn1
+                x = tkn1-1
             jumkoin = 0
             for tkn in itrtkn:
                 try:
@@ -73,9 +74,9 @@ while True:
                 if acc != 0:
                     acc = acc["data"]
                     print(
-                        f'{x}.\t{c("magenta",acc["id"],0)}\t{acc["user_nicename"]} {c("cyan",acc["diamonds"],0)} {c("yellow",acc["coin"],0)} ')
+                        f'[{x}/{len(itrtkn)}].  {c("magenta",acc["id"],0)}\t{acc["user_nicename"]} {c("cyan",acc["diamonds"],0)} {c("yellow",acc["coin"],0)} ')
                     jumkoin += int(acc["diamonds"])
-                    time.sleep(0.8)
+                    time.sleep(jeda)
                 
             print(f"jumlah Diamond +- {c('cyan',jumkoin,0)}")
         else:
@@ -121,59 +122,78 @@ while True:
                     break
                 getapi.send(tkn, idroom, texx)
     if x == "4":#gift
-        getidroom = getapi.getroom(random.choice(token))
+        rdmtkn=random.choice(token)
+        getidroom = getapi.getroom(rdmtkn)
         x = 1
         for idr in getidroom:
             print(f"{x}. {idr['user_nicename']}")
             x += 1
+        
         idroom = getidroom[int(input("room no : "))-1]
         namahost, streamid, uid = idroom["user_nicename"], idroom["room_id"], idroom["uid"]
 
-        tokengift = token[int(input("token no : "))-1]
-        reqdata = getapi.getgift(tokengift)
-        
-        print(json.dumps(reqdata, indent=2))
-        listgift = reqdata["data"]["gift_list"]
-        newlistgift = sorted(listgift, key=lambda d: d['need_coin'])
-        for pgift in newlistgift:
-            giftid = pgift['id']
-            giftname = pgift['gift_name']
-            amount = pgift['need_coin']
-            print(f"   [{giftid}] [{amount}]   \t{giftname}")
-        while True:
-            print(f"Host : {namahost}")
-            print(c("green", f"Diamond : {reqdata['data']['coin']}", 0))
-            inpp = input("Gift id : ")
-            if inpp == "q":
-                break
-            getapi.gift(tokengift, streamid, inpp, uid, input("jumlah : "))
-    if x == "5":#getuid
-        uaidi = ambil.uid()
         tkn1, tkn2,  tknall, tkn = 0, 0, 0, 0
         ftkn = input("[no] or [no-no] or enter(all): ")
         if ftkn == "":
-            tknall = uaidi
+            tknall = token
         else:
             if "-" in ftkn:
                 tkn1, tkn2 = int(ftkn.split("-")[0]), int(ftkn.split("-")[1])
             else:
                 tkn = int(ftkn)
         if tkn1 != 0 and tkn2 != 0 or tknall != 0:
-            x = 1
             if tknall != 0:
-                itrtkn = uaidi
+                itrtkn = token
             else:
-                itrtkn = uaidi[tkn1-1:tkn2-1]
-                x = tkn1
-            for tkn in itrtkn:
+                itrtkn = token[tkn1-1:tkn2-1]
+            tokengift = itrtkn
+            reqdata = getapi.getgift(rdmtkn)
+            
+            listgift = reqdata["data"]["gift_list"]
+            newlistgift = sorted(listgift, key=lambda d: d['need_coin'])
+            for pgift in newlistgift:
+                giftid = pgift['id']
+                giftname = pgift['gift_name']
+                amount = pgift['need_coin']
+                print(f"   [{giftid}] [{amount}]   \t{giftname}")
+                
+            inpp = input("Gift id : ")
+            jumgip=input("jumlah : ")
+            for tokengiftr in tokengift:
+                print(f"Host : {namahost}")
+                print(c("green", f"Diamond : {reqdata['data']['coin']}", 0))
+                if inpp == "q":
+                    break
+                getapi.gift(tokengiftr, streamid, inpp, uid, jumgip)
+    if x == "5":#getuid
+        uaidi = ambil.uid()
+        tkn1, tkn2,  tknall, tkn = 0, 0, 0, 0
+        print(f"Jumlah UID : {len(uaidi)}")
+        if input("Q to Quit : ") != "q":
+            ftkn = input("[no] or [no-no] or enter(all): ")
+            if ftkn == "":
+                tknall = uaidi
+            else:
+                if "-" in ftkn:
+                    tkn1, tkn2 = int(ftkn.split("-")[0]), int(ftkn.split("-")[1])
+                else:
+                    tkn = int(ftkn)
+            if tkn1 != 0 and tkn2 != 0 or tknall != 0:
+                x = 1
+                if tknall != 0:
+                    itrtkn = uaidi
+                else:
+                    itrtkn = uaidi[tkn1-1:tkn2-1]
+                    x = tkn1
+                for tkn in itrtkn:
+                    print(
+                        f'{x}.\t{c("cyan",tkn["no"],0)}\t[{c("magenta",tkn["pass"],0)}]')
+                    time.sleep(0.1)
+                    x += 1
+            else:
+                tkn = uaidi[tkn-1]
                 print(
                     f'{x}.\t{c("cyan",tkn["no"],0)}\t[{c("magenta",tkn["pass"],0)}]')
-                time.sleep(0.1)
-                x += 1
-        else:
-            tkn = uaidi[tkn-1]
-            print(
-                f'{x}.\t{c("cyan",tkn["no"],0)}\t[{c("magenta",tkn["pass"],0)}]')
     if x == "6":#enter room
         mode = input("mode [no-no] : ")
         getidroom = getapi.getroom(random.choice(token))
@@ -207,7 +227,7 @@ while True:
                         time.sleep(0.5)
     if x == "7":#jastem
         targetgip=int(input("Target Gift : "))
-        jeda=int(input("jeda : "))
+        jeda=float(input("jeda : "))
         tkn1, tkn2,  tknall, tkn = 0, 0, 0, 0
         ftkn = input("[no-no] or enter(all): ")
         if ftkn == "":
@@ -273,6 +293,9 @@ while True:
                                 except Exception as e:
                                     print(f"Gagal tidak masuk hitungan : {e}")
                                 break
+                            else:
+                                print(f'   {x}. {c("magenta",nama,0)} [{c("cyan",dm,0)}]\tsaldo kurang = {c("yellow",jumgift,0)}')
+
                     if setop==True:
                         break
                     time.sleep(jeda)

@@ -31,10 +31,11 @@ dbproduk = wnrapi.produk(API_KEY)
 while True:
     print(f"Balance : {mybalance}")
     idxop = 1
+    arridopra=[]
     for dop in dboprator:
         print(f"{idxop}. {dop['name']}")
+        arridopra.append(dop["id"])
         idxop += 1
-    idopra = dboprator[int(input("Oprator ke : "))-1]["id"]
     idxprod = 1
     for dpr in dbproduk:
         print(f"{idxprod}. [{dpr['price']}] {dpr['name']}")
@@ -42,13 +43,19 @@ while True:
 
     idxprodinp = int(input("Produk ke : "))-1
     idproduk = dbproduk[idxprodinp]["id"]
-    print(idopra)
-    print(idproduk)
     harga = dbproduk[idxprodinp]["price"]
     print(f"harga : {harga}         autoHitung : {mybalance}/{harga}={round(mybalance/harga)}")
     lup = input("ulangi hingga : ")
+    jeda = int(input("jeda : "))
     itrx=0
+    idxopra=0
     for lupp in range(int(lup), 0, -1):
+        if idxopra<=len(arridopra):
+            idopra=arridopra[idxopra]
+            idxopra+=1
+        else:
+            idxopra=0
+
         try:
             psn = wnrapi.pesan(API_KEY, idproduk, idopra)
             # print(psn)
@@ -71,8 +78,7 @@ while True:
         except Exception as e:
             print(f"Error : {e}")
 
-        for rdd in range(30, 0, -1):
+        for rdd in range(jeda, 0, -1):
             sys.stdout.write(f"Wait.. {rdd}   [{itrx}/{lup}]     \r")
             sys.stdout.flush()
             time.sleep(1)
-#081346732948

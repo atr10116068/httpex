@@ -58,7 +58,7 @@ def reset():
             except:
                 pass
             for rdd in range(rdm.randint(ant1,ant2), 0, -1):
-                sys.stdout.write(f"Wait.. {rdd} [{itr+tkn1}/{len(acc)}]     \r")
+                sys.stdout.write(f"Wait.. {rdd} [{itr+tkn1}/{len(acc)+tkn1}]     \r")
                 sys.stdout.flush()
                 time.sleep(1)
 
