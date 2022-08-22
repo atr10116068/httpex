@@ -1,11 +1,16 @@
 import random as rdm
 import json
 import ambil,fakebio
-import httpx
+import httpx,webbrowser
 
 from colorama import Fore, Style, init
 init()
 
+def oweb(url):
+    webbrowser.register('chrome',
+                        None,
+                        webbrowser.BackgroundBrowser("C:\\Users\\User\\AppData\\Local\\Google\\Chrome\\Application\\chrome.exe"))
+    webbrowser.get('chrome').open_new(url)
 
 def c(colr, tex, dim):
     try:
@@ -602,3 +607,34 @@ def updaterandom(token):
         ress = (json.loads(r.text))
         msg=ress['status']
         return msg
+
+def tu(token):
+    uag=f"Mozilla/5.0 (iPhone11,2; U; CPU iPhone OS 14_0 like Mac OS X) AppleWebKit/602.{rdm.randint(0,255)}.{rdm.randint(0,255)} (KHTML, like Gecko) Version/9.0 Mobile/{rdm.randint(11,99)}E{rdm.randint(111,999)} Safari/602.1"
+    head = {
+        "authorization":token,
+        "host": "api.yoha.pro",
+        "accept":"application/json, text/plain, */*",
+        "accept-encoding":"gzip, deflate, br",
+        "accept-language":"id-ID,id;q=0.9",
+        "content-type": "application/json; charset=utf-8",
+        "cache-control":"no-store",
+        "origin":"https://wv.yoha.pro",
+        "referer":"https://wv.yoha.pro",
+        "user-agent": uag
+}
+
+    uid=profile(token)["data"]["id"]
+    param = {
+        "uid": uid,
+        "token": token,
+        "payment_channel_id": 69,
+        "amount": input("jumlah topup : "),
+        "get_recharge_gift": "0",
+    }
+    
+    uri = f'{data["host"]}api/paymentorders/createorder'
+    r = httpx.post(uri, params=param,headers=head)
+    if r.status_code == 200:
+        ress = (json.loads(r.text))
+        oweb(ress["data"]["pay_url"])
+        print(ress)

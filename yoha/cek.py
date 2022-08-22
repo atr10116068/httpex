@@ -337,7 +337,10 @@ while True:
     if x=="10":
         xxx=getapi.profileuser(token[0],input("id user : "))["data"]
         print(json.dumps(xxx,indent=2))
-        getapi.updateuser(input("Token : "))
+        
+        itk=input("Token (enter to skip): ")
+        if len(itk)>100:
+            getapi.updateuser()
     if x == "11":#receive follow
         mode = input("[no-no] : ")
         if "-" in mode:
@@ -350,18 +353,25 @@ while True:
                 for piop in plow:
                     print(f'{c("blue",piop,0)}')
                     for piop2 in plow[piop]:
+                        # print(f'{c("green",json.dumps(piop2,indent=2),0)}')
                         if piop2["info"]["complete_status"]==1:#terbuka
                             if piop2["info"]["status"]==1:#belum claim
                                 # print(f'{c("green",json.dumps(piop2,indent=2),0)}')
                                 print(f'{c("yellow",piop2["info"]["en_name"],0)}')
-                                kuda=getapi.rewardclaim(tkn,piop2["task"][0]["task_record_id"])
-                                if kuda["code"]==200:
-                                    print(f"\tClaim : {c('green',kuda['status'],0)}")
+                                for idxtask in piop2["task"]:
+                                    kuda=getapi.rewardclaim(tkn,idxtask["task_record_id"])
+                                    print(kuda)
+                                    if kuda["code"]==200:
+                                        print(f"\tClaim : {c('green',kuda['status'],0)}")
                         else:
                             # print(json.dumps(piop2,indent=2))
                             print(piop2["info"]["en_name"])
 
                 time.sleep(2)
+    if x=="12":
+        mode=input("Token ke :")
+        tkn = token[int(mode)-1]
+        print(getapi.tu(tkn))
     if x=="13":
         mode=input("Token ke :")
         tkn = token[int(mode)-1]

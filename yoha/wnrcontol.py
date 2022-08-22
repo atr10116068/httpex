@@ -79,7 +79,7 @@ while True:
                     tini.remove(where('nomer') == rnum)
     except:
         pass
-    for rdd in range(60, 0, -1):
+    for rdd in range(200, 0, -1):
         sys.stdout.write(f"Wait.. {rdd}  \r")
         sys.stdout.flush()
         time.sleep(1)

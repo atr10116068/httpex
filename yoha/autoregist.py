@@ -37,7 +37,7 @@ while True:
         arridopra.append(dop["id"])
         idxop += 1
     idxprod = 1
-    ope = int(input("Oprator ke / loop : "))-1
+    ope = input("Oprator ke / loop : ")
     # for dpr in dbproduk:
     #     print(f"{idxprod}. [{dpr['price']}] {dpr['name']}")
     #     idxprod += 1
@@ -80,11 +80,14 @@ while True:
                 mybalance -= harga
             else:
                 print(psn["message"])
-                
-                for rdd in range(300, 0, -1):
-                    sys.stdout.write(f"Wait.. {rdd}   [{itrx}/{lup}]     \r")
-                    sys.stdout.flush()
-                    time.sleep(1)
+
+                if ope =="loop":
+                    break
+                else:
+                    for rdd in range(300, 0, -1):
+                        sys.stdout.write(f"Wait.. {rdd}   [{itrx}/{lup}]     \r")
+                        sys.stdout.flush()
+                        time.sleep(1)
         except Exception as e:
             print(f"Error : {e}")
 
