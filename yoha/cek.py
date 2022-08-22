@@ -69,7 +69,7 @@ while True:
             if tknall != 0:
                 itrtkn = token
             else:
-                itrtkn = token[tkn1-1:tkn2-1]
+                itrtkn = token[tkn1-1:tkn2]
                 x = tkn1-1
             jumkoin = 0
             for tkn in itrtkn:
@@ -194,7 +194,7 @@ while True:
                 if tknall != 0:
                     itrtkn = uaidi
                 else:
-                    itrtkn = uaidi[tkn1-1:tkn2-1]
+                    itrtkn = uaidi[tkn1-1:tkn2]
                     x = tkn1
                 for tkn in itrtkn:
                     print(
