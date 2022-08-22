@@ -242,7 +242,7 @@ def getroom(token):
         "ip": aipi,
         "l": "in"
     }
-    uri = f'{data["api"]}live/list?type=0&page=1&per_page=100&last_ids=&v={persi}&ip={aipi}&l=in'
+    uri = f'{data["api"]}live/list?type=0&page=1&per_page=150&last_ids=&v={persi}&ip={aipi}&l=in'
     try:
         r = httpx.post(uri, params=param1, headers=head, timeout=5)
         if r.status_code == 200:
@@ -250,7 +250,7 @@ def getroom(token):
             ress = []
             for dtr in ressx["data"]["list"]:
                 vuid = dtr["uid"]
-                if vuid not in ress:
+                if vuid not in ress and dtr["user_nicename"] !="Yoha Game":
                     ress.append(dtr)
             return ress
         print(f"{r.text}")

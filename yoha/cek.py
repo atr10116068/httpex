@@ -49,6 +49,7 @@ menus = """
 10. cek user yoha
 11. receive reward
 12. top up
+13. msg All
 """
 while True:
     x = input(f"{menus}-> ")
@@ -130,7 +131,7 @@ while True:
                 getapi.send(tkn, idroom, texx)
     if x == "4":#gift
         rdmtkn=random.choice(token)
-        jeda=int(input("jeda : "))
+        jeda=float(input("jeda : "))
         getidroom = getapi.getroom(rdmtkn)
         x = 1
         for idr in getidroom:
@@ -361,3 +362,15 @@ while True:
                             print(piop2["info"]["en_name"])
 
                 time.sleep(2)
+    if x=="13":
+        mode=input("Token ke :")
+        tkn = token[int(mode)-1]
+        texx = input("text :")
+        if texx == "q":
+            break
+        
+        getidroom = getapi.getroom(tkn)
+        for idrt in getidroom:
+            idroom = idrt["stream"]
+            getapi.send(tkn, idroom, texx)
+            time.sleep(1)
