@@ -37,9 +37,10 @@ while True:
         arridopra.append(dop["id"])
         idxop += 1
     idxprod = 1
-    for dpr in dbproduk:
-        print(f"{idxprod}. [{dpr['price']}] {dpr['name']}")
-        idxprod += 1
+    ope = int(input("Oprator ke / loop : "))-1
+    # for dpr in dbproduk:
+    #     print(f"{idxprod}. [{dpr['price']}] {dpr['name']}")
+    #     idxprod += 1
 
     idxprodinp = int(input("Produk ke : "))-1
     idproduk = dbproduk[idxprodinp]["id"]
@@ -49,12 +50,16 @@ while True:
     jeda = int(input("jeda : "))
     itrx=0
     idxopra=0
+    
     for lupp in range(int(lup), 0, -1):
-        if idxopra<=len(arridopra):
-            idopra=arridopra[idxopra]
-            idxopra+=1
+        if ope =="loop":
+            if idxopra<len(arridopra):
+                idopra=arridopra[idxopra]
+                idxopra+=1
+            else:
+                idxopra=0
         else:
-            idxopra=0
+            idopra=arridopra[int(ope)-1]
 
         try:
             psn = wnrapi.pesan(API_KEY, idproduk, idopra)
@@ -75,6 +80,11 @@ while True:
                 mybalance -= harga
             else:
                 print(psn["message"])
+                
+                for rdd in range(300, 0, -1):
+                    sys.stdout.write(f"Wait.. {rdd}   [{itrx}/{lup}]     \r")
+                    sys.stdout.flush()
+                    time.sleep(1)
         except Exception as e:
             print(f"Error : {e}")
 

@@ -1,6 +1,6 @@
 import random as rdm
 import json
-import ambil
+import ambil,fakebio
 import httpx
 
 from colorama import Fore, Style, init
@@ -148,6 +148,7 @@ def randcode():
 
 
 def sendcode(nomer):
+    aipi = f'{rdm.randint(1,255)}.{rdm.randint(1,255)}.{rdm.randint(1,255)}.{rdm.randint(1,255)}'
     head = {
         "host": "api.yoha.pro",
         "accept":"application/json",
@@ -158,7 +159,7 @@ def sendcode(nomer):
         "mobile": nomer,
         "tag": "register",
         "v": persi,
-        "ip": f'180.252.{rdm.randint(1,255)}.{rdm.randint(1,255)}',
+        "ip": aipi,
         "l": "in",
     }
     uri = f'{data["host"]}api/sms/verify-code'
@@ -174,6 +175,7 @@ def sendcode(nomer):
 
 
 def register(nomer, password, code):
+    aipi = f'{rdm.randint(1,255)}.{rdm.randint(1,255)}.{rdm.randint(1,255)}.{rdm.randint(1,255)}'
     head = {
         "host": "api.yoha.pro",
         "accept":"application/json",
@@ -193,7 +195,7 @@ def register(nomer, password, code):
         "device_code": randcode(),
         "guest_code": "",
         "v": persi,
-        "ip": f'180.252.{rdm.randint(1,255)}.{rdm.randint(1,255)}',
+        "ip": aipi,
         "l": "in",
     }
     uri = f'{data["host"]}api/auth/register'
@@ -396,6 +398,29 @@ def enter(token,aidi):
     else:
         print(f"gagal status code : {r.text}")
         return 0
+
+def startwatch(token,stream):
+    head = {
+        "authorization":token,
+        "host": "tech04.yoha.pro",
+        "accept":"application/json",
+        "content-type": "application/json; charset=utf-8",
+        "user-agent": f"Mozilla/5.0 (iPhone11,2; U; CPU iPhone OS 14_0 like Mac OS X) AppleWebKit/602.{rdm.randint(0,255)}.{rdm.randint(0,255)} (KHTML, like Gecko) Version/9.0 Mobile/{rdm.randint(11,99)}E{rdm.randint(111,999)} Safari/602.1"
+}
+    aipi=f'{rdm.randint(1,255)}.{rdm.randint(1,255)}.{rdm.randint(1,255)}.{rdm.randint(1,255)}'
+    param = {
+        "v": persi,
+        "ip": aipi,
+        "l": "in",
+    }
+    uri = f'{data["api"]}live/startWatch?stream={stream}&v={persi}&ip={aipi}&l=in'
+    r = httpx.post(uri, params=param, headers=head)
+    if r.status_code == 200:
+        ress = json.loads(r.text)
+        return ress
+    else:
+        print(f"gagal status code : {r.text}")
+        return 0
 def kuit(token,aidi):
     head = {
         "authorization":token,
@@ -502,3 +527,78 @@ def profileuser(token,id):
         else:
             print(f"gagal : {ress['message']}")
             return 0
+
+
+
+def rewardlist(token):
+    head = {
+        "authorization":token,
+        "host": "api.yoha.pro",
+        "accept":"application/json",
+        "content-type": "application/json; charset=utf-8",
+        "user-agent": f"Mozilla/5.0 (iPhone11,2; U; CPU iPhone OS 14_0 like Mac OS X) AppleWebKit/602.{rdm.randint(0,255)}.{rdm.randint(0,255)} (KHTML, like Gecko) Version/9.0 Mobile/{rdm.randint(11,99)}E{rdm.randint(111,999)} Safari/602.1"
+}
+    aipi=f'{rdm.randint(1,255)}.{rdm.randint(1,255)}.{rdm.randint(1,255)}.{rdm.randint(1,255)}'
+    param = {
+        "v": persi,
+        "ip": aipi,
+        "l": "in",
+    }
+    uri = f'{data["host"]}api/tasks/userPoll?v={persi}&ip={aipi}&l=in'
+    r = httpx.post(uri, params=param, headers=head)
+    if r.status_code == 200:
+        ress = json.loads(r.text)
+        return ress
+    else:
+        print(f"gagal status code : {r.text}")
+        return 0
+def rewardclaim(token,aidi):
+    head = {
+        "authorization":token,
+        "host": "api.yoha.pro",
+        "accept":"application/json",
+        "content-type": "application/json; charset=utf-8",
+        "user-agent": f"Mozilla/5.0 (iPhone11,2; U; CPU iPhone OS 14_0 like Mac OS X) AppleWebKit/602.{rdm.randint(0,255)}.{rdm.randint(0,255)} (KHTML, like Gecko) Version/9.0 Mobile/{rdm.randint(11,99)}E{rdm.randint(111,999)} Safari/602.1"
+}
+    aipi=f'{rdm.randint(1,255)}.{rdm.randint(1,255)}.{rdm.randint(1,255)}.{rdm.randint(1,255)}'
+    param = {
+        "v": persi,
+        "ip": aipi,
+        "l": "in",
+    }
+    uri = f'{data["host"]}api/tasks/receive/{aidi}?v={persi}&ip={aipi}&l=in'
+    r = httpx.post(uri, params=param, headers=head)
+    if r.status_code == 200:
+        ress = json.loads(r.text)
+        return ress
+    else:
+        print(f"gagal status code : {r.text}")
+        return 0
+
+
+def updaterandom(token):
+    head = {
+        "authorization":token,
+        "host": "api.yoha.pro",
+        "accept":"application/json",
+        "content-type": "application/json; charset=utf-8",
+        "user-agent": f"Mozilla/5.0 (iPhone11,2; U; CPU iPhone OS 14_0 like Mac OS X) AppleWebKit/602.{rdm.randint(0,255)}.{rdm.randint(0,255)} (KHTML, like Gecko) Version/9.0 Mobile/{rdm.randint(11,99)}E{rdm.randint(111,999)} Safari/602.1"
+}
+    datp=fakebio.get()
+    nama=datp["name"]
+    if len(nama)>20:
+        nama=nama[0:20]
+    head["user-agent"]=datp["useragent"]
+    print(nama)
+    param = {
+        "fields": {
+            # "avatar": input("avatar : "),
+            "user_nicename": nama
+        },
+    }
+    uri = f'{data["host"]}api/auth/update-user'
+    r = httpx.post(uri, params=json.dumps(param),headers=head)
+    if r.status_code == 200:
+        ress = (json.loads(r.text))
+        msg=ress['status']
+        return msg

@@ -1,12 +1,17 @@
 import ambil
 import getapi
-import time,sys
+import time,webbrowser
 import random
 import json
 from colorama import Fore, Style, init
 init()
 
 
+def oweb(url):
+    webbrowser.register('chrome',
+                        None,
+                        webbrowser.BackgroundBrowser("C:\\Users\\User\\AppData\\Local\\Google\\Chrome\\Application\\chrome.exe"))
+    webbrowser.get('chrome').open_new(url)
 def c(colr, tex, dim):
     try:
         w = {
@@ -30,7 +35,7 @@ def c(colr, tex, dim):
 
 
 token = ambil.token()
-
+gumawok={'id': 55, 'type': 1, 'mark': 4, 'swf': 'svga/IsRsDvDOnqctBs0trLlWazQbe4ZEdGI6L6F.svga', 'gift_name': 'gumawok', 'need_coin': 100, 'gift_icon': 'image/8MksAJFIU7PXbI76ydUs3iGglP6YTWHvpBI.png', 'swf_time': '0.00', 'activity_tag': ''}
 menus = """
 1. cek akun
 2. get token
@@ -42,6 +47,8 @@ menus = """
 8. follow
 9. cek duplikat uid
 10. cek user yoha
+11. receive reward
+12. top up
 """
 while True:
     x = input(f"{menus}-> ")
@@ -123,6 +130,7 @@ while True:
                 getapi.send(tkn, idroom, texx)
     if x == "4":#gift
         rdmtkn=random.choice(token)
+        jeda=int(input("jeda : "))
         getidroom = getapi.getroom(rdmtkn)
         x = 1
         for idr in getidroom:
@@ -147,9 +155,10 @@ while True:
             else:
                 itrtkn = token[tkn1-1:tkn2-1]
             tokengift = itrtkn
+
             reqdata = getapi.getgift(rdmtkn)
-            
             listgift = reqdata["data"]["gift_list"]
+            listgift.append(gumawok)
             newlistgift = sorted(listgift, key=lambda d: d['need_coin'])
             for pgift in newlistgift:
                 giftid = pgift['id']
@@ -165,6 +174,7 @@ while True:
                 if inpp == "q":
                     break
                 getapi.gift(tokengiftr, streamid, inpp, uid, jumgip)
+                time.sleep(jeda)
     if x == "5":#getuid
         uaidi = ambil.uid()
         tkn1, tkn2,  tknall, tkn = 0, 0, 0, 0
@@ -282,10 +292,10 @@ while True:
                         if jumgift>=targetgip:
                             setop=True
                             break
-                        if int(dm)>500 and int(dm)>gdm:
+                        if int(dm)>500 and int(dm)>gdm and int(dm)<30000:#jika dm gk kosong
                             sisah=targetgip-(jumgift+gdm)
                             # print(f"kurang : {sisah}")
-                            if sisah>-600:
+                            if sisah>-600:#jika sisahnya kebanyakan
                                 try:
                                     getapi.gift(tkn,rstream,gid,aidir,"1")
                                     jumgift += int(gdm)
@@ -314,7 +324,7 @@ while True:
                 plow=getapi.follow(tkn, aidi)
                 print(f'{xi}   : {c("green",plow,0)}')
                 xi+=1
-                time.sleep(0.6)
+                time.sleep(2)
     if x == "9":#cek uid
         uaidi = ambil.uid()
         bck=[]
@@ -327,3 +337,27 @@ while True:
         xxx=getapi.profileuser(token[0],input("id user : "))["data"]
         print(json.dumps(xxx,indent=2))
         getapi.updateuser(input("Token : "))
+    if x == "11":#receive follow
+        mode = input("[no-no] : ")
+        if "-" in mode:
+            ittkn = mode
+            tkn1 = int(ittkn.split("-")[0])
+            tkn2 = int(ittkn.split("-")[1])
+            tokenlup = token[tkn1-1:tkn2-1]
+            for tkn in tokenlup:
+                plow=getapi.rewardlist(tkn)["data"]
+                for piop in plow:
+                    print(f'{c("blue",piop,0)}')
+                    for piop2 in plow[piop]:
+                        if piop2["info"]["complete_status"]==1:#terbuka
+                            if piop2["info"]["status"]==1:#belum claim
+                                # print(f'{c("green",json.dumps(piop2,indent=2),0)}')
+                                print(f'{c("yellow",piop2["info"]["en_name"],0)}')
+                                kuda=getapi.rewardclaim(tkn,piop2["task"][0]["task_record_id"])
+                                if kuda["code"]==200:
+                                    print(f"\tClaim : {c('green',kuda['status'],0)}")
+                        else:
+                            # print(json.dumps(piop2,indent=2))
+                            print(piop2["info"]["en_name"])
+
+                time.sleep(2)
