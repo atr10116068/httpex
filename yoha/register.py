@@ -17,17 +17,17 @@ db = firebase.database()
 
 
 while True:
-    dbb = {"results": []}
-    req = db.child('yoha').child('akun').child("results").get()
-    acc = req.val()
-    for tott in acc:
-        dbb["results"].append(tott)
+    # dbb = {"results": []}
+    # req = db.child('yoha').child('akun').child("results").get()
+    # acc = req.val()
+    # for tott in acc:
+    #     dbb["results"].append(tott)
 
-    tet = 1
-    for ppp in dbb["results"]:
-        print(f'  {tet}. {ppp["no"]}')
-        tet += 1
-    print(f"  total uid : {len(dbb['results'])}")
+    # tet = 1
+    # for ppp in dbb["results"]:
+    #     print(f'  {tet}. {ppp["no"]}')
+    #     tet += 1
+    # print(f"  total uid : {len(dbb['results'])}")
 
     nomer = input("\tnomor : ")
     if nomer.startswith("0"):
@@ -35,6 +35,12 @@ while True:
         nomer = "62"+nomer[1:]
     print(nomer)
     getapi.sendcode(nomer)
+
+
+    # passwd = "Hanzo123"
+    # vcode = input("code : ")
+    # getapi.registernodb(nomer, passwd, vcode)
+
     passwd = "t4ufiq654321"
     vcode = input("code : ")
     getapi.register(nomer, passwd, vcode)

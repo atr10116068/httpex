@@ -142,19 +142,20 @@ for i in token:
     sys.stdout.write(f"\t {ikl} -> {len(tokens)}\r")
     sys.stdout.flush()
     ikl += 1
+    time.sleep(1)
 
 print()
-room = getlive.roomall()
-room.append({"nickname": "lobby", "live_id": ""})
+# room = getlive.roomall()
+# room.append({"nickname": "lobby", "live_id": ""})
 
-x = 1
-for i in room:
-    print("{}. {}".format(str(x), i["nickname"]))
-    x += 1
-inp = input("room nomor : ")
-dat["roomid"] = room[int(inp) - 1]["live_id"]
-print("\nTarget Room : " + room[int(inp) - 1]["nickname"])
-
+# x = 1
+# for i in room:
+#     print("{}. {}".format(str(x), i["nickname"]))
+#     x += 1
+# inp = input("room nomor : ")
+# dat["roomid"] = room[int(inp) - 1]["live_id"]
+# print("\nTarget Room : " + room[int(inp) - 1]["nickname"])
+dat["roomid"]=0
 
 def pilter():
     dat["pake"].clear()

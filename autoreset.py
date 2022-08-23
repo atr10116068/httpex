@@ -74,6 +74,7 @@ def reset():
                 print(tkn)
         else:
             print("request eror")
+        time.sleep(2)
 
     tokk = {"results": token}
 

@@ -158,7 +158,7 @@ def sendcode(nomer):
         "host": "api.yoha.pro",
         "accept":"application/json",
         "content-type": "application/json; charset=utf-8",
-        "user-agent": f"Mozilla/5.0 (iPhone11,2; U; CPU iPhone OS 14_0 like Mac OS X) AppleWebKit/602.{rdm.randint(0,255)}.{rdm.randint(0,255)} (KHTML, like Gecko) Version/9.0 Mobile/{rdm.randint(11,99)}E{rdm.randint(111,999)} Safari/602.1"
+        "user-agent": f"Mozilla/5.0 (Linux; Android 8.1.0; Redmi 5 Plus Build/OPM1.{rdm.randint(100000,999999)}.{rdm.randint(100,999)}; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/91.0 Mobile Safari/537.36"
 }
     param = {
         "mobile": nomer,
@@ -185,7 +185,7 @@ def register(nomer, password, code):
         "host": "api.yoha.pro",
         "accept":"application/json",
         "content-type": "application/json; charset=utf-8",
-        "user-agent": f"Mozilla/5.0 (iPhone11,2; U; CPU iPhone OS 14_0 like Mac OS X) AppleWebKit/602.{rdm.randint(0,255)}.{rdm.randint(0,255)} (KHTML, like Gecko) Version/9.0 Mobile/{rdm.randint(11,99)}E{rdm.randint(111,999)} Safari/602.1"
+        "user-agent": f"Mozilla/5.0 (Linux; Android 8.1.0; Redmi 5 Plus Build/OPM1.{rdm.randint(100000,999999)}.{rdm.randint(100,999)}; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/91.0 Mobile Safari/537.36"
 }
     param = {
         "user_login": nomer,
@@ -227,6 +227,43 @@ def register(nomer, password, code):
             else:
                 db.child("yoha").child("akun").child("results").child(int(adakosong[0])).update({"no": nomer, "pass": password})
                 print(f"ada kosong di urutan {adakosong[0]}")
+            return ress
+        except:
+            print(f'gagal : {r.text}')
+    else:
+        print(f"gagal status code : {r.text}")
+
+def registernodb(nomer, password, code):
+    aipi = f'{rdm.randint(1,255)}.{rdm.randint(1,255)}.{rdm.randint(1,255)}.{rdm.randint(1,255)}'
+    head = {
+        "host": "api.yoha.pro",
+        "accept":"application/json",
+        "content-type": "application/json; charset=utf-8",
+        "user-agent": f"Mozilla/5.0 (Linux; Android 8.1.0; Redmi 5 Plus Build/OPM1.{rdm.randint(100000,999999)}.{rdm.randint(100,999)}; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/91.0 Mobile Safari/537.36"
+}
+    param = {
+        "user_login": nomer,
+        "user_pass": password,
+        "user_pass2": password,
+        "source": "android",
+        "referral_code": "gxUqZGxe5d8qVEwX",
+        "channel_code": "2",
+        "unique_code": f"{rdm.randint(100000,999999)}7{rdm.randint(100000,999999)}-{rdm.randint(100000,999999)}0{rdm.randint(100000,999999)}{rdm.randint(100000,999999)}",
+        "code": code,
+        "pasteboard": "",
+        "device_code": randcode(),
+        "guest_code": "",
+        "v": persi,
+        "ip": aipi,
+        "l": "in",
+    }
+    uri = f'{data["host"]}api/auth/register'
+    r = httpx.post(uri, params=param, headers=head, timeout=10)
+    if r.status_code == 200:
+    # if True:
+        ress = json.loads(r.text)
+        # ress=""
+        try:
             return ress
         except:
             print(f'gagal : {r.text}')
