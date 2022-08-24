@@ -47,7 +47,12 @@ while True:
     harga = dbproduk[idxprodinp]["price"]
     print(f"harga : {harga}         autoHitung : {mybalance}/{harga}={round(mybalance/harga)}")
     lup = input("ulangi hingga : ")
-    jeda = int(input("jeda : "))
+    
+    inpjeda=input("jeda : ")
+    if len(inpjeda)>1:
+        jeda = int(inpjeda)
+    else:
+        jeda = 1
     itrx=0
     idxopra=0
     

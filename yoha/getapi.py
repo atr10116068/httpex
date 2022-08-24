@@ -292,7 +292,7 @@ def getroom(token):
             ress = []
             for dtr in ressx["data"]["list"]:
                 vuid = dtr["uid"]
-                if vuid not in ress and dtr["user_nicename"] !="Yoha Game":
+                if vuid not in ress and dtr["user_nicename"].startswith("Yoha")==False:
                     ress.append(dtr)
             return ress
         print(f"{r.text}")

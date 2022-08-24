@@ -71,7 +71,17 @@ while True:
                     if rmsg != None:
                         print(f'{c("cyan",rmsg,0)}')
                         code = rmsg.replace("Enter: ", "").split("\n")[0]
-                        getapi.register(rnum, "t4ufiq654321", code)
+                        print(f" code = [{code}]")
+                        print(getapi.register(rnum, "t4ufiq654321", code))
+                        
+                        for rdd in range(10, 0, -1):
+                            sys.stdout.write(f"Wait.. to Login  {rdd}  \r")
+                            sys.stdout.flush()
+                            time.sleep(1)
+
+                        tkn = getapi.login(rnum, "t4ufiq654321")
+                        getapi.claim(tkn, 1)
+
                         tini.remove(where('nomer') == rnum)
                 else:
                     # Dibatalkan
@@ -79,7 +89,7 @@ while True:
                     tini.remove(where('nomer') == rnum)
     except:
         pass
-    for rdd in range(200, 0, -1):
+    for rdd in range(50, 0, -1):
         sys.stdout.write(f"Wait.. {rdd}  \r")
         sys.stdout.flush()
         time.sleep(1)

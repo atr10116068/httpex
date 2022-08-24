@@ -43,4 +43,4 @@ while True:
 
     passwd = "t4ufiq654321"
     vcode = input("code : ")
-    getapi.register(nomer, passwd, vcode)
+    print(getapi.register(nomer, passwd, vcode))

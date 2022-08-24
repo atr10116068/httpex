@@ -131,7 +131,6 @@ while True:
                 getapi.send(tkn, idroom, texx)
     if x == "4":#gift
         rdmtkn=random.choice(token)
-        jeda=float(input("jeda : "))
         getidroom = getapi.getroom(rdmtkn)
         x = 1
         for idr in getidroom:
@@ -141,41 +140,38 @@ while True:
         idroom = getidroom[int(input("room no : "))-1]
         namahost, streamid, uid = idroom["user_nicename"], idroom["room_id"], idroom["uid"]
 
-        tkn1, tkn2,  tknall, tkn = 0, 0, 0, 0
+        tkn1, tkn2,jeda=0,0,10
         ftkn = input("[no] or [no-no] or enter(all): ")
         if ftkn == "":
-            tknall = token
+            tokengift = token
+        elif "-" in ftkn:
+            tkn1, tkn2 = int(ftkn.split("-")[0]), int(ftkn.split("-")[1])
+            jeda=float(input("jeda : "))
+            tokengift = token[tkn1-1:tkn2-1]
         else:
-            if "-" in ftkn:
-                tkn1, tkn2 = int(ftkn.split("-")[0]), int(ftkn.split("-")[1])
-            else:
-                tkn = int(ftkn)
-        if tkn1 != 0 and tkn2 != 0 or tknall != 0:
-            if tknall != 0:
-                itrtkn = token
-            else:
-                itrtkn = token[tkn1-1:tkn2-1]
-            tokengift = itrtkn
+            tokengift = token[int(ftkn)-1:int(ftkn)]
 
-            reqdata = getapi.getgift(rdmtkn)
-            listgift = reqdata["data"]["gift_list"]
-            listgift.append(gumawok)
-            newlistgift = sorted(listgift, key=lambda d: d['need_coin'])
-            for pgift in newlistgift:
-                giftid = pgift['id']
-                giftname = pgift['gift_name']
-                amount = pgift['need_coin']
-                print(f"   [{giftid}] [{amount}]   \t{giftname}")
-                
+        reqdata = getapi.getgift(rdmtkn)
+        listgift = reqdata["data"]["gift_list"]
+        listgift.append(gumawok)
+        newlistgift = sorted(listgift, key=lambda d: d['need_coin'])
+        for pgift in newlistgift:
+            giftid = pgift['id']
+            giftname = pgift['gift_name']
+            amount = pgift['need_coin']
+            print(f"   [{giftid}] [{amount}]   \t{giftname}")
+        while True:
             inpp = input("Gift id : ")
-            jumgip=input("jumlah : ")
-            for tokengiftr in tokengift:
-                print(f"Host : {namahost}")
-                print(c("green", f"Diamond : {reqdata['data']['coin']}", 0))
-                if inpp == "q":
-                    break
-                getapi.gift(tokengiftr, streamid, inpp, uid, jumgip)
-                time.sleep(jeda)
+            if inpp=="q":
+                break
+            else:
+                jumgip=input("jumlah : ")
+                for tokengiftr in tokengift:
+                    print(f"Host : {namahost}")
+                    if inpp == "q":
+                        break
+                    getapi.gift(tokengiftr, streamid, inpp, uid, jumgip)
+                    time.sleep(jeda)
     if x == "5":#getuid
         uaidi = ambil.uid()
         tkn1, tkn2,  tknall, tkn = 0, 0, 0, 0
@@ -196,11 +192,12 @@ while True:
                 else:
                     itrtkn = uaidi[tkn1-1:tkn2]
                     x = tkn1
+                disp=""
                 for tkn in itrtkn:
-                    print(
-                        f'{x}.\t{c("cyan",tkn["no"],0)}\t[{c("magenta",tkn["pass"],0)}]')
-                    time.sleep(0.1)
+                    disp+=(
+                        f'{x}.\t{c("cyan",tkn["no"],0)}\t[{c("magenta",tkn["pass"],0)}]\n')
                     x += 1
+                print(disp)
             else:
                 tkn = uaidi[tkn-1]
                 print(
@@ -325,7 +322,7 @@ while True:
                 plow=getapi.follow(tkn, aidi)
                 print(f'{xi}   : {c("green",plow,0)}')
                 xi+=1
-                time.sleep(2)
+                time.sleep(0.3)
     if x == "9":#cek uid
         uaidi = ambil.uid()
         bck=[]
@@ -339,8 +336,8 @@ while True:
         print(json.dumps(xxx,indent=2))
         
         itk=input("Token (enter to skip): ")
-        if len(itk)>100:
-            getapi.updateuser()
+        if len(itk)!=0:
+            print(getapi.updateuser(token[int(itk)-1]))
     if x == "11":#receive follow
         mode = input("[no-no] : ")
         if "-" in mode:
@@ -384,3 +381,5 @@ while True:
             idroom = idrt["stream"]
             getapi.send(tkn, idroom, texx)
             time.sleep(1)
+
+#  𓌸 𓌹 𓌺(◣_◢)𓌸 𓌹 𓌺

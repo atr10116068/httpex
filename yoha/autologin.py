@@ -40,7 +40,8 @@ def reset():
                 if tkn == 500:
                     print()
                     print(f'  idx : {itr+tkn1-1} [{id["no"]}] Akun atau kata sandi salah')
-                    db.child("yoha").child("akun").child("results").child(itr+tkn1-1).update({"no":"kosong","pass":"t4ufiq654321"})
+                    if input(f" {id['no']} hapus : ") == "y":
+                        db.child("yoha").child("akun").child("results").child(itr+tkn1-1).update({"no":"kosong","pass":"t4ufiq654321"})
                     try:
                         token[itr-1+tkn1]=""
                         print(f"  add idx {itr-1+tkn1}")
@@ -93,7 +94,7 @@ def jam():
     now = datetime.now(tz)
     jamm = now.strftime("%m/%d/%Y, %H:%M:%S")
     minut = now.strftime("%H%M")
-    if minut == "0219" and jamm not in jamar:
+    if minut == "0102" and jamm not in jamar:
         jamar.append(str(jamm))
         print("•>> "+str(jamm))
         return True
