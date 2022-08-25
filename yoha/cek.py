@@ -54,24 +54,12 @@ menus = """
 while True:
     x = input(f"{menus}-> ")
     if x == "1":#cek akun
-        tkn1, tkn2,  tknall, tkn = 0, 0, 0, 0
-        ftkn = input("[no] or [no-no] or enter(all): ")
         jeda=int(input("jeda : "))
+        ftkn = input("[no] or [no-no] or enter(all): ")
+        jumkoin=0
+        x=0
         if ftkn == "":
-            tknall = token
-        else:
-            if "-" in ftkn:
-                tkn1, tkn2 = int(ftkn.split("-")[0]), int(ftkn.split("-")[1])
-            else:
-                tkn = int(ftkn)
-        if tkn1 != 0 and tkn2 != 0 or tknall != 0:
-            x = 0
-            if tknall != 0:
-                itrtkn = token
-            else:
-                itrtkn = token[tkn1-1:tkn2]
-                x = tkn1-1
-            jumkoin = 0
+            itrtkn = token
             for tkn in itrtkn:
                 try:
                     acc = getapi.profile(tkn)
@@ -85,15 +73,32 @@ while True:
                         f'[{x}/{len(itrtkn)}].  {c("magenta",acc["id"],0)}\t{acc["user_nicename"]} {c("cyan",acc["diamonds"],0)} {c("yellow",acc["coin"],0)} ')
                     jumkoin += int(acc["diamonds"])
                     time.sleep(jeda)
+        elif "-" in ftkn:
+            tkn1,tkn2=int(ftkn.split("-")[0]),int(ftkn.split("-")[1])
+            itrtkn = token[tkn1-1:tkn2]
+            x = tkn1-1
+            for tkn in itrtkn:
+                try:
+                    acc = getapi.profile(tkn)
+                    x += 1
+                except:
+                    break
+
+                if acc != 0:
+                    acc = acc["data"]
+                    print(
+                        f'[{x}/{len(itrtkn)+tkn1-1}].  {c("magenta",acc["id"],0)}\t{acc["user_nicename"]} {c("cyan",acc["diamonds"],0)} {c("yellow",acc["coin"],0)} ')
+                    jumkoin += int(acc["diamonds"])
+                    time.sleep(jeda)
                 
             print(f"jumlah Diamond +- {c('cyan',jumkoin,0)}")
         else:
-            tkn1 = token[tkn-1]
+            tkn1 = token[int(ftkn)-1]
             print(tkn1)
             acc = getapi.profile(tkn1)
             acc = acc["data"]
             print(
-                f'{tkn}.\t{c("magenta",acc["id"],0)}\t{acc["user_nicename"]} {c("cyan",acc["diamonds"],0)} {c("yellow",acc["coin"],0)} ')
+                f'{ftkn}.\t{c("magenta",acc["id"],0)}\t{acc["user_nicename"]} {c("cyan",acc["diamonds"],0)} {c("yellow",acc["coin"],0)} ')
 
     if x == "2":#get token
         tkn = token[int(input("token no : "))-1]
