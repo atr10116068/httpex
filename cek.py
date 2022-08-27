@@ -69,8 +69,11 @@ def loginid(x):
     # print(param)
     # exit()
 
+    proxx={
+        "https":input("Proxy : ")
+    }
     try:
-        req = requests.post(uri, data=json.dumps(param), headers=headers)
+        req = requests.post(uri, data=json.dumps(param), headers=headers,proxies=proxx)
         ress = json.loads(req.text)
         return ress
     except Exception as e:
@@ -773,7 +776,9 @@ while True:
                 print(uid)
 
                 print("=============================================================")
-                token = loginid(uid)["result"]["access_token"]
+                token = loginid(uid)
+                print(token)
+                token=token["result"]["access_token"]
                 print(json.dumps(token, indent=2))
 
                 print("=============================================================")

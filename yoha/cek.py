@@ -86,8 +86,17 @@ while True:
 
                 if acc != 0:
                     acc = acc["data"]
+                    warnalvl="white"
+                    if acc["vip_level"]<1:
+                        warnalvl="yellow"
+                    elif acc["vip_level"]<2:
+                        warnalvl="blue"
+                    elif acc["vip_level"]<3:
+                        warnalvl="magenta"
+                    else:
+                        warnalvl="red"
                     print(
-                        f'[{x}/{len(itrtkn)+tkn1-1}].  {c("magenta",acc["id"],0)}\t{acc["user_nicename"]} {c("cyan",acc["diamonds"],0)} {c("yellow",acc["coin"],0)} ')
+                        f'[{x}/{len(itrtkn)+tkn1-1}].  {c(warnalvl,acc["id"],0)}\t{acc["user_nicename"]} {c("cyan",acc["diamonds"],0)} {c("yellow",acc["coin"],0)} ')
                     jumkoin += int(acc["diamonds"])
                     time.sleep(jeda)
                 
@@ -223,7 +232,9 @@ while True:
             tkn2 = int(ittkn.split("-")[1])
             tokenlup = token[tkn1-1:tkn2-1]
             while True:
-                texx = input("e/q enter/quit :")
+                texx = input("e/ex enter/exit :")
+                if texx == "q":
+                    break
                 if texx == "e":
                     xi=1
                     for tkn in tokenlup:
@@ -231,7 +242,7 @@ while True:
                         print(xi)
                         xi+=1
                         time.sleep(0.5)
-                if texx == "q":
+                if texx == "ex":
                     xi=1
                     for tkn in tokenlup:
                         getapi.kuit(tkn, aidi)
@@ -318,16 +329,19 @@ while True:
         mode = input("mode [no-no] : ")
         aidi = input("ID target : ")
         if "-" in mode:
-            ittkn = mode
-            tkn1 = int(ittkn.split("-")[0])
-            tkn2 = int(ittkn.split("-")[1])
-            tokenlup = token[tkn1-1:tkn2-1]
-            xi=1
-            for tkn in tokenlup:
-                plow=getapi.follow(tkn, aidi)
-                print(f'{xi}   : {c("green",plow,0)}')
-                xi+=1
-                time.sleep(0.3)
+            try:
+                ittkn = mode
+                tkn1 = int(ittkn.split("-")[0])
+                tkn2 = int(ittkn.split("-")[1])
+                tokenlup = token[tkn1-1:tkn2-1]
+                xi=1
+                for tkn in tokenlup:
+                    plow=getapi.follow(tkn, aidi)
+                    print(f'{xi}   : {c("green",plow,0)}')
+                    xi+=1
+                    time.sleep(0.3)
+            except Exception as e:
+                print(f"Error : {e}")
     if x == "9":#cek uid
         uaidi = ambil.uid()
         bck=[]

@@ -185,7 +185,7 @@ def pilter():
                 print(f"Add [{ceking[1]}] \t{ceking[0]} {gngn} -> {gngnkey}")
         else:
             tokens.pop(tokens.index(t))
-            print(f"jumlah token : {len(tokens)}")
+            # print(f"jumlah token : {len(tokens)}")
 
         iff += 1
         sys.stdout.write(f"Scanning... {iff} \r")

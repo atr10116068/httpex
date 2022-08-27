@@ -7,7 +7,7 @@ import requests
 import sys
 import seting
 import getlive
-import sys
+import sys,os
 import random
 import ambil
 from datetime import datetime
@@ -32,7 +32,6 @@ tokk = ambil.token()
 persi = seting.versi()
 # token = tokk[int(input("token no : "))]
 token = tokk[int(sys.argv[1])]
-
 room = getlive.roomall()
 x = 1
 for i in room:

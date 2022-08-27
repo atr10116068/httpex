@@ -28,19 +28,20 @@ while True:
     #     print(f'  {tet}. {ppp["no"]}')
     #     tet += 1
     # print(f"  total uid : {len(dbb['results'])}")
-
-    nomer = input("\tnomor : ")
+    inpp=input("input? q to exit")
+    nomer = input("\tnomor send code : ")
     if nomer.startswith("0"):
         print("auto change 0 to 62")
         nomer = "62"+nomer[1:]
     print(nomer)
-    getapi.sendcode(nomer)
-
-
-    # passwd = "Hanzo123"
-    # vcode = input("code : ")
-    # getapi.registernodb(nomer, passwd, vcode)
-
-    passwd = "t4ufiq654321"
+    
+    if inpp!="q":
+        getapi.sendcode(nomer)
+        
+    passwd = "Hanzo123"
     vcode = input("code : ")
-    print(getapi.register(nomer, passwd, vcode))
+    getapi.registernodb(nomer, passwd, vcode)
+
+    # passwd = "t4ufiq654321"
+    # vcode = input("code : ")
+    # print(getapi.register(nomer, passwd, vcode))

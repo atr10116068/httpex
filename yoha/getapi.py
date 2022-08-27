@@ -246,7 +246,7 @@ def registernodb(nomer, password, code):
         "user_pass": password,
         "user_pass2": password,
         "source": "android",
-        "referral_code": "gxUqZGxe5d8qVEwX",
+        "referral_code": "5qwVgDlmvk6faexE",
         "channel_code": "2",
         "unique_code": f"{rdm.randint(100000,999999)}7{rdm.randint(100000,999999)}-{rdm.randint(100000,999999)}0{rdm.randint(100000,999999)}{rdm.randint(100000,999999)}",
         "code": code,
@@ -292,7 +292,7 @@ def getroom(token):
             ress = []
             for dtr in ressx["data"]["list"]:
                 vuid = dtr["uid"]
-                if vuid not in ress and dtr["user_nicename"].startswith("Yoha")==False:
+                if vuid not in ress and "yoha" not in dtr["user_nicename"].lower():
                     ress.append(dtr)
             return ress
         print(f"{r.text}")

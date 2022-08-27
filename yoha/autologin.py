@@ -94,7 +94,7 @@ def jam():
     now = datetime.now(tz)
     jamm = now.strftime("%m/%d/%Y, %H:%M:%S")
     minut = now.strftime("%H%M")
-    if minut == "0102" and jamm not in jamar:
+    if minut == "0235" and jamm not in jamar:
         jamar.append(str(jamm))
         print("•>> "+str(jamm))
         return True
