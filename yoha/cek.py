@@ -99,8 +99,6 @@ while True:
                         f'[{x}/{len(itrtkn)+tkn1-1}].  {c(warnalvl,acc["id"],0)}\t{acc["user_nicename"]} {c("cyan",acc["diamonds"],0)} {c("yellow",acc["coin"],0)} ')
                     jumkoin += int(acc["diamonds"])
                     time.sleep(jeda)
-                
-            print(f"jumlah Diamond +- {c('cyan',jumkoin,0)}")
         else:
             tkn1 = token[int(ftkn)-1]
             print(tkn1)
@@ -109,6 +107,7 @@ while True:
             print(
                 f'{ftkn}.\t{c("magenta",acc["id"],0)}\t{acc["user_nicename"]} {c("cyan",acc["diamonds"],0)} {c("yellow",acc["coin"],0)} ')
 
+        print(f"jumlah Diamond +- {c('cyan',jumkoin,0)}")
     if x == "2":#get token
         tkn = token[int(input("token no : "))-1]
         acc = getapi.profile(tkn)
@@ -251,7 +250,11 @@ while True:
                         time.sleep(0.5)
     if x == "7":#jastem
         targetgip=int(input("Target Gift : "))
-        jeda=float(input("jeda : "))
+        inpjed=input("jeda : ")
+        if inpjed=="":
+            jeda=float(1.0)
+        else:
+            jeda=float(inpjed)
         tkn1, tkn2,  tknall, tkn = 0, 0, 0, 0
         ftkn = input("[no-no] or enter(all): ")
         if ftkn == "":
@@ -277,6 +280,7 @@ while True:
                 print(f"{xr}. {idr['user_nicename']}")
                 xr += 1
             idxrum=int(input("room no : "))
+            print("\n\n\n\n\n\n\n\t\t\t\t[ JASTEM ATARO ]\n")
             idroom = getidroom[idxrum-1]["stream"]
             aidir = getidroom[idxrum-1]["uid"]
 
@@ -295,36 +299,42 @@ while True:
                     #________________________________
                     rstream=idroom
                     nama=acc["user_nicename"]
+                    while len(nama)<15:
+                        nama+=" "
                     aidi=acc["id"]
                     dm=acc["diamonds"]
                     #________________________________
                     #gip = token, stream, idgift, liveuid, num
                     for tgip in newlistgift:
                         gname= tgip["gift_name"]
+                        while len(gname)<24:
+                            gname+=" "
                         gdm=tgip["need_coin"]
                         gid=tgip["id"]
                         if jumgift>=targetgip:
                             setop=True
                             break
-                        if int(dm)>500 and int(dm)>gdm and int(dm)<30000:#jika dm gk kosong
+                        if int(dm)>2501 and int(dm)>gdm and int(dm)<100000:#jika dm gk kosong dan dibawah 100K
                             sisah=targetgip-(jumgift+gdm)
                             # print(f"kurang : {sisah}")
-                            if sisah>-600:#jika sisahnya kebanyakan
+                            if sisah>-600:#jika sisahnya gak kebanyakan
                                 try:
-                                    getapi.gift(tkn,rstream,gid,aidir,"1")
+                                    # getapi.gift(tkn,rstream,gid,aidir,"1")
                                     jumgift += int(gdm)
-                                    print(f'   {x}. {c("magenta",nama,0)} [{c("cyan",dm,0)}]\tgift {c("magenta",gname,0)} [{c("red",gdm,0)}] = {c("yellow",jumgift,0)}')
+                                    # print(f'       {c("cyan",nama,0)}[{c("magenta",dm,0)}]\tgift {c("cyan",gname,0)}[{c("green",gdm,0)}]\t{c("yellow",jumgift,0)}')
+                                    print(f'       {c("cyan",nama,0)}\tgift {c("cyan",gname,0)}[{c("green",gdm,0)}]\t{c("yellow",jumgift,0)}')
                                 except Exception as e:
                                     print(f"Gagal tidak masuk hitungan : {e}")
+                                time.sleep(jeda)
                                 break
                             else:
-                                print(f'   {x}. {c("magenta",nama,0)} [{c("cyan",dm,0)}]\tsaldo kurang = {c("yellow",jumgift,0)}')
+                                # print(f'   {x}. {c("magenta",nama,0)} [{c("cyan",dm,0)}]\tsaldo kurang = {c("yellow",jumgift,0)}')
+                                pass#skip gift gede
 
                     if setop==True:
                         break
-                    time.sleep(jeda)
                 
-            print(f"\tjumlah Gift:{c('yellow',jumgift,0)}")
+            print(f"\tjumlah Gift:{c('yellow',jumgift,0)}\n\n\n\n\n")
     if x == "8":#follow
         mode = input("mode [no-no] : ")
         aidi = input("ID target : ")
