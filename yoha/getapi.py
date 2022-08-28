@@ -686,6 +686,7 @@ def tu(token):
 
     uri = f'{data["host"]}api/paymentorders/createorder'
     r = httpx.post(uri, params=param, headers=head)
+    print(r.text)
     if r.status_code == 200:
         ress = (json.loads(r.text))
         oweb(ress["data"]["pay_url"])
