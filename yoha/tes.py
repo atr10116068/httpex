@@ -1,9 +1,12 @@
-import getapi,json,time
+import getapi
+import json
+import time
+
 
 def art():
-    tkn="Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vYXBpLnlvaGEucHJvL2FwaS9hdXRoL2xvZ2luIiwiaWF0IjoxNjYxMzY0MTkwLCJleHAiOjE2NjE5Njg5OTAsIm5iZiI6MTY2MTM2NDE5MCwianRpIjoicjFXTUY2ZkJlNHh2ekE4YSIsInN1YiI6MjYyMzY3MSwicHJ2IjoiMjNiZDVjODk0OWY2MDBhZGIzOWU3MDFjNDAwODcyZGI3YTU5NzZmNyJ9.pMF7_to8LwK56gY3Qj9njURk_q1XaeoZvklwLG_d9-0"
+    tkn = "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vYXBpLnlvaGEucHJvL2FwaS9hdXRoL2xvZ2luIiwiaWF0IjoxNjYxNjg2NzMxLCJleHAiOjE2NjIyOTE1MzEsIm5iZiI6MTY2MTY4NjczMSwianRpIjoibU9WeHJGMkYwT3hnSWh0VyIsInN1YiI6MjU2MTc0NiwicHJ2IjoiMjNiZDVjODk0OWY2MDBhZGIzOWU3MDFjNDAwODcyZGI3YTU5NzZmNyJ9.6mRPCyYweZU4HPAiqUqXoK4-eSoiGO1apFiAdrYW1Kw"
 
-    cet="""
+    cet = """
        ▀      ▄▄  ▄███▄
     ▄▀▀▀▄   ▄█████████▀
     █    █  ▄██████  █▀
@@ -28,7 +31,8 @@ def art():
         x += 1
     idroom = getidroom[int(input("room no : "))-1]["stream"]
     # while True:
-    getapi.send(tkn,idroom,cet)
+    getapi.send(tkn, idroom, cet)
     time.sleep(1)
+
 
 art()
