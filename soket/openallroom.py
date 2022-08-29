@@ -44,7 +44,13 @@ for pgp in game:
         targetgame = pgp
     idxg += 1
 
-
+def cekbug():
+    print(dat["ittrr"])
+    if dat["ittrr"]>80:
+        db.truncate()
+        kil()
+        return 1
+    return 0
 def buka(liveid, targetgame):
     rdmno = 0
     while True:
@@ -55,6 +61,7 @@ def buka(liveid, targetgame):
             dat["ittrr"]+=1
             break
         else:
+            if cekbug()==1:break
             print(f"{rdmno} terpakai")
     # os.system(f'start cmd /k python jdysocket.py {rdmno} {liveid} {targetgame}')#tetap terbuka
     # langsung tutup
@@ -98,9 +105,6 @@ while True:
         #     kil()
         #     break
     
-    if dat["ittrr"]>90:
-        kil()
-        break
-
+    if cekbug()==1:break
     time.sleep(120)
     # print(json.dumps(dat,indent=2))
