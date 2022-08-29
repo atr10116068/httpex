@@ -58,7 +58,7 @@ menus = """
 while True:
     x = input(f"{menus}-> ")
     if x == "1":  # cek akun
-        jeda = int(input("jeda : "))
+        jeda = float(input("jeda : "))
         ftkn = input("[no] or [no-no] or enter(all): ")
         jumkoin = 0
         x = 0
