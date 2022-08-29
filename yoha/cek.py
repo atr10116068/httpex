@@ -233,6 +233,7 @@ while True:
         idroom = getidroom[idxrum-1]["stream"]
         aidi = getidroom[idxrum-1]["uid"]
         if "-" in mode:
+            jeda = float(input("jeda : "))
             ittkn = mode
             tkn1 = int(ittkn.split("-")[0])
             tkn2 = int(ittkn.split("-")[1])
@@ -247,14 +248,14 @@ while True:
                         getapi.enter(tkn, aidi)
                         print(xi)
                         xi += 1
-                        time.sleep(0.5)
+                        time.sleep(jeda)
                 if texx == "ex":
                     xi = 1
                     for tkn in tokenlup:
                         getapi.kuit(tkn, aidi)
                         print(xi)
                         xi += 1
-                        time.sleep(0.5)
+                        time.sleep(jeda)
     if x == "7":  # jastem
         targetgip = int(input("Target Gift : "))
         inpjed = input("jeda : ")
