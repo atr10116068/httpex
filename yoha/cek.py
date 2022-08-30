@@ -542,9 +542,6 @@ simi [on/off]
                                             simionoff = False
                                             getapi.send(
                                                 tkn, idroom, "Sudah off")
-                                        else:
-                                            getapi.send(
-                                                tkn, idroom, "SALAH typing kak")
                                 else:
                                     getapi.send(
                                         tkn, idroom, random.choice(dilarang))
