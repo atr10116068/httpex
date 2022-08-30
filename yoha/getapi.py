@@ -691,3 +691,40 @@ def tu(token):
         ress = (json.loads(r.text))
         oweb(ress["data"]["pay_url"])
         print(ress)
+
+
+def getmsg(token, streamid):
+    head = {
+        "authorization": token,
+        "host": "tech04.yoha.pro",
+        "accept": "application/json",
+        "content-type": "application/json; charset=utf-8",
+        "user-agent": f"Mozilla/5.0 (iPhone11,2; U; CPU iPhone OS 14_0 like Mac OS X) AppleWebKit/602.{rdm.randint(0,255)}.{rdm.randint(0,255)} (KHTML, like Gecko) Version/9.0 Mobile/{rdm.randint(11,99)}E{rdm.randint(111,999)} Safari/602.1"
+    }
+    aipi = f'{rdm.randint(1,255)}.{rdm.randint(1,255)}.{rdm.randint(1,255)}.{rdm.randint(1,255)}'
+    param1 = {
+        "stream": streamid,
+        "v": persi,
+        "ip": aipi,
+        "l": "in"
+    }
+    uri = f'{data["api"]}live/msgHistory'
+    try:
+        r = httpx.post(uri, data=json.dumps(param1), headers=head, timeout=5)
+        if r.status_code == 200:
+            ressx = (json.loads(r.text))
+            return ressx
+        print(f"{r.text}")
+    except Exception as error:
+        print(error)
+    return 0
+
+
+def simi(tex):
+    uriweb = f"https://api.simsimi.net/v2/?text={tex}&lc=id"
+    headers = {
+        "user-agent": f"Mozilla/5.0 (Linux; Android 8.1.0; Redmi 5 Plus Build/OPM1.{rdm.randint(100000,999999)}.019; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/91.0.{rdm.randint(1000,9999)}.{rdm.randint(100,999)} Mobile Safari/537.36",
+    }
+    res = httpx.get(uriweb, headers=headers)
+    res = json.loads(res.text)
+    return res
