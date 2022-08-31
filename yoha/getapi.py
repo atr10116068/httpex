@@ -299,7 +299,7 @@ def getroom(token):
             ress = []
             for dtr in ressx["data"]["list"]:
                 vuid = dtr["uid"]
-                if vuid not in ress and "yoha" not in dtr["user_nicename"].lower():
+                if vuid not in ress and dtr["user_nicename"].lower() not in ["yoha movie", "dj yoha", "yoha game", "yoha lisa", "yoha xix", "yoha lala", "yoha bola", "yoha luxi", "yoha2", "yoha yayqa"]:
                     ress.append(dtr)
             return ress
         print(f"{r.text}")
@@ -655,7 +655,7 @@ def updaterandom(token):
         },
     }
     uri = f'{data["host"]}api/auth/update-user'
-    r = httpx.post(uri, params=json.dumps(param), headers=head)
+    r = httpx.post(uri, data=json.dumps(param), headers=head)
     if r.status_code == 200:
         ress = (json.loads(r.text))
         msg = ress['status']

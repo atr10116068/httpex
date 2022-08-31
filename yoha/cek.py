@@ -65,6 +65,7 @@ menus = """
 13. msg All
 14. search agency
 15. chatbot
+16. set random profile
 """
 while True:
     x = input(f"{menus}-> ")
@@ -337,27 +338,37 @@ while True:
                             break
                         # jika dm gk kosong dan dibawah 100K
                         if int(dm) > 2501 and int(dm) > gdm and int(dm) < 550000:
+                            # random biar ga sama
+                            for acakin in range(1, random.randint(2, 15)):
+                                getapi.gift(tkn, rstream, "55", aidir, "1")
+                                jumgift += 100
+                                time.sleep(2)
                             sisah = targetgip-(jumgift+gdm)
                             # print(f"kurang : {sisah}")
-                            if sisah > -600:  # jika sisahnya gak kebanyakan
-                                try:
-                                    getapi.enter(tkn, aidir)
-                                    time.sleep(1)
-                                    getapi.follow(tkn, aidir)
-                                    time.sleep(1)
-                                    getapi.gift(tkn, rstream, gid, aidir, "1")
-                                    jumgift += int(gdm)
-                                    # print(f'       {c("cyan",nama,0)}[{c("magenta",dm,0)}]\tgift {c("cyan",gname,0)}[{c("green",gdm,0)}]\t{c("yellow",jumgift,0)}')
-                                    print(
-                                        f'       {c("cyan",nama,0)}\tgift {c("cyan",gname,0)}[{c("green",gdm,0)}]\t{c("yellow",jumgift,0)}')
-                                except Exception as e:
-                                    print(f"Gagal tidak masuk hitungan : {e}")
-                                time.sleep(jeda)
+                            try:
+                                if sisah > -600:  # jika sisahnya gak kebanyakan
+                                    try:
+                                        getapi.enter(tkn, aidir)
+                                        time.sleep(1)
+                                        getapi.follow(tkn, aidir)
+                                        time.sleep(1)
+                                        getapi.gift(
+                                            tkn, rstream, gid, aidir, "1")
+                                        jumgift += int(gdm)
+                                        # print(f'       {c("cyan",nama,0)}[{c("magenta",dm,0)}]\tgift {c("cyan",gname,0)}[{c("green",gdm,0)}]\t{c("yellow",jumgift,0)}')
+                                        print(
+                                            f'       {c("cyan",nama,0)}\tgift {c("cyan",gname,0)}[{c("green",gdm,0)}]\t{c("yellow",jumgift,0)}')
+                                    except Exception as e:
+                                        print(
+                                            f"Gagal tidak masuk hitungan : {e}")
+                                    time.sleep(jeda)
+                                    break
+                                else:
+                                    # print(f'   {x}. {c("magenta",nama,0)} [{c("cyan",dm,0)}]\tsaldo kurang = {c("yellow",jumgift,0)}')
+                                    pass  # skip gift gede
+                            except Exception as e:
+                                print(e)
                                 break
-                            else:
-                                # print(f'   {x}. {c("magenta",nama,0)} [{c("cyan",dm,0)}]\tsaldo kurang = {c("yellow",jumgift,0)}')
-                                pass  # skip gift gede
-
                     if setop == True:
                         break
 
@@ -535,7 +546,18 @@ simi [on/off]
                                         tkn, idroom, random.choice(dilarang))
                                 print(f"help-> {chat}")
 
-                            if chat.startswith("simi "):
+                            if chat.startswith("simi gift "):
+                                if ataro.contains(db.uid == uid):
+                                    namagenc = chat.replace("simi gift ", "")
+                                    tokengiftbot = namagenc.split(" ")[0]
+                                    idgiftbot = namagenc.split(" ")[1]
+                                    getapi.gift(token[int(tokengiftbot)-1], idroom,
+                                                idgiftbot, roomuid, "1")
+                                else:
+                                    getapi.send(
+                                        tkn, idroom, random.choice(dilarang))
+                                print(f"gift-> {chat}")
+                            elif chat.startswith("simi "):
                                 if tini.contains(db.uid == uid):
                                     switer = chat.replace("simi ", "")
                                     if uid != "2550918":  # simi
@@ -551,6 +573,7 @@ simi [on/off]
                                 else:
                                     getapi.send(
                                         tkn, idroom, random.choice(dilarang))
+
                             if chat.startswith(".add admin "):
                                 if tini.contains(db.uid == uid):
                                     uidmin = chat.replace(".add admin ", "")
@@ -598,18 +621,6 @@ simi [on/off]
                                     getapi.send(
                                         tkn, idroom, random.choice(dilarang))
                                 print(f"agency-> {chat}")
-                            elif chat.startswith(".gift "):
-                                if ataro.contains(db.uid == uid):
-                                    namagenc = chat.replace(".gift ", "")
-                                    tokengiftbot = namagenc.split(" ")[0]
-                                    idgiftbot = namagenc.split(" ")[1]
-                                    getapi.gift(token[int(tokengiftbot)-1], idroom,
-                                                idgiftbot, roomuid, "1")
-
-                                else:
-                                    getapi.send(
-                                        tkn, idroom, random.choice(dilarang))
-                                print(f"gift-> {chat}")
                             if simionoff == True:
                                 # EA ayaa
                                 if uid != 2550918 and chat.startswith(".") == False:
@@ -631,5 +642,18 @@ simi [on/off]
                     sys.stdout.write(f"   {tm}   \r")
                     sys.stdout.flush()
                     time.sleep(1)
+    if x == "16":
+        tkn1, tkn2, jeda = 0, 0, 10
+        ftkn = input("[no] or [no-no]: ")
+        if "-" in ftkn:
+            tkn1, tkn2 = int(ftkn.split("-")[0]), int(ftkn.split("-")[1])
+            jeda = float(input("jeda : "))
+            tokengift = token[tkn1-1:tkn2-1]
+        else:
+            tokengift = token[int(ftkn)-1:int(ftkn)]
+
+        for tkn in tokengift:
+            xxs = getapi.updaterandom(tkn)
+            print(xxs)
 
 #  𓌸 𓌹 𓌺(◣_◢)𓌸 𓌹 𓌺
