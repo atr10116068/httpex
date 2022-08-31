@@ -387,7 +387,7 @@ while True:
                     plow = getapi.follow(tkn, aidi)
                     print(f'{xi}   : {c("green",plow,0)}')
                     xi += 1
-                    time.sleep(0.3)
+                    time.sleep(2)
             except Exception as e:
                 print(f"Error : {e}")
     if x == "9":  # cek uid
