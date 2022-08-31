@@ -200,6 +200,8 @@ while True:
                     print(f"Host : {namahost}")
                     if inpp == "q":
                         break
+                    getapi.enter(tokengiftr, uid)
+                    time.sleep(1)
                     getapi.gift(tokengiftr, streamid, inpp, uid, jumgip)
                     time.sleep(jeda)
     if x == "5":  # getuid
@@ -339,6 +341,10 @@ while True:
                             # print(f"kurang : {sisah}")
                             if sisah > -600:  # jika sisahnya gak kebanyakan
                                 try:
+                                    getapi.enter(tkn, aidir)
+                                    time.sleep(1)
+                                    getapi.follow(tkn, aidir)
+                                    time.sleep(1)
                                     getapi.gift(tkn, rstream, gid, aidir, "1")
                                     jumgift += int(gdm)
                                     # print(f'       {c("cyan",nama,0)}[{c("magenta",dm,0)}]\tgift {c("cyan",gname,0)}[{c("green",gdm,0)}]\t{c("yellow",jumgift,0)}')
