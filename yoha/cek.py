@@ -374,6 +374,7 @@ while True:
 
             print(f"\tjumlah Gift:{c('yellow',jumgift,0)}\n\n\n\n\n")
     if x == "8":  # follow
+        jeda = int(input("jeda : "))
         mode = input("mode [no-no] : ")
         aidi = input("ID target : ")
         if "-" in mode:
@@ -387,7 +388,7 @@ while True:
                     plow = getapi.follow(tkn, aidi)
                     print(f'{xi}   : {c("green",plow,0)}')
                     xi += 1
-                    time.sleep(2)
+                    time.sleep(jeda)
             except Exception as e:
                 print(f"Error : {e}")
     if x == "9":  # cek uid
