@@ -1,16 +1,31 @@
 import requests
 import json
 import time
-import getlive
 import seting
 import random
-import sys
+import sys,pytz
+from datetime import datetime
 import ambil
 from colorama import Fore, Style, init
 init()
+
+
 dat = {"roomid": "0", "pake": [], "ganjilgenap": 2}
 persi = seting.versi()
 
+def tunggu(x):
+    tz = pytz.timezone("Asia/Jakarta")
+    print()
+    while True:
+        now = datetime.now(tz)
+        jamm = now.strftime("%H:%M:%S")
+        sys.stdout.write(f"  {jamm}/{x}   \r")
+        sys.stdout.flush()
+        detik = now.strftime("%S")
+        if int(detik)==int(x):
+            break
+        time.sleep(0.5)
+    
 
 def c(colr, tex, dim):
     try:
@@ -160,6 +175,7 @@ dat["roomid"]=0
 def pilter():
     dat["pake"].clear()
     iff = 0
+    xkecil=999999
 
     for t in tokens:
         ceking = getinfo(t)
@@ -183,6 +199,8 @@ def pilter():
             if gngnkey == "Ganjil" and gngn == "Ganjil":
                 dat["pake"].append(ceking[4])
                 print(f"Add [{ceking[1]}] \t{ceking[0]} {gngn} -> {gngnkey}")
+            if int(ceking[1].split(".")[0]) < xkecil:
+                xkecil=int(ceking[1].split(".")[0])
         else:
             tokens.pop(tokens.index(t))
             # print(f"jumlah token : {len(tokens)}")
@@ -190,16 +208,20 @@ def pilter():
         iff += 1
         sys.stdout.write(f"Scanning... {iff} \r")
         sys.stdout.flush()
+        time.sleep(1)
+    return xkecil
 
 
 hehe = ["player", "banker"]
+
+
 while True:
-    input("\nPRESS ENTER TO SCAN")
+    tunggu(10)
     if dat["ganjilgenap"] == 2:
         dat["ganjilgenap"] = 1
     else:
         dat["ganjilgenap"] = 2
-    pilter()
+    xkecil=pilter()
     itrr = len(dat["pake"])
     print(f"<<<<<<<<<<<<<  {itrr} tokens Selected")
     if itrr == 1 or itrr == 0:
@@ -207,15 +229,20 @@ while True:
             dat["ganjilgenap"] = 1
         else:
             dat["ganjilgenap"] = 2
-        pilter()
+        xkecil=pilter()
         itrr = len(dat["pake"])
         print(f"<<<<<<<<<<<<<  {itrr} tokens Selected")
     if itrr % 2 != 0:
         dat["pake"].pop(0)
+
     itrr = len(dat["pake"])
     print(f">>>>>>>>>>>>> {itrr} akun Betting")
+    if itrr==0:exit()
 
-    bett = input("\nbet : ")
+    #cari nilai terkecil
+    print(f"terkecil = {xkecil}")
+    tunggu(random.randint(46,50))
+    bett = str(xkecil)
     if itrr != 0:
         gamevers = getnum(dat["pake"][0])
 
