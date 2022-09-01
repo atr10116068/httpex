@@ -210,7 +210,7 @@ def pilter():
         iff += 1
         sys.stdout.write(f"Scanning... {iff} \r")
         sys.stdout.flush()
-        time.sleep(1)
+        # time.sleep(1)
     return xkecil
 
 

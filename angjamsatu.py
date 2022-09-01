@@ -33,15 +33,13 @@ while True:
             "Accept-Encoding": "identity",
             "X-Version": dat["versi"],
             "Content-Type": "application/x-www-form-urlencoded",
-            "Content-Length": "25",
             "Host": "wjxwd01mwyo.dt01showxx02.com",
             "Connection": "Keep-Alive",
         }
         param = {"type": "1", "live_room_id": ""}
         try:
-            req = httpx.post(claim, data=json.dumps(param),
-                                headers=headers,  timeout=100)
-            ress = json.loads(ress)
+            req = httpx.post(claim, data=json.dumps(param),headers=headers,  timeout=100)
+            ress=req.text
             print(f"\t{itr}. {ress}")
         except:
             print("Gagal")
