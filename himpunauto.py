@@ -196,11 +196,13 @@ def pilter():
             if gngnkey == "Genap" and gngn == "Genap":
                 dat["pake"].append(ceking[4])
                 print(f"Add [{ceking[1]}] \t{ceking[0]} {gngn} -> {gngnkey}")
+                if int(ceking[1].split(".")[0]) < xkecil:
+                    xkecil=int(ceking[1].split(".")[0])
             if gngnkey == "Ganjil" and gngn == "Ganjil":
                 dat["pake"].append(ceking[4])
                 print(f"Add [{ceking[1]}] \t{ceking[0]} {gngn} -> {gngnkey}")
-            if int(ceking[1].split(".")[0]) < xkecil:
-                xkecil=int(ceking[1].split(".")[0])
+                if int(ceking[1].split(".")[0]) < xkecil:
+                    xkecil=int(ceking[1].split(".")[0])
         else:
             tokens.pop(tokens.index(t))
             # print(f"jumlah token : {len(tokens)}")
