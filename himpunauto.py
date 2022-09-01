@@ -1,4 +1,4 @@
-import requests
+import httpx
 import json
 import time
 import seting
@@ -61,7 +61,7 @@ def getnum(x):
         "connection": "keep-alive",
     }
     query = {"game_type": "baijiale_1"}
-    req = requests.get(uri, params=query, headers=headers)
+    req = httpx.get(uri, params=query, headers=headers)
     ress = json.loads(req.text)
     try:
         return ress["result"]["current_round"]["number"]
@@ -87,7 +87,6 @@ def bet(x, type, num, gamevers):
         "Accept-Encoding": "identity",
         "X-Version": persi,
         "Content-Type": "application/x-www-form-urlencoded",
-        "Content-Length": "123",
         "Host": "wjxwd01mwyo.dt01showxx02.com",
         "Connection": "Keep-Alive",
     }
@@ -100,8 +99,8 @@ def bet(x, type, num, gamevers):
         "multiple": "1",
     }
 
+    req = httpx.post(uri, data=json.dumps(param), headers=headers)
     try:
-        req = requests.post(uri, data=json.dumps(param), headers=headers)
         ress = json.loads(req.text)
         return(ress)
     except:
@@ -118,9 +117,9 @@ def getinfo(x):
         "host": "wjxwd01mwyo.dt01showxx02.com",
         "connection": "keep-alive",
     }
-    f = requests.get(uriweb, headers=headers)
-    ress = json.loads(f.text)
+    f = httpx.get(uriweb, headers=headers)
     try:
+        ress = json.loads(f.text)
         krm = [
             ress["result"]["nickname"],
             ress["result"]["balance"],
@@ -147,6 +146,7 @@ except:
     aa, bb = 0, 150
 
 
+jedascan=float(input("jeda scan : "))
 token = ambil.token()[aa:bb]
 print("filtering...")
 ikl = 1
@@ -157,7 +157,7 @@ for i in token:
     sys.stdout.write(f"\t {ikl} -> {len(tokens)}\r")
     sys.stdout.flush()
     ikl += 1
-    time.sleep(1)
+    time.sleep(jedascan)
 
 print()
 # room = getlive.roomall()
@@ -210,15 +210,15 @@ def pilter():
         iff += 1
         sys.stdout.write(f"Scanning... {iff} \r")
         sys.stdout.flush()
-        # time.sleep(1)
+        time.sleep(jedascan)
     return xkecil
 
 
 hehe = ["player", "banker"]
 
-
 while True:
-    tunggu(10)
+    tunggu(15)
+    # input("SCAN")
     if dat["ganjilgenap"] == 2:
         dat["ganjilgenap"] = 1
     else:
@@ -244,6 +244,7 @@ while True:
     #cari nilai terkecil
     print(f"terkecil = {xkecil}")
     tunggu(random.randint(46,50))
+    # input("BET")
     bett = str(xkecil)
     if itrr != 0:
         gamevers = getnum(dat["pake"][0])

@@ -2,7 +2,7 @@ from datetime import datetime
 import pytz,time,requests,seting,json,ambil
 from tinydb import *
 import time,random
-import os
+import os,sys
 
 # import logging
 # logging.basicConfig(filename="client.log", level=logging.DEBUG)
@@ -69,7 +69,7 @@ def c(colr, tex, dim):
 def getnum(x):
     uri = host+"/App/Game_Game/GetTypeInfo"
     headers = {
-        "user-agent": f"HS-Android Mozilla/5.0 (Linux; Android 8.1.0; Redmi 5 Plus Build/OPM1.17{random.randint(1000,9999)}.019; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/98.0.{random.randint(1000,9999)}.82 Mobile Safari/537.36",
+        "user-agent": f"Mozilla/5.0 (iPhone11,2; U; CPU iPhone OS 14_0 like Mac OS X) AppleWebKit/602.{random.randint(0,255)}.{random.randint(0,255)} (KHTML, like Gecko) Version/9.0 Mobile/{random.randint(11,99)}E{random.randint(111,999)} Safari/602.1",
         "bundleidentifier": "user",
         "x-token": x,
         "accept-encoding": "identity",
@@ -96,7 +96,7 @@ def bet(x, type, num):
     }
     uri = "https://wjxwd01mwyo.dt01showxx02.com/App/Game_Order/Create"
     headers = {
-        "User-Agent": f"HS-Android Mozilla/5.0 (Linux; Android 8.1.0; Redmi 5 Plus Build/OPM1.17{random.randint(1000,9999)}.019; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/98.0.{random.randint(1000,9999)}.82 Mobile Safari/537.36",
+        "User-Agent": f"Mozilla/5.0 (iPhone11,2; U; CPU iPhone OS 14_0 like Mac OS X) AppleWebKit/602.{random.randint(0,255)}.{random.randint(0,255)} (KHTML, like Gecko) Version/9.0 Mobile/{random.randint(11,99)}E{random.randint(111,999)} Safari/602.1",
         "BundleIdentifier": "user",
         "X-Token": x,
         "Accept-Encoding": "identity",
@@ -130,7 +130,7 @@ def betbac(x, type, num):
     }
     uri = "https://wjxwd01mwyo.dt01showxx02.com/App/Game_Order/Create"
     headers = {
-        "User-Agent": f"HS-Android Mozilla/5.0 (Linux; Android 8.1.0; Redmi 5 Plus Build/OPM1.17{random.randint(1000,9999)}.019; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/98.0.{random.randint(1000,9999)}.82 Mobile Safari/537.36",
+        "User-Agent": f"Mozilla/5.0 (iPhone11,2; U; CPU iPhone OS 14_0 like Mac OS X) AppleWebKit/602.{random.randint(0,255)}.{random.randint(0,255)} (KHTML, like Gecko) Version/9.0 Mobile/{random.randint(11,99)}E{random.randint(111,999)} Safari/602.1",
         "BundleIdentifier": "user",
         "X-Token": x,
         "Accept-Encoding": "identity",
@@ -166,11 +166,13 @@ if ngebet=="y":
     inpgame=int(input(f"{mgame}game nomor : "))
 else:
     ngebet=False
-    
+
+audit=int(input("audit : "))
 while True:
     try:
         os.system('cls')
         print(f'\t\t{c("cyan","~~ ATARO ~~",0)}')
+        print(c("green",f"\tAudit : {audit}",0))
         db = TinyDB("data.json")
         xs = db.all()
         xnum=10
@@ -249,17 +251,24 @@ while True:
                     }
 
                     if bs[1]!=0:
-                        # print(f"Selisih {selisihbs}[{bettbs}] Bet {bs[0]} {str(bs[1])} coin")
+                        print(f"Selisih {selisihbs}[{bettbs}] Bet {bs[0]} {str(bs[1])} coin")
                         listObj["results"]["bet"].append(f"{bs[0]}{bs[1]}")
                         bet(token,bs[0],str(bs[1]))
+                        audit-=int(bs[1])
                     if oe[1]!=0:
-                        # print(f"Selisih {selisihoe}[{bettoe}] Bet {oe[0]} {str(oe[1])} coin")
+                        print(f"Selisih {selisihoe}[{bettoe}] Bet {oe[0]} {str(oe[1])} coin")
                         listObj["results"]["bet"].append(f"{oe[0]}{oe[1]}")
                         bet(token,oe[0],str(oe[1]))
+                        audit-=int(oe[1])
 
                     with open(f"betting{idtoken}.json", 'w') as json_file:
                         json.dump(listObj, json_file, indent=2,  separators=(',',': '))
                     # input("Press Enter to next")
+                    print()
+                    for jedaa in range(10):
+                        sys.stdout.write(f"\t{jedaa}   \r")
+                        sys.stdout.flush()
+                        time.sleep(1)
                 
                 with open(f"betting{idtoken}.json", 'r') as json_file:
                     xbet=json.load(json_file)
