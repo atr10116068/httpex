@@ -536,10 +536,11 @@ while True:
                                     cet = """
 help
 simi [on/off]
+simi gift [nomer] [id]
 .add admin [id]
 .del admin [id]
 .agency [nama]
-.gift [nomer] [id]"""
+"""
                                     getapi.send(
                                         tkn, idroom, cet)
                                 else:
@@ -610,14 +611,10 @@ simi [on/off]
                                     for poiu in getidroombot:
                                         if namagenc.lower() in poiu['user_nicename'].lower():
                                             laip.append(poiu['user_nicename'])
-                                    if len(laip) > 6:
-                                        getapi.send(
-                                            tkn, idroom, "Lebih dari 6")
-                                    else:
-                                        disp = ""
-                                        for pouiy in laip:
-                                            disp += f"\n{pouiy}"
-                                        getapi.send(tkn, idroom, disp)
+                                    disp = ""
+                                    for pouiy in laip:
+                                        disp += f"\n{pouiy}"
+                                    getapi.send(tkn, idroom, disp)
                                 else:
                                     getapi.send(
                                         tkn, idroom, random.choice(dilarang))

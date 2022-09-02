@@ -142,7 +142,7 @@ for i in token:
     sys.stdout.write(f"\t {ikl} -> {len(tokens)}\r")
     sys.stdout.flush()
     ikl += 1
-    time.sleep(1)
+    time.sleep(2)
 
 print()
 # room = getlive.roomall()
@@ -190,6 +190,7 @@ def pilter():
         iff += 1
         sys.stdout.write(f"Scanning... {iff} \r")
         sys.stdout.flush()
+        time.sleep(0.5)
 
 
 hehe = ["player", "banker"]
