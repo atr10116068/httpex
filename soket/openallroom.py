@@ -51,7 +51,7 @@ def cekbug():
         kil()
         return 1
     return 0
-def buka(liveid, targetgame):
+def buka(liveid, targetgame,namanya):
     rdmno = 0
     while True:
         rdmno = random.randint(0, 89)
@@ -65,8 +65,9 @@ def buka(liveid, targetgame):
             print(f"{rdmno} terpakai")
     # os.system(f'start cmd /k python jdysocket.py {rdmno} {liveid} {targetgame}')#tetap terbuka
     # langsung tutup
+    print(f"->>>>>>>>> {namanya}")
     os.system(
-        f'start cmd /c python jdysocket.py {rdmno} {liveid} {targetgame}')
+        f'start cmd /c python jdysocket.py {rdmno} {liveid} {targetgame} {namanya}')
     db.insert({"tokenno":  rdmno, "data": {"liveid": liveid}})
 
 
@@ -96,14 +97,15 @@ while True:
     for i in room:
         print("{}. {}".format(str(x), i["nickname"]))
         idnya = i["live_id"]
+        namanya = i["nickname"].replace(" ","_")
         if idnya not in dat:
-            buka(idnya, targetgame)
+            buka(idnya, targetgame,namanya)
             dat[idnya] = i["nickname"]
             time.sleep(0.4)
         x += 1
-        # if x > 3:
-        #     kil()
-        #     break
+        # if x > 2:
+            # kil()
+            # break
     
     if cekbug()==1:break
     time.sleep(120)

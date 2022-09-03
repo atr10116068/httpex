@@ -1,5 +1,5 @@
 from datetime import datetime
-import pytz,time,requests,seting,json,ambil
+import pytz,time,httpx,seting,json,ambil
 from tinydb import *
 import time,random
 import os,sys
@@ -17,7 +17,7 @@ if dbet!="":
 else:
     dbet=10
 tanda={
-    "getnum":dbet+15,
+    "getnum":dbet+24,
     "betting":dbet,
 }
 
@@ -78,7 +78,7 @@ def getnum(x):
         "connection": "keep-alive",
     }
     query = {"game_type": "toubao_1"}
-    req = requests.get(uri, params=query, headers=headers)
+    req = httpx.get(uri, params=query, headers=headers)
     ress = json.loads(req.text)
     try:
         return ress["result"]["current_round"]["number"]
@@ -102,7 +102,6 @@ def bet(x, type, num):
         "Accept-Encoding": "identity",
         "X-Version": persi,
         "Content-Type": "application/x-www-form-urlencoded",
-        "Content-Length": "25",
         "Host": "wjxwd01mwyo.dt01showxx02.com",
         "Connection": "Keep-Alive",
     }
@@ -116,7 +115,7 @@ def bet(x, type, num):
     }
 
     try:
-        req = requests.post(uri, data=json.dumps(param), headers=headers)
+        req = httpx.post(uri, data=json.dumps(param), headers=headers)
         ress = json.loads(req.text)
         print(ress["result"]["balance"])
     except:
@@ -136,7 +135,6 @@ def betbac(x, type, num):
         "Accept-Encoding": "identity",
         "X-Version": persi,
         "Content-Type": "application/x-www-form-urlencoded",
-        "Content-Length": "123",
         "Host": "wjxwd01mwyo.dt01showxx02.com",
         "Connection": "Keep-Alive",
     }
@@ -149,7 +147,7 @@ def betbac(x, type, num):
         "multiple": "1",
     }
     try:
-        req = requests.post(uri, data=json.dumps(param), headers=headers)
+        req = httpx.post(uri, data=json.dumps(param), headers=headers)
         ress = json.loads(req.text)
         print(ress)
     except Exception as e:
@@ -345,4 +343,4 @@ while True:
         
 
 
-    time.sleep(1)
+    time.sleep(0.3)
