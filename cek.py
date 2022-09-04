@@ -36,7 +36,7 @@ except:
     kusus2 = 999
 
 
-ataroinvcode = "B6lixl"
+ataroinvcode = "yBooNa"
 
 
 def disp(x):

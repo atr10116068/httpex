@@ -3,40 +3,31 @@ import pytz,time,httpx,seting,json,ambil
 from tinydb import *
 import time,random
 import os,sys
+from tinydb import *
+
+db = TinyDB("database.json")
+sett = db.table('setting')
+q = Query()
 
 # import logging
 # logging.basicConfig(filename="client.log", level=logging.DEBUG)
 from colorama import Fore, Style, init
 init()
+
+
 dat={}
 print()
-maxbet=int(input("Maximumbet : "))
-dbet=input("detik betting : ")
-if dbet!="":
-    dbet=int(dbet)
-else:
-    dbet=10
-tanda={
-    "getnum":dbet+24,
-    "betting":dbet,
-}
 
-idroom=""
-ty=input("id room : ")
-if ty!="":
-    idroom=ty
-
-persenan=0
-ty=input("persenan [0.6=60%] : ")
-if ty!="":
-    persenan=float(ty)
+persenan=float(sett.search(q.profile == 'persenan')[0]["val"])
+print(persenan)
 host="https://wjxwd01mwyo.dt01showxx02.com"
 tokk = ambil.token()
-if input("Enter to set token from db")!="":
-    with open("user_token.json") as json_file:
-        token = json.load(json_file)["results"][0]
+tokennn=input("Token : ")
+if tokennn!="":
+    token=tokennn
 else:
-    token=tokk[int(input("token ke : "))-1]
+    # exit()
+    token=tokk[int(sett.search(q.profile == 'tkn')[0]["val"])-1]
 idtoken=token[-6:]
 awaldata={
   "results": {"bet":[]}
@@ -165,12 +156,31 @@ if ngebet=="y":
 else:
     ngebet=False
 
-audit=int(input("audit : "))
+audit=0
 while True:
     try:
         os.system('cls')
-        print(f'\t\t{c("cyan","~~ ATARO ~~",0)}')
-        print(c("green",f"\tAudit : {audit}",0))
+        db = TinyDB("database.json")
+        sett = db.table('setting')
+        tabel=chr(126)+chr(126)+chr(32)+chr(65)+chr(84)+chr(65)+chr(82)+chr(79)+chr(32)+chr(126)+chr(126)
+        q = Query()
+        pola=sett.search(q.profile == 'pola')[0]["val"]
+        if pola=="terbesar":
+            disppol=c("green","↑↑↑↑↑↑↑↑",0)
+            polll=1
+        else:
+            polll=0
+            disppol=c("red","↓↓↓↓↓↓↓↓",0)
+        print(f'\t{c("cyan",tabel,0)}')
+        idroom=sett.search(q.profile == 'roomid')[0]["val"]
+        maxbet=int(sett.search(q.profile == 'maxbet')[0]["val"])
+        dbet=int(sett.search(q.profile == 'detik')[0]["val"])
+        tanda={
+            "getnum":dbet+24,
+            "betting":dbet,
+        }
+
+        print(c("green",f"{disppol}[ Audit : {audit} ]{disppol}",0))
         db = TinyDB("data.json")
         xs = db.all()
         xnum=10
@@ -225,21 +235,33 @@ while True:
                     # print(ress)
                     bs,oe=["",0],["",0]
                     if int(ress["Small"])>int(ress["Big"]):
-                        bs[0]="big"
+                        if polll==0:
+                            bs[0]="big"
+                        else:
+                            bs[0]="small"
                         selisihbs = int(ress["Small"])-int(ress["Big"])
                         bettbs=round(selisihbs*persenan)
                     else:
-                        bs[0]="small"
+                        if polll==0:
+                            bs[0]="small"
+                        else:
+                            bs[0]="big"
                         selisihbs = int(ress["Big"])-int(ress["Small"])
                         bettbs=round(selisihbs*persenan)
                     bs[1]=betbrp(bettbs)
 
                     if int(ress["Odd"])>int(ress["Even"]):
-                        oe[0]="even"
+                        if polll==0:
+                            oe[0]="even"
+                        else:
+                            oe[0]="odd"
                         selisihoe = int(ress["Odd"])-int(ress["Even"])
                         bettoe=round(selisihoe*persenan)
                     else:
-                        oe[0]="odd"
+                        if polll==0:
+                            oe[0]="odd"
+                        else:
+                            oe[0]="even"
                         selisihoe = int(ress["Even"])-int(ress["Odd"])
                         bettoe=round(selisihoe*persenan)
                     oe[1]=betbrp(bettoe)
@@ -252,12 +274,12 @@ while True:
                         print(f"Selisih {selisihbs}[{bettbs}] Bet {bs[0]} {str(bs[1])} coin")
                         listObj["results"]["bet"].append(f"{bs[0]}{bs[1]}")
                         bet(token,bs[0],str(bs[1]))
-                        audit-=int(bs[1])
+                        audit+=int(bs[1])
                     if oe[1]!=0:
                         print(f"Selisih {selisihoe}[{bettoe}] Bet {oe[0]} {str(oe[1])} coin")
                         listObj["results"]["bet"].append(f"{oe[0]}{oe[1]}")
                         bet(token,oe[0],str(oe[1]))
-                        audit-=int(oe[1])
+                        audit+=int(oe[1])
 
                     with open(f"betting{idtoken}.json", 'w') as json_file:
                         json.dump(listObj, json_file, indent=2,  separators=(',',': '))
@@ -299,11 +321,17 @@ while True:
                     oe=["",0]
 
                     if int(ress["Banker"])>int(ress["Player"]):
-                        oe[0]="player"
+                        if polll==0:
+                            oe[0]="player"
+                        else:
+                            oe[0]="banker"
                         selisihoe = int(ress["Banker"])-int(ress["Player"])
                         bettoe=round(selisihoe*persenan)
                     else:
-                        oe[0]="banker"
+                        if polll==0:
+                            oe[0]="banker"
+                        else:
+                            oe[0]="player"
                         selisihoe = int(ress["Player"])-int(ress["Banker"])
                         bettoe=round(selisihoe*persenan)
                     oe[1]=betbrp(bettoe)

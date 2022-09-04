@@ -272,6 +272,7 @@ while True:
                         time.sleep(jeda)
     if x == "7":  # jastem
         targetgip = int(input("Target Gift : "))
+        maximalgift=int(input("Maximal gift : "))
         inpjed = input("jeda : ")
         if inpjed == "":
             jeda = float(1.0)
@@ -315,7 +316,10 @@ while True:
                     acc = getapi.profile(tkn)
                     x += 1
                 except:
+                    print("gagal")
                     break
+                sys.stdout.write(f" [{x}]  \r")
+                sys.stdout.flush()
                 if acc != 0:
                     acc = acc["data"]
                     # ________________________________
@@ -336,39 +340,46 @@ while True:
                         if jumgift >= targetgip:
                             setop = True
                             break
-                        # jika dm gk kosong dan dibawah 100K
-                        if int(dm) > 2501 and int(dm) > gdm and int(dm) < 550000:
-                            # random biar ga sama
-                            for acakin in range(1, random.randint(2, 15)):
-                                getapi.gift(tkn, rstream, "55", aidir, "1")
-                                jumgift += 100
-                                time.sleep(2)
+                        if int(gdm)<int(maximalgift):
                             sisah = targetgip-(jumgift+gdm)
                             # print(f"kurang : {sisah}")
-                            try:
-                                if sisah > -600:  # jika sisahnya gak kebanyakan
-                                    try:
-                                        getapi.enter(tkn, aidir)
-                                        time.sleep(1)
-                                        getapi.follow(tkn, aidir)
-                                        time.sleep(1)
-                                        getapi.gift(
-                                            tkn, rstream, gid, aidir, "1")
-                                        jumgift += int(gdm)
-                                        # print(f'       {c("cyan",nama,0)}[{c("magenta",dm,0)}]\tgift {c("cyan",gname,0)}[{c("green",gdm,0)}]\t{c("yellow",jumgift,0)}')
-                                        print(
-                                            f'       {c("cyan",nama,0)}\tgift {c("cyan",gname,0)}[{c("green",gdm,0)}]\t{c("yellow",jumgift,0)}')
-                                    except Exception as e:
-                                        print(
-                                            f"Gagal tidak masuk hitungan : {e}")
-                                    time.sleep(jeda)
+                            # jika dm gk kosong dan dibawah 100K
+                            if int(dm) > 4001 and int(dm) > gdm and int(dm) < 500000:
+                                # random biar ga sama
+                                for acakin in range(1, random.randint(2, 10)):
+                                    getapi.gift(tkn, rstream, "55", aidir, "1")
+                                    jumgift += 100
+                                    time.sleep(0.3)
+                                    sys.stdout.write(f"gift gumawo {jumgift}    \r")
+                                    sys.stdout.flush()
+                                try:
+                                    if sisah > -600:  # jika sisahnya gak kebanyakan
+                                        try:
+                                            getapi.enter(tkn, aidir)
+                                            time.sleep(1)
+                                            getapi.follow(tkn, aidir)
+                                            time.sleep(1)
+                                            ngegip=(getapi.gift(tkn, rstream, gid, aidir, "1"))
+                                            if ngegip["status"]=="success":
+                                                jumgift += int(gdm)
+                                                # print(f'       {c("cyan",nama,0)}[{c("magenta",dm,0)}]\tgift {c("cyan",gname,0)}[{c("green",gdm,0)}]\t{c("yellow",jumgift,0)}')
+                                                print(
+                                                    f'       {c("cyan",nama,0)}\tgift {c("cyan",gname,0)}[{c("green",gdm,0)}]\t{c("yellow",jumgift,0)}')
+                                                
+                                            getapi.kuit(tkn, aidir)
+                                        except Exception as e:
+                                            print(
+                                                f"Gagal tidak masuk hitungan : {e}")
+                                        time.sleep(jeda)
+                                        break
+                                    else:
+                                        # print(f'   {x}. {c("magenta",nama,0)} [{c("cyan",dm,0)}]\tsaldo kurang = {c("yellow",jumgift,0)}')
+                                        pass  # skip gift gede
+                                except Exception as e:
+                                    print(e)
                                     break
-                                else:
-                                    # print(f'   {x}. {c("magenta",nama,0)} [{c("cyan",dm,0)}]\tsaldo kurang = {c("yellow",jumgift,0)}')
-                                    pass  # skip gift gede
-                            except Exception as e:
-                                print(e)
-                                break
+                        
+                    
                     if setop == True:
                         break
 
@@ -497,7 +508,7 @@ while True:
                     uid, nama, vip, chat, waktu = datac["uid"], datac[
                         "nama"], datac["vip"], datac["chat"], datac["waktu"]
 
-                    if itrpop["is_robot"] == 0:  # bukan robot
+                    if itrpop["is_robot"] == 0 and uid!="2550918":  # bukan robot dan bukan simi
 
                         for jeda in range(1, 5):
                             tmbh = str(int(waktu)+jeda)

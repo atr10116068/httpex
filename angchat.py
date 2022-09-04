@@ -281,7 +281,7 @@ def main():
                 if paoo["code"] == 0:
                     taim = paoo["result"]["start_countdown"]
                     if taim > 60:
-                        if taim < 900:  # 15 menit
+                        if taim < 1000:  # menit
                             # == == == == == == == == == == == == == == == == == == = fokus id live
                             # if live_id == "308336":
                             paoo["result"]["live_id"] = live_id

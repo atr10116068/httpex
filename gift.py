@@ -1,7 +1,7 @@
 import requests
 import seting
 import json
-import time
+import random
 import getlive
 import sys
 import random as rd
@@ -38,7 +38,7 @@ def c(colr, tex, dim):
 def sen(id, gif, x):
     uri = "https://wjxwd01mwyo.dt01showxx02.com/App/Gift/Buy"
     headers = {
-        "User-Agent": "Mozilla/5.0 (Linux; Android 8.1.0; Redmi 5 Plus Build/OPM1.171019.019; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/91.0.4472.120 Mobile Safari/537.36",
+        "User-Agent": f"Mozilla/5.0 (iPhone11,2; U; CPU iPhone OS 14_0 like Mac OS X) AppleWebKit/602.{random.randint(0,255)}.{random.randint(0,255)} (KHTML, like Gecko) Version/9.0 Mobile/{random.randint(11,99)}E{random.randint(111,999)} Safari/602.1",
         "BundleIdentifier": "user",
         "X-Token": x,
         "Accept-Encoding": "identity",
@@ -65,7 +65,7 @@ def sen(id, gif, x):
 def nama(x):
     uriweb = "https://wjxwd01mwyo.dt01showxx02.com/App/User_User/Info"
     headers = {
-        "user-agent": "Mozilla/5.0 (Linux; Android 8.1.0; Redmi 5 Plus Build/OPM1.171019.019; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/91.0.4472.120 Mobile Safari/537.36",
+        "user-agent": f"Mozilla/5.0 (iPhone11,2; U; CPU iPhone OS 14_0 like Mac OS X) AppleWebKit/602.{random.randint(0,255)}.{random.randint(0,255)} (KHTML, like Gecko) Version/9.0 Mobile/{random.randint(11,99)}E{random.randint(111,999)} Safari/602.1",
         "bundleidentifier": "user",
         "x-token": x,
         "accept-encoding": "identity",
@@ -86,7 +86,7 @@ def nama(x):
 def getgift(x):
     uriweb = "https://wjxwd01mwyo.dt01showxx02.com/App/Gift/List"
     headers = {
-        "user-agent": "Mozilla/5.0 (Linux; Android 8.1.0; Redmi 5 Plus Build/OPM1.171019.019; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/91.0.4472.120 Mobile Safari/537.36",
+        "user-agent": f"Mozilla/5.0 (iPhone11,2; U; CPU iPhone OS 14_0 like Mac OS X) AppleWebKit/602.{random.randint(0,255)}.{random.randint(0,255)} (KHTML, like Gecko) Version/9.0 Mobile/{random.randint(11,99)}E{random.randint(111,999)} Safari/602.1",
         "bundleidentifier": "user",
         "x-token": x,
         "accept-encoding": "identity",

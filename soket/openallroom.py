@@ -1,20 +1,13 @@
 import os
 import seting
 import getlive
-import json
 import time
-import ambil
 import random
 from tinydb import *
 
 db = TinyDB("datatokenroom.json")
 tbl = Query()
 db.truncate()
-
-# getproxx = ambil.proxy()
-# listObj = {"prox": getproxx}
-# with open("proxy.json", 'w') as json_file:
-#     json.dump(listObj, json_file, indent=2,  separators=(',', ': '))
 
 
 persi = seting.versi()
