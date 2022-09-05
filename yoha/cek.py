@@ -491,6 +491,7 @@ while True:
         roomuid = getidroom[pilop-1]["uid"]
         bck = []
         simionoff = False
+        gem={"nama":[],"kerja":[]}
         while True:
             popo = getapi.getmsg(tkn, idroom)
             if popo["code"] == 200:
@@ -509,19 +510,20 @@ while True:
                         "nama"], datac["vip"], datac["chat"], datac["waktu"]
 
                     if itrpop["is_robot"] == 0 and uid!="2550918":  # bukan robot dan bukan simi
-
-                        for jeda in range(1, 5):
-                            tmbh = str(int(waktu)+jeda)
-                            if len(tmbh) == 3:
-                                tmbh = f"0{tmbh}"
-                            datacc = {
-                                "uid": itrpop["uid"],
-                                "nama": itrpop["nick"],
-                                "vip": itrpop["vip"],
-                                "chat": itrpop["content"],
-                                "waktu": tmbh,
-                            }
-                            bck.append(datacc)
+                        if itrpop["content"].startswith("simi gift") or simionoff == True:
+                            for jeda in range(1, 10):
+                                tmbh = str(int(waktu)+jeda)
+                                if len(tmbh) == 3:
+                                    tmbh = f"0{tmbh}"
+                                datacc = {
+                                    "uid": itrpop["uid"],
+                                    "nama": itrpop["nick"],
+                                    "vip": itrpop["vip"],
+                                    "chat": itrpop["content"],
+                                    "waktu": tmbh,
+                                }
+                                bck.append(datacc)
+                            # print("jeda 10 menit")
 
                         dilarang = ["kamu ga boleh ya sayang ya",
                                     "apasih... aku ga kenal kamu",
@@ -530,6 +532,11 @@ while True:
                         if datac not in bck:
                             print(f' [{waktu}][{uid}]\t{nama}\t{chat}')
                             bck.append(datac)
+                            if chat.lower() == "acak":
+                                vnama,vkerja=random.choice(gem["nama"]),random.choice(gem["kerja"])
+                                vnama2,vkerja2=random.choice(gem["nama"]),random.choice(gem["kerja"])
+                                spo=random.choice(["karena","saat","ketika","kalau"])
+                                getapi.send(tkn, idroom, f"{vnama} {vkerja} {spo} {vnama2} {vkerja2}")
                             if chat.lower() == "simi":
                                 if tini.contains(db.uid == uid):
                                     cet = ["ada apa miminku?",
@@ -570,19 +577,29 @@ simi gift [nomer] [id]
                                     getapi.send(
                                         tkn, idroom, random.choice(dilarang))
                                 print(f"gift-> {chat}")
+                            elif chat.startswith("simi cek coin "):
+                                if ataro.contains(db.uid == uid):
+                                    switer = chat.replace("simi cek coin ", "")
+                                    xxx = getapi.profileuser(token[0], int(switer))["data"]
+                                    # print(xxx)
+                                    ccoin=xxx["coin"]
+                                    cnama=xxx["user_nicename"]
+                                    getapi.send(tkn, idroom, f"{cnama} ada {ccoin} coin")
+                                else:
+                                    getapi.send(
+                                        tkn, idroom, "cuma ATARO yang boleh")
                             elif chat.startswith("simi "):
                                 if tini.contains(db.uid == uid):
                                     switer = chat.replace("simi ", "")
-                                    if uid != "2550918":  # simi
-                                        if switer.lower() == "on":
-                                            simionoff = True
-                                            getapi.send(
-                                                tkn, idroom, "Sudah on")
-                                            break
-                                        elif switer.lower() == "off":
-                                            simionoff = False
-                                            getapi.send(
-                                                tkn, idroom, "Sudah off")
+                                    if switer.lower() == "on":
+                                        simionoff = True
+                                        getapi.send(
+                                            tkn, idroom, "Sudah on")
+                                        break
+                                    elif switer.lower() == "off":
+                                        simionoff = False
+                                        getapi.send(
+                                            tkn, idroom, "Sudah off")
                                 else:
                                     getapi.send(
                                         tkn, idroom, random.choice(dilarang))
@@ -614,6 +631,16 @@ simi gift [nomer] [id]
                                     getapi.send(
                                         tkn, idroom, random.choice(dilarang))
                                 print(f"delete-> {chat}")
+                            elif chat.startswith(".add nama "):
+                                uidmin = chat.replace(".add nama ", "")
+                                gem["nama"].append(uidmin)
+                                getapi.send(tkn, idroom, "Sudah ditambah")
+                                print(f"add nama-> {chat}")
+                            elif chat.startswith(".add kerja "):
+                                uidmin = chat.replace(".add kerja ", "")
+                                gem["kerja"].append(uidmin)
+                                getapi.send(tkn, idroom, "Sudah ditambah")
+                                print(f"add kerja-> {chat}")
                             elif chat.startswith(".agency "):
                                 if tini.contains(db.uid == uid):
                                     namagenc = chat.replace(".agency ", "")
