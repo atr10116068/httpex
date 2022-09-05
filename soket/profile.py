@@ -5,6 +5,7 @@ sett = db.table('setting')
 q = Query()
 # sett.truncate()
 
+
 # sett.insert_multiple([
 #     {'profile': 'tkn', 'val': "0"},
 #     {'profile': 'pola', 'val': "terkecil"},

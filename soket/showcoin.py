@@ -1,4 +1,5 @@
-import requests,json,ambil,time,pytz,sys,random
+import requests,json,ambil,time,pytz,sys,random,os
+from tinydb import *
 from datetime import datetime
 from colorama import Fore, Style, init
 init()
@@ -69,14 +70,30 @@ while True:
     time.sleep(0.3)
     if detik == "10":
         try:
+            disp=""
+            db = TinyDB("rec.json")
+            sett = db.table('data')
+            tkk =sett.all()
+            tkk=(tkk[len(tkk)-1])
+            if tkk["pola"] == 1:
+                pola=c("green","↑",0)
+            else:
+                pola=c("red","↓",0)
+            big,small,odd,even,sbs,soe=c("red",tkk["big"],0),c("blue",tkk["small"],0),c("cyan",tkk["odd"],0),c("magenta",tkk["even"],0),c("black",tkk["selisihbs"],0),c("black",tkk["selisihoe"],0)
+            disp+=(f"  [{xx[:5]}] Big:{big} Small:{small} Odd:{odd} Even:{even}  {pola}[{sbs}:{soe}]")
+
             xxz = getinfo(token)
+            nickname=xxz[0]
+            piaipi=xxz[2]
             coinbaru=float(xxz[1])
             if coin>coinbaru:
-                tex=(f"\t{xx} : {xxz[0]} [{str(coinbaru)}] {c('red','↓ '+str(round(coin-coinbaru)),0)}")
+                disp+=(f" {c('red','↓ '+str(round(coin-coinbaru)),0)}  [{coinbaru}]")
             else:
-                tex=(f"\t{xx} : {xxz[0]} [{str(coinbaru)}] {c('green','↑ '+str(round(coinbaru-coin)),0)}")
-            print(tex)
+                disp+=(f" {c('green','↑ '+str(round(coinbaru-coin)),0)}  [{coinbaru}]")
             coin=coinbaru
+            print(disp)
             time.sleep(4)
         except Exception as e:
             print(f"Error : {e}")
+
+

@@ -18,8 +18,6 @@ init()
 dat={}
 print()
 
-persenan=float(sett.search(q.profile == 'persenan')[0]["val"])
-print(persenan)
 host="https://wjxwd01mwyo.dt01showxx02.com"
 tokk = ambil.token()
 tokennn=input("Token : ")
@@ -162,6 +160,9 @@ while True:
         os.system('cls')
         db = TinyDB("database.json")
         sett = db.table('setting')
+        dbrec = TinyDB("rec.json")
+        dbselisih = dbrec.table('data')
+
         tabel=chr(126)+chr(126)+chr(32)+chr(65)+chr(84)+chr(65)+chr(82)+chr(79)+chr(32)+chr(126)+chr(126)
         q = Query()
         pola=sett.search(q.profile == 'pola')[0]["val"]
@@ -175,6 +176,7 @@ while True:
         idroom=sett.search(q.profile == 'roomid')[0]["val"]
         maxbet=int(sett.search(q.profile == 'maxbet')[0]["val"])
         dbet=int(sett.search(q.profile == 'detik')[0]["val"])
+        persenan=float(sett.search(q.profile == 'persenan')[0]["val"])
         tanda={
             "getnum":dbet+24,
             "betting":dbet,
@@ -266,6 +268,17 @@ while True:
                         bettoe=round(selisihoe*persenan)
                     oe[1]=betbrp(bettoe)
                     
+                    dbselisih.insert_multiple([{
+                        'gamenum': dat["gamenumber"],
+                        'big': int(ress["Big"]),
+                        'small': int(ress["Small"]),
+                        'odd': int(ress["Odd"]),
+                        'even': int(ress["Even"]),
+                        'selisihbs':selisihbs,
+                        'selisihoe':selisihoe,
+                        'pola':polll,
+                        }])
+
                     listObj={
                         "results":{"bet":[]}
                     }
