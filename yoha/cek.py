@@ -157,7 +157,7 @@ while True:
         else:
             while True:
                 tkn = token[int(mode)-1]
-                texx = input("text :")
+                texx = input(f"{mode} text :")
                 if texx == "q":
                     break
                 getapi.send(tkn, idroom, texx)
@@ -480,8 +480,8 @@ while True:
                 print(f'   [{c("green",idroom,0)}]\t{c("cyan",nams,0)}')
         print(f"\n\n\n")
     if x == "15":  # chat
-        mode = "5"
-        tkn = token[int(mode)-1]
+        mode=342
+        tkn = token[mode-1]
         getidroom = getapi.getroom(tkn)
         x = 1
         for idr in getidroom:
@@ -491,7 +491,7 @@ while True:
         idroom = getidroom[pilop-1]["stream"]
         roomuid = getidroom[pilop-1]["uid"]
         bck = []
-        simionoff = False
+        simionoff = True
         gem={"nama":[],"kerja":[]}
         while True:
             popo = getapi.getmsg(tkn, idroom)
@@ -579,7 +579,7 @@ simi gift [nomer] [id]
                                         tkn, idroom, random.choice(dilarang))
                                 print(f"gift-> {chat}")
                             elif chat.startswith("simi cek coin "):
-                                if ataro.contains(db.uid == uid):
+                                if tini.contains(db.uid == uid):
                                     switer = chat.replace("simi cek coin ", "")
                                     xxx = getapi.profileuser(token[0], int(switer))["data"]
                                     # print(xxx)
@@ -684,15 +684,18 @@ simi gift [nomer] [id]
                                         tkn, idroom, random.choice(dilarang))
                                 print(f"agency-> {chat}")
                             if simionoff == True:
+                                tkn = token[int(mode)-1]
                                 # EA ayaa
-                                if uid != 2550918 and chat.startswith(".") == False:
+                                if uid != 2550918 and chat[len(chat)-1]!="ᅠ":
                                     try:
                                         smi = getapi.simi(chat)["success"]
                                         if smi == "Aku tidak mengerti apa yang kamu katakan.Tolong ajari aku.":
                                             pass
                                         else:
-                                            getapi.send(tkn, idroom, smi)
-                                        print(f"3-> {chat}")
+                                            mode+=1
+                                            getapi.send(tkn, idroom, smi+"ᅠ")
+                                            time.sleep(5)
+                                        print(f"   {mode} -> {chat}")
                                     except Exception as e:
                                         print(f"   Error : {e}")
                 sys.stdout.write(

@@ -650,8 +650,7 @@ def updaterandom(token):
     print(nama)
     param = {
         "fields": {
-            # "avatar": input("avatar : "),
-            "user_nicename": nama
+            "user_nicename": nama.split(" ")[0][0:10]
         },
     }
     uri = f'{data["host"]}api/auth/update-user'
