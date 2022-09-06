@@ -722,6 +722,36 @@ def getmsg(token, streamid):
     return 0
 
 
+def getuser(token, streamid):
+    head = {
+        "authorization": token,
+        "host": "tech04.yoha.pro",
+        "accept": "application/json",
+        "content-type": "application/json; charset=utf-8",
+        "user-agent": f"Mozilla/5.0 (iPhone11,2; U; CPU iPhone OS 14_0 like Mac OS X) AppleWebKit/602.{rdm.randint(0,255)}.{rdm.randint(0,255)} (KHTML, like Gecko) Version/9.0 Mobile/{rdm.randint(11,99)}E{rdm.randint(111,999)} Safari/602.1"
+    }
+    aipi = f'{rdm.randint(1,255)}.{rdm.randint(1,255)}.{rdm.randint(1,255)}.{rdm.randint(1,255)}'
+    param1 = {
+        "anchor_id": streamid,
+        "type": "1",
+        "page": "1",
+        "per_page": "100",
+        "need_robot": "false",
+        "v": persi,
+        "ip": aipi,
+        "l": "in"
+    }
+    uri = f'{data["api"]}live/getUserList'
+    try:
+        r = httpx.post(uri, data=json.dumps(param1), headers=head, timeout=5)
+        if r.status_code == 200:
+            ressx = (json.loads(r.text))
+            return ressx
+        print(f"{r.text}")
+    except Exception as error:
+        print(error)
+    return 0
+
 def simi(tex):
     uriweb = f"https://api.simsimi.net/v2/?text={tex}&lc=id"
     headers = {

@@ -66,6 +66,7 @@ menus = """
 14. search agency
 15. chatbot
 16. set random profile
+17. cek user
 """
 while True:
     x = input(f"{menus}-> ")
@@ -588,6 +589,31 @@ simi gift [nomer] [id]
                                 else:
                                     getapi.send(
                                         tkn, idroom, "cuma ATARO yang boleh")
+                            elif chat.startswith("simi cari "):
+                                if tini.contains(db.uid == uid):
+                                    cariid = chat.replace("simi cari ", "")
+                                    getidroom = getapi.getroom(tkn)
+                                    # bahroel=411886 arabkismin=615671 kangcut=48136 guru=386187
+                                    
+                                    for tid in getidroom:
+                                        hid=(tid["uid"])
+                                        hname=(tid['user_nicename'])
+                                        gkk=getapi.getuser(tkn,hid)
+                                        ada=False
+                                        for gkkp in gkk["data"]["list"]:
+                                            if str(gkkp["id"])==cariid:
+                                                ada=True
+                                                getapi.send(tkn, idroom, f'{gkkp["nick"]} ada di {hname}')
+                                                break
+                                        if ada==True:
+                                            break
+                                        print(f"{hid} -> {hname}")
+                                    getapi.send(tkn, idroom, f'{cariid} gak nemu')
+
+                                    # getapi.send(tkn, idroom, f"{cnama} ada {ccoin} coin")
+                                else:
+                                    getapi.send(
+                                        tkn, idroom, "cuma ATARO yang boleh")
                             elif chat.startswith("simi "):
                                 if tini.contains(db.uid == uid):
                                     switer = chat.replace("simi ", "")
@@ -691,5 +717,21 @@ simi gift [nomer] [id]
         for tkn in tokengift:
             xxs = getapi.updaterandom(tkn)
             print(xxs)
+    if x == "17":
+        tkn=random.choice(token)
+        getidroom = getapi.getroom(tkn)
+        xr = 1
+        for idr in getidroom:
+            print(f"{xr}. {idr['user_nicename']}")
+            xr += 1
+        idxrum = int(input("room no : "))
+        idroom = getidroom[idxrum-1]["stream"]
+        aidir = getidroom[idxrum-1]["uid"]
+        sdsd=getapi.getuser(tkn,aidir)
+        if sdsd["code"]==200:
+            for topo in sdsd["data"]["list"]:
+                # {'id': 402572, 'votes_total': 0, 'birth': '', 'avatar': 'User/402572/avator/1661233500_402572.jpg', 'nick': 'ATARO', 'gift_coins': 0, 'level': 16, 'vip': 1, 'sex': 1, 'coin': 0, 'diamonds': 0, 'is_attention': 0, 'is_anchor': False, 'user_type': 2}
+                uid,unama=c("magenta",topo["id"],0),c("cyan",topo["nick"],0)
+                print(f"   [{uid}] {unama}")
 
 #  𓌸 𓌹 𓌺(◣_◢)𓌸 𓌹 𓌺
