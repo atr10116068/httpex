@@ -13,6 +13,7 @@ q = Query()
 #     {'profile': 'maxbet', 'val': "10"},
 #     {'profile': 'persenan', 'val': "0.3"},
 #     {'profile': 'roomid', 'val': ""},
+#     {'profile': 'batas any', 'val': ""},
 # ])
 
 menus="""
@@ -22,6 +23,7 @@ menus="""
 4. maxbet
 5. persenan
 6. roomid
+7. batas any
 """
 pildat={
     "1":"tkn",
@@ -30,6 +32,7 @@ pildat={
     "4":"maxbet",
     "5":"persenan",
     "6":"roomid",
+    "7":"batas any",
 }
 while True:
     pil=input(f"{menus}pilihan : ")

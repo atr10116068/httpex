@@ -78,8 +78,8 @@ while True:
                 pola=c("green","↑",0)
             else:
                 pola=c("red","↓",0)
-            big,small,odd,even,sbs,soe=c("red",tkk["big"],0),c("blue",tkk["small"],0),c("cyan",tkk["odd"],0),c("magenta",tkk["even"],0),c("black",tkk["selisihbs"],0),c("black",tkk["selisihoe"],0)
-            disp+=(f"  [{xx[:5]}] Big:{big} Small:{small} Odd:{odd} Even:{even}  {pola}[{sbs}:{soe}]")
+            big,small,odd,even,any,sbs,soe=c("red",tkk["big"],0),c("blue",tkk["small"],0),c("cyan",tkk["odd"],0),c("magenta",tkk["even"],0),c("yellow",tkk["any"],0),c("yellow",tkk["selisihbs"],0),c("yellow",tkk["selisihoe"],0)
+            disp+=(f"  [{xx[:5]}] Big:{big} Small:{small} Odd:{odd} Even:{even} any:{any} {pola}[{sbs}:{soe}]")
 
             xxz = getinfo(token)
             nickname=xxz[0]

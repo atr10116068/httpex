@@ -49,8 +49,8 @@ def buka(liveid, targetgame,namanya):
     while True:
         rdmno = random.randint(0, 89)
         if len(db.search(tbl["tokenno"] == rdmno)) == 0:
-            db.insert({"tokenno":  "48", "data": {"liveid": "0"}})
-            print(f"{rdmno} insert")
+            # db.insert({"tokenno":  "48", "data": {"liveid": "0"}})
+            print(f"{rdmno}/{len(db.all())} insert")
             dat["ittrr"]+=1
             break
         else:
@@ -86,10 +86,12 @@ def kil():
             p.terminate()
 
 while True:
+    db = TinyDB("datatokenroom.json")
+    tbl = Query()
     room = getlive.roomall()
     x = 0
     for i in room:
-        print("{}. {}".format(str(x), i["nickname"]))
+        # print("{}. {}".format(str(x), i["nickname"]))
         idnya = i["live_id"]
         namanya = i["nickname"].replace(" ","_")
         if idnya not in dat:
@@ -97,10 +99,10 @@ while True:
             dat[idnya] = i["nickname"]
             time.sleep(0.4)
         x += 1
-        if x > 2:
+        # if x > 7:
             # kil()
-            break
+            # break
     
-    if cekbug()==1:break
-    time.sleep(120)
+    # if cekbug()==1:break
+    time.sleep(305)
     # print(json.dumps(dat,indent=2))

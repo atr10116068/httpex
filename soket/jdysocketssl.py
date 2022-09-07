@@ -49,6 +49,7 @@ ssl_context.load_verify_locations(certifi.where())
 
 
 db = TinyDB("data.json")
+dbtkn = TinyDB("datatokenroom.json")
 tbl = Query()
 # db.truncate()
 
@@ -399,7 +400,7 @@ def xrespon(message):
                     else:
                         print(c("red",f'EXIT...!!! kosong sekian kali {datroom["kosong_brp_kali"]}',0))
                         datroom["isexit"]=True
-                        db.remove(where('tokenno') == sys.argv[1])
+                        dbtkn.remove(where('tokenno') == sys.argv[1])
                         exit()
                 else:
                     datroom["kosong_brp_kali"]=0

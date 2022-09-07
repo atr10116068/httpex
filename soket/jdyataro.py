@@ -177,6 +177,7 @@ while True:
         maxbet=int(sett.search(q.profile == 'maxbet')[0]["val"])
         dbet=int(sett.search(q.profile == 'detik')[0]["val"])
         persenan=float(sett.search(q.profile == 'persenan')[0]["val"])
+        batasany=int(sett.search(q.profile == 'batas any')[0]["val"])
         tanda={
             "getnum":dbet+24,
             "betting":dbet,
@@ -186,7 +187,7 @@ while True:
         db = TinyDB("data.json")
         xs = db.all()
         xnum=10
-        ress={"Big":0,"Small":0,"Odd":0,"Even":0,"Banker":0,"Player":0}
+        ress={"Big":0,"Small":0,"Odd":0,"Even":0,"Any":0,"Banker":0,"Player":0}
         for x in xs:
             print(f'__________[ {x["game"]} ]_________')
             for xxx in x["data"]:
@@ -274,6 +275,7 @@ while True:
                         'small': int(ress["Small"]),
                         'odd': int(ress["Odd"]),
                         'even': int(ress["Even"]),
+                        'any': int(ress["Any"]),
                         'selisihbs':selisihbs,
                         'selisihoe':selisihoe,
                         'pola':polll,
@@ -293,6 +295,10 @@ while True:
                         listObj["results"]["bet"].append(f"{oe[0]}{oe[1]}")
                         bet(token,oe[0],str(oe[1]))
                         audit+=int(oe[1])
+                    if int(ress["Any"])<batasany:
+                        print(c("red","   ANY..!",0))
+                        bet(token,"any triple","1")
+                        audit+=1
 
                     with open(f"betting{idtoken}.json", 'w') as json_file:
                         json.dump(listObj, json_file, indent=2,  separators=(',',': '))
