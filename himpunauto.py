@@ -246,7 +246,6 @@ while True:
         print(f"terkecil = {xkecil}")
     except Exception as e:
         print(f"Error : {e}")
-        break
     tunggu(random.randint(46,50))
     # input("BET")
     try:
@@ -338,4 +337,4 @@ while True:
                 pass
     except Exception as e:
         print(f"EWWOW : {e}")
-        break
+input("ghj")
