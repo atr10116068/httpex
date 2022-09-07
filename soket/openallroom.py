@@ -61,6 +61,7 @@ def buka(liveid, targetgame,namanya):
     print(f"->>>>>>>>> {namanya}")
     os.system(
         f'start cmd /c python jdysocket.py {rdmno} {liveid} {targetgame} {namanya}')
+    print(f'python jdysocket.py {rdmno} {liveid} {targetgame} {namanya}')
     db.insert({"tokenno":  rdmno, "data": {"liveid": liveid}})
 
 
@@ -96,9 +97,9 @@ while True:
             dat[idnya] = i["nickname"]
             time.sleep(0.4)
         x += 1
-        # if x > 2:
+        if x > 2:
             # kil()
-            # break
+            break
     
     if cekbug()==1:break
     time.sleep(120)

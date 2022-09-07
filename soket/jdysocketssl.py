@@ -56,19 +56,22 @@ tokk = ambil.token()
 persi = seting.versi()
 # token = tokk[int(input("token no : "))]
 token = tokk[int(sys.argv[1])]
-room = getlive.roomall()
-x = 1
-for i in room:
-    print("{}. {}".format(str(x), i["nickname"]))
-    if i["live_id"] == sys.argv[2]:
-        idroom = i["live_id"]
-        namanya = i["nickname"]
-        break
-    x += 1
+# room = getlive.roomall()
+# x = 1
+# for i in room:
+#     print("{}. {}".format(str(x), i["nickname"]))
+#     if i["live_id"] == sys.argv[2]:
+#         idroom = i["live_id"]
+#         namanya = i["nickname"]
+#         break
+#     x += 1
 
 # inp = input("room nomor : ")
 # idroom = room[int(inp)-1]["live_id"]
 # print("\nTarget Room : "+room[int(inp)-1]["nickname"])
+
+idroom=sys.argv[2]
+namanya=sys.argv[4]
 print(f"\nTarget Room : {namanya}")
 
 datan = b"ping"
@@ -181,10 +184,6 @@ datroom = {
     "kosong_brp_kali": 0,
     "isexit": False,
     "simi": False,
-    "menitclosing":"",
-    "viwermasuk":0,
-    "kosong_brp_kali":0,
-    "isexit":False,
     "lockclosing":False,
     "keyclosing":0,
 }
@@ -637,15 +636,17 @@ def xrespon(message):
         print(f"Error : {e}")
 
 
-try:
-    while True:
-        tz = pytz.timezone("Asia/Jakarta")
-        now = datetime.now(tz)
-        detik=now.strftime("%S")
-        if int(detik)==14:
-            while True:
-                if datroom["isexit"] == True:
-                    break
+while True:
+    tz = pytz.timezone("Asia/Jakarta")
+    now = datetime.now(tz)
+    detik=now.strftime("%S")
+    if int(detik)==14:
+
+        while True:
+            if datroom["isexit"] == True:
+                break
+            print(c("blue","is EXIT??? : ",0)+f' {datroom["isexit"]}       ')
+            try:
                 async def test():
                     uri = uriweb
                     async with websockets.connect(uri, ssl=ssl_context) as websocket:
@@ -656,13 +657,12 @@ try:
                             xrespon(response)
 
                 asyncio.get_event_loop().run_until_complete(test())
-            break
-        else:
-            sys.stdout.write(f"Waiting time [{detik}]/14     \r")
-            sys.stdout.flush()
-        time.sleep(1)
-
-except Exception as e:
-    print(f"\tError : {e}")
-input("exit")
+            except:
+                time.sleep(1)
+                pass
+    else:
+        sys.stdout.write(f"Waiting time [{detik}]/14     \r")
+        sys.stdout.flush()
+    time.sleep(1)
+# input("exit")
 
