@@ -3,7 +3,6 @@ import json
 import time
 import pytz
 import seting,random
-import os
 import sys
 from datetime import datetime
 import ambil
@@ -52,29 +51,42 @@ def loginid(x):
         return 0
 
 
-ataroinvcode = "YFI28L"
+ataroinvcode = "yBooNa"
 acc = ambil.uid()
-
+print(f"\njumlah uid : {len(acc)}")
+print("0 juga termasuk")
+lpp=input("Enter To All")
+if lpp=="":
+    tkn1,tkn2=0,len(acc)
+else:
+    tkn1,tkn2=int(input("tkn1 : ")),int(input("tkn2 : "))
+jeda=float(input("waktu jeda : "))
 
 def reset():
     # token terakhir untuk akun inti
-    token = []
-    itr = 0
-    for id in acc:
-        itr += 1
-        sys.stdout.write(f"{itr}\r")
-        sys.stdout.flush()
-        tkn = loginid(id)
-        if tkn != 0:
-            try:
-                tknn = tkn["result"]["access_token"]
-                token.append(tknn)
-            except:
-                # pass
-                print(tkn)
-        else:
-            print("request eror")
-        time.sleep(2)
+    token = ambil.token()
+    itr = tkn1
+    for id in acc[tkn1:tkn2]:
+        print("___________________________________")
+        while True:
+            sys.stdout.write(f"{itr}\r")
+            sys.stdout.flush()
+            tkn = loginid(id)
+            if tkn!=0:
+                if tkn["code"] == 0:
+                    print(tkn)
+                    tknn = tkn["result"]["access_token"]
+                    try:
+                        token[itr]=tknn
+                    except:
+                        token.append(tknn)
+                    itr += 1
+                        
+                    time.sleep(random.randint(jeda,jeda+10))
+                    break
+            else:
+                print(f"  [{itr}]  request eror : {tkn}")
+                time.sleep(random.randint(jeda,jeda+10))
 
     tokk = {"results": token}
 

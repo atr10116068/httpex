@@ -1,3 +1,4 @@
+from os import access
 import ambil
 import getapi
 import time
@@ -99,6 +100,7 @@ while True:
                     acc = getapi.profile(tkn)
                     x += 1
                 except:
+                    print(acc)
                     break
 
                 if acc != 0:
@@ -122,9 +124,12 @@ while True:
             tkn1 = token[int(ftkn)-1]
             print(tkn1)
             acc = getapi.profile(tkn1)
-            acc = acc["data"]
-            print(
-                f'{ftkn}.\t{c("magenta",acc["id"],0)}\t{acc["user_nicename"]} {c("cyan",acc["diamonds"],0)} {c("yellow",acc["coin"],0)} ')
+            try:
+                acc = acc["data"]
+                print(
+                    f'{ftkn}.\t{c("magenta",acc["id"],0)}\t{acc["user_nicename"]} {c("cyan",acc["diamonds"],0)} {c("yellow",acc["coin"],0)} ')
+            except:
+                print(acc)
 
         print(f"jumlah Diamond +- {c('cyan',jumkoin,0)}")
     if x == "2":  # get token
@@ -480,7 +485,7 @@ while True:
                 print(f'   [{c("green",idroom,0)}]\t{c("cyan",nams,0)}')
         print(f"\n\n\n")
     if x == "15":  # chat
-        mode=342
+        mode=int(input("Mulai dari token ke : "))
         tkn = token[mode-1]
         getidroom = getapi.getroom(tkn)
         x = 1
@@ -491,7 +496,7 @@ while True:
         idroom = getidroom[pilop-1]["stream"]
         roomuid = getidroom[pilop-1]["uid"]
         bck = []
-        simionoff = True
+        simionoff = False
         gem={"nama":[],"kerja":[]}
         while True:
             popo = getapi.getmsg(tkn, idroom)
@@ -593,7 +598,11 @@ simi gift [nomer] [id]
                                 if tini.contains(db.uid == uid):
                                     cariid = chat.replace("simi cari ", "")
                                     getidroom = getapi.getroom(tkn)
-                                    # bahroel=411886 arabkismin=615671 kangcut=48136 guru=386187
+                                    # bahroel=411886 
+                                    # arabkismin=615671 
+                                    # kangcut=48136 
+                                    # guru=386187
+                                    # cila=49918
                                     
                                     for tid in getidroom:
                                         hid=(tid["uid"])
