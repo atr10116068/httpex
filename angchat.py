@@ -213,7 +213,7 @@ def main():
             id
         )
         headers = {
-            "user-agent": "Mozilla/5.0 (Linux; Android 8.1.0; Redmi 5 Plus Build/OPM1.171019.019; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/91.0.4472.164 Mobile Safari/537.36",
+            "user-agent": f"HS-Android Mozilla/5.0 (Linux; Android 8.1.0; Redmi 5 Plus Build/OPM1.17{random.randint(1000,9999)}.019; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/98.0.{random.randint(1000,9999)}.82 Mobile Safari/537.36",
             "bundleidentifier": "user",
             "x-token": x,
             "accept-encoding": "identity",
@@ -369,7 +369,7 @@ def main():
             data = cekpao(rpp["result"]["live_id"], token[0])
             tim = data["result"]["start_countdown"]
             print("\tkuldon : " + display_time(tim))
-            for kul in range(int(tim) - 7, 1, -1):
+            for kul in range(int(tim) - 3, 1, -1):
                 inh = [10, 20, 30, 40, 50]
                 if kul in inh:
                     sys.stdout.write(f"\t{display_time(kul)}    \r")

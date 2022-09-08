@@ -2,7 +2,7 @@ import requests
 import json
 import time
 import pytz
-import seting
+import seting,random
 import os
 import sys
 from datetime import datetime
@@ -29,7 +29,7 @@ persi = seting.versi()
 def loginid(x):
     uri = "https://wjxwd01mwyo.dt01showxx02.com/App/User_LoginRegister/Login"
     headers = {
-        "User-Agent": "Mozilla/5.0 (Linux; Android 8.1.0; Redmi 5 Plus Build/OPM1.171019.019; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/91.0.4472.120 Mobile Safari/537.36",
+        "User-Agent": f"HS-Android Mozilla/5.0 (Linux; Android 8.1.0; SM-J730F Build/{random.randint(1000,9999)}; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/103.0.{random.randint(1000,9999)}.129 Mobile Safari/537.36",
         "BundleIdentifier": "user",
         "Accept-Encoding": "identity",
         "X-Version": persi,
