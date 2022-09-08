@@ -1,7 +1,7 @@
 import ambil
 import requests
 import seting
-import json
+import json,random
 import time
 import getlive
 import sys
@@ -27,7 +27,7 @@ else:
 def getnum(x):
     uri = "https://wjxwd01mwyo.dt01showxx02.com/App/Game_Game/GetTypeInfo"
     headers = {
-        "user-agent": "Mozilla/5.0 (Linux; Android 8.1.0; Redmi 5 Plus Build/OPM1.171019.019; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/91.0.4472.120 Mobile Safari/537.36",
+        "user-agent": f"Mozilla/5.0 (iPhone11,2; U; CPU iPhone OS 14_0 like Mac OS X) AppleWebKit/602.{random.randint(0,255)}.{random.randint(0,255)} (KHTML, like Gecko) Version/9.0 Mobile/{random.randint(11,99)}E{random.randint(111,999)} Safari/602.1",
         "bundleidentifier": "user",
         "x-token": x,
         "accept-encoding": "identity",
@@ -48,7 +48,7 @@ def getnum(x):
 # live_room_id=160807&game_type=toubao_1&game_sub=zonghe&game_number=202110260818&detail=zonghe_weitou%3A1%3B&multiple=1
 
 
-def bet(x, type, num):
+def bet(x, type, num,proxs):
     rType = {
         "big": "zonghe_da",
         "small": "zonghe_xiao",
@@ -58,7 +58,7 @@ def bet(x, type, num):
     }
     uri = "https://wjxwd01mwyo.dt01showxx02.com/App/Game_Order/Create"
     headers = {
-        "User-Agent": "Mozilla/5.0 (Linux; Android 8.1.0; Redmi 5 Plus Build/OPM1.171019.019; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/91.0.4472.120 Mobile Safari/537.36",
+        "User-Agent": f"Mozilla/5.0 (iPhone11,2; U; CPU iPhone OS 14_0 like Mac OS X) AppleWebKit/602.{random.randint(0,255)}.{random.randint(0,255)} (KHTML, like Gecko) Version/9.0 Mobile/{random.randint(11,99)}E{random.randint(111,999)} Safari/602.1",
         "BundleIdentifier": "user",
         "X-Token": x,
         "Accept-Encoding": "identity",
@@ -68,6 +68,7 @@ def bet(x, type, num):
         "Host": "wjxwd01mwyo.dt01showxx02.com",
         "Connection": "Keep-Alive",
     }
+    prox={"https":proxs}
     param = {
         "live_room_id": dat["roomid"],
         "game_type": "toubao_1",
@@ -78,7 +79,7 @@ def bet(x, type, num):
     }
 
     try:
-        req = requests.post(uri, data=json.dumps(param), headers=headers)
+        req = requests.post(uri, data=json.dumps(param), headers=headers,proxies=prox)
         ress = json.loads(req.text)
         print(ress)
     except:
@@ -113,6 +114,7 @@ inp = input("room nomor : ")
 dat["roomid"] = room[int(inp) - 1]["live_id"]
 print("\nTarget Room : " + room[int(inp) - 1]["nickname"])
 
+proxx=input("proxy : ")
 while True:
     print(menu)
     print(f'Audit : {dat["audit"]}')
@@ -124,7 +126,7 @@ while True:
             type = int(predic.split("-")[2])-1
             dat["audit"] -= int(num)
             tkn = token[idxtoken]
-            bet(tkn, hehe[type], num)
+            bet(tkn, hehe[type], num,proxx)
         except:
             pass
     else:
@@ -132,5 +134,5 @@ while True:
         type = int(predic.split("-")[2])-1
         num = predic.split("-")[1]
         for tkn in token:
-            bet(tkn, hehe[type], num)
+            bet(tkn, hehe[type], num,proxx)
         pass

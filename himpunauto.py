@@ -49,6 +49,59 @@ def c(colr, tex, dim):
         return tex
 
 
+def roomgame(datrum):
+    for i in range(1,5):
+        uriweb = f"https://wjxwd01mwyo.dt01showxx02.com/App/Live/Index?category_id=3&page={i}"
+        headers = {
+            "user-agent": f"HS-Android Mozilla/5.0 (Linux; Android 8.1.0; Redmi 5 Plus Build/OPM1.17{random.randint(1000,9999)}.019; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/98.0.{random.randint(1000,9999)}.82 Mobile Safari/537.36",
+            "bundleidentifier": "user",
+            "accept-encoding": "identity",
+            "host": "wjxwd01mwyo.dt01showxx02.com",
+            "connection": "keep-alive",
+        }
+        res = httpx.get(uriweb, headers=headers)
+        res = json.loads(res.text)
+        datrum["result"].append(res["result"])
+        time.sleep(1)
+
+
+    for i in datrum["result"]:
+        for x in i:
+            datrum["rapihkanjson"].append(x)
+
+    bck = []
+    for x in datrum["rapihkanjson"]:
+        if x["nickname"] not in bck:
+            bck.append(x["nickname"])
+            datrum["terfilter"].append(x)
+
+    itr = 1
+    for x in datrum["terfilter"]:
+        # print(f'{itr}. {x["nickname"]}')
+        itr += 1
+
+    return datrum["terfilter"]
+
+
+def roomall():
+    datrumm = {"idx": 1, "result": [], "rapihkanjson": [], "terfilter": []}
+    rgame = roomgame(datrumm)
+
+    rall = []
+    rname = []
+    for t in rgame:
+        if t["nickname"] not in rname:
+            if "6688" in t["nickname"]:
+                pass
+            elif "bling" in t["nickname"]:
+                pass
+            else:
+                rname.append(t["nickname"])
+                rall.append(t)
+    return rall
+
+tokens = []
+idroomarray=roomall()
 def getnum(x):
     uri = "https://wjxwd01mwyo.dt01showxx02.com/App/Game_Game/GetTypeInfo"
     headers = {
@@ -90,8 +143,10 @@ def bet(x, type, num, gamevers):
         "Host": "wjxwd01mwyo.dt01showxx02.com",
         "Connection": "Keep-Alive",
     }
+    rumnya=random.choice(idroomarray)
+    print(f'>>  {rumnya["nickname"]}')
     param = {
-        "live_room_id": dat["roomid"],
+        "live_room_id": rumnya["live_id"],
         "game_type": "baijiale_1",
         "game_sub": "zhuangxian",
         "game_number": gamevers,
@@ -137,8 +192,6 @@ def getinfo(x):
         return krm
 
 
-tokens = []
-
 print("0 termasuk token[x:y]")
 try:
     aa, bb = int(input("x : ")), int(input("y : "))
@@ -170,7 +223,7 @@ print()
 # inp = input("room nomor : ")
 # dat["roomid"] = room[int(inp) - 1]["live_id"]
 # print("\nTarget Room : " + room[int(inp) - 1]["nickname"])
-dat["roomid"]=0
+# dat["roomid"]=0
 
 def pilter():
     dat["pake"].clear()
