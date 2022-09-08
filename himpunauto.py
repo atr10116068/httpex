@@ -238,14 +238,16 @@ while True:
         if itrr % 2 != 0:
             dat["pake"].pop(0)
 
-        itrr = len(dat["pake"])
-        print(f">>>>>>>>>>>>> {itrr} akun Betting")
-        if itrr==0:exit()
-
-        #cari nilai terkecil
-        print(f"terkecil = {xkecil}")
     except Exception as e:
         print(f"Error : {e}")
+    itrr = len(dat["pake"])
+    print(f">>>>>>>>>>>>> {itrr} akun Betting")
+    if itrr==0:
+        print("HABISSS")
+        break
+
+    #cari nilai terkecil
+    print(f"terkecil = {xkecil}")
     tunggu(random.randint(46,50))
     # input("BET")
     try:
