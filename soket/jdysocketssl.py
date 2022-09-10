@@ -76,7 +76,7 @@ namanya=sys.argv[4]
 print(f"\nTarget Room : {namanya}")
 
 datan = b"ping"
-uriweb = "wss://dt001wsgew.qrdnk.cn/?token="+token
+uriweb = "wss://yoogs01wltb.dt01showxx03.com/?token="+token
 
 param = {
     "upgrade": "websocket",

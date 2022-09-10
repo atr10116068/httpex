@@ -110,7 +110,7 @@ while True:
                 dat[idnya] = i["nickname"]
                 time.sleep(0.4)
             x += 1
-            # if x > 7:
+            # if x > 3:
                 # kil()
                 # break
         print(f"  >> Token terpakai = {len(db.all())}")

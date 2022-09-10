@@ -15,8 +15,10 @@ def tunggu(x):
         sys.stdout.write(f"  {jamm}       \r")
         sys.stdout.flush()
         menit = now.strftime("%M")
-        if int(menit)==int(x):
-            break
+        detik = now.strftime("%S")
+        if int(detik) == 10:
+            if int(menit)==int(x):
+                break
         time.sleep(0.5)
 dat={}
 while True:
