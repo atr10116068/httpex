@@ -676,7 +676,7 @@ while True:
 
         tota = []
         for i in range(len(token)):
-            time.sleep(5)
+            time.sleep(2)
             try:
                 dtt = getinfo(token[i])
                 # print(dtt)

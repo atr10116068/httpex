@@ -70,6 +70,7 @@ def getnum(x):
     req = httpx.get(uri, params=query, headers=headers)
     ress = json.loads(req.text)
     try:
+        print(ress)
         return ress["result"]["current_round"]["number"]
     except:
         print("return error")
@@ -106,7 +107,7 @@ def bet(x, type, num):
     try:
         req = httpx.post(uri, data=json.dumps(param), headers=headers)
         ress = json.loads(req.text)
-        print(ress["result"]["balance"])
+        print(ress)
     except:
         print("Failed...")
 
@@ -179,7 +180,7 @@ while True:
         persenan=float(sett.search(q.profile == 'persenan')[0]["val"])
         batasany=int(sett.search(q.profile == 'batas any')[0]["val"])
         tanda={
-            "getnum":dbet+24,
+            "getnum":dbet+10,
             "betting":dbet,
         }
 
@@ -233,6 +234,7 @@ while True:
                     return bett
                 if sisahw==tanda["getnum"]:
                     dat["gamenumber"]=getnum(token)
+                    time.sleep(1)
                 if sisahw==tanda["betting"]:
                     print()
                     # print(ress)
@@ -334,6 +336,7 @@ while True:
                     return bett
                 if sisahw==tanda["getnum"]:
                     dat["gamenumber"]=getnum(token)
+                    time.sleep(1)
                 if sisahw==tanda["betting"]:
                     print()
 

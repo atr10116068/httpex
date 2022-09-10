@@ -1,9 +1,10 @@
-import os
+import os,pytz
 import seting
 import getlive
 import time
 import random
 from tinydb import *
+from datetime import datetime
 
 db = TinyDB("datatokenroom.json")
 tbl = Query()
@@ -85,24 +86,35 @@ def kil():
             p = psutil.Process(i.pid)
             p.terminate()
 
+def detik():
+    tz = pytz.timezone("Asia/Jakarta")
+    now = datetime.now(tz)
+    dtk=now.strftime("%S")
+    return dtk
 while True:
+    print(f"  > Token terpakai = {len(db.all())}")
     db = TinyDB("datatokenroom.json")
     tbl = Query()
-    room = getlive.roomall()
-    x = 0
-    for i in room:
-        # print("{}. {}".format(str(x), i["nickname"]))
-        idnya = i["live_id"]
-        namanya = i["nickname"].replace(" ","_")
-        if idnya not in dat:
-            buka(idnya, targetgame,namanya)
-            dat[idnya] = i["nickname"]
-            time.sleep(0.4)
-        x += 1
-        # if x > 7:
-            # kil()
-            # break
-    
-    # if cekbug()==1:break
-    time.sleep(305)
-    # print(json.dumps(dat,indent=2))
+    dtk=detik()
+    sys.stdout.write(f"   {dtk}    \r")
+    sys.stdout.flush()
+    if dtk=="10":
+        room = getlive.roomall()
+        x = 0
+        for i in room:
+            # print("{}. {}".format(str(x), i["nickname"]))
+            idnya = i["live_id"]
+            namanya = i["nickname"].replace(" ","_")
+            if idnya not in dat:
+                buka(idnya, targetgame,namanya)
+                dat[idnya] = i["nickname"]
+                time.sleep(0.4)
+            x += 1
+            # if x > 7:
+                # kil()
+                # break
+        print(f"  >> Token terpakai = {len(db.all())}")
+        # if cekbug()==1:break
+        time.sleep(305)
+        # print(json.dumps(dat,indent=2))
+    time.sleep(0.9)
