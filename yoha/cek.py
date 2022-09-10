@@ -701,14 +701,14 @@ simi gift [nomer] [id]
                             if simionoff == True:
                                 tkn = token[int(mode)-1]
                                 # EA ayaa
-                                if uid != 2550918 and chat[len(chat)-1]!="ᅠ":
+                                if uid != 2550918 and chat[len(chat)-1]!=".":
                                     try:
                                         smi = getapi.simi(chat)["success"]
                                         if smi == "Aku tidak mengerti apa yang kamu katakan.Tolong ajari aku.":
                                             pass
                                         else:
                                             mode+=1
-                                            getapi.send(tkn, idroom, smi+"ᅠ")
+                                            getapi.send(tkn, idroom, smi+".")
                                             time.sleep(2)
                                         print(f"   {mode} -> {chat}")
                                     except Exception as e:
