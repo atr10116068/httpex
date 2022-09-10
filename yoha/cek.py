@@ -68,6 +68,7 @@ menus = """
 15. chatbot
 16. set random profile
 17. cek user
+18. dual chat
 """
 while True:
     x = input(f"{menus}-> ")
@@ -603,6 +604,7 @@ simi gift [nomer] [id]
                                     # kangcut=48136 
                                     # guru=386187
                                     # cila=49918
+                                    # sipe=388024
                                     
                                     for tid in getidroom:
                                         hid=(tid["uid"])
@@ -617,7 +619,11 @@ simi gift [nomer] [id]
                                         if ada==True:
                                             break
                                         print(f"{hid} -> {hname}")
-                                    getapi.send(tkn, idroom, f'{cariid} gak nemu')
+                                        
+                                    if ada==True:
+                                        break
+                                    else:
+                                        getapi.send(tkn, idroom, f'{cariid} gak nemu')
 
                                     # getapi.send(tkn, idroom, f"{cnama} ada {ccoin} coin")
                                 else:
@@ -703,10 +709,11 @@ simi gift [nomer] [id]
                                         else:
                                             mode+=1
                                             getapi.send(tkn, idroom, smi+"ᅠ")
-                                            time.sleep(5)
+                                            time.sleep(2)
                                         print(f"   {mode} -> {chat}")
                                     except Exception as e:
                                         print(f"   Error : {e}")
+                        
                 sys.stdout.write(
                     "--------------------------------------------->  \r")
                 sys.stdout.flush()
@@ -746,4 +753,22 @@ simi gift [nomer] [id]
                 uid,unama=c("magenta",topo["id"],0),c("cyan",topo["nick"],0)
                 print(f"   [{uid}] {unama}")
 
+    if x == "18":  # dual chat
+        mode = input("mode [no]: ")
+        getidroom = getapi.getroom(random.choice(token))
+        x = 1
+        for idr in getidroom:
+            print(f"{x}. {idr['user_nicename']}")
+            x += 1
+        inprum=input("room no [no-no]: ")
+        rum1,rum2=int(inprum.split("-")[0]),int(inprum.split("-")[1])
+        while True:
+            tkn = token[int(mode)-1]
+            texx = input(f"{mode} text :")
+            if texx == "q":
+                break
+            idroom = getidroom[rum1-1]["stream"]
+            getapi.send(tkn, idroom, texx)
+            idroom = getidroom[rum2-1]["stream"]
+            getapi.send(tkn, idroom, texx)
 #  𓌸 𓌹 𓌺(◣_◢)𓌸 𓌹 𓌺

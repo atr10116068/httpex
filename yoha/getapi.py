@@ -647,12 +647,13 @@ def updaterandom(token):
     if len(nama) > 20:
         nama = nama[0:20]
     head["user-agent"] = datp["useragent"]
-    print(nama)
+    print("          >> "+nama.split(" ")[0][0:10])
     param = {
         "fields": {
             "user_nicename": nama.split(" ")[0][0:10]
         },
     }
+
     uri = f'{data["host"]}api/auth/update-user'
     r = httpx.post(uri, data=json.dumps(param), headers=head)
     if r.status_code == 200:
