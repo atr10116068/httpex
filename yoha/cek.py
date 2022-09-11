@@ -605,6 +605,7 @@ simi gift [nomer] [id]
                                     # guru=386187
                                     # cila=49918
                                     # sipe=388024
+                                    # oji=409287
                                     
                                     for tid in getidroom:
                                         hid=(tid["uid"])
@@ -629,6 +630,22 @@ simi gift [nomer] [id]
                                 else:
                                     getapi.send(
                                         tkn, idroom, "cuma ATARO yang boleh")
+                            elif chat.startswith("tr "):
+                                import translatepy as trp
+                                dess = chat.replace("tr ", "").split(" ")[0]
+                                text = chat.split(" ")
+                                del text[0:2]
+                                texx=""
+                                for popi in text:
+                                    texx+=f"{popi} "
+                                texx=texx[0:len(texx)]
+                                print(dess)
+                                print(texx)
+                                try:
+                                    ress=trp.tpy(texx,dess)[1]
+                                    getapi.send(tkn, idroom, ress)
+                                except:
+                                    pass
                             elif chat.startswith("simi "):
                                 if tini.contains(db.uid == uid):
                                     switer = chat.replace("simi ", "")
