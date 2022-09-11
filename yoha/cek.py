@@ -565,6 +565,11 @@ simi gift [nomer] [id]
 .add admin [id]
 .del admin [id]
 .agency [nama]
+tr [bahasa] [text]
+     GAME
+.add nama [namanya]
+.add kerja [kata kerja]
+acak
 """
                                     getapi.send(
                                         tkn, idroom, cet)
