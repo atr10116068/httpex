@@ -1,5 +1,5 @@
 import requests
-import json
+import json,random
 import time
 import os
 import sys
@@ -11,7 +11,7 @@ from datetime import datetime
 def nama(x):
     uriweb = "https://wjxwd01mwyo.dt01showxx02.com/App/User_User/Info"
     headers = {
-        "user-agent": "Mozilla/5.0 (Linux; Android 8.1.0; Redmi 5 Plus Build/OPM1.171019.019; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/91.0.4472.120 Mobile Safari/537.36",
+        "user-agent": f"HS-Android Mozilla/5.0 (Linux; Android 8.1.0; Redmi 5 Plus Build/OPM1.17{random.randint(1000,9999)}.019; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/98.0.{random.randint(1000,9999)}.82 Mobile Safari/537.36",
         "bundleidentifier": "user",
         "x-token": x,
         "accept-encoding": "identity",
@@ -26,11 +26,11 @@ def nama(x):
 def cimg(x, img):
     uri = "https://wjxwd01mwyo.dt01showxx02.com/App/User_User/UpdateInfo"
     headers = {
-        "User-Agent": "Mozilla/5.0 (Linux; Android 8.1.0; Redmi 5 Plus Build/OPM1.171019.019; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/91.0.4472.120 Mobile Safari/537.36",
+        "User-Agent": f"HS-Android Mozilla/5.0 (Linux; Android 8.1.0; Redmi 5 Plus Build/OPM1.17{random.randint(1000,9999)}.019; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/98.0.{random.randint(1000,9999)}.82 Mobile Safari/537.36",
         "BundleIdentifier": "user",
         "X-Token": x,
         "Accept-Encoding": "identity",
-        "X-Version": "2.10.1",
+        "X-Version": "2.10.4",
         "Content-Type": "application/x-www-form-urlencoded",
         "Host": "wjxwd01mwyo.dt01showxx02.com",
         "Connection": "Keep-Alive"
@@ -50,11 +50,11 @@ def cimg(x, img):
 def capat(x, appat):
     uri = "https://wjxwd01mwyo.dt01showxx02.com/App/User_User/UpdateInfo"
     headers = {
-        "User-Agent": "Mozilla/5.0 (Linux; Android 8.1.0; Redmi 5 Plus Build/OPM1.171019.019; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/91.0.4472.120 Mobile Safari/537.36",
+        "User-Agent": f"HS-Android Mozilla/5.0 (Linux; Android 8.1.0; Redmi 5 Plus Build/OPM1.17{random.randint(1000,9999)}.019; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/98.0.{random.randint(1000,9999)}.82 Mobile Safari/537.36",
         "BundleIdentifier": "user",
         "X-Token": x,
         "Accept-Encoding": "identity",
-        "X-Version": "2.10.1",
+        "X-Version": "2.10.4",
         "Content-Type": "application/x-www-form-urlencoded",
         "Host": "wjxwd01mwyo.dt01showxx02.com",
         "Connection": "Keep-Alive"
@@ -74,7 +74,7 @@ def capat(x, appat):
 def topnama(x):
     uriweb = "https://wjxwd01mwyo.dt01showxx02.com/App/Rankings/GetRechargeList?time_type=month&is_last=1"
     headers = {
-        "user-agent": "Mozilla/5.0 (Linux; Android 8.1.0; Redmi 5 Plus Build/OPM1.171019.019; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/91.0.4472.120 Mobile Safari/537.36",
+        "user-agent": f"HS-Android Mozilla/5.0 (Linux; Android 8.1.0; Redmi 5 Plus Build/OPM1.17{random.randint(1000,9999)}.019; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/98.0.{random.randint(1000,9999)}.82 Mobile Safari/537.36",
         "bundleidentifier": "user",
         "x-token": x,
         "accept-encoding": "identity",
@@ -96,9 +96,9 @@ except:
     mode = 999
 
 if mode == 999:
+    klao = input("avatar ke {} : ".format(str(i)))
     for i in range(len(token)):
         while True:
-            klao = input("avatar ke {} : ".format(str(i)))
             if len(klao) > 0 and len(klao) < 50:
                 break
         dattop[i] = {"nickname": klao}

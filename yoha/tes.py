@@ -1,6 +1,16 @@
-# Query().field.matches(regex)
+import getapi
 
-from tinydb import *
-tini = TinyDB("adminbot.json")
-db = Query()
-print(tini.contains(db.uid == 123))
+
+idroom="3471484_1663074389"
+#tkn21
+tkn="Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vYXBpLnlvaGEucHJvL2FwaS9hdXRoL2xvZ2luIiwiaWF0IjoxNjYzMDExNjIwLCJleHAiOjE2NjM2MTY0MjAsIm5iZiI6MTY2MzAxMTYyMCwianRpIjoiVUVETzY3T2pUTFRSdEJhOSIsInN1YiI6MjYyOTQzMSwicHJ2IjoiMjNiZDVjODk0OWY2MDBhZGIzOWU3MDFjNDAwODcyZGI3YTU5NzZmNyJ9.jIoBJDgE65qgBbQ8pWzHG54_Qzh6ZNJ5wlPOdwG9Crg"
+texx="""
+t
+e
+s
+"""
+
+
+
+getapi.updateuser(tkn)
+# getapi.send(tkn, idroom, texx)

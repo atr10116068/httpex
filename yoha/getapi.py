@@ -549,10 +549,11 @@ def updateuser(token):
         "content-type": "application/json; charset=utf-8",
         "user-agent": f"Mozilla/5.0 (iPhone11,2; U; CPU iPhone OS 14_0 like Mac OS X) AppleWebKit/602.{rdm.randint(0,255)}.{rdm.randint(0,255)} (KHTML, like Gecko) Version/9.0 Mobile/{rdm.randint(11,99)}E{rdm.randint(111,999)} Safari/602.1"
     }
+    jkl="""bjorka Addicted"""
     param = {
         "fields": {
             "avatar": input("avatar : "),
-            "user_nicename": input("nama : "),
+            "user_nicename": jkl,#input("nama : "),
             # "is_anchor": True,
         },
     }

@@ -8,7 +8,7 @@ import sys
 import ambil
 import random as rd
 
-
+idrumnya=input("id Room : ")
 def roomgame(datrum):
     for i in range(1,5):
         uriweb = f"https://wjxwd01mwyo.dt01showxx02.com/App/Live/Index?category_id=3&page={i}"
@@ -281,15 +281,15 @@ def main():
                 if paoo["code"] == 0:
                     taim = paoo["result"]["start_countdown"]
                     if taim > 60:
-                        if taim < 1000:  # menit
+                        if taim < 10000:  # menit
                             # == == == == == == == == == == == == == == == == == == = fokus id live
-                            # if live_id == "308336":
-                            paoo["result"]["live_id"] = live_id
-                            paoo["result"]["nickname"] = nickname
-                            if nickname not in bckup:
-                                roompao.append(paoo)
-                                bckup.append(nickname)
-                                print(paoo)
+                            if live_id == idrumnya:
+                                paoo["result"]["live_id"] = live_id
+                                paoo["result"]["nickname"] = nickname
+                                if nickname not in bckup:
+                                    roompao.append(paoo)
+                                    bckup.append(nickname)
+                                    print(paoo)
                 sementara.pop(i)
             except:
                 break

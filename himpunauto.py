@@ -130,7 +130,7 @@ def bet(x, type, num, gamevers):
     rType = {
         "player": "zhuangxian_xian",
         "banker": "zhuangxian_zhuang",
-        "tie": "zhuangxian_he"
+        "tie": "zhuangxian_he" 
     }
     uri = "https://wjxwd01mwyo.dt01showxx02.com/App/Game_Order/Create"
     headers = {
@@ -151,6 +151,54 @@ def bet(x, type, num, gamevers):
         "game_sub": "zhuangxian",
         "game_number": gamevers,
         "detail": rType[type] + ":" + num,
+        "multiple": "1",
+    }
+
+    req = httpx.post(uri, data=json.dumps(param), headers=headers)
+    try:
+        ress = json.loads(req.text)
+        return(ress)
+    except:
+        print("Failed...")
+
+def betsic(x, type, num, gamevers,tbsoe):
+    rType = {
+        "big": "zonghe_da",
+        "small": "zonghe_xiao",
+        "odd": "zonghe_dan",
+        "even": "zonghe_shuang",
+        "any triple": "zonghe_weitou",
+    }
+    if tbsoe==1:
+        rType = {
+            "player": "zonghe_da",
+            "banker": "zonghe_xiao",
+        }
+    else:
+        rType = {
+            "player": "zonghe_dan",
+            "banker": "zonghe_shuang",
+        }
+    
+    uri = "https://wjxwd01mwyo.dt01showxx02.com/App/Game_Order/Create"
+    headers = {
+        "User-Agent": f"Mozilla/5.0 (iPhone11,2; U; CPU iPhone OS 14_0 like Mac OS X) AppleWebKit/602.{random.randint(0,255)}.{random.randint(0,255)} (KHTML, like Gecko) Version/9.0 Mobile/{random.randint(11,99)}E{random.randint(111,999)} Safari/602.1",
+        "BundleIdentifier": "user",
+        "X-Token": x,
+        "Accept-Encoding": "identity",
+        "X-Version": persi,
+        "Content-Type": "application/x-www-form-urlencoded",
+        "Host": "wjxwd01mwyo.dt01showxx02.com",
+        "Connection": "Keep-Alive",
+    }
+    rumnya=random.choice(idroomarray)
+    print(f'>>  {rumnya["nickname"]}')
+    param = {
+        "live_room_id": rumnya["live_id"],
+        "game_type": "toubao_1",
+        "game_sub": "zonghe;",
+        "game_number": gamevers,
+        "detail": rType[type] + ":" + num + ";",
         "multiple": "1",
     }
 
@@ -344,6 +392,7 @@ while True:
 
             lennya = len(gasbet)-1
             dahpick = []
+            tipebsoe=random.choice([1,2])
             while len(gasbet) != 0:
                 # print(">>>>>>>>>>  "+str(len(gasbet)))
                 while True:
@@ -354,7 +403,7 @@ while True:
 
                 dbt = gasbet[badak]
                 # print()
-                bettlol = bet(dbt["tkn"], dbt["tipe"], dbt["jum"], dbt["verr"])
+                bettlol = betsic(dbt["tkn"], dbt["tipe"], dbt["jum"], dbt["verr"],tipebsoe)
                 # bettlol = {'msg': 'ok', 'code': 0, 'result': {'balance': dbt["jum"]}}
                 try:
                     if dbt["tipe"] == "player":

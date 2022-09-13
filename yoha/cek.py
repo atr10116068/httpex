@@ -145,6 +145,7 @@ while True:
             print(f"{x}. {idr['user_nicename']}")
             x += 1
         idroom = getidroom[int(input("room no : "))-1]["stream"]
+        print(f"idroom : {idroom}")
         if "-" in mode:
             ittkn = mode
             tkn1 = int(ittkn.split("-")[0])
@@ -163,10 +164,27 @@ while True:
         else:
             while True:
                 tkn = token[int(mode)-1]
-                texx = input(f"{mode} text :")
+                texx = input(f"{mode} text to translate [.en text]:")
                 if texx == "q":
                     break
-                getapi.send(tkn, idroom, texx)
+                if texx.startswith("."):
+                    texx=texx[1:len(texx)]
+                    import translatepy as trp
+                    dess = texx.split(" ")[0]
+                    text = texx.split(" ")
+                    del text[0:1]
+                    texxs=""
+                    for popi in text:
+                        texxs+=f"{popi} "
+                    print(dess)
+                    print(texxs)
+                    try:
+                        ress=trp.tpy(texxs,dess)[1]
+                        getapi.send(tkn, idroom, ress)
+                    except:
+                        pass
+                else:
+                    getapi.send(tkn, idroom, texx)
     if x == "4":  # gift
         rdmtkn = random.choice(token)
         getidroom = getapi.getroom(rdmtkn)
@@ -425,13 +443,16 @@ while True:
         if len(itk) != 0:
             print(getapi.updateuser(token[int(itk)-1]))
     if x == "11":  # receive follow
+        jeda=float(input(" Jeda : "))
         mode = input("[no-no] : ")
         if "-" in mode:
             ittkn = mode
             tkn1 = int(ittkn.split("-")[0])
             tkn2 = int(ittkn.split("-")[1])
             tokenlup = token[tkn1-1:tkn2-1]
+            itr=0
             for tkn in tokenlup:
+                itr+=1
                 plow = getapi.rewardlist(tkn)["data"]
                 for piop in plow:
                     print(f'{c("blue",piop,0)}')
@@ -451,9 +472,9 @@ while True:
                                             f"\tClaim : {c('green',kuda['status'],0)}")
                         else:
                             # print(json.dumps(piop2,indent=2))
-                            print(piop2["info"]["en_name"])
-
+                            print(f" <{itr}>  "+piop2["info"]["en_name"])
                 time.sleep(2)
+            time.sleep(jeda)
     if x == "12":
         mode = input("Token ke :")
         tkn = token[int(mode)-1]
