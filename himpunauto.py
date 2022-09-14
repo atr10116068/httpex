@@ -1,7 +1,7 @@
 import httpx
 import json
 import time
-import seting
+import seting,getlive
 import random
 import sys,pytz
 from datetime import datetime
@@ -83,25 +83,25 @@ def roomgame(datrum):
     return datrum["terfilter"]
 
 
-def roomall():
-    datrumm = {"idx": 1, "result": [], "rapihkanjson": [], "terfilter": []}
-    rgame = roomgame(datrumm)
+# def roomall():
+#     datrumm = {"idx": 1, "result": [], "rapihkanjson": [], "terfilter": []}
+#     rgame = roomgame(datrumm)
 
-    rall = []
-    rname = []
-    for t in rgame:
-        if t["nickname"] not in rname:
-            if "6688" in t["nickname"]:
-                pass
-            elif "bling" in t["nickname"]:
-                pass
-            else:
-                rname.append(t["nickname"])
-                rall.append(t)
-    return rall
+#     rall = []
+#     rname = []
+#     for t in rgame:
+#         if t["nickname"] not in rname:
+#             if "6688" in t["nickname"]:
+#                 pass
+#             elif "bling" in t["nickname"]:
+#                 pass
+#             else:
+#                 rname.append(t["nickname"])
+#                 rall.append(t)
+#     return rall
 
 tokens = []
-idroomarray=roomall()
+idroomarray=getlive.roomall()
 def getnum(x):
     uri = "https://wjxwd01mwyo.dt01showxx02.com/App/Game_Game/GetTypeInfo"
     headers = {
@@ -192,7 +192,7 @@ def betsic(x, type, num, gamevers,tbsoe):
         "Connection": "Keep-Alive",
     }
     rumnya=random.choice(idroomarray)
-    print(f'>>  {rumnya["nickname"]}')
+    # print(f'>>  {rumnya["nickname"]}')
     param = {
         "live_room_id": rumnya["live_id"],
         "game_type": "toubao_1",
@@ -205,6 +205,7 @@ def betsic(x, type, num, gamevers,tbsoe):
     req = httpx.post(uri, data=json.dumps(param), headers=headers)
     try:
         ress = json.loads(req.text)
+        ress["result"]["room"]=rumnya["nickname"]
         return(ress)
     except:
         print("Failed...")
@@ -415,7 +416,7 @@ while True:
                 except:
                     jp.append("000")
 
-                print(c(dbt["warna"], f"{str(badak)} >> {str(bettlol)}", 0))
+                print(c(dbt["warna"], f"{str(badak)} >> {str(bettlol['result'])}", 0))
                 if bettlol["code"] == 1:
                     if "empty" in bettlol["msg"]:
                         if dat["ganjilgenap"] == 2:
