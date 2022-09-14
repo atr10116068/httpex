@@ -9,7 +9,7 @@ def seting():
     "bundleidentifier":"user",
     "accept-encoding":"identity",
     "host":"wjxwd01mwyo.dt01showxx02.com",
-    "x-version":"2.10.3",
+    "x-version":"2.10.4",
     "connection":"keep-alive"
     }
     f=requests.get(uriweb,headers=headers)

@@ -197,15 +197,6 @@ while True:
         namahost, streamid, uid = idroom["user_nicename"], idroom["room_id"], idroom["uid"]
 
         tkn1, tkn2, jeda = 0, 0, 10
-        ftkn = input("[no] or [no-no] or enter(all): ")
-        if ftkn == "":
-            tokengift = token
-        elif "-" in ftkn:
-            tkn1, tkn2 = int(ftkn.split("-")[0]), int(ftkn.split("-")[1])
-            jeda = float(input("jeda : "))
-            tokengift = token[tkn1-1:tkn2-1]
-        else:
-            tokengift = token[int(ftkn)-1:int(ftkn)]
 
         reqdata = getapi.getgift(rdmtkn)
         listgift = reqdata["data"]["gift_list"]
@@ -216,20 +207,34 @@ while True:
             giftname = pgift['gift_name']
             amount = pgift['need_coin']
             print(f"   [{giftid}] [{amount}]   \t{giftname}")
+        itr=1
         while True:
-            inpp = input("Gift id : ")
-            if inpp == "q":
-                break
-            else:
-                jumgip = input("jumlah : ")
-                for tokengiftr in tokengift:
-                    print(f"Host : {namahost}")
-                    if inpp == "q":
+            inps = input(f"Gift ke-{itr} [tkn] [id/q] : ")
+            try:
+                if inps == "q":
+                    break
+                else:
+                    try:
+                        ftkn=int(inps.split(" ")[0])
+                        inpp=inps.split(" ")[1]
+                    except:
+                        print("Force break")
                         break
-                    getapi.enter(tokengiftr, uid)
-                    time.sleep(1)
-                    getapi.gift(tokengiftr, streamid, inpp, uid, jumgip)
-                    time.sleep(jeda)
+                    jumgip = "1"
+                    tokengift=token[int(ftkn)-1:int(ftkn)]
+                    for tokengiftr in tokengift:
+                        print(f"Host : {namahost}")
+                        if inpp == "q":
+                            break
+                        getapi.enter(tokengiftr, uid)
+                        time.sleep(0.4)
+                        getapi.gift(tokengiftr, streamid, inpp, uid, jumgip)
+                        time.sleep(0.4)
+                        getapi.kuit(tokengiftr, uid)
+                    itr+=1
+            except:
+                print("Gagal gift")
+            
     if x == "5":  # getuid
         uaidi = ambil.uid()
         tkn1, tkn2,  tknall, tkn = 0, 0, 0, 0
