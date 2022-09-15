@@ -46,7 +46,7 @@ def persi():
             return [f.status_code,f.text]
     except Exception as e:
         print(f"Error : {e}")
-print(persi)
+print(persi())
 input("dah")
 exit()
 persi = seting.versi()
