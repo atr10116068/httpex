@@ -47,6 +47,7 @@ def persi():
     except Exception as e:
         print(f"Error : {e}")
 print(persi)
+input("dah")
 exit()
 persi = seting.versi()
 tz = pytz.timezone("Asia/Jakarta")
