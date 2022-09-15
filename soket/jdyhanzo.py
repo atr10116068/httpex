@@ -27,6 +27,27 @@ awaldata={
 with open(f"betting{idtoken}.json", 'w') as json_file:
     json.dump(awaldata, json_file, indent=2,  separators=(',',': '))
     
+def persi():
+    uriweb="https://wjxwd01mwyo.dt01showxx02.com/App/Setting/Global"
+    headers={
+    "x-ws-apm-id":"C0A24009-062E-4AA1-9950-0023510E1A63-16",
+    "user-agent":f"HS-Android Mozilla/5.0 (Linux; Android 8.1.0; Redmi 5 Plus Build/OPM1.17{random.randint(1000,9999)}.019; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/98.0.{random.randint(1000,9999)}.82 Mobile Safari/537.36",
+    "bundleidentifier":"user",
+    "accept-encoding":"identity",
+    "host":"wjxwd01mwyo.dt01showxx02.com",
+    "x-version":"2.10.3",
+    "connection":"keep-alive"
+    }
+    f=httpx.get(uriweb,headers=headers)
+    try:
+        if f.status_code==200:
+            return [f.status_code,json.loads(f.text)]
+        else:
+            return [f.status_code,f.text]
+    except Exception as e:
+        print(f"Error : {e}")
+print(persi)
+exit()
 persi = seting.versi()
 tz = pytz.timezone("Asia/Jakarta")
 def c(colr, tex, dim):
