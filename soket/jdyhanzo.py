@@ -1,5 +1,5 @@
 from datetime import datetime
-import pytz,time,httpx,seting,json
+import pytz,time,httpx,json
 from tinydb import *
 import time,random
 import os,sys
