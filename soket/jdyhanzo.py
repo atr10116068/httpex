@@ -14,7 +14,6 @@ q = Query()
 from colorama import Fore, Style, init
 init()
 
-
 dat={}
 print()
  
