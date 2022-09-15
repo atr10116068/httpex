@@ -1,48 +1,32 @@
 from datetime import datetime
-import pytz,time,requests,seting,json,ambil
+import pytz,time,httpx,seting,json
 from tinydb import *
 import time,random
-import os
+import os,sys
+from tinydb import *
+
+db = TinyDB("database.json")
+sett = db.table('setting')
+q = Query()
 
 # import logging
 # logging.basicConfig(filename="client.log", level=logging.DEBUG)
 from colorama import Fore, Style, init
 init()
+
+
 dat={}
 print()
-maxbet=int(input("Maximumbet : "))
-dbet=input("detik betting : ")
-if dbet!="":
-    dbet=int(dbet)
-else:
-    dbet=10
-tanda={
-    "getnum":dbet+15,
-    "betting":dbet,
-}
 
-idroom=""
-ty=input("id room : ")
-if ty!="":
-    idroom=ty
-
-persenan=0
-ty=input("persenan [0.6=60%] : ")
-if ty!="":
-    persenan=float(ty)
 host="https://wjxwd01mwyo.dt01showxx02.com"
-tokk = ambil.hanzo()
-if input("Enter to set token from db")!="":
-    with open("user_token.json") as json_file:
-        token = json.load(json_file)["results"][0]
-else:
-    token=tokk[int(input("token ke : "))-1]
+token=input("Token : ")
 idtoken=token[-6:]
 awaldata={
   "results": {"bet":[]}
   }
 with open(f"betting{idtoken}.json", 'w') as json_file:
     json.dump(awaldata, json_file, indent=2,  separators=(',',': '))
+    
 persi = seting.versi()
 tz = pytz.timezone("Asia/Jakarta")
 def c(colr, tex, dim):
@@ -69,7 +53,7 @@ def c(colr, tex, dim):
 def getnum(x):
     uri = host+"/App/Game_Game/GetTypeInfo"
     headers = {
-        "user-agent": f"HS-Android Mozilla/5.0 (Linux; Android 8.1.0; Redmi 5 Plus Build/OPM1.17{random.randint(1000,9999)}.019; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/98.0.{random.randint(1000,9999)}.82 Mobile Safari/537.36",
+        "user-agent": f"Mozilla/5.0 (iPhone11,2; U; CPU iPhone OS 14_0 like Mac OS X) AppleWebKit/602.{random.randint(0,255)}.{random.randint(0,255)} (KHTML, like Gecko) Version/9.0 Mobile/{random.randint(11,99)}E{random.randint(111,999)} Safari/602.1",
         "bundleidentifier": "user",
         "x-token": x,
         "accept-encoding": "identity",
@@ -78,9 +62,10 @@ def getnum(x):
         "connection": "keep-alive",
     }
     query = {"game_type": "toubao_1"}
-    req = requests.get(uri, params=query, headers=headers)
+    req = httpx.get(uri, params=query, headers=headers)
     ress = json.loads(req.text)
     try:
+        print(ress)
         return ress["result"]["current_round"]["number"]
     except:
         print("return error")
@@ -96,13 +81,12 @@ def bet(x, type, num):
     }
     uri = "https://wjxwd01mwyo.dt01showxx02.com/App/Game_Order/Create"
     headers = {
-        "User-Agent": f"HS-Android Mozilla/5.0 (Linux; Android 8.1.0; Redmi 5 Plus Build/OPM1.17{random.randint(1000,9999)}.019; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/98.0.{random.randint(1000,9999)}.82 Mobile Safari/537.36",
+        "User-Agent": f"Mozilla/5.0 (iPhone11,2; U; CPU iPhone OS 14_0 like Mac OS X) AppleWebKit/602.{random.randint(0,255)}.{random.randint(0,255)} (KHTML, like Gecko) Version/9.0 Mobile/{random.randint(11,99)}E{random.randint(111,999)} Safari/602.1",
         "BundleIdentifier": "user",
         "X-Token": x,
         "Accept-Encoding": "identity",
         "X-Version": persi,
         "Content-Type": "application/x-www-form-urlencoded",
-        "Content-Length": "25",
         "Host": "wjxwd01mwyo.dt01showxx02.com",
         "Connection": "Keep-Alive",
     }
@@ -116,9 +100,9 @@ def bet(x, type, num):
     }
 
     try:
-        req = requests.post(uri, data=json.dumps(param), headers=headers)
+        req = httpx.post(uri, data=json.dumps(param), headers=headers)
         ress = json.loads(req.text)
-        print(ress["result"]["balance"])
+        print(ress)
     except:
         print("Failed...")
 
@@ -130,13 +114,12 @@ def betbac(x, type, num):
     }
     uri = "https://wjxwd01mwyo.dt01showxx02.com/App/Game_Order/Create"
     headers = {
-        "User-Agent": f"HS-Android Mozilla/5.0 (Linux; Android 8.1.0; Redmi 5 Plus Build/OPM1.17{random.randint(1000,9999)}.019; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/98.0.{random.randint(1000,9999)}.82 Mobile Safari/537.36",
+        "User-Agent": f"Mozilla/5.0 (iPhone11,2; U; CPU iPhone OS 14_0 like Mac OS X) AppleWebKit/602.{random.randint(0,255)}.{random.randint(0,255)} (KHTML, like Gecko) Version/9.0 Mobile/{random.randint(11,99)}E{random.randint(111,999)} Safari/602.1",
         "BundleIdentifier": "user",
         "X-Token": x,
         "Accept-Encoding": "identity",
         "X-Version": persi,
         "Content-Type": "application/x-www-form-urlencoded",
-        "Content-Length": "123",
         "Host": "wjxwd01mwyo.dt01showxx02.com",
         "Connection": "Keep-Alive",
     }
@@ -149,7 +132,7 @@ def betbac(x, type, num):
         "multiple": "1",
     }
     try:
-        req = requests.post(uri, data=json.dumps(param), headers=headers)
+        req = httpx.post(uri, data=json.dumps(param), headers=headers)
         ress = json.loads(req.text)
         print(ress)
     except Exception as e:
@@ -166,15 +149,41 @@ if ngebet=="y":
     inpgame=int(input(f"{mgame}game nomor : "))
 else:
     ngebet=False
-    
+
+audit=0
 while True:
     try:
         os.system('cls')
+        db = TinyDB("database.json")
+        sett = db.table('setting')
+        dbrec = TinyDB("rec.json")
+        dbselisih = dbrec.table('data')
+
+        tabel=chr(126)+chr(126)+chr(32)+chr(65)+chr(84)+chr(65)+chr(82)+chr(79)+chr(32)+chr(126)+chr(126)
+        q = Query()
+        pola=sett.search(q.profile == 'pola')[0]["val"]
+        if pola=="terbesar":
+            disppol=c("green","↑↑↑↑↑↑↑↑",0)
+            polll=1
+        else:
+            polll=0
+            disppol=c("red","↓↓↓↓↓↓↓↓",0)
+        print(f'\t{c("cyan",tabel,0)}')
+        idroom=sett.search(q.profile == 'roomid')[0]["val"]
+        maxbet=int(sett.search(q.profile == 'maxbet')[0]["val"])
+        dbet=int(sett.search(q.profile == 'detik')[0]["val"])
+        persenan=float(sett.search(q.profile == 'persenan')[0]["val"])
+        batasany=int(sett.search(q.profile == 'batas any')[0]["val"])
+        tanda={
+            "getnum":dbet+10,
+            "betting":dbet,
+        }
+
+        print(c("green",f"{disppol}[ Audit : {audit} ]{disppol}",0))
         db = TinyDB("data.json")
-        print(f'\t\t{c("cyan","~~ HANZO ~~",0)}')
         xs = db.all()
         xnum=10
-        ress={"Big":0,"Small":0,"Odd":0,"Even":0,"Banker":0,"Player":0}
+        ress={"Big":0,"Small":0,"Odd":0,"Even":0,"Any":0,"Banker":0,"Player":0}
         for x in xs:
             print(f'__________[ {x["game"]} ]_________')
             for xxx in x["data"]:
@@ -220,46 +229,82 @@ while True:
                     return bett
                 if sisahw==tanda["getnum"]:
                     dat["gamenumber"]=getnum(token)
+                    time.sleep(1)
                 if sisahw==tanda["betting"]:
                     print()
                     # print(ress)
                     bs,oe=["",0],["",0]
                     if int(ress["Small"])>int(ress["Big"]):
-                        bs[0]="big"
+                        if polll==0:
+                            bs[0]="big"
+                        else:
+                            bs[0]="small"
                         selisihbs = int(ress["Small"])-int(ress["Big"])
                         bettbs=round(selisihbs*persenan)
                     else:
-                        bs[0]="small"
+                        if polll==0:
+                            bs[0]="small"
+                        else:
+                            bs[0]="big"
                         selisihbs = int(ress["Big"])-int(ress["Small"])
                         bettbs=round(selisihbs*persenan)
                     bs[1]=betbrp(bettbs)
 
                     if int(ress["Odd"])>int(ress["Even"]):
-                        oe[0]="even"
+                        if polll==0:
+                            oe[0]="even"
+                        else:
+                            oe[0]="odd"
                         selisihoe = int(ress["Odd"])-int(ress["Even"])
                         bettoe=round(selisihoe*persenan)
                     else:
-                        oe[0]="odd"
+                        if polll==0:
+                            oe[0]="odd"
+                        else:
+                            oe[0]="even"
                         selisihoe = int(ress["Even"])-int(ress["Odd"])
                         bettoe=round(selisihoe*persenan)
                     oe[1]=betbrp(bettoe)
                     
+                    dbselisih.insert_multiple([{
+                        'gamenum': dat["gamenumber"],
+                        'big': int(ress["Big"]),
+                        'small': int(ress["Small"]),
+                        'odd': int(ress["Odd"]),
+                        'even': int(ress["Even"]),
+                        'any': int(ress["Any"]),
+                        'selisihbs':selisihbs,
+                        'selisihoe':selisihoe,
+                        'pola':polll,
+                        }])
+
                     listObj={
                         "results":{"bet":[]}
                     }
 
                     if bs[1]!=0:
-                        # print(f"Selisih {selisihbs}[{bettbs}] Bet {bs[0]} {str(bs[1])} coin")
+                        print(f"Selisih {selisihbs}[{bettbs}] Bet {bs[0]} {str(bs[1])} coin")
                         listObj["results"]["bet"].append(f"{bs[0]}{bs[1]}")
                         bet(token,bs[0],str(bs[1]))
+                        audit+=int(bs[1])
                     if oe[1]!=0:
-                        # print(f"Selisih {selisihoe}[{bettoe}] Bet {oe[0]} {str(oe[1])} coin")
+                        print(f"Selisih {selisihoe}[{bettoe}] Bet {oe[0]} {str(oe[1])} coin")
                         listObj["results"]["bet"].append(f"{oe[0]}{oe[1]}")
                         bet(token,oe[0],str(oe[1]))
+                        audit+=int(oe[1])
+                    if int(ress["Any"])<batasany:
+                        print(c("red","   ANY..!",0))
+                        bet(token,"any triple","1")
+                        audit+=1
 
                     with open(f"betting{idtoken}.json", 'w') as json_file:
                         json.dump(listObj, json_file, indent=2,  separators=(',',': '))
                     # input("Press Enter to next")
+                    print()
+                    for jedaa in range(10):
+                        sys.stdout.write(f"\t{jedaa}   \r")
+                        sys.stdout.flush()
+                        time.sleep(1)
                 
                 with open(f"betting{idtoken}.json", 'r') as json_file:
                     xbet=json.load(json_file)
@@ -286,17 +331,24 @@ while True:
                     return bett
                 if sisahw==tanda["getnum"]:
                     dat["gamenumber"]=getnum(token)
+                    time.sleep(1)
                 if sisahw==tanda["betting"]:
                     print()
 
                     oe=["",0]
 
                     if int(ress["Banker"])>int(ress["Player"]):
-                        oe[0]="player"
+                        if polll==0:
+                            oe[0]="player"
+                        else:
+                            oe[0]="banker"
                         selisihoe = int(ress["Banker"])-int(ress["Player"])
                         bettoe=round(selisihoe*persenan)
                     else:
-                        oe[0]="banker"
+                        if polll==0:
+                            oe[0]="banker"
+                        else:
+                            oe[0]="player"
                         selisihoe = int(ress["Player"])-int(ress["Banker"])
                         bettoe=round(selisihoe*persenan)
                     oe[1]=betbrp(bettoe)
@@ -333,6 +385,7 @@ while True:
         ditts={"_default": {}}
         with open("data.json", "w") as outfile:
             json.dump(ditts, outfile)
+        
 
 
-    time.sleep(1)
+    time.sleep(0.3)

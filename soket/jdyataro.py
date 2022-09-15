@@ -32,6 +32,7 @@ awaldata={
   }
 with open(f"betting{idtoken}.json", 'w') as json_file:
     json.dump(awaldata, json_file, indent=2,  separators=(',',': '))
+    
 persi = seting.versi()
 tz = pytz.timezone("Asia/Jakarta")
 def c(colr, tex, dim):
