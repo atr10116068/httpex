@@ -17,7 +17,7 @@ init()
 
 dat={}
 print()
-
+ 
 host="https://wjxwd01mwyo.dt01showxx02.com"
 token=input("Token : ")
 idtoken=token[-6:]
