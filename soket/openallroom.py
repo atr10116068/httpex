@@ -40,7 +40,7 @@ for pgp in game:
 
 def cekbug():
     print(dat["ittrr"])
-    if dat["ittrr"]>80:
+    if dat["ittrr"]>130:
         db.truncate()
         kil()
         return 1
@@ -98,7 +98,7 @@ while True:
     dtk=detik()
     sys.stdout.write(f"   {dtk}    \r")
     sys.stdout.flush()
-    if dtk=="10":
+    if int(dtk)<10:
         room = getlive.roomall()
         x = 0
         for i in room:

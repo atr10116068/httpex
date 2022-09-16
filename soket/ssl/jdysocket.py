@@ -364,7 +364,7 @@ def lagi():
                 if datroom["lockclosing"]==False:
                     datroom["lockclosing"]=True
                     datroom["keyclosing"]=int(detik)
-                    if datroom["viwermasuk"]<3:
+                    if datroom["viwermasuk"]<4:
                         if datroom["kosong_brp_kali"]<3:
                             datroom["kosong_brp_kali"]+=1
                             print(c("red",f"closing viwer < 2  ke-{datroom['kosong_brp_kali']} kali",0))
@@ -475,10 +475,137 @@ def lagi():
                 except Exception as e:
                     print(e)
                     print(datadadu[0]["data"]["msg_body"])
+
+
+#+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+            if datadadu[0]["action"] == "send_msg":
+                utex = datadadu[0]['data']['msg_body']['content']
+                udata = {
+                    "uid": datadadu[0]['data']['msg_body']['show_id'],
+                    "ulvl": datadadu[0]['data']['msg_body']['vip'],
+                    "uname": datadadu[0]['data']['msg_body']['nickname'],
+                    "utex": utex,
+                }
+
+                if udata['utex'].lower() in ["taro", "bangtaro","bang taro","tar","ro","bang at","at"]:
+                    bawel = [
+                        "apa sih... cok",
+                        "apaan?",
+                        "ada apa sayang?",
+                        "oiiiii",
+                        "kenapa?",
+                        "gw disini...",
+                        "ada apa 𓂸",
+                        "manggil mulu, ada apa sih",
+                    ]
+                    tex = random.choice(bawel)
+                    sen(idroom, token, tex)
+                try:
+                    if utex.startswith("."):
+                        texx = utex.replace(".", "")
+                        udata["utex"] = texx
+                        if udata['utex'] == "reset":
+                            if udata["uid"] in dat["admin"] or udata["ulvl"] in host:
+                                gamechat.clear()
+                                gid.clear()
+                            else:
+                                tex = "Hanya adminku yang boleh"
+                                sen(idroom, token, tex)
+                        if udata['utex'] == "cek":
+                            tex = f"{len(gid)} akun ikutan"
+                            sen(idroom, token, tex)
+                        if udata['utex'] == "main":
+                            if udata["uid"] in dat["admin"] or udata["ulvl"] in host:
+                                for tex in ["ketik .add [nama]-[kerja]-[nama]-[kerja]", 'contoh .add budi-terkejut-alex-uncep']:
+                                    sen(idroom, token, tex)
+
+                        elif udata['utex'] == "acak":
+                            if udata["uid"] in dat["admin"] or udata["ulvl"] in host:
+                                print(gid)
+                                print(gamechat)
+                                disp = f"{gamechat[random.choice(gid)][0]} {gamechat[random.choice(gid)][1]} {random.choice(imb)} {gamechat[random.choice(gid)][2]} {gamechat[random.choice(gid)][3]}"
+                                sen(idroom, token, disp)
+                            else:
+                                tex = "Hanya adminku yang boleh"
+                                sen(idroom, token, tex)
+
+                        elif udata['utex'].startswith("add "):
+                            dgame = texx.replace("add ", "")
+                            dgames = dgame.split("-")
+                            if len(dgames) == 4:
+                                gamechat[udata["uid"]] = dgames
+                                if udata["uid"] not in gid:
+                                    gid.append(udata["uid"])
+                                tex = "Sudah ditambah"
+                                sen(idroom, token, tex)
+                            else:
+                                tex = "contoh nama-ekspresi-nama-ekspresi"
+                                sen(idroom, token, tex)
+                                tex = "contoh budi-terkejut-rudi-tertawa"
+                                sen(idroom, token, tex)
+                except Exception as e:
+                    print(e)
+
+                if utex.lower().startswith("taro "):
+                    texx = utex.lower().replace("taro ", "")
+                    udata["utex"] = texx
+                    try:
+                        if lepel[udata["ulvl"]] >= dat["minimumlvl"] or udata["uid"] in dat["admin"]:
+                            if udata['utex'].startswith("tr "):
+                                trans(udata)
+                            elif udata['utex'].startswith("cariakun "):
+                                udata["utex"]=utex.replace("taro ", "")
+                                cariviwer(udata)
+                            elif udata['utex'].startswith("cek koin "):
+                                udata["utex"]=utex.replace("taro cek koin", "")
+                                if udata["uid"] in dat["admin"] or udata["ulvl"] in host:
+                                    cekkoin(udata["utex"])
+                                else:
+                                    tex = "Hanya adminku yang boleh"
+                                    sen(idroom, token, tex)
+                            elif udata['utex'].startswith("changelvl "):
+                                if udata["uid"] in dat["admin"] or udata["ulvl"] in host:
+                                    clvl(udata)
+                                else:
+                                    tex = "Hanya adminku yang boleh"
+                                    sen(idroom, token, tex)
+
+                            if udata['utex'] == "siapa aku?":
+                                if udata["uid"] in dat["admin"]:
+                                    tex = "kamu itu adminku"
+                                    sen(idroom, token, tex)
+                                elif udata["ulvl"] in host:
+                                    tex = "kamu itu Host"
+                                    sen(idroom, token, tex)
+                                else:
+                                    tex = "kamu viwer biasa"
+                                    sen(idroom, token, tex)
+                            elif udata['utex'] == "bisa apa aja?":
+                                texs = [
+                                    "-> taro siapa aku?",
+                                    "-> taro cariakun [nama]",
+                                    "-> taro tr [bahasa] [text]",
+                                    "-> taro jumlah host",
+                                ]
+                                for tex in texs:
+                                    sen(idroom, token, tex)
+                                    time.sleep(2)
+                            elif udata['utex'] == "jumlah host":
+                                dats = jumhost()
+                                sen(idroom, token, f'{dats["game"]} host game')
+                                sen(idroom, token,
+                                    f'{dats["indo"]} host adorable')
+                                sen(idroom, token, f'{dats["sexy"]} host sexy')
+                        else:
+                            tex = f"Hanya dapat di gunakan oleh LVL {str(dat['minimumlvl'])} keatas"
+                            sen(idroom, token, tex)
+                    except Exception as e:
+                        print(f"Error : {e}")
+
+                print(
+                    f" > [{udata['uid']}][{lepel[udata['ulvl']]}] {udata['uname']}\t: {udata['utex']}")
         except Exception as e:
-            print(f"Error : [{e}]")
-            if e==0:
-                input("lanjut? enter")
+            print(f"Error : {e}")
 
     def on_error(ws, error):
         pass
@@ -517,8 +644,9 @@ try:
         tz = pytz.timezone("Asia/Jakarta")
         now = datetime.now(tz)
         detik=now.strftime("%S")
-        if int(detik)<40:
+        if int(detik)==14:
             lagi()
+            break
         else:
             sys.stdout.write(f"Waiting time [{detik}]/14     \r")
             sys.stdout.flush()
