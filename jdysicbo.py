@@ -72,7 +72,7 @@ def bet(x, type, num,proxs):
     param = {
         "live_room_id": dat["roomid"],
         "game_type": "toubao_1",
-        "game_sub": "zonghe;",
+        "game_sub": "zonghe",
         "game_number": getnum(x),
         "detail": rType[type] + ":" + num + ";",
         "multiple": "1",

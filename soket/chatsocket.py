@@ -141,7 +141,7 @@ inp = input("room nomor : ")
 idroom = room[int(inp)-1]["live_id"]
 print(f'\nTarget Room : {room[int(inp)-1]["nickname"]} [{idroom}]')
 datan = b"ping"
-uriweb = "wss://dt001wsgew.qrdnk.cn/?token="+token
+uriweb = "wss://yoogs01wltb.dt01showxx03.com/?token="+token
 
 param = {
     "upgrade": "websocket",

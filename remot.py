@@ -30,26 +30,26 @@ def nama(x):
         return [0, 0, 0]
 
 
-def sen(id, x):
+def sen(dat):
     uri = "https://wjxwd01mwyo.dt01showxx02.com/App/Gift/BuyRemoteGift"
     headers = {
         "User-Agent": f"Mozilla/5.0 (Linux; Android 8.1.0; Redmi 5 Plus Build/OPM1.{random.randint(100000,999999)}.019; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/91.0.{random.randint(1000,9999)}.120 Mobile Safari/537.36",
         "BundleIdentifier": "user",
-        "X-Token": x,
+        "X-Token": dat["token"],
         "Accept-Encoding": "identity",
         "X-Version": seting.versi(),
         "Content-Type": "application/x-www-form-urlencoded",
-        "Host": "dt001piwfw.d9sph.cn",
+        "Host": "wjxwd01mwyo.dt01showxx02.com",
         "Connection": "Keep-Alive",
     }
-    param = {"live_id": id, "number": "1"}
+    param = {"live_id": dat["idroom"], "number": "1"}
 
+    req = requests.post(uri, data=json.dumps(param), headers=headers)
     try:
-        req = requests.post(uri, data=json.dumps(param), headers=headers)
         ress = json.loads(req.text)
         print(ress)
     except:
-        print("Failed...")
+        print(f"Error : {req.text}")
 
 
 def main(xxx):
@@ -66,13 +66,15 @@ def main(xxx):
     token = tokk
     # token = tokk[xxx-1:xxx]
 
-    dat = {"token": token[0], "idroom": idroom}
+    dat = {"token": token[int(xxx)-1], "idroom": idroom}
     print(nama(dat["token"]))
 
-    for i in token:
+    while True:
         gkl = input("y or n : ")
         if gkl == "y":
-            sen(idroom, i)
+            sen(dat)
+        elif gkl == "q":
+            break
         else:
             pass
     print("selesai...")

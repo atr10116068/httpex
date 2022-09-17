@@ -196,7 +196,7 @@ def betsic(x, type, num, gamevers,tbsoe):
     param = {
         "live_room_id": rumnya["live_id"],
         "game_type": "toubao_1",
-        "game_sub": "zonghe;",
+        "game_sub": "zonghe",
         "game_number": gamevers,
         "detail": rType[type] + ":" + num + ";",
         "multiple": "1",
@@ -350,7 +350,7 @@ while True:
 
     #cari nilai terkecil
     print(f"terkecil = {xkecil}")
-    tunggu(random.randint(46,50))
+    tunggu(random.randint(40,45))
     # input("BET")
     try:
         bett = str(xkecil)
