@@ -243,7 +243,7 @@ def getinfo(x):
 
 print("\ntoken ke [x:y]")
 try:
-    aa, bb = int(input("x : "))+1, int(input("y : ")+1)
+    aa, bb = int(input("x : "))+1, int(input("y : "))+1
 except:
     aa, bb = 0, 1
 
@@ -251,11 +251,13 @@ except:
 jedascan=float(1.0)
 with open(f"user_token.json", 'r') as json_file:
     xbet=json.load(json_file)["results"]
+    print(len(xbet))
 token = xbet[aa:bb]
-print("filtering...")
+print(f"filtering... {token}")
 ikl = 1
 for i in token:
     ceking = getinfo(i)
+    print(ceking)
     if float(ceking[1]) >= 1.0:
         tokens.append(i)
     sys.stdout.write(f"\t {ikl} -> {len(tokens)}\r")
