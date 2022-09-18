@@ -92,10 +92,10 @@ def detik():
     dtk=now.strftime("%S")
     return dtk
 while True:
-    print(f"  > Token terpakai = {len(db.all())}")
     db = TinyDB("datatokenroom.json")
     tbl = Query()
     dtk=detik()
+    print(f"  > Token terpakai = {len(db.all())}")
     sys.stdout.write(f"   {dtk}    \r")
     sys.stdout.flush()
     if int(dtk)<10:

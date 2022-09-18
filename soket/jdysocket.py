@@ -4,7 +4,7 @@ import time
 import requests
 import sys
 import seting
-import getlive,sys,random
+import sys,random
 import ambil
 from datetime import datetime
 import pytz
@@ -35,26 +35,11 @@ def c(colr, tex, dim):
 db = TinyDB("data.json")
 dbtkn = TinyDB("datatokenroom.json")
 tbl = Query()
-# db.truncate()
 
 tokk = ambil.token()
 persi = seting.versi()
-# token = tokk[int(input("token no : "))]
 token = tokk[int(sys.argv[1])]
 
-# room = getlive.roomall()
-# x = 1
-# for i in room:
-#     print("{}. {}".format(str(x), i["nickname"]))
-#     if i["live_id"]==sys.argv[2]:
-#         idroom=i["live_id"]
-#         namanya=i["nickname"]
-#         break
-#     x += 1
-
-# inp = input("room nomor : ")
-# idroom = room[int(inp)-1]["live_id"]
-# print("\nTarget Room : "+room[int(inp)-1]["nickname"])
 idroom=sys.argv[2]
 namanya=sys.argv[4]
 print(f"\nTarget Room : {namanya}")
@@ -211,134 +196,12 @@ lepel = {
 }
 
 tokenhost = ambil.tokenhost()
-def gas2(id, tok):
-    uri1 = f"https://wjxwd01mwyo.dt01showxx02.com/App/Live/RealTimePeopleList?live_id={id}&page=1"
-    headers = {
-        "User-Agent": f"Mozilla/5.0 (iPhone11,2; U; CPU iPhone OS 14_0 like Mac OS X) AppleWebKit/602.{random.randint(0,255)}.{random.randint(0,255)} (KHTML, like Gecko) Version/9.0 Mobile/{random.randint(11,99)}E{random.randint(111,999)} Safari/602.1",
-        "BundleIdentifier": "anchor",
-        "X-Token": tok,
-        "Accept-Encoding": "identitpython host/host.pyy",
-        "X-Version": persi,
-        "Host": "wjxwd01mwyo.dt01showxx02.com",
-        "Connection": "Keep-Alive",
-    }
-    try:
-        req1 = requests.get(uri1, headers=headers)
-        ress1 = json.loads(req1.text)["result"]["list"]
-        return ress1
-    except:
-        return [9, 9]
-def cekkoin(x):
-    print(x)
-    tokk = ambil.token()
-    tokence=tokk[int(x)-1]
-    print(tokence)
-    uriweb = "https://wjxwd01mwyo.dt01showxx02.com/App/User_User/Info"
-    headers = {
-        "user-agent": f"Mozilla/5.0 (iPhone11,2; U; CPU iPhone OS 14_0 like Mac OS X) AppleWebKit/602.{random.randint(0,255)}.{random.randint(0,255)} (KHTML, like Gecko) Version/9.0 Mobile/{random.randint(11,99)}E{random.randint(111,999)} Safari/602.1",
-        "bundleidentifier": "user",
-        "x-token": tokence,
-        "accept-encoding": "identity",
-        "host": "wjxwd01mwyo.dt01showxx02.com",
-        "connection": "keep-alive",
-    }
-    f = requests.get(uriweb, headers=headers)
-    ress = json.loads(f.text)
-    try:
-        krm = [
-            ress["result"]["nickname"],
-            ress["result"]["balance"],
-            ress["result"]["vip_name"],
-            ress["result"]["id"],
-        ]
-        sen(idroom, token, f'{ress["result"]["nickname"]} ada {ress["result"]["balance"]} coin bang')
-    except:
-        sen(idroom, token, f"rusak bang :v")
-
-def cariviwer(udata):
-    udata["utex"] = udata["utex"].replace("cariakun ", "")
-    viwerny = udata["utex"]
-    roomxx = getlive.roomall()
-    nemu = False
-    for iii in roomxx:
-        idroomss = iii["live_id"]
-        namaroom = iii["nickname"]
-        try:
-            datas = gas2(idroomss, tokenhost)
-            for pp in datas:
-                nama = pp["nickname"]
-                if nama == viwerny:
-                    nemu = {0: nama, 1: namaroom}
-        except:
-            print("Gagal Capture Data")
-    if nemu != False:
-        sen(idroom, token, f"{nemu[0]} di {nemu[1]}")
-    else:
-        sen(idroom, token, f"Ga nemu bang")
-
-def clvl(udata):
-    try:
-        udata["utex"] = udata["utex"].replace("changelvl ", "")
-        dat["minimumlvl"] = int(udata["utex"])
-        sen(idroom, token, f"Sudah di sett ke {udata['utex']}")
-    except Exception as e:
-        print(f"Error : {e}")
 
 gid = []
 imb = ["karena", "ketika", "saat", "dan", "melihat", "mendengar"]
 gamechat = {}
 
 
-def jumhost():
-    rgame = getlive.roomgame(
-        {"idx": 1, "result": [], "rapihkanjson": [], "terfilter": []})
-    rindo = getlive.roomindo(
-        {"idx": 1, "result": [], "rapihkanjson": [], "terfilter": []})
-    rsexy = getlive.roomsexy(
-        {"idx": 1, "result": [], "rapihkanjson": [], "terfilter": []})
-    dat = {
-        "game": len(rgame),
-        "indo": len(rindo),
-        "sexy": len(rsexy),
-    }
-    return dat
-
-def sen(id, tok, tex):
-    uri = "https://wjxwd01mwyo.dt01showxx02.com/App/Live/SendMsg"
-    headers = {
-        "user-agent": f"HS-Android Mozilla/5.0 (Linux; Android 8.1.0; SM-J730F Build/{random.randint(1000,9999)}; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/103.0.{random.randint(1000,9999)}.129 Mobile Safari/537.36",
-        "bundleidentifier": "user",
-        "x-token": tok,
-        "accept-encoding": "identity",
-        "host": "wjxwd01mwyo.dt01showxx02.com",
-        "connection": "keep-alive"
-    }
-    para = {"live_id": id, "content": tex}
-
-    req = requests.get(uri, params=para, headers=headers)
-    ress = json.loads(req.text)
-    return ress
-
-def trans(udata):
-    try:
-        udata["utex"] = udata["utex"].replace("tr ", "")
-        desx = udata["utex"].split(" ")[0]
-        if desx=="cn":
-            desx="zh-tw"
-        se0 = udata["utex"].split(" ")
-        del se0[0]
-        texxx = ""
-        for tp in se0:
-            texxx += f'{tp} '
-
-        # print(f"texx : {texx}")
-        # print(f"desx : {desx}")
-        # print(f"texxx : {texxx}")
-        hasi = trs.tpy(texxx, desx)
-        # <<<< ['入力しようとしています', 'Nyūryoku shiyou to shite imasu'] >>>>>>
-        sen(idroom, token, hasi[1])
-    except Exception as e:
-        print(f"Error : {e}")
 #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 def lagi():
     import _thread as thread
@@ -486,10 +349,11 @@ def lagi():
 
     def on_close(ws, x, y):
         if datroom["isexit"]==False:
-            for i in range(3):
-                sys.stdout.write(f"Reconnect after {i} \r")
-                sys.stdout.flush()
-                time.sleep(1)
+            print(c("cyan","____________[ RECONNECT ]____________",0))
+            # for i in range(3):
+            #     sys.stdout.write(f"Reconnect after {i} \r")
+            #     sys.stdout.flush()
+            #     time.sleep(1)
             lagi()
         else:
             db.remove(where('tokenno') == sys.argv[1])
@@ -517,10 +381,11 @@ try:
         tz = pytz.timezone("Asia/Jakarta")
         now = datetime.now(tz)
         detik=now.strftime("%S")
-        if int(detik)<40:
+        masuk=5
+        if int(detik)==masuk:
             lagi()
         else:
-            sys.stdout.write(f"Waiting time [{detik}]/14     \r")
+            sys.stdout.write(f"Waiting time [{detik}]/{masuk}     \r")
             sys.stdout.flush()
         time.sleep(1)
 

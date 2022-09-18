@@ -437,7 +437,7 @@ def main(ttt):
     print("selesai...")
 
 
-tehj = input("Token no (loop n-n juga bisa):")
+tehj = input("Token no (loop n n juga bisa):")
 print(tehj)
 while True:
     main(tehj)
