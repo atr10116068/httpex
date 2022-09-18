@@ -241,7 +241,7 @@ def getinfo(x):
         return krm
 
 
-print("token ke [x:y]")
+print("\ntoken ke [x:y]")
 try:
     aa, bb = int(input("x : "))+1, int(input("y : ")+1)
 except:
