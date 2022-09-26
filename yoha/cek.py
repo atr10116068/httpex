@@ -441,8 +441,12 @@ while True:
             else:
                 print(f'{t["no"]} ada yg sama')
     if x == "10":
-        xxx = getapi.profileuser(token[0], input("id user : "))["data"]
-        print(json.dumps(xxx, indent=2))
+        xxx = getapi.profileuser(token[0], input("id user : "))
+        try:
+            print(json.dumps(xxx["data"], indent=2))
+        except:
+            print(json.dumps(xxx, indent=2))
+            
 
         itk = input("Token (enter to skip): ")
         if len(itk) != 0:
@@ -527,250 +531,255 @@ while True:
         gem={"nama":[],"kerja":[]}
         while True:
             popo = getapi.getmsg(tkn, idroom)
-            if popo["code"] == 200:
-                for itrpop in popo["data"]["list"]:
-                    tz = pytz.timezone("Asia/Jakarta")
-                    now = datetime.now(tz)
-                    waktu = now.strftime("%H%M")
-                    datac = {
-                        "uid": itrpop["uid"],
-                        "nama": itrpop["nick"],
-                        "vip": itrpop["vip"],
-                        "chat": itrpop["content"],
-                        "waktu": waktu,
-                    }
-                    uid, nama, vip, chat, waktu = datac["uid"], datac[
-                        "nama"], datac["vip"], datac["chat"], datac["waktu"]
+            try:
+                if popo["code"] == 200:
+                    for itrpop in popo["data"]["list"]:
+                        tz = pytz.timezone("Asia/Jakarta")
+                        now = datetime.now(tz)
+                        waktu = now.strftime("%H%M")
+                        datac = {
+                            "uid": itrpop["uid"],
+                            "nama": itrpop["nick"],
+                            "vip": itrpop["vip"],
+                            "chat": itrpop["content"],
+                            "waktu": waktu,
+                        }
+                        uid, nama, vip, chat, waktu = datac["uid"], datac[
+                            "nama"], datac["vip"], datac["chat"], datac["waktu"]
 
-                    if itrpop["is_robot"] == 0 and uid!="2550918":  # bukan robot dan bukan simi
-                        if itrpop["content"].startswith("simi gift") or simionoff == True:
-                            for jeda in range(1, 10):
-                                tmbh = str(int(waktu)+jeda)
-                                if len(tmbh) == 3:
-                                    tmbh = f"0{tmbh}"
-                                datacc = {
-                                    "uid": itrpop["uid"],
-                                    "nama": itrpop["nick"],
-                                    "vip": itrpop["vip"],
-                                    "chat": itrpop["content"],
-                                    "waktu": tmbh,
-                                }
-                                bck.append(datacc)
-                            # print("jeda 10 menit")
+                        if itrpop["is_robot"] == 0 and uid!="2550918":  # bukan robot dan bukan simi
+                            if itrpop["content"].startswith("simi gift") or simionoff == True:
+                                for jeda in range(1, 10):
+                                    tmbh = str(int(waktu)+jeda)
+                                    if len(tmbh) == 3:
+                                        tmbh = f"0{tmbh}"
+                                    datacc = {
+                                        "uid": itrpop["uid"],
+                                        "nama": itrpop["nick"],
+                                        "vip": itrpop["vip"],
+                                        "chat": itrpop["content"],
+                                        "waktu": tmbh,
+                                    }
+                                    bck.append(datacc)
+                                # print("jeda 10 menit")
 
-                        dilarang = ["kamu ga boleh ya sayang ya",
-                                    "apasih... aku ga kenal kamu",
-                                    "cuma adminku yg boleh ya kak",
-                                    "ih gak mau, gak suka..."]
-                        if datac not in bck:
-                            print(f' [{waktu}][{uid}]\t{nama}\t{chat}')
-                            bck.append(datac)
-                            if chat.lower() == "acak":
-                                vnama,vkerja=random.choice(gem["nama"]),random.choice(gem["kerja"])
-                                vnama2,vkerja2=random.choice(gem["nama"]),random.choice(gem["kerja"])
-                                spo=random.choice(["karena","saat","ketika","kalau"])
-                                getapi.send(tkn, idroom, f"{vnama} {vkerja} {spo} {vnama2} {vkerja2}")
-                            if chat.lower() == "simi":
-                                if tini.contains(db.uid == uid):
-                                    cet = ["ada apa miminku?",
-                                           f"apa sayangku {nama}"]
-                                    getapi.send(
-                                        tkn, idroom, random.choice(cet))
-                                else:
-                                    cet = ["apa si manggil manggil", "ada apa babi",
-                                           "manggil sekali lagi aku jitak nih", "bodo amat , ga keliatan"]
-                                    getapi.send(
-                                        tkn, idroom, random.choice(cet))
-                                print(f"simi-> {chat}")
-                            if chat.lower() == "help":
-                                if tini.contains(db.uid == uid):
-                                    cet = """
-help
-simi [on/off]
-simi gift [nomer] [id]
-.add admin [id]
-.del admin [id]
-.agency [nama]
-tr [bahasa] [text]
-     GAME
-.add nama [namanya]
-.add kerja [kata kerja]
-acak
-"""
-                                    getapi.send(
-                                        tkn, idroom, cet)
-                                else:
-                                    getapi.send(
-                                        tkn, idroom, random.choice(dilarang))
-                                print(f"help-> {chat}")
+                            dilarang = ["kamu ga boleh ya sayang ya",
+                                        "apasih... aku ga kenal kamu",
+                                        "cuma adminku yg boleh ya kak",
+                                        "ih gak mau, gak suka..."]
+                            if datac not in bck:
+                                print(f' [{waktu}][{uid}]\t{nama}\t{chat}')
+                                bck.append(datac)
+                                if chat.lower() == "acak":
+                                    vnama,vkerja=random.choice(gem["nama"]),random.choice(gem["kerja"])
+                                    vnama2,vkerja2=random.choice(gem["nama"]),random.choice(gem["kerja"])
+                                    spo=random.choice(["karena","saat","ketika","kalau"])
+                                    getapi.send(tkn, idroom, f"{vnama} {vkerja} {spo} {vnama2} {vkerja2}")
+                                if chat.lower() == "simi":
+                                    if tini.contains(db.uid == uid):
+                                        cet = ["ada apa miminku?",
+                                            f"apa sayangku {nama}"]
+                                        getapi.send(
+                                            tkn, idroom, random.choice(cet))
+                                    else:
+                                        cet = ["apa si manggil manggil", "ada apa babi",
+                                            "manggil sekali lagi aku jitak nih", "bodo amat , ga keliatan"]
+                                        getapi.send(
+                                            tkn, idroom, random.choice(cet))
+                                    print(f"simi-> {chat}")
+                                if chat.lower() == "help":
+                                    if tini.contains(db.uid == uid):
+                                        cet = """
+    help
+    simi [on/off]
+    simi gift [nomer] [id]
+    .add admin [id]
+    .del admin [id]
+    .agency [nama]
+    tr [bahasa] [text]
+        GAME
+    .add nama [namanya]
+    .add kerja [kata kerja]
+    acak
+    """
+                                        getapi.send(
+                                            tkn, idroom, cet)
+                                    else:
+                                        getapi.send(
+                                            tkn, idroom, random.choice(dilarang))
+                                    print(f"help-> {chat}")
 
-                            if chat.startswith("simi gift "):
-                                if ataro.contains(db.uid == uid):
-                                    namagenc = chat.replace("simi gift ", "")
-                                    tokengiftbot = namagenc.split(" ")[0]
-                                    idgiftbot = namagenc.split(" ")[1]
-                                    getapi.gift(token[int(tokengiftbot)-1], idroom,
-                                                idgiftbot, roomuid, "1")
-                                else:
-                                    getapi.send(
-                                        tkn, idroom, random.choice(dilarang))
-                                print(f"gift-> {chat}")
-                            elif chat.startswith("simi cek coin "):
-                                if tini.contains(db.uid == uid):
-                                    switer = chat.replace("simi cek coin ", "")
-                                    xxx = getapi.profileuser(token[0], int(switer))["data"]
-                                    # print(xxx)
-                                    ccoin=xxx["coin"]
-                                    cnama=xxx["user_nicename"]
-                                    getapi.send(tkn, idroom, f"{cnama} ada {ccoin} coin")
-                                else:
-                                    getapi.send(
-                                        tkn, idroom, "cuma ATARO yang boleh")
-                            elif chat.startswith("simi cari "):
-                                if tini.contains(db.uid == uid):
-                                    cariid = chat.replace("simi cari ", "")
-                                    getidroom = getapi.getroom(tkn)
-                                    # bahroel=411886 
-                                    # arabkismin=615671 
-                                    # kangcut=48136 
-                                    # guru=386187
-                                    # cila=49918
-                                    # sipe=388024
-                                    # oji=409287
-                                    
-                                    for tid in getidroom:
-                                        hid=(tid["uid"])
-                                        hname=(tid['user_nicename'])
-                                        gkk=getapi.getuser(tkn,hid)
-                                        ada=False
-                                        for gkkp in gkk["data"]["list"]:
-                                            if str(gkkp["id"])==cariid:
-                                                ada=True
-                                                getapi.send(tkn, idroom, f'{gkkp["nick"]} ada di {hname}')
+                                if chat.startswith("simi gift "):
+                                    if ataro.contains(db.uid == uid):
+                                        namagenc = chat.replace("simi gift ", "")
+                                        tokengiftbot = namagenc.split(" ")[0]
+                                        idgiftbot = namagenc.split(" ")[1]
+                                        getapi.gift(token[int(tokengiftbot)-1], idroom,
+                                                    idgiftbot, roomuid, "1")
+                                    else:
+                                        getapi.send(
+                                            tkn, idroom, random.choice(dilarang))
+                                    print(f"gift-> {chat}")
+                                elif chat.startswith("simi cek coin "):
+                                    if tini.contains(db.uid == uid):
+                                        switer = chat.replace("simi cek coin ", "")
+                                        xxx = getapi.profileuser(token[0], int(switer))["data"]
+                                        # print(xxx)
+                                        ccoin=xxx["coin"]
+                                        cnama=xxx["user_nicename"]
+                                        getapi.send(tkn, idroom, f"{cnama} ada {ccoin} coin")
+                                    else:
+                                        getapi.send(
+                                            tkn, idroom, "cuma ATARO yang boleh")
+                                elif chat.startswith("simi cari "):
+                                    if tini.contains(db.uid == uid):
+                                        cariid = chat.replace("simi cari ", "")
+                                        getidroom = getapi.getroom(tkn)
+                                        # bahroel=411886 
+                                        # arabkismin=615671 
+                                        # kangcut=48136 
+                                        # guru=386187
+                                        # cila=49918
+                                        # sipe=388024
+                                        # oji=409287
+                                        
+                                        for tid in getidroom:
+                                            hid=(tid["uid"])
+                                            hname=(tid['user_nicename'])
+                                            gkk=getapi.getuser(tkn,hid)
+                                            ada=False
+                                            try:
+                                                for gkkp in gkk["data"]["list"]:
+                                                    if str(gkkp["id"])==cariid:
+                                                        ada=True
+                                                        getapi.send(tkn, idroom, f'{gkkp["nick"]} ada di {hname}')
+                                                        break
+                                            except:pass
+                                            if ada==True:
                                                 break
+                                            print(f"{hid} -> {hname}")
+                                            
                                         if ada==True:
                                             break
-                                        print(f"{hid} -> {hname}")
-                                        
-                                    if ada==True:
-                                        break
-                                    else:
-                                        getapi.send(tkn, idroom, f'{cariid} gak nemu')
-
-                                    # getapi.send(tkn, idroom, f"{cnama} ada {ccoin} coin")
-                                else:
-                                    getapi.send(
-                                        tkn, idroom, "cuma ATARO yang boleh")
-                            elif chat.startswith("tr "):
-                                import translatepy as trp
-                                dess = chat.replace("tr ", "").split(" ")[0]
-                                text = chat.split(" ")
-                                del text[0:2]
-                                texx=""
-                                for popi in text:
-                                    texx+=f"{popi} "
-                                texx=texx[0:len(texx)]
-                                print(dess)
-                                print(texx)
-                                try:
-                                    ress=trp.tpy(texx,dess)[1]
-                                    getapi.send(tkn, idroom, ress)
-                                except:
-                                    pass
-                            elif chat.startswith("simi "):
-                                if tini.contains(db.uid == uid):
-                                    switer = chat.replace("simi ", "")
-                                    if switer.lower() == "on":
-                                        simionoff = True
-                                        getapi.send(
-                                            tkn, idroom, "Sudah on")
-                                        break
-                                    elif switer.lower() == "off":
-                                        simionoff = False
-                                        getapi.send(
-                                            tkn, idroom, "Sudah off")
-                                else:
-                                    getapi.send(
-                                        tkn, idroom, random.choice(dilarang))
-
-                            if chat.startswith(".add admin "):
-                                if tini.contains(db.uid == uid):
-                                    uidmin = chat.replace(".add admin ", "")
-                                    if tini.contains(db.uid == int(uidmin)):
-                                        getapi.send(tkn, idroom, "Sudah ada")
-                                    else:
-                                        tini.insert({"uid":  int(uidmin)})
-                                        getapi.send(
-                                            tkn, idroom, "Sudah ditambah")
-                                else:
-                                    getapi.send(
-                                        tkn, idroom, random.choice(dilarang))
-                                print(f"add-> {chat}")
-                            elif chat.startswith(".del admin "):
-                                if tini.contains(db.uid == uid):
-                                    uidmin = chat.replace(".del admin ", "")
-                                    if tini.contains(db.uid == int(uidmin)):
-                                        tini.remove(
-                                            where('uid') == int(uidmin))
-                                        getapi.send(
-                                            tkn, idroom, "Sudah dihapus")
-                                    else:
-                                        getapi.send(tkn, idroom, "Tidak ada")
-                                else:
-                                    getapi.send(
-                                        tkn, idroom, random.choice(dilarang))
-                                print(f"delete-> {chat}")
-                            elif chat.startswith(".add nama "):
-                                uidmin = chat.replace(".add nama ", "")
-                                gem["nama"].append(uidmin)
-                                getapi.send(tkn, idroom, "Sudah ditambah")
-                                print(f"add nama-> {chat}")
-                            elif chat.startswith(".add kerja "):
-                                uidmin = chat.replace(".add kerja ", "")
-                                gem["kerja"].append(uidmin)
-                                getapi.send(tkn, idroom, "Sudah ditambah")
-                                print(f"add kerja-> {chat}")
-                            elif chat.startswith(".agency "):
-                                if tini.contains(db.uid == uid):
-                                    namagenc = chat.replace(".agency ", "")
-                                    getidroombot = getapi.getroom(tkn)
-                                    laip = []
-                                    for poiu in getidroombot:
-                                        if namagenc.lower() in poiu['user_nicename'].lower():
-                                            laip.append(poiu['user_nicename'])
-                                    disp = ""
-                                    for pouiy in laip:
-                                        disp += f"\n{pouiy}"
-                                    getapi.send(tkn, idroom, disp)
-                                else:
-                                    getapi.send(
-                                        tkn, idroom, random.choice(dilarang))
-                                print(f"agency-> {chat}")
-                            if simionoff == True:
-                                tkn = token[int(mode)-1]
-                                # EA ayaa
-                                if uid != 2550918 and chat[len(chat)-1]!=".":
-                                    try:
-                                        smi = getapi.simi(chat)["success"]
-                                        if smi == "Aku tidak mengerti apa yang kamu katakan.Tolong ajari aku.":
-                                            pass
                                         else:
-                                            mode+=1
-                                            getapi.send(tkn, idroom, smi+".")
-                                            time.sleep(2)
-                                        print(f"   {mode} -> {chat}")
-                                    except Exception as e:
-                                        print(f"   Error : {e}")
-                        
-                sys.stdout.write(
-                    "--------------------------------------------->  \r")
-                sys.stdout.flush()
-                # for t in bck:
-                #     print(t)
-                for tm in range(2, 0, -1):
-                    sys.stdout.write(f"   {tm}   \r")
+                                            getapi.send(tkn, idroom, f'{cariid} gak nemu')
+
+                                        # getapi.send(tkn, idroom, f"{cnama} ada {ccoin} coin")
+                                    else:
+                                        getapi.send(
+                                            tkn, idroom, "cuma ATARO yang boleh")
+                                elif chat.startswith("tr "):
+                                    import translatepy as trp
+                                    dess = chat.replace("tr ", "").split(" ")[0]
+                                    text = chat.split(" ")
+                                    del text[0:2]
+                                    texx=""
+                                    for popi in text:
+                                        texx+=f"{popi} "
+                                    texx=texx[0:len(texx)]
+                                    print(dess)
+                                    print(texx)
+                                    try:
+                                        ress=trp.tpy(texx,dess)[1]
+                                        getapi.send(tkn, idroom, ress)
+                                    except:
+                                        pass
+                                elif chat.startswith("simi "):
+                                    if tini.contains(db.uid == uid):
+                                        switer = chat.replace("simi ", "")
+                                        if switer.lower() == "on":
+                                            simionoff = True
+                                            getapi.send(
+                                                tkn, idroom, "Sudah on")
+                                            break
+                                        elif switer.lower() == "off":
+                                            simionoff = False
+                                            getapi.send(
+                                                tkn, idroom, "Sudah off")
+                                    else:
+                                        getapi.send(
+                                            tkn, idroom, random.choice(dilarang))
+
+                                if chat.startswith(".add admin "):
+                                    if tini.contains(db.uid == uid):
+                                        uidmin = chat.replace(".add admin ", "")
+                                        if tini.contains(db.uid == int(uidmin)):
+                                            getapi.send(tkn, idroom, "Sudah ada")
+                                        else:
+                                            tini.insert({"uid":  int(uidmin)})
+                                            getapi.send(
+                                                tkn, idroom, "Sudah ditambah")
+                                    else:
+                                        getapi.send(
+                                            tkn, idroom, random.choice(dilarang))
+                                    print(f"add-> {chat}")
+                                elif chat.startswith(".del admin "):
+                                    if tini.contains(db.uid == uid):
+                                        uidmin = chat.replace(".del admin ", "")
+                                        if tini.contains(db.uid == int(uidmin)):
+                                            tini.remove(
+                                                where('uid') == int(uidmin))
+                                            getapi.send(
+                                                tkn, idroom, "Sudah dihapus")
+                                        else:
+                                            getapi.send(tkn, idroom, "Tidak ada")
+                                    else:
+                                        getapi.send(
+                                            tkn, idroom, random.choice(dilarang))
+                                    print(f"delete-> {chat}")
+                                elif chat.startswith(".add nama "):
+                                    uidmin = chat.replace(".add nama ", "")
+                                    gem["nama"].append(uidmin)
+                                    getapi.send(tkn, idroom, "Sudah ditambah")
+                                    print(f"add nama-> {chat}")
+                                elif chat.startswith(".add kerja "):
+                                    uidmin = chat.replace(".add kerja ", "")
+                                    gem["kerja"].append(uidmin)
+                                    getapi.send(tkn, idroom, "Sudah ditambah")
+                                    print(f"add kerja-> {chat}")
+                                elif chat.startswith(".agency "):
+                                    if tini.contains(db.uid == uid):
+                                        namagenc = chat.replace(".agency ", "")
+                                        getidroombot = getapi.getroom(tkn)
+                                        laip = []
+                                        for poiu in getidroombot:
+                                            if namagenc.lower() in poiu['user_nicename'].lower():
+                                                laip.append(poiu['user_nicename'])
+                                        disp = ""
+                                        for pouiy in laip:
+                                            disp += f"\n{pouiy}"
+                                        getapi.send(tkn, idroom, disp)
+                                    else:
+                                        getapi.send(
+                                            tkn, idroom, random.choice(dilarang))
+                                    print(f"agency-> {chat}")
+                                if simionoff == True:
+                                    tkn = token[int(mode)-1]
+                                    # EA ayaa
+                                    if uid != 2550918 and chat[len(chat)-1]!=".":
+                                        try:
+                                            smi = getapi.simi(chat)["success"]
+                                            if smi == "Aku tidak mengerti apa yang kamu katakan.Tolong ajari aku.":
+                                                pass
+                                            else:
+                                                mode+=1
+                                                getapi.send(tkn, idroom, smi+".")
+                                                time.sleep(2)
+                                            print(f"   {mode} -> {chat}")
+                                        except Exception as e:
+                                            print(f"   Error : {e}")
+                            
+                    sys.stdout.write(
+                        "--------------------------------------------->  \r")
                     sys.stdout.flush()
-                    time.sleep(1)
+                    # for t in bck:
+                    #     print(t)
+                    for tm in range(2, 0, -1):
+                        sys.stdout.write(f"   {tm}   \r")
+                        sys.stdout.flush()
+                        time.sleep(1)
+            except:
+                print("get message gagal")
     if x == "16":
         tkn1, tkn2, jeda = 0, 0, 10
         ftkn = input("[no] or [no-no]: ")

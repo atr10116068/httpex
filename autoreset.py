@@ -67,10 +67,9 @@ def reset():
     token = ambil.token()
     itr = tkn1
     for id in acc[tkn1:tkn2]:
-        print("___________________________________")
         while True:
-            sys.stdout.write(f"{itr}\r")
-            sys.stdout.flush()
+            print(f"___________________________________[{itr}]")
+
             tkn = loginid(id)
             if tkn!=0:
                 if tkn["code"] == 0:
@@ -86,8 +85,10 @@ def reset():
                     break
             else:
                 print(f"  [{itr}]  request eror : {tkn}")
-                time.sleep(random.randint(jeda,jeda+10))
-
+                for i in range(random.randint(jeda,jeda+10)):
+                    sys.stdout.write(f"{itr}\r")
+                    sys.stdout.flush()
+                    time.sleep(1)
     tokk = {"results": token}
 
     db.child("account").child("token").update(tokk)

@@ -259,7 +259,7 @@ for i in token:
     sys.stdout.write(f"\t {ikl} -> {len(tokens)}\r")
     sys.stdout.flush()
     ikl += 1
-    time.sleep(jedascan)
+    time.sleep(2)
 
 print()
 # room = getlive.roomall()
@@ -319,7 +319,7 @@ def pilter():
 hehe = ["player", "banker"]
 
 while True:
-    tunggu(15)
+    tunggu(11)
     try:
         # input("SCAN")
         if dat["ganjilgenap"] == 2:
@@ -345,101 +345,102 @@ while True:
     itrr = len(dat["pake"])
     print(f">>>>>>>>>>>>> {itrr} akun Betting")
     if itrr==0:
-        print("HABISSS")
+        print(f"Selesai [{aa}:{bb}]")
         break
 
     #cari nilai terkecil
     print(f"terkecil = {xkecil}")
     tunggu(random.randint(40,45))
     # input("BET")
-    try:
-        bett = str(xkecil)
-        if itrr != 0:
+    bett = str(xkecil)
+    if itrr != 0:
+        try:
             gamevers = getnum(dat["pake"][0])
+        except Exception as e:
+            print(f"ERROR : {e}")
+        print(f"Game Version : {gamevers}")
 
-            # print(json.dumps(dat["pake"], indent=2))
-            jp, jb = [], []
+        # print(json.dumps(dat["pake"], indent=2))
+        jp, jb = [], []
 
-            gasbet = {}
-            for pola in range(itrr):
-                if pola % 2 == 0:
-                    type = 0
-                else:
-                    type = 1
-                tkn = dat["pake"][pola]
-                # untuk bet all in semuanya
-                # bet(tkn, hehe[type], dataakun[itr][1].split('.')[0])
-                # print(hehe[type], bett, gamevers)
-                if hehe[type] == "banker":
-                    dataa = {
-                        "num": pola,
-                        "tipe": hehe[type],
-                        "tkn": tkn,
-                        "jum": bett,
-                        "verr": gamevers,
-                        "warna": "red"
-                    }
-                    gasbet[pola] = (dataa)
-                else:
-                    dataa = {
-                        "num": pola,
-                        "tipe": hehe[type],
-                        "tkn": tkn,
-                        "jum": bett,
-                        "verr": gamevers,
-                        "warna": "blue"
-                    }
-                    gasbet[pola] = (dataa)
+        gasbet = {}
+        for pola in range(itrr):
+            if pola % 2 == 0:
+                type = 0
+            else:
+                type = 1
+            tkn = dat["pake"][pola]
+            # untuk bet all in semuanya
+            # bet(tkn, hehe[type], dataakun[itr][1].split('.')[0])
+            # print(hehe[type], bett, gamevers)
+            if hehe[type] == "banker":
+                dataa = {
+                    "num": pola,
+                    "tipe": hehe[type],
+                    "tkn": tkn,
+                    "jum": bett,
+                    "verr": gamevers,
+                    "warna": "red"
+                }
+                gasbet[pola] = (dataa)
+            else:
+                dataa = {
+                    "num": pola,
+                    "tipe": hehe[type],
+                    "tkn": tkn,
+                    "jum": bett,
+                    "verr": gamevers,
+                    "warna": "blue"
+                }
+                gasbet[pola] = (dataa)
 
-            lennya = len(gasbet)-1
-            dahpick = []
-            tipebsoe=random.choice([1,2])
-            while len(gasbet) != 0:
-                # print(">>>>>>>>>>  "+str(len(gasbet)))
-                while True:
-                    badak = random.randint(0, lennya)
-                    if badak not in dahpick:
-                        dahpick.append(badak)
-                        break
-
-                dbt = gasbet[badak]
-                # print()
-                bettlol = betsic(dbt["tkn"], dbt["tipe"], dbt["jum"], dbt["verr"],tipebsoe)
-                # bettlol = {'msg': 'ok', 'code': 0, 'result': {'balance': dbt["jum"]}}
-                try:
-                    if dbt["tipe"] == "player":
-                        jp.append(
-                            int("1"+str(bettlol["result"]["balance"].replace(".", ""))))
-                    else:
-                        jb.append(
-                            int("1"+str(bettlol["result"]["balance"].replace(".", ""))))
-                except:
-                    jp.append("000")
-
-                print(c(dbt["warna"], f"{str(badak)} >> {str(bettlol['result'])}", 0))
-                if bettlol["code"] == 1:
-                    if "empty" in bettlol["msg"]:
-                        if dat["ganjilgenap"] == 2:
-                            dat["ganjilgenap"] = 1
-                        else:
-                            dat["ganjilgenap"] = 2
+        lennya = len(gasbet)-1
+        dahpick = []
+        tipebsoe=random.choice([1,2])
+        while len(gasbet) != 0:
+            # print(">>>>>>>>>>  "+str(len(gasbet)))
+            while True:
+                badak = random.randint(0, lennya)
+                if badak not in dahpick:
+                    dahpick.append(badak)
                     break
 
-                del gasbet[badak]
-                time.sleep(0.3)
-
+            dbt = gasbet[badak]
+            # print()
+            bettlol = betsic(dbt["tkn"], dbt["tipe"], dbt["jum"], dbt["verr"],tipebsoe)
+            # bettlol = {'msg': 'ok', 'code': 0, 'result': {'balance': dbt["jum"]}}
             try:
-                apop = str(min(jb))
-                apop = apop[1::]
-                apop = (f"{apop[:1]}.{apop[1:5]}")
-                bpop = str(min(jp))
-                bpop = bpop[1::]
-                bpop = (f"{bpop[:1]}.{bpop[1:5]}")
-
-                print(c("blue", f"\tif player : {apop}", 0))
-                print(c("red", f"\tif banker : {bpop}", 0))
+                if dbt["tipe"] == "player":
+                    jp.append(
+                        int("1"+str(bettlol["result"]["balance"].replace(".", ""))))
+                else:
+                    jb.append(
+                        int("1"+str(bettlol["result"]["balance"].replace(".", ""))))
             except:
-                pass
-    except Exception as e:
-        print(f"EWWOW : {e}")
+                jp.append("000")
+
+            print(c(dbt["warna"], f"{str(badak)} >> {str(bettlol['result'])}", 0))
+            if bettlol["code"] == 1:
+                if "empty" in bettlol["msg"]:
+                    if dat["ganjilgenap"] == 2:
+                        dat["ganjilgenap"] = 1
+                    else:
+                        dat["ganjilgenap"] = 2
+                break
+
+            del gasbet[badak]
+            time.sleep(0.3)
+
+        try:
+            apop = str(min(jb))
+            apop = apop[1::]
+            apop = (f"{apop[:1]}.{apop[1:5]}")
+            bpop = str(min(jp))
+            bpop = bpop[1::]
+            bpop = (f"{bpop[:1]}.{bpop[1:5]}")
+
+            print(c("blue", f"\tif player : {apop}", 0))
+            print(c("red", f"\tif banker : {bpop}", 0))
+        except:
+            pass
 input("ghj")

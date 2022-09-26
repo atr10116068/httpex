@@ -78,12 +78,12 @@ def bet(x, type, num,proxs):
         "multiple": "1",
     }
 
+    req = requests.post(uri, data=json.dumps(param), headers=headers,proxies=prox)
     try:
-        req = requests.post(uri, data=json.dumps(param), headers=headers,proxies=prox)
         ress = json.loads(req.text)
         print(ress)
     except:
-        print("Failed...")
+        print(f"Failed : {req.text}")
 
 
 menu = """\t\t[ MENU ]

@@ -47,10 +47,10 @@ def disp(x):
 def oweb(url):
     webbrowser.register('chrome',
                         None,
-                        webbrowser.BackgroundBrowser("C:\\Users\\User\\AppData\\Local\\Google\\Chrome\\Application\\chrome.exe"))
+                        webbrowser.BackgroundBrowser("C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe"))
     webbrowser.get('chrome').open_new(url)
-
-
+    
+    
 def loginid(x):
     uri = "https://wjxwd01mwyo.dt01showxx02.com/App/User_LoginRegister/Login"
     headers = {
