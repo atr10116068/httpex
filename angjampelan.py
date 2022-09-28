@@ -92,7 +92,7 @@ def jam():
     dat["jam"] = now.strftime("%d%b%Y-%H:%M:%S")
     menit = now.strftime("%M")
     detik = now.strftime("%S")
-    if menit == "04" and detik == "01":
+    if menit == "00" and detik == "20":
         print(f"claim ter-Unlock {dat['jam']}")
         dat["claim"] = True
     else:

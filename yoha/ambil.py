@@ -1,13 +1,13 @@
 import pyrebase
+
 config = {
-    "apiKey": "AIzaSyDo7m9xUXkOiCVjuS6kKwkLchejkUNl5IY",
-    "authDomain": "attools-cc537.firebaseapp.com",
-    "databaseURL": "https://attools-cc537-default-rtdb.asia-southeast1.firebasedatabase.app/",
-    "projectId": "attools-cc537",
-    "storageBucket": "attools-cc537.appspot.com",
-    "messagingSenderId": "181490859838",
-    "appId": "1:181490859838:web:426c0a2f365cec8206f66f",
-    "measurementId": "G-DY46HYTHT6"
+    "apiKey": "AIzaSyATkiylea79HwAQNoJHDa5XLCK6b7kK1Ys",
+    "authDomain": "bling-1b0b0.firebaseapp.com",
+    "databaseURL": "https://bling-1b0b0-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "projectId": "bling-1b0b0",
+    "storageBucket": "bling-1b0b0.appspot.com",
+    "messagingSenderId": "489126684041",
+    "appId": "1:489126684041:web:0f6978ddf5f9b9929bed58"
 }
 
 

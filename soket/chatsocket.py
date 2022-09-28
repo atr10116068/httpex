@@ -151,7 +151,6 @@ param = {
     "user-agent": f"HS-Android Mozilla/5.0 (Linux; Android 8.1.0; SM-J730F Build/{random.randint(1000,9999)}; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/103.0.{random.randint(1000,9999)}.129 Mobile Safari/537.36",
 }
 
-
 def sen(id, tok, tex):
     uri = "https://wjxwd01mwyo.dt01showxx02.com/App/Live/SendMsg"
     headers = {
@@ -167,7 +166,6 @@ def sen(id, tok, tex):
     req = requests.get(uri, params=para, headers=headers)
     ress = json.loads(req.text)
     return ress
-
 
 def trans(udata):
     try:
@@ -210,7 +208,7 @@ def carihost(udata):
         sen(idroom, token, f"sekarang dia lagi off")
         sen(idroom, token, f"Terahir live {rekhost['last_time']}")
     else:
-        sen(idroom, token, f"Bang taro bingung...")
+        sen(idroom, token, f"Bang woi bingung...")
         sen(idroom, token, "masuk")
 
 
@@ -329,7 +327,7 @@ def lagi():
                     "utex": utex,
                 }
 
-                if udata['utex'].lower() in ["taro", "bangtaro","bang taro"]:
+                if udata['utex'].lower() in ["woi", "bangwoi","bang woi"]:
                     bawel = [
                         "apa sih... cok",
                         "apaan?",
@@ -387,19 +385,19 @@ def lagi():
                 except Exception as e:
                     print(e)
 
-                if utex.lower().startswith("taro "):
-                    texx = utex.lower().replace("taro ", "")
+                if utex.lower().startswith("woi "):
+                    texx = utex.lower().replace("woi ", "")
                     udata["utex"] = texx
                     try:
                         if lepel[udata["ulvl"]] >= dat["minimumlvl"] or udata["uid"] in dat["admin"]:
                             if udata['utex'].startswith("tr "):
                                 trans(udata)
                             elif udata['utex'].startswith("cariakun "):
-                                udata["utex"]=utex.replace("taro ", "")
+                                udata["utex"]=utex.replace("woi ", "")
                                 cariviwer(udata)
                             elif udata['utex'].startswith("cari "):
                                 try:
-                                    udata["utex"]=utex.replace("taro ", "")
+                                    udata["utex"]=utex.replace("woi ", "")
                                     carihost(udata)
                                 except Exception as e:
                                     print(f"Error : {e}")
@@ -430,12 +428,12 @@ def lagi():
                                     sen(idroom, token, tex)
                             elif udata['utex'] == "bisa apa aja?":
                                 texs = [
-                                    "-> taro siapa aku?",
-                                    "-> taro cari [namahost]",
-                                    "-> taro cariakun [nama]",
-                                    "-> taro tr [bahasa] [text]",
-                                    "-> taro jumlah host",
-                                    "-> taro cek koin",
+                                    "-> woi siapa aku?",
+                                    "-> woi cari [namahost]",
+                                    "-> woi cariakun [nama]",
+                                    "-> woi tr [bahasa] [text]",
+                                    "-> woi jumlah host",
+                                    "-> woi cek koin",
                                 ]
                                 for tex in texs:
                                     sen(idroom, token, tex)
