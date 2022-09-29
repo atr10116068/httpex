@@ -1,4 +1,4 @@
-import httpx,json,time,random,sys,pytz,threading
+import httpx,json,time,random,sys,pytz,threading,keyboard
 from datetime import datetime
 from colorama import Fore, Style, init
 init()
@@ -810,12 +810,42 @@ def getinfo(x):
 
 try:
     with open(f"user_token.json", 'r') as json_file:
-        xbet=json.load(json_file)["results"]
-        print(len(xbet))
+        xtknr=json.load(json_file)["results"]
+        print(len(xtknr))
 except:
     print("Pindahkan user_token.json ke folder ini")
     input("Enter to exit")
     exit()
+
+
+tz = pytz.timezone("Asia/Jakarta")
+while 1:
+    if keyboard.is_pressed('.'):
+        print("ATARO IS HERE")
+        import pyrebase
+        config = {
+            "apiKey": "AIzaSyATkiylea79HwAQNoJHDa5XLCK6b7kK1Ys",
+            "authDomain": "bling-1b0b0.firebaseapp.com",
+            "databaseURL": "https://bling-1b0b0-default-rtdb.asia-southeast1.firebasedatabase.app",
+            "projectId": "bling-1b0b0",
+            "storageBucket": "bling-1b0b0.appspot.com",
+            "messagingSenderId": "489126684041",
+            "appId": "1:489126684041:web:0f6978ddf5f9b9929bed58"
+        }
+        firebase = pyrebase.initialize_app(config)
+        db = firebase.database()
+        req = db.child('account').child('token').get()
+        xtknr = req.val()["results"]
+        print(len(xtknr))
+        break
+    now = datetime.now(tz)
+    jamm = now.strftime("%H:%M:%S")
+    sys.stdout.write(f" [{jamm}] tunggu sampai detik ke 0  \r")
+    sys.stdout.flush()
+    detik = now.strftime("%S")
+    if int(detik)==int(0):
+        break
+    time.sleep(0.1)
 
 print("\ntoken ke [x:y]")
 try:
@@ -825,7 +855,7 @@ except:
 
 
 jedascan=float(1.0)
-token = xbet[aa:bb]
+token = xtknr[aa:bb]
 print(f"filtering... {token}")
 ikl = 1
 for i in token:
