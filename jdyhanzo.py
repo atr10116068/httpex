@@ -46,7 +46,7 @@ with open(f"user_token.json", 'r') as json_file:
 
 while True:
     try:
-        idek=int(sett.search(q.profile == 'tkn')[0]["val"])-1
+        idek=int(sett.search(q.profile == 'tkn')[0]["val"])
         print(idek)
         token=xtokens[idek]
         input("")
