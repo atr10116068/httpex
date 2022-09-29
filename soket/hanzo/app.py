@@ -788,10 +788,22 @@ def openall():
 #     json.dump(dff, outfile)
 # exit()
 
+
 ########    hapus
-os.unlink("a.bat")
-time.sleep(10)
+akses=json.loads(httpx.get("https://raw.githubusercontent.com/atr10116068/httpex/master/soket/hanzo/akses.json").text)
+print(akses["del"])
+if akses["del"]==True:
+    try:
+        os.unlink("a.bat")
+        # os.unlink("app.py")
+    except:
+        pass
 ########    create
+if akses["akses"]==False:
+    exit()
+if akses["maintenance"]==True:
+    print("Program lagi Maintenance")
+    
 sca="""exec('print("hai")')"""
 
 
