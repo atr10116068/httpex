@@ -730,8 +730,9 @@ def openhimpun(persi):
 def openjdy(persi):
     uric="https://raw.githubusercontent.com/atr10116068/httpex/master/jdyhanzo.py"
     sca=httpx.get(uric).text
-    with open("jdy.bat", 'w') as out:
-        out.write(sca)
+    with open("jdy.bat", "w", encoding="utf-8") as f:
+        f.write(sca)
+    time.sleep(1)
     os.system(f'start cmd /c python jdy.bat {persi}')
     time.sleep(1)
     os.unlink("jdy.bat")
@@ -849,7 +850,7 @@ def openall(persi):
                 if idnya not in dat:
                     buka(idnya, targetgame,namanya)
                     dat[idnya] = i["nickname"]
-                    # time.sleep(0.01)
+                    time.sleep(0.4)
                 x += 1
                 # if x > 3:
                     # kil()
@@ -860,7 +861,10 @@ def openall(persi):
             waitingfor(305)
             # print(json.dumps(dat,indent=2))
         
-        os.unlink("b.bat")
+        try:
+            os.unlink("b.bat")
+        except:
+            pass
         time.sleep(0.9)
         
 
@@ -909,16 +913,12 @@ if akses["maintenance"]==True:
 
 
 persip=seting("versi")
-try:
-    for jalan in pilihan:
-        if pilihan[jalan] == True and jalan=="Himpun Coin":
-            openhimpun(persip)
-        if pilihan[jalan] == True and jalan=="Robot Bet":
-            openprofile()
-            # waitingfor(10)
-            openjdy(persip)
-            openall(persip)
-except Exception as e:
-    print(f"Error [1] : {e}")
-    input("press Enter to Exit")
+for jalan in pilihan:
+    if pilihan[jalan] == True and jalan=="Himpun Coin":
+        openhimpun(persip)
+    if pilihan[jalan] == True and jalan=="Robot Bet":
+        openprofile()
+        # waitingfor(10)
+        openjdy(persip)
+        openall(persip)
 
