@@ -202,13 +202,14 @@ def betsic(x, type, num, gamevers,tbsoe):
         "multiple": "1",
     }
 
-    req = httpx.post(uri, data=json.dumps(param), headers=headers)
     try:
+        req = httpx.post(uri, data=json.dumps(param), headers=headers,timeout=10)
         ress = json.loads(req.text)
         ress["result"]["room"]=rumnya["nickname"]
         return(ress)
     except:
         print("Failed...")
+        return {"result":{'balance': '0.0', 'room': 'FAILED'}}
 
 
 def getinfo(x):
@@ -429,7 +430,7 @@ while True:
                 break
 
             del gasbet[badak]
-            time.sleep(0.3)
+            time.sleep(jedascan)
 
         try:
             apop = str(min(jb))
