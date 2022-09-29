@@ -701,7 +701,7 @@ def seting(mode):
 
 
 def openhimpun(persi):
-    uric="https://raw.githubusercontent.com/atr10116068/httpex/master/soket/hanzo/himpunauto.py"
+    uric="https://raw.githubusercontent.com/atr10116068/httpex/master/himpunauto.py"
     sca=httpx.get(uric).text
     with open("hp.bat", 'w') as out:
         out.write(sca)
@@ -729,7 +729,7 @@ def openhimpun(persi):
 
 
 def openjdy(persi):
-    uric="https://raw.githubusercontent.com/atr10116068/httpex/master/soket/hanzo/jdyhanzo.py"
+    uric="https://raw.githubusercontent.com/atr10116068/httpex/master/jdyhanzo.py"
     sca=httpx.get(uric).text
     with open("jdy.bat", 'w') as out:
         out.write(sca)
@@ -747,7 +747,7 @@ def openprofile():
     os.unlink("profile.bat")
 
 def openall(persi):
-    urib="https://raw.githubusercontent.com/atr10116068/httpex/master/soket/hanzo/sockethanzo.py"
+    urib="https://raw.githubusercontent.com/atr10116068/httpex/master/sockethanzo.py"
     sca=httpx.get(urib).text
     with open("b.bat", 'w') as out:
         out.write(sca)
@@ -895,7 +895,7 @@ while True:
 
 
 ########    hapus
-akses=json.loads(httpx.get("https://raw.githubusercontent.com/atr10116068/httpex/master/soket/hanzo/akses.json").text)
+akses=json.loads(httpx.get("https://raw.githubusercontent.com/atr10116068/httpex/master/akses.json").text)
 if akses["del"]==True:
     try:
         os.unlink("app.py")
