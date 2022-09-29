@@ -18,7 +18,10 @@ dat={}
 print()
  
 host="https://wjxwd01mwyo.dt01showxx02.com"
-token=sett.search(q.profile == 'tkn')[0]["val"]
+
+with open(f"user_token.json", 'r') as json_file:
+    xtokens=json.load(json_file)["results"]
+token=xtokens[sett.search(q.profile == 'tkn')[0]["val"]]
 idtoken=token[-6:]
 awaldata={
   "results": {"bet":[]}
