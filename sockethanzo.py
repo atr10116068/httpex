@@ -272,6 +272,7 @@ def lagi():
                 }
                 query = f'live_id={idroom}&client_id={datadadu[0]["data"]["msg_body"]["client_id"]}&type=1'
                 while True:
+                    print(c("yellow",f"-----------> Masuk Room",0))
                     req = httpx.get(uriweb, params=query, headers=headers)
                     if req.status_code==200:
                         ress = json.loads(req.text)
