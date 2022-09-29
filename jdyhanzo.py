@@ -159,6 +159,37 @@ def betbac(x, type, num):
     except Exception as e:
         print(f"Failed : {e}")
 
+def getinfo(x):
+    uriweb = "https://wjxwd01mwyo.dt01showxx02.com/App/User_User/Info"
+    headers = {
+        "user-agent": f"HS-Android Mozilla/5.0 (Linux; Android 8.1.0; Redmi 5 Plus Build/OPM1.17{random.randint(1000,9999)}.019; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/98.0.{random.randint(1000,9999)}.82 Mobile Safari/537.36",
+        "bundleidentifier": "user",
+        "x-token": x,
+        "accept-encoding": "identity",
+        "host": "wjxwd01mwyo.dt01showxx02.com",
+        "connection": "keep-alive",
+    }
+    f = httpx.get(uriweb, headers=headers)
+    ress = json.loads(f.text)
+    try:
+        krm = [
+            ress["result"]["nickname"],
+            ress["result"]["balance"],
+            ress["result"]["vip_name"],
+            ress["result"]["id"],
+        ]
+        return krm
+    except:
+        krm = [
+            "expiret",
+            0.0,
+            "expiret",
+            "expiret",
+        ]
+        return krm
+
+
+
 mgame="""
 1. Sicbo
 2. Baccarat
@@ -193,6 +224,8 @@ while True:
         
         idek=int(sett.search(q.profile == 'tkn')[0]["val"])
         token=xtokens[idek]
+        print(getinfo(token))
+        time.sleep(20)
         idroom=sett.search(q.profile == 'roomid')[0]["val"]
         maxbet=int(sett.search(q.profile == 'maxbet')[0]["val"])
         dbet=int(sett.search(q.profile == 'detik')[0]["val"])
