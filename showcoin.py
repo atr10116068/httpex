@@ -93,6 +93,7 @@ while True:
             print(disp)
             time.sleep(4)
         except Exception as e:
-            print(f"Error : {e}")
+            print(getinfo(token))
+            # print(f"Error : {e}")
 
 
