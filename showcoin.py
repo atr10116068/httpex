@@ -57,6 +57,7 @@ coin=0.0
 
 with open(f"user_token.json", 'r') as json_file:
     xtokens=json.load(json_file)["results"]
+print(f"Jumlah token: {len(xtokens)}")
 token=xtokens[int(input("Token ke: "))-1]
     
 while True:
