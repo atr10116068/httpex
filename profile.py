@@ -7,7 +7,7 @@ sett.truncate()
 
 
 sett.insert_multiple([
-    {'profile': 'tkn', 'val': "0"},
+    {'profile': 'tkn', 'val': "1"},
     {'profile': 'pola', 'val': "terkecil"},
     {'profile': 'detik', 'val': "8"},
     {'profile': 'maxbet', 'val': "1"},
