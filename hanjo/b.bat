@@ -271,15 +271,9 @@ def lagi():
                     "Connection": "Keep-Alive"
                 }
                 query = f'live_id={idroom}&client_id={datadadu[0]["data"]["msg_body"]["client_id"]}&type=1'
-                while True:
-                    req = httpx.get(uriweb, params=query, headers=headers)
-                    if req.status_code==200:
-                        ress = json.loads(req.text)
-                        print(ress)
-                        break
-                    else:
-                        print(c("red","menghubungkan kembali",0))
-                        time.sleep(5)
+                req = httpx.get(uriweb, params=query, headers=headers)
+                ress = json.loads(req.text)
+                print(ress)
 
             elif datadadu[0]["action"] == "game_do_order":
                 try:

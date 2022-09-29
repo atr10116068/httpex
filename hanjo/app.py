@@ -861,10 +861,6 @@ def openall(persi):
             waitingfor(305)
             # print(json.dumps(dat,indent=2))
         
-        try:
-            os.unlink("b.bat")
-        except:
-            pass
         time.sleep(0.9)
         
 
@@ -902,6 +898,7 @@ akses=json.loads(httpx.get("https://raw.githubusercontent.com/atr10116068/httpex
 if akses["del"]==True:
     try:
         os.unlink("app.py")
+        os.unlink("b.bat")
     except:
         pass
     
@@ -912,6 +909,10 @@ if akses["maintenance"]==True:
 
 
 
+try:
+    os.unlink("b.bat")
+except:
+    pass
 persip=seting("versi")
 for jalan in pilihan:
     if pilihan[jalan] == True and jalan=="Himpun Coin":

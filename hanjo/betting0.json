@@ -1,5 +1,8 @@
 {
   "results": {
-    "bet": []
+    "bet": [
+      "small1",
+      "even1"
+    ]
   }
 }
