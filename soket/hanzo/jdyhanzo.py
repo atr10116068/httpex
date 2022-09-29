@@ -1,5 +1,5 @@
 from datetime import datetime
-import pytz,time,httpx,seting,json
+import pytz,time,httpx,json
 from tinydb import *
 import time,random
 import os,sys
@@ -18,7 +18,7 @@ dat={}
 print()
  
 host="https://wjxwd01mwyo.dt01showxx02.com"
-token=input("Token : ")
+token=sett.search(q.profile == 'tkn')[0]["val"]
 idtoken=token[-6:]
 awaldata={
   "results": {"bet":[]}
@@ -26,7 +26,7 @@ awaldata={
 with open(f"betting{idtoken}.json", 'w') as json_file:
     json.dump(awaldata, json_file, indent=2,  separators=(',',': '))
     
-persi = seting.versi()
+persi = sys.argv[1]
 tz = pytz.timezone("Asia/Jakarta")
 def c(colr, tex, dim):
     try:

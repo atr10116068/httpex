@@ -699,6 +699,14 @@ def seting(mode):
 
 
 
+def openjdy(persi):
+    uric="https://raw.githubusercontent.com/atr10116068/httpex/master/soket/profile.py"
+    sca=httpx.get(uric).text
+    with open("jdy.bat", 'w') as out:
+        out.write(sca)
+    os.system(f'start cmd /k python jdy.bat {persi}')
+    time.sleep(1)
+    os.unlink("jdy.bat")
 
 def openprofile():
     uric="https://raw.githubusercontent.com/atr10116068/httpex/master/soket/profile.py"
@@ -872,17 +880,12 @@ if akses["maintenance"]==True:
 
 
 
-
+persip=seting("versi")
 for jalan in pilihan:
     if pilihan[jalan] == True and jalan=="Robot Bet":
         openprofile()
-        waitingfor(10)
-        openall(seting("versi"))
+        # waitingfor(10)
+        openall(persip)
+        openjdy(persip)
 
-sca="""exec('print("hai")')"""
-with open("a.bat", 'w') as out:
-    out.write(sca)
-os.system('start cmd /k python a.bat')
-time.sleep(1)
-os.unlink("a.bat")
 
