@@ -275,10 +275,13 @@ def lagi():
                     req = httpx.get(uriweb, params=query, headers=headers)
                     if req.status_code==200:
                         ress = json.loads(req.text)
-                        print(ress)
-                        break
+                        if ress["code"] == 0:
+                            break
+                        else:
+                            print(c("red","mencoba masuk lagi",0))
+                            time.sleep(random.randint(1,5))
                     else:
-                        print(c("red","menghubungkan kembali",0))
+                        print(c("red","gagal requests",0))
                         time.sleep(random.randint(1,5))
 
             elif datadadu[0]["action"] == "game_do_order":
