@@ -27,7 +27,6 @@ def c(colr, tex, dim):
 
 def bukacmd(persi,rdmnno,idrum,namanya):
     os.system(f'start cmd /c python b.bat {persi} {rdmnno} {idrum} {namanya}')
-    time.sleep(1)
     
 def waitingfor(x):
     for tipi in range(x,0,-1):
@@ -850,7 +849,7 @@ def openall(persi):
                 if idnya not in dat:
                     buka(idnya, targetgame,namanya)
                     dat[idnya] = i["nickname"]
-                    time.sleep(0.01)
+                    # time.sleep(0.01)
                 x += 1
                 # if x > 3:
                     # kil()
@@ -858,7 +857,7 @@ def openall(persi):
             
             print(f"  >> Token terpakai = {len(db.all())}")
             # if cekbug()==1:break
-            time.sleep(305)
+            waitingfor(305)
             # print(json.dumps(dat,indent=2))
         
         os.unlink("b.bat")
@@ -916,7 +915,7 @@ for jalan in pilihan:
     if pilihan[jalan] == True and jalan=="Robot Bet":
         openprofile()
         # waitingfor(10)
-        openall(persip)
         openjdy(persip)
+        openall(persip)
 
 
