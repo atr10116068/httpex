@@ -867,7 +867,7 @@ for i in token:
     sys.stdout.write(f"\t {ikl} -> {len(tokens)}\r")
     sys.stdout.flush()
     ikl += 1
-    time.sleep(jedascan)
+    time.sleep(2)
 
 print()
 # room = getlive.roomall()
@@ -1034,7 +1034,7 @@ while True:
                     break
 
                 del gasbet[badak]
-                time.sleep(0.3)
+                time.sleep(jedascan)
 
             try:
                 apop = str(min(jb))
