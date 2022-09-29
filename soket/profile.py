@@ -10,10 +10,10 @@ sett.insert_multiple([
     {'profile': 'tkn', 'val': "0"},
     {'profile': 'pola', 'val': "terkecil"},
     {'profile': 'detik', 'val': "8"},
-    {'profile': 'maxbet', 'val': "10"},
+    {'profile': 'maxbet', 'val': "1"},
     {'profile': 'persenan', 'val': "0.3"},
-    {'profile': 'roomid', 'val': ""},
-    {'profile': 'batas any', 'val': ""},
+    {'profile': 'roomid', 'val': "0"},
+    {'profile': 'batas any', 'val': "0"},
 ])
 
 menus="""

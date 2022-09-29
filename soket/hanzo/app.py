@@ -25,13 +25,10 @@ def c(colr, tex, dim):
     except:
         return tex
 
-def bukacmd(uri,persi,rdmnno,namf,idrum,namanya):
-    sca=httpx.get(uri).text
-    with open(namf, 'w') as out:
-        out.write(sca)
-    os.system(f'start cmd /k python {namf} {persi} {rdmnno} {idrum} {namanya}')
+def bukacmd(persi,rdmnno,idrum,namanya):
+    os.system(f'start cmd /k python b.bat {persi} {rdmnno} {idrum} {namanya}')
     time.sleep(1)
-    os.unlink(namf)
+    
 def waitingfor(x):
     for tipi in range(x,0,-1):
         sys.stdout.write(f"wait for {tipi} \r")
@@ -713,6 +710,10 @@ def openprofile():
     os.unlink("profile.bat")
 
 def openall(persi):
+    urib="https://raw.githubusercontent.com/atr10116068/httpex/master/soket/hanzo/sockethanzo.py"
+    sca=httpx.get(urib).text
+    with open("b.bat", 'w') as out:
+        out.write(sca)
     db = TinyDB("datatokenroom.json")
     tbl = Query()
     db.truncate()
@@ -765,8 +766,7 @@ def openall(persi):
         # os.system(f'start cmd /k python jdysocket.py {rdmno} {liveid} {targetgame}')#tetap terbuka
         # langsung tutup
         print(f"->>>>>>>>> {namanya}")
-        urib="https://raw.githubusercontent.com/atr10116068/httpex/master/soket/hanzo/sockethanzo.py"
-        bukacmd(urib,persi,rdmno,"b.bat",liveid,namanya)
+        bukacmd(persi,rdmno,liveid,namanya)
 
         print(f'python sockethanzo.py {liveid} {namanya}')
         db.insert({"tokenno":  rdmno, "data": {"liveid": liveid}})
@@ -818,11 +818,14 @@ def openall(persi):
                 # if x > 3:
                     # kil()
                     # break
+            
+            os.unlink("b.bat")
             print(f"  >> Token terpakai = {len(db.all())}")
             # if cekbug()==1:break
             time.sleep(305)
             # print(json.dumps(dat,indent=2))
         time.sleep(0.9)
+        
 
 
 pilihan={
