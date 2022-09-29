@@ -14,23 +14,6 @@ q = Query()
 from colorama import Fore, Style, init
 init()
 
-dat={}
-print()
- 
-host="https://wjxwd01mwyo.dt01showxx02.com"
-
-with open(f"user_token.json", 'r') as json_file:
-    xtokens=json.load(json_file)["results"]
-token=xtokens[sett.search(q.profile == 'tkn')[0]["val"]]
-idtoken=token[-6:]
-awaldata={
-  "results": {"bet":[]}
-  }
-with open(f"betting{idtoken}.json", 'w') as json_file:
-    json.dump(awaldata, json_file, indent=2,  separators=(',',': '))
-    
-persi = sys.argv[1]
-tz = pytz.timezone("Asia/Jakarta")
 def c(colr, tex, dim):
     try:
         w = {
@@ -51,6 +34,34 @@ def c(colr, tex, dim):
             return f"{w[colr.upper()]}{tex}{Style.RESET_ALL}"
     except:
         return tex
+
+dat={}
+print()
+ 
+host="https://wjxwd01mwyo.dt01showxx02.com"
+
+with open(f"user_token.json", 'r') as json_file:
+    xtokens=json.load(json_file)["results"]
+
+while True:
+    try:
+        token=xtokens[int(sett.search(q.profile == 'tkn')[0]["val"])]
+        break
+    except:
+        sys.stdout.write(f"{c('red','isi token yang mana yg mau dipake di profile',0)}  \r")
+        sys.stdout.flush()
+        time.sleep(1)
+
+
+idtoken=token[-6:]
+awaldata={
+  "results": {"bet":[]}
+  }
+with open(f"betting{idtoken}.json", 'w') as json_file:
+    json.dump(awaldata, json_file, indent=2,  separators=(',',': '))
+    
+persi = sys.argv[1]
+tz = pytz.timezone("Asia/Jakarta")
 
 def getnum(x):
     uri = host+"/App/Game_Game/GetTypeInfo"
