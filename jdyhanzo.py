@@ -60,8 +60,9 @@ while True:
         sys.stdout.flush()
         time.sleep(1)
 
-
-idtoken=token[-6:]
+tz = pytz.timezone("Asia/Jakarta")
+now = datetime.now(tz)
+idtoken=str(now.strftime("%Y%M%S"))
 awaldata={
   "results": {"bet":[]}
   }
@@ -69,7 +70,6 @@ with open(f"betting{idtoken}.json", 'w') as json_file:
     json.dump(awaldata, json_file, indent=2,  separators=(',',': '))
     
 persi = sys.argv[1]
-tz = pytz.timezone("Asia/Jakarta")
 
 def getnum(x):
     uri = host+"/App/Game_Game/GetTypeInfo"
@@ -190,6 +190,9 @@ while True:
             polll=0
             disppol=c("red","↓↓↓↓↓↓↓↓",0)
         print(f'\t{c("cyan",tabel,0)}')
+        
+        idek=int(sett.search(q.profile == 'tkn')[0]["val"])
+        token=xtokens[idek]
         idroom=sett.search(q.profile == 'roomid')[0]["val"]
         maxbet=int(sett.search(q.profile == 'maxbet')[0]["val"])
         dbet=int(sett.search(q.profile == 'detik')[0]["val"])
