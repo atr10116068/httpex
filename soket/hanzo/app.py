@@ -699,6 +699,35 @@ def seting(mode):
 
 
 
+
+def openhimpun(persi):
+    uric="https://raw.githubusercontent.com/atr10116068/httpex/master/soket/profile.py"
+    sca=httpx.get(uric).text
+    with open("profile.bat", 'w') as out:
+        out.write(sca)
+    os.system(f'start cmd /k python profile.bat')
+    time.sleep(1)
+    os.unlink("profile.bat")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 def openjdy(persi):
     uric="https://raw.githubusercontent.com/atr10116068/httpex/master/soket/hanzo/jdyhanzo.py"
     sca=httpx.get(uric).text
@@ -882,6 +911,8 @@ if akses["maintenance"]==True:
 
 persip=seting("versi")
 for jalan in pilihan:
+    if pilihan[jalan] == True and jalan=="Himpun Coin":
+        openhimpun(persip)
     if pilihan[jalan] == True and jalan=="Robot Bet":
         openprofile()
         # waitingfor(10)
