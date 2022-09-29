@@ -821,6 +821,7 @@ except:
 tz = pytz.timezone("Asia/Jakarta")
 while 1:
     if keyboard.is_pressed('.'):
+        print()
         print("ATARO IS HERE")
         import pyrebase
         config = {
