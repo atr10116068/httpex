@@ -1,6 +1,29 @@
-import os,pytz,json,httpx,sys,time,random,threading,psutil
+import os,pytz,json,httpx,sys,time,random,threading,psutil,colorama
 from tinydb import *
 from datetime import datetime
+from colorama import Fore, Style, init
+init()
+
+def c(colr, tex, dim):
+    try:
+        w = {
+            "RED": Fore.RED,
+            "GREEN": Fore.GREEN,
+            "YELLOW": Fore.YELLOW,
+            "BLUE": Fore.BLUE,
+            "MAGENTA": Fore.MAGENTA,
+            "CYAN": Fore.CYAN,
+
+            "BLACK": Fore.BLACK,
+            "WHITE": Fore.WHITE,
+            "RESET": Fore.RESET,
+        }
+        if dim == 1:
+            return f"{Style.DIM}{w[colr.upper()]}{tex}{Style.RESET_ALL}"
+        else:
+            return f"{w[colr.upper()]}{tex}{Style.RESET_ALL}"
+    except:
+        return tex
 def getlive(mode):
     dat = {"idx": 1, "result": [], "rapihkanjson": [], "terfilter": []}
     def roomindo(dat):
@@ -721,9 +744,8 @@ def openall():
         # os.system(f'start cmd /k python jdysocket.py {rdmno} {liveid} {targetgame}')#tetap terbuka
         # langsung tutup
         print(f"->>>>>>>>> {namanya}")
-        os.system(
-            f'start cmd /c python jdysocket.py {rdmno} {liveid} {targetgame} {namanya}')
-        print(f'python jdysocket.py {rdmno} {liveid} {targetgame} {namanya}')
+        script=httpx.get()
+        print(f'python jdysocket.py {targetgame} {namanya}')
         db.insert({"tokenno":  rdmno, "data": {"liveid": liveid}})
 
 
@@ -759,7 +781,7 @@ def openall():
         sys.stdout.write(f"   {dtk}    \r")
         sys.stdout.flush()
         if int(dtk)<10:
-            room = getlive.roomall()
+            room = getlive("all")
             x = 0
             for i in room:
                 # print("{}. {}".format(str(x), i["nickname"]))
@@ -779,23 +801,41 @@ def openall():
             # print(json.dumps(dat,indent=2))
         time.sleep(0.9)
 
-# dff={
-#     "akses":True,
-#     "del":False
-# }
 
-# with open("akses.json", "w") as outfile:
-#     json.dump(dff, outfile)
-# exit()
+pilihan={
+    "Himpun Coin":False,
+    "Robot Bet":False
+}
+while True:
+    os.system("cls")
+    print(c("yellow","\t\t[  Menu  ]",0))
+    rujak=0
+    for menus in pilihan:
+        rujak+=1
+        if pilihan[menus]:
+            print(f"{rujak}. {menus}\t:{c('green',pilihan[menus],0)}")
+        else:
+            print(f"{rujak}. {menus}\t:{c('red',pilihan[menus],0)}")
+    print(f'"start" jalankan program')
+    inp=input(f"\npilihan : ")
+    if inp.lower()=="start":
+        break
+    try:
+        apel=[]
+        for timun in pilihan:
+            apel.append(timun)
+        if pilihan[apel[int(inp)-1]]:
+            pilihan[apel[int(inp)-1]]=False
+        else:pilihan[apel[int(inp)-1]]=True
+    except:
+        pass
 
 
 ########    hapus
 akses=json.loads(httpx.get("https://raw.githubusercontent.com/atr10116068/httpex/master/soket/hanzo/akses.json").text)
-print(akses["del"])
 if akses["del"]==True:
     try:
-        os.unlink("a.bat")
-        # os.unlink("app.py")
+        os.unlink("app.py")
     except:
         pass
 ########    create
@@ -803,10 +843,18 @@ if akses["akses"]==False:
     exit()
 if akses["maintenance"]==True:
     print("Program lagi Maintenance")
-    
+
+
+
+
+for jalan in pilihan:
+    if pilihan[jalan] == True and jalan=="Robot Bet":
+        openall()
+
 sca="""exec('print("hai")')"""
-
-
 with open("a.bat", 'w') as out:
     out.write(sca)
 os.system('start cmd /k python a.bat')
+time.sleep(1)
+os.unlink("a.bat")
+
