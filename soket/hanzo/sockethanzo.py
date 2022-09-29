@@ -1,13 +1,5 @@
-import websocket
-import json
-import time
-import requests
-import sys
-import seting
-import sys,random
-import ambil
+import websocket,json,time,httpx,sys,random,pytz,pyrebase
 from datetime import datetime
-import pytz
 from tinydb import *
 from colorama import Fore, Style, init
 init()
@@ -32,15 +24,30 @@ def c(colr, tex, dim):
     except:
         return tex
 
+config = {
+    "apiKey": "AIzaSyATkiylea79HwAQNoJHDa5XLCK6b7kK1Ys",
+    "authDomain": "bling-1b0b0.firebaseapp.com",
+    "databaseURL": "https://bling-1b0b0-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "projectId": "bling-1b0b0",
+    "storageBucket": "bling-1b0b0.appspot.com",
+    "messagingSenderId": "489126684041",
+    "appId": "1:489126684041:web:0f6978ddf5f9b9929bed58"
+}
+
+
+firebase = pyrebase.initialize_app(config)
+dbf = firebase.database()
+req = dbf.child('account').child('token').get()
+tokk = req.val()["results"]
+
 db = TinyDB("data.json")
 dbtkn = TinyDB("datatokenroom.json")
 tbl = Query()
 
-tokk = ambil.token()
-persi = seting.versi()
-token = tokk[int(sys.argv[1])]
+persi = sys.argv[1]
+token = tokk[int(sys.argv[2])]
 
-idroom=sys.argv[2]
+idroom=sys.argv[3]
 namanya=sys.argv[4]
 print(f"\nTarget Room : {namanya}")
 
@@ -140,7 +147,7 @@ game = {
 #     if idxg == int(targetgameid):
 #         targetgame = pgp
 #     idxg += 1
-targetgame=sys.argv[3]
+targetgame="toubao_1"
 
 def rp(str):
     bbb = str.replace("\'", "\"")
@@ -264,7 +271,7 @@ def lagi():
                     "Connection": "Keep-Alive"
                 }
                 query = f'live_id={idroom}&client_id={datadadu[0]["data"]["msg_body"]["client_id"]}&type=1'
-                req = requests.get(uriweb, params=query, headers=headers)
+                req = httpx.get(uriweb, params=query, headers=headers)
                 ress = json.loads(req.text)
                 print(ress)
 

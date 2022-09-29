@@ -25,11 +25,11 @@ def c(colr, tex, dim):
     except:
         return tex
 
-def bukacmd(uri,persi,rdmnno,namf):
+def bukacmd(uri,persi,rdmnno,namf,idrum,namanya):
     sca=httpx.get(uri).text
     with open(namf, 'w') as out:
         out.write(sca)
-    os.system(f'start cmd /k python {namf} {persi} {rdmnno}')
+    os.system(f'start cmd /k python {namf} {persi} {rdmnno} {idrum} {namanya}')
     time.sleep(1)
     os.unlink(namf)
 
@@ -753,8 +753,8 @@ def openall(persi):
         # os.system(f'start cmd /k python jdysocket.py {rdmno} {liveid} {targetgame}')#tetap terbuka
         # langsung tutup
         print(f"->>>>>>>>> {namanya}")
-        urib="https://raw.githubusercontent.com/atr10116068/httpex/master/soket/jdysocket.py"
-        bukacmd(urib,persi,rdmno,"b.bat")
+        urib="https://raw.githubusercontent.com/atr10116068/httpex/master/soket/hanzo/sockethanzo.py"
+        bukacmd(urib,persi,rdmno,"b.bat",liveid,namanya)
 
         print(f'python jdysocket.py {targetgame} {namanya}')
         db.insert({"tokenno":  rdmno, "data": {"liveid": liveid}})
