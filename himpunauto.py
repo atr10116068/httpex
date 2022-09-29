@@ -816,9 +816,13 @@ except:
 
 
 jedascan=float(1.0)
-with open(f"user_token.json", 'r') as json_file:
-    xbet=json.load(json_file)["results"]
-    print(len(xbet))
+try:
+    with open(f"user_token.json", 'r') as json_file:
+        xbet=json.load(json_file)["results"]
+        print(len(xbet))
+except:
+    print("Pindahkan user_token.json ke folder ini")
+    input("Enter to exit")
 token = xbet[aa:bb]
 print(f"filtering... {token}")
 ikl = 1
