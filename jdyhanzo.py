@@ -222,7 +222,7 @@ while True:
             disppol=c("red","↓↓↓↓↓↓↓↓",0)
         print(f'\t{c("cyan",tabel,0)}')
         
-        idek=int(sett.search(q.profile == 'tkn')[0]["val"])
+        idek=int(sett.search(q.profile == 'tkn')[0]["val"])-1
         token=xtokens[idek]
         print(getinfo(token))
         time.sleep(20)
