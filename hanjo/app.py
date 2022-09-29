@@ -909,13 +909,16 @@ if akses["maintenance"]==True:
 
 
 persip=seting("versi")
-for jalan in pilihan:
-    if pilihan[jalan] == True and jalan=="Himpun Coin":
-        openhimpun(persip)
-    if pilihan[jalan] == True and jalan=="Robot Bet":
-        openprofile()
-        # waitingfor(10)
-        openjdy(persip)
-        openall(persip)
-
+try:
+    for jalan in pilihan:
+        if pilihan[jalan] == True and jalan=="Himpun Coin":
+            openhimpun(persip)
+        if pilihan[jalan] == True and jalan=="Robot Bet":
+            openprofile()
+            # waitingfor(10)
+            openjdy(persip)
+            openall(persip)
+except Exception as e:
+    print(f"Error [1] : {e}")
+    input("press Enter to Exit")
 
