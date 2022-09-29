@@ -1,9 +1,8 @@
-input("step [0]")
+
 import httpx,json,time,random,sys,pytz,threading,keyboard
 from datetime import datetime
 from colorama import Fore, Style, init
 init()
-input("step [1]")
 def getlive(mode):
     dat = {"idx": 1, "result": [], "rapihkanjson": [], "terfilter": []}
     def roomindo(dat):
@@ -578,7 +577,6 @@ def getlive(mode):
 
 
 
-input("step [2]")
 dat = {"roomid": "0", "pake": [], "ganjilgenap": 2}
 persi = sys.argv[1]
 
@@ -669,7 +667,6 @@ def roomgame(datrum):
 #                 rall.append(t)
 #     return rall
 
-input("step [3]")
 tokens = []
 idroomarray=getlive("game")
 def getnum(x):
@@ -821,7 +818,6 @@ except:
     exit()
 
 
-input("step [4]")
 tz = pytz.timezone("Asia/Jakarta")
 now = datetime.now(tz)
 jamend = int(now.strftime("%M%S"))+5
@@ -854,7 +850,6 @@ while 1:
     detik = now.strftime("%S")
     time.sleep(0.1)
 
-input("step [5]")
 print("\ntoken ke [x:y]")
 try:
     aa, bb = int(input("x : "))-1, int(input("y : "))-1
@@ -933,7 +928,6 @@ def pilter():
 
 hehe = ["player", "banker"]
 
-input("step [6]")
 while True:
     tunggu(15)
     try:
