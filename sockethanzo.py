@@ -279,7 +279,7 @@ def lagi():
                         break
                     else:
                         print(c("red","menghubungkan kembali",0))
-                        time.sleep(5)
+                        time.sleep(random.randint(1,5))
 
             elif datadadu[0]["action"] == "game_do_order":
                 try:
