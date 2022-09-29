@@ -2,7 +2,7 @@ import httpx,json,time,random,sys,pytz,threading,keyboard
 from datetime import datetime
 from colorama import Fore, Style, init
 init()
-
+input("Satu [1]")
 def getlive(mode):
     dat = {"idx": 1, "result": [], "rapihkanjson": [], "terfilter": []}
     def roomindo(dat):
