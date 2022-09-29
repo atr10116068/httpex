@@ -222,6 +222,7 @@ while True:
             disppol=c("red","↓↓↓↓↓↓↓↓",0)
         print(f'\t{c("cyan",tabel,0)}')
         
+        
         idek=int(sett.search(q.profile == 'tkn')[0]["val"])-1
         token=xtokens[idek]
         idroom=sett.search(q.profile == 'roomid')[0]["val"]
