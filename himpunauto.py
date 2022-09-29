@@ -668,7 +668,7 @@ def roomgame(datrum):
 #     return rall
 
 tokens = []
-idroomarray=getlive("all")
+idroomarray=getlive("game")
 def getnum(x):
     uri = "https://wjxwd01mwyo.dt01showxx02.com/App/Game_Game/GetTypeInfo"
     headers = {
