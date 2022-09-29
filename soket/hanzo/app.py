@@ -1,4 +1,4 @@
-import os,pytz,json,httpx,sys,time,random,threading,psutil,colorama
+import os,pytz,json,httpx,sys,time,random,threading,psutil
 from tinydb import *
 from datetime import datetime
 from colorama import Fore, Style, init
@@ -24,6 +24,15 @@ def c(colr, tex, dim):
             return f"{w[colr.upper()]}{tex}{Style.RESET_ALL}"
     except:
         return tex
+
+def bukacmd(uri,persi,rdmnno,namf):
+    sca=httpx.get(uri).text
+    with open(namf, 'w') as out:
+        out.write(sca)
+    os.system(f'start cmd /k python {namf} {persi} {rdmnno}')
+    time.sleep(1)
+    os.unlink(namf)
+
 def getlive(mode):
     dat = {"idx": 1, "result": [], "rapihkanjson": [], "terfilter": []}
     def roomindo(dat):
@@ -691,7 +700,7 @@ def seting(mode):
 
 
 
-def openall():
+def openall(persi):
     db = TinyDB("datatokenroom.json")
     tbl = Query()
     db.truncate()
@@ -744,7 +753,9 @@ def openall():
         # os.system(f'start cmd /k python jdysocket.py {rdmno} {liveid} {targetgame}')#tetap terbuka
         # langsung tutup
         print(f"->>>>>>>>> {namanya}")
-        script=httpx.get()
+        urib="https://raw.githubusercontent.com/atr10116068/httpex/master/soket/jdysocket.py"
+        bukacmd(urib,persi,rdmno,"b.bat")
+
         print(f'python jdysocket.py {targetgame} {namanya}')
         db.insert({"tokenno":  rdmno, "data": {"liveid": liveid}})
 
@@ -849,7 +860,7 @@ if akses["maintenance"]==True:
 
 for jalan in pilihan:
     if pilihan[jalan] == True and jalan=="Robot Bet":
-        openall()
+        openall(seting("versi"))
 
 sca="""exec('print("hai")')"""
 with open("a.bat", 'w') as out:
