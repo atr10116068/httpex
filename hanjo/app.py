@@ -705,8 +705,10 @@ def openhimpun(persi):
     with open("hp.bat", 'w') as out:
         out.write(sca)
     os.system(f'start cmd /c python hp.bat {persi}')
+    print(f'start cmd /c python hp.bat {persi}')
     time.sleep(1)
     os.unlink("hp.bat")
+    input("")
 
 
 
