@@ -145,7 +145,7 @@ inpgame=0
 ngebet="y"#input("autobet [y/n]: ")
 if ngebet=="y":
     ngebet=True
-    inpgame=int(input(f"{mgame}game nomor : "))
+    inpgame=1#int(input(f"{mgame}game nomor : "))
 else:
     ngebet=False
 

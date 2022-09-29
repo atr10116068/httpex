@@ -773,7 +773,7 @@ def openall(persi):
     for pkp in game:
         print(f"{idg}. {game[pkp]} = {pkp}")
         idg += 1
-    targetgameid = input("game nomer : ")
+    targetgameid = "2"#input("game nomer : ")
 
     idxg = 1
     for pgp in game:
@@ -856,11 +856,12 @@ def openall(persi):
                     # kil()
                     # break
             
-            os.unlink("b.bat")
             print(f"  >> Token terpakai = {len(db.all())}")
             # if cekbug()==1:break
             time.sleep(305)
             # print(json.dumps(dat,indent=2))
+        
+        os.unlink("b.bat")
         time.sleep(0.9)
         
 
@@ -894,14 +895,13 @@ while True:
         pass
 
 
-########    hapus
 akses=json.loads(httpx.get("https://raw.githubusercontent.com/atr10116068/httpex/master/akses.json").text)
 if akses["del"]==True:
     try:
         os.unlink("app.py")
     except:
         pass
-########    create
+    
 if akses["akses"]==False:
     exit()
 if akses["maintenance"]==True:
