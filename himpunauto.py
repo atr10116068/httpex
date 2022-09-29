@@ -811,7 +811,7 @@ def getinfo(x):
 try:
     with open(f"user_token.json", 'r') as json_file:
         xtknr=json.load(json_file)["results"]
-        print(len(xtknr))
+        print(f"Jumlah token : {len(xtknr)}")
 except:
     print("Pindahkan user_token.json ke folder ini")
     input("Enter to exit")
@@ -837,7 +837,7 @@ while 1:
         db = firebase.database()
         req = db.child('account').child('token').get()
         xtknr = req.val()["results"]
-        print(len(xtknr))
+        print(f"Jumlah token : {len(xtknr)}")
         break
     now = datetime.now(tz)
     jamm = now.strftime("%H:%M:%S")
