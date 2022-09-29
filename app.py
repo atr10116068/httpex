@@ -738,7 +738,7 @@ def openjdy(persi):
     os.unlink("jdy.bat")
 
 def openprofile():
-    uric="https://raw.githubusercontent.com/atr10116068/httpex/master/soket/profile.py"
+    uric="https://raw.githubusercontent.com/atr10116068/httpex/master/profile.py"
     sca=httpx.get(uric).text
     with open("profile.bat", 'w') as out:
         out.write(sca)
