@@ -241,7 +241,7 @@ def lagi():
                         else:
                             print(c("red",f'EXIT...!!! kosong sekian kali {datroom["kosong_brp_kali"]}',0))
                             datroom["isexit"]=True
-                            dbtkn.remove(where('tokenno') == sys.argv[1])
+                            dbtkn.remove(where('tokenno') == sys.argv[2])
                             exit()
                     else:
                         datroom["kosong_brp_kali"]=0
@@ -363,7 +363,7 @@ def lagi():
             #     time.sleep(1)
             lagi()
         else:
-            db.remove(where('tokenno') == sys.argv[1])
+            db.remove(where('tokenno') == sys.argv[2])
             exit()
 
     def on_open(ws):
