@@ -850,12 +850,12 @@ while 1:
 
 print("\ntoken ke [x:y]")
 try:
-    aa, bb = int(input("x : "))+1, int(input("y : "))+1
+    aa, bb = int(input("x : "))-1, int(input("y : "))-1
 except:
     aa, bb = 0, 1
 
 
-jedascan=float(1.0)
+jedascan=float(input("jeda waktu : "))
 token = xtknr[aa:bb]
 print(f"filtering... {token}")
 ikl = 1
