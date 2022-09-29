@@ -756,7 +756,7 @@ def openall(persi):
         urib="https://raw.githubusercontent.com/atr10116068/httpex/master/soket/hanzo/sockethanzo.py"
         bukacmd(urib,persi,rdmno,"b.bat",liveid,namanya)
 
-        print(f'python jdysocket.py {targetgame} {namanya}')
+        print(f'python sockethanzo.py {liveid} {namanya}')
         db.insert({"tokenno":  rdmno, "data": {"liveid": liveid}})
 
 

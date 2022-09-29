@@ -166,6 +166,7 @@ datroom={
 
 #++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
+import translatepy as trs
 dat = {
     "admin": [
         "1119943580",
@@ -201,8 +202,7 @@ lepel = {
     "12": 14,  # admin
 }
 
-req = dbf.child('account').child('host').get()
-tokenhost = req.val()["token"]
+tokenhost = ambil.tokenhost()
 
 gid = []
 imb = ["karena", "ketika", "saat", "dan", "melihat", "mendengar"]
