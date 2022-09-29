@@ -54,7 +54,10 @@ def getinfo(x):
         return krm
 
 coin=0.0
-token=input("Token : ")
+
+with open(f"user_token.json", 'r') as json_file:
+    xtokens=json.load(json_file)["results"]
+token=xtokens[int(input("Token ke: "))]
     
 while True:
     tz = pytz.timezone("Asia/Jakarta")
