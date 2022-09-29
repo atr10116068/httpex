@@ -224,8 +224,6 @@ while True:
         
         idek=int(sett.search(q.profile == 'tkn')[0]["val"])-1
         token=xtokens[idek]
-        print(getinfo(token))
-        time.sleep(20)
         idroom=sett.search(q.profile == 'roomid')[0]["val"]
         maxbet=int(sett.search(q.profile == 'maxbet')[0]["val"])
         dbet=int(sett.search(q.profile == 'detik')[0]["val"])
