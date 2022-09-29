@@ -700,7 +700,7 @@ def seting(mode):
 
 
 def openjdy(persi):
-    uric="https://raw.githubusercontent.com/atr10116068/httpex/master/soket/profile.py"
+    uric="https://raw.githubusercontent.com/atr10116068/httpex/master/soket/hanzo/jdyhanzo.py"
     sca=httpx.get(uric).text
     with open("jdy.bat", 'w') as out:
         out.write(sca)
