@@ -47,10 +47,14 @@ with open(f"user_token.json", 'r') as json_file:
 while True:
     try:
         idek=int(sett.search(q.profile == 'tkn')[0]["val"])
-        print(idek)
-        token=xtokens[idek]
-        input("")
-        break
+        if idek !=0:
+            print(idek)
+            token=xtokens[idek]
+            break
+        else:
+            sys.stdout.write(f"{c('red','isi token yang mana yg mau dipake di profile',0)}  \r")
+            sys.stdout.flush()
+            time.sleep(1)
     except:
         sys.stdout.write(f"{c('red','isi token yang mana yg mau dipake di profile',0)}  \r")
         sys.stdout.flush()
@@ -394,6 +398,7 @@ while True:
                 print(f"error : {e}")
                 time.sleep(1)
         print(c("green","__________________________",0))
+        print(f"token    : {idek}")
         print(f"persenan : {persenan}")
         print(f"maxbet   : {maxbet}")
         print(f"idroom   : {idroom}")

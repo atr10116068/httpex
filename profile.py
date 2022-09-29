@@ -11,7 +11,7 @@ sett.insert_multiple([
     {'profile': 'pola', 'val': "terkecil"},
     {'profile': 'detik', 'val': "8"},
     {'profile': 'maxbet', 'val': "1"},
-    {'profile': 'persenan', 'val': "0.3"},
+    {'profile': 'persenan', 'val': "0.1"},
     {'profile': 'roomid', 'val': "0"},
     {'profile': 'batas any', 'val': "0"},
 ])
