@@ -278,7 +278,6 @@ def lagi():
                         print(ress)
                         break
                     else:
-                        print()
                         print(c("red","menghubungkan kembali",0))
                         time.sleep(5)
 
