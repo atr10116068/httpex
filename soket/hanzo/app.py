@@ -821,7 +821,7 @@ def openall(persi):
                 if idnya not in dat:
                     buka(idnya, targetgame,namanya)
                     dat[idnya] = i["nickname"]
-                    time.sleep(0.1)
+                    time.sleep(0.01)
                 x += 1
                 # if x > 3:
                     # kil()

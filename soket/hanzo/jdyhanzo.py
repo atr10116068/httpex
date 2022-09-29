@@ -142,7 +142,7 @@ mgame="""
 2. Baccarat
 """
 inpgame=0
-ngebet=input("autobet [y/n]: ")
+ngebet="y"#input("autobet [y/n]: ")
 if ngebet=="y":
     ngebet=True
     inpgame=int(input(f"{mgame}game nomor : "))
