@@ -3,18 +3,18 @@ from tinydb import *
 db = TinyDB("database.json")
 sett = db.table('setting')
 q = Query()
-# sett.truncate()
+sett.truncate()
 
 
-# sett.insert_multiple([
-#     {'profile': 'tkn', 'val': "0"},
-#     {'profile': 'pola', 'val': "terkecil"},
-#     {'profile': 'detik', 'val': "8"},
-#     {'profile': 'maxbet', 'val': "10"},
-#     {'profile': 'persenan', 'val': "0.3"},
-#     {'profile': 'roomid', 'val': ""},
-#     {'profile': 'batas any', 'val': ""},
-# ])
+sett.insert_multiple([
+    {'profile': 'tkn', 'val': "0"},
+    {'profile': 'pola', 'val': "terkecil"},
+    {'profile': 'detik', 'val': "8"},
+    {'profile': 'maxbet', 'val': "10"},
+    {'profile': 'persenan', 'val': "0.3"},
+    {'profile': 'roomid', 'val': ""},
+    {'profile': 'batas any', 'val': ""},
+])
 
 menus="""
 1. tkn
@@ -48,8 +48,8 @@ while True:
         print(f"  {dips}\t:{tkk['val']}")
 
 # find key
-    result = sett.search(q.profile == 'detik')[0]["val"]
-    print(result)
+    # result = sett.search(q.profile == 'detik')[0]["val"]
+    # print(result)
 
 
 #update key
