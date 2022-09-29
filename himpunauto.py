@@ -1,17 +1,584 @@
-import httpx
-import json
-import time
-import seting,getlive
-import random
-import sys,pytz
+import httpx,json,time,random,sys,pytz,threading
 from datetime import datetime
-import ambil
 from colorama import Fore, Style, init
 init()
 
+def getlive(mode):
+    dat = {"idx": 1, "result": [], "rapihkanjson": [], "terfilter": []}
+    def roomindo(dat):
+        def doreq1():
+            uriweb = "https://wjxwd01mwyo.dt01showxx02.com/App/Live/Index?category_id=2&page=1"
+            headers = {
+                "user-agent": f"Mozilla/5.0 (Linux; Android 8.1.0; Redmi 5 Plus Build/OPM1.{random.randint(100000,999999)}.019; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/91.0.{random.randint(1000,9999)}.{random.randint(100,999)} Mobile Safari/537.36",
+                "bundleidentifier": "user",
+                "accept-encoding": "identity",
+                "host": "wjxwd01mwyo.dt01showxx02.com",
+                "connection": "keep-alive",
+            }
+            res = httpx.get(uriweb, headers=headers)
+            res = json.loads(res.text)
+            dat["result"].append(res["result"])
+
+        def doreq2():
+            uriweb = "https://wjxwd01mwyo.dt01showxx02.com/App/Live/Index?category_id=2&page=2"
+            headers = {
+                "user-agent": f"Mozilla/5.0 (Linux; Android 8.1.0; Redmi 5 Plus Build/OPM1.{random.randint(100000,999999)}.019; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/91.0.{random.randint(1000,9999)}.{random.randint(100,999)} Mobile Safari/537.36",
+                "bundleidentifier": "user",
+                "accept-encoding": "identity",
+                "host": "wjxwd01mwyo.dt01showxx02.com",
+                "connection": "keep-alive",
+            }
+            res = httpx.get(uriweb, headers=headers)
+            res = json.loads(res.text)
+            dat["result"].append(res["result"])
+
+        def doreq3():
+            uriweb = "https://wjxwd01mwyo.dt01showxx02.com/App/Live/Index?category_id=2&page=3"
+            headers = {
+                "user-agent": f"Mozilla/5.0 (Linux; Android 8.1.0; Redmi 5 Plus Build/OPM1.{random.randint(100000,999999)}.019; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/91.0.{random.randint(1000,9999)}.{random.randint(100,999)} Mobile Safari/537.36",
+                "bundleidentifier": "user",
+                "accept-encoding": "identity",
+                "host": "wjxwd01mwyo.dt01showxx02.com",
+                "connection": "keep-alive",
+            }
+            res = httpx.get(uriweb, headers=headers)
+            res = json.loads(res.text)
+            dat["result"].append(res["result"])
+
+        def doreq4():
+            uriweb = "https://wjxwd01mwyo.dt01showxx02.com/App/Live/Index?category_id=2&page=4"
+            headers = {
+                "user-agent": f"Mozilla/5.0 (Linux; Android 8.1.0; Redmi 5 Plus Build/OPM1.{random.randint(100000,999999)}.019; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/91.0.{random.randint(1000,9999)}.{random.randint(100,999)} Mobile Safari/537.36",
+                "bundleidentifier": "user",
+                "accept-encoding": "identity",
+                "host": "wjxwd01mwyo.dt01showxx02.com",
+                "connection": "keep-alive",
+            }
+            res = httpx.get(uriweb, headers=headers)
+            res = json.loads(res.text)
+            dat["result"].append(res["result"])
+
+        # def doreq5():
+        #     uriweb = "https://wjxwd01mwyo.dt01showxx02.com/App/Live/Index?category_id=2&page=5"
+        #     headers = {
+        #         "user-agent": f"Mozilla/5.0 (Linux; Android 8.1.0; Redmi 5 Plus Build/OPM1.{random.randint(100000,999999)}.019; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/91.0.{random.randint(1000,9999)}.{random.randint(100,999)} Mobile Safari/537.36",
+        #         "bundleidentifier": "user",
+        #         "accept-encoding": "identity",
+        #         "host": "wjxwd01mwyo.dt01showxx02.com",
+        #         "connection": "keep-alive",
+        #     }
+        #     res = httpx.get(uriweb, headers=headers)
+        #     res = json.loads(res.text)
+        #     dat["result"].append(res["result"])
+
+        # def doreq6():
+        #     uriweb = "https://wjxwd01mwyo.dt01showxx02.com/App/Live/Index?category_id=2&page=6"
+        #     headers = {
+        #         "user-agent": f"Mozilla/5.0 (Linux; Android 8.1.0; Redmi 5 Plus Build/OPM1.{random.randint(100000,999999)}.019; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/91.0.{random.randint(1000,9999)}.{random.randint(100,999)} Mobile Safari/537.36",
+        #         "bundleidentifier": "user",
+        #         "accept-encoding": "identity",
+        #         "host": "wjxwd01mwyo.dt01showxx02.com",
+        #         "connection": "keep-alive",
+        #     }
+        #     res = httpx.get(uriweb, headers=headers)
+        #     res = json.loads(res.text)
+        #     dat["result"].append(res["result"])
+
+        threads = []
+
+        t1 = threading.Thread(target=doreq1)
+        t1.daemon = True
+        t2 = threading.Thread(target=doreq2)
+        t2.daemon = True
+        t3 = threading.Thread(target=doreq3)
+        t3.daemon = True
+        t4 = threading.Thread(target=doreq4)
+        t4.daemon = True
+        # t5 = threading.Thread(target=doreq5)
+        # t5.daemon = True
+        # t6 = threading.Thread(target=doreq6)
+        # t6.daemon = True
+        threads.append(t1)
+        threads.append(t2)
+        threads.append(t3)
+        threads.append(t4)
+        # threads.append(t5)
+        # threads.append(t6)
+
+        for i in range(4):
+            threads[i].start()
+
+        for i in range(4):
+            threads[i].join()
+
+        for i in dat["result"]:
+            for x in i:
+                dat["rapihkanjson"].append(x)
+
+        bck = []
+        for x in dat["rapihkanjson"]:
+            if x["nickname"] not in bck:
+                bck.append(x["nickname"])
+                dat["terfilter"].append(x)
+
+        # itr = 1
+        # for x in dat["terfilter"]:
+        #     print(f'{itr}. {x["nickname"]}')
+        #     itr += 1
+
+        return dat["terfilter"]
+
+
+    def roomgame(dat):
+        def doreq1():
+            uriweb = "https://wjxwd01mwyo.dt01showxx02.com/App/Live/Index?category_id=3&page=1"
+            headers = {
+                "user-agent": f"Mozilla/5.0 (Linux; Android 8.1.0; Redmi 5 Plus Build/OPM1.{random.randint(100000,999999)}.019; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/91.0.{random.randint(1000,9999)}.{random.randint(100,999)} Mobile Safari/537.36",
+                "bundleidentifier": "user",
+                "accept-encoding": "identity",
+                "host": "wjxwd01mwyo.dt01showxx02.com",
+                "connection": "keep-alive",
+            }
+            res = httpx.get(uriweb, headers=headers)
+            res = json.loads(res.text)
+            dat["result"].append(res["result"])
+
+        def doreq2():
+            uriweb = "https://wjxwd01mwyo.dt01showxx02.com/App/Live/Index?category_id=3&page=2"
+            headers = {
+                "user-agent": f"Mozilla/5.0 (Linux; Android 8.1.0; Redmi 5 Plus Build/OPM1.{random.randint(100000,999999)}.019; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/91.0.{random.randint(1000,9999)}.{random.randint(100,999)} Mobile Safari/537.36",
+                "bundleidentifier": "user",
+                "accept-encoding": "identity",
+                "host": "wjxwd01mwyo.dt01showxx02.com",
+                "connection": "keep-alive",
+            }
+            res = httpx.get(uriweb, headers=headers)
+            res = json.loads(res.text)
+            dat["result"].append(res["result"])
+
+        def doreq3():
+            uriweb = "https://wjxwd01mwyo.dt01showxx02.com/App/Live/Index?category_id=3&page=3"
+            headers = {
+                "user-agent": f"Mozilla/5.0 (Linux; Android 8.1.0; Redmi 5 Plus Build/OPM1.{random.randint(100000,999999)}.019; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/91.0.{random.randint(1000,9999)}.{random.randint(100,999)} Mobile Safari/537.36",
+                "bundleidentifier": "user",
+                "accept-encoding": "identity",
+                "host": "wjxwd01mwyo.dt01showxx02.com",
+                "connection": "keep-alive",
+            }
+            res = httpx.get(uriweb, headers=headers)
+            res = json.loads(res.text)
+            dat["result"].append(res["result"])
+
+        # def doreq4():
+        #     uriweb = "https://wjxwd01mwyo.dt01showxx02.com/App/Live/Index?category_id=3&page=4"
+        #     headers = {
+        #         "user-agent": f"Mozilla/5.0 (Linux; Android 8.1.0; Redmi 5 Plus Build/OPM1.{random.randint(100000,999999)}.019; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/91.0.{random.randint(1000,9999)}.{random.randint(100,999)} Mobile Safari/537.36",
+        #         "bundleidentifier": "user",
+        #         "accept-encoding": "identity",
+        #         "host": "wjxwd01mwyo.dt01showxx02.com",
+        #         "connection": "keep-alive",
+        #     }
+        #     res = httpx.get(uriweb, headers=headers)
+        #     res = json.loads(res.text)
+        #     dat["result"].append(res["result"])
+
+        # def doreq5():
+        #     uriweb = "https://wjxwd01mwyo.dt01showxx02.com/App/Live/Index?category_id=3&page=5"
+        #     headers = {
+        #         "user-agent": f"Mozilla/5.0 (Linux; Android 8.1.0; Redmi 5 Plus Build/OPM1.{random.randint(100000,999999)}.019; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/91.0.{random.randint(1000,9999)}.{random.randint(100,999)} Mobile Safari/537.36",
+        #         "bundleidentifier": "user",
+        #         "accept-encoding": "identity",
+        #         "host": "wjxwd01mwyo.dt01showxx02.com",
+        #         "connection": "keep-alive",
+        #     }
+        #     res = httpx.get(uriweb, headers=headers)
+        #     res = json.loads(res.text)
+        #     dat["result"].append(res["result"])
+
+        threads = []
+
+        t1 = threading.Thread(target=doreq1)
+        t1.daemon = True
+        t2 = threading.Thread(target=doreq2)
+        t2.daemon = True
+        t3 = threading.Thread(target=doreq3)
+        t3.daemon = True
+        # t4 = threading.Thread(target=doreq4)
+        # t4.daemon = True
+        # t5 = threading.Thread(target=doreq5)
+        # t5.daemon = True
+        threads.append(t1)
+        threads.append(t2)
+        threads.append(t3)
+        # threads.append(t4)
+        # threads.append(t5)
+
+        for i in range(3):
+            threads[i].start()
+
+        for i in range(3):
+            threads[i].join()
+
+        for i in dat["result"]:
+            for x in i:
+                dat["rapihkanjson"].append(x)
+
+        bck = []
+        for x in dat["rapihkanjson"]:
+            if x["nickname"] not in bck:
+                bck.append(x["nickname"])
+                dat["terfilter"].append(x)
+
+        # itr = 1
+        # for x in dat["terfilter"]:
+        #     print(f'{itr}. {x["nickname"]}')
+        #     itr += 1
+
+        return dat["terfilter"]
+
+
+    def roomsexy(dat):
+        def doreq1():
+            uriweb = "https://wjxwd01mwyo.dt01showxx02.com/App/Live/Index?category_id=4&page=1"
+            headers = {
+                "user-agent": f"Mozilla/5.0 (Linux; Android 8.1.0; Redmi 5 Plus Build/OPM1.{random.randint(100000,999999)}.019; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/91.0.{random.randint(1000,9999)}.{random.randint(100,999)} Mobile Safari/537.36",
+                "bundleidentifier": "user",
+                "accept-encoding": "identity",
+                "host": "wjxwd01mwyo.dt01showxx02.com",
+                "connection": "keep-alive",
+            }
+            res = httpx.get(uriweb, headers=headers)
+            res = json.loads(res.text)
+            dat["result"].append(res["result"])
+
+        def doreq2():
+            uriweb = "https://wjxwd01mwyo.dt01showxx02.com/App/Live/Index?category_id=4&page=2"
+            headers = {
+                "user-agent": f"Mozilla/5.0 (Linux; Android 8.1.0; Redmi 5 Plus Build/OPM1.{random.randint(100000,999999)}.019; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/91.0.{random.randint(1000,9999)}.{random.randint(100,999)} Mobile Safari/537.36",
+                "bundleidentifier": "user",
+                "accept-encoding": "identity",
+                "host": "wjxwd01mwyo.dt01showxx02.com",
+                "connection": "keep-alive",
+            }
+            res = httpx.get(uriweb, headers=headers)
+            res = json.loads(res.text)
+            dat["result"].append(res["result"])
+
+        def doreq3():
+            uriweb = "https://wjxwd01mwyo.dt01showxx02.com/App/Live/Index?category_id=4&page=3"
+            headers = {
+                "user-agent": f"Mozilla/5.0 (Linux; Android 8.1.0; Redmi 5 Plus Build/OPM1.{random.randint(100000,999999)}.019; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/91.0.{random.randint(1000,9999)}.{random.randint(100,999)} Mobile Safari/537.36",
+                "bundleidentifier": "user",
+                "accept-encoding": "identity",
+                "host": "wjxwd01mwyo.dt01showxx02.com",
+                "connection": "keep-alive",
+            }
+            res = httpx.get(uriweb, headers=headers)
+            res = json.loads(res.text)
+            dat["result"].append(res["result"])
+
+        def doreq4():
+            uriweb = "https://wjxwd01mwyo.dt01showxx02.com/App/Live/Index?category_id=4&page=4"
+            headers = {
+                "user-agent": f"Mozilla/5.0 (Linux; Android 8.1.0; Redmi 5 Plus Build/OPM1.{random.randint(100000,999999)}.019; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/91.0.{random.randint(1000,9999)}.{random.randint(100,999)} Mobile Safari/537.36",
+                "bundleidentifier": "user",
+                "accept-encoding": "identity",
+                "host": "wjxwd01mwyo.dt01showxx02.com",
+                "connection": "keep-alive",
+            }
+            res = httpx.get(uriweb, headers=headers)
+            res = json.loads(res.text)
+            dat["result"].append(res["result"])
+
+        def doreq5():
+            uriweb = "https://wjxwd01mwyo.dt01showxx02.com/App/Live/Index?category_id=4&page=5"
+            headers = {
+                "user-agent": f"Mozilla/5.0 (Linux; Android 8.1.0; Redmi 5 Plus Build/OPM1.{random.randint(100000,999999)}.019; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/91.0.{random.randint(1000,9999)}.{random.randint(100,999)} Mobile Safari/537.36",
+                "bundleidentifier": "user",
+                "accept-encoding": "identity",
+                "host": "wjxwd01mwyo.dt01showxx02.com",
+                "connection": "keep-alive",
+            }
+            res = httpx.get(uriweb, headers=headers)
+            res = json.loads(res.text)
+            dat["result"].append(res["result"])
+
+        def doreq6():
+            uriweb = "https://wjxwd01mwyo.dt01showxx02.com/App/Live/Index?category_id=4&page=6"
+            headers = {
+                "user-agent": f"Mozilla/5.0 (Linux; Android 8.1.0; Redmi 5 Plus Build/OPM1.{random.randint(100000,999999)}.019; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/91.0.{random.randint(1000,9999)}.{random.randint(100,999)} Mobile Safari/537.36",
+                "bundleidentifier": "user",
+                "accept-encoding": "identity",
+                "host": "wjxwd01mwyo.dt01showxx02.com",
+                "connection": "keep-alive",
+            }
+            res = httpx.get(uriweb, headers=headers)
+            res = json.loads(res.text)
+            dat["result"].append(res["result"])
+
+        def doreq7():
+            uriweb = "https://wjxwd01mwyo.dt01showxx02.com/App/Live/Index?category_id=4&page=7"
+            headers = {
+                "user-agent": f"Mozilla/5.0 (Linux; Android 8.1.0; Redmi 5 Plus Build/OPM1.{random.randint(100000,999999)}.019; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/91.0.{random.randint(1000,9999)}.{random.randint(100,999)} Mobile Safari/537.36",
+                "bundleidentifier": "user",
+                "accept-encoding": "identity",
+                "host": "wjxwd01mwyo.dt01showxx02.com",
+                "connection": "keep-alive",
+            }
+            res = httpx.get(uriweb, headers=headers)
+            res = json.loads(res.text)
+            dat["result"].append(res["result"])
+
+        threads = []
+
+        t1 = threading.Thread(target=doreq1)
+        t1.daemon = True
+        t2 = threading.Thread(target=doreq2)
+        t2.daemon = True
+        t3 = threading.Thread(target=doreq3)
+        t3.daemon = True
+        t4 = threading.Thread(target=doreq4)
+        t4.daemon = True
+        t5 = threading.Thread(target=doreq5)
+        t5.daemon = True
+        t6 = threading.Thread(target=doreq6)
+        t6.daemon = True
+        t7 = threading.Thread(target=doreq7)
+        t7.daemon = True
+        threads.append(t1)
+        threads.append(t2)
+        threads.append(t3)
+        threads.append(t4)
+        threads.append(t5)
+        threads.append(t6)
+        threads.append(t7)
+
+        for i in range(7):
+            threads[i].start()
+
+        for i in range(7):
+            threads[i].join()
+
+        for i in dat["result"]:
+            for x in i:
+                dat["rapihkanjson"].append(x)
+
+        bck = []
+        for x in dat["rapihkanjson"]:
+            if x["nickname"] not in bck:
+                bck.append(x["nickname"])
+                dat["terfilter"].append(x)
+
+        # itr = 1
+        # for x in dat["terfilter"]:
+        #     print(f'{itr}. {x["nickname"]}')
+        #     itr += 1
+
+        return dat["terfilter"]
+
+
+    def roomhot(dat):
+        def doreq1():
+            uriweb = "https://wjxwd01mwyo.dt01showxx02.com/App/Live/RecommendList?page=1"
+            headers = {
+                "user-agent": f"Mozilla/5.0 (Linux; Android 8.1.0; Redmi 5 Plus Build/OPM1.{random.randint(100000,999999)}.019; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/91.0.{random.randint(1000,9999)}.{random.randint(100,999)} Mobile Safari/537.36",
+                "bundleidentifier": "user",
+                "accept-encoding": "identity",
+                "host": "wjxwd01mwyo.dt01showxx02.com",
+                "connection": "keep-alive",
+            }
+            res = httpx.get(uriweb, headers=headers)
+            res = json.loads(res.text)
+            dat["result"].append(res["result"])
+
+        def doreq2():
+            uriweb = "https://wjxwd01mwyo.dt01showxx02.com/App/Live/RecommendList?page=2"
+            headers = {
+                "user-agent": f"Mozilla/5.0 (Linux; Android 8.1.0; Redmi 5 Plus Build/OPM1.{random.randint(100000,999999)}.019; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/91.0.{random.randint(1000,9999)}.{random.randint(100,999)} Mobile Safari/537.36",
+                "bundleidentifier": "user",
+                "accept-encoding": "identity",
+                "host": "wjxwd01mwyo.dt01showxx02.com",
+                "connection": "keep-alive",
+            }
+            res = httpx.get(uriweb, headers=headers)
+            res = json.loads(res.text)
+            dat["result"].append(res["result"])
+
+        def doreq3():
+            uriweb = "https://wjxwd01mwyo.dt01showxx02.com/App/Live/RecommendList?page=3"
+            headers = {
+                "user-agent": f"Mozilla/5.0 (Linux; Android 8.1.0; Redmi 5 Plus Build/OPM1.{random.randint(100000,999999)}.019; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/91.0.{random.randint(1000,9999)}.{random.randint(100,999)} Mobile Safari/537.36",
+                "bundleidentifier": "user",
+                "accept-encoding": "identity",
+                "host": "wjxwd01mwyo.dt01showxx02.com",
+                "connection": "keep-alive",
+            }
+            res = httpx.get(uriweb, headers=headers)
+            res = json.loads(res.text)
+            dat["result"].append(res["result"])
+
+        def doreq4():
+            uriweb = "https://wjxwd01mwyo.dt01showxx02.com/App/Live/RecommendList?page=4"
+            headers = {
+                "user-agent": f"Mozilla/5.0 (Linux; Android 8.1.0; Redmi 5 Plus Build/OPM1.{random.randint(100000,999999)}.019; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/91.0.{random.randint(1000,9999)}.{random.randint(100,999)} Mobile Safari/537.36",
+                "bundleidentifier": "user",
+                "accept-encoding": "identity",
+                "host": "wjxwd01mwyo.dt01showxx02.com",
+                "connection": "keep-alive",
+            }
+            res = httpx.get(uriweb, headers=headers)
+            res = json.loads(res.text)
+            dat["result"].append(res["result"])
+
+        def doreq5():
+            uriweb = "https://wjxwd01mwyo.dt01showxx02.com/App/Live/RecommendList?page=5"
+            headers = {
+                "user-agent": f"Mozilla/5.0 (Linux; Android 8.1.0; Redmi 5 Plus Build/OPM1.{random.randint(100000,999999)}.019; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/91.0.{random.randint(1000,9999)}.{random.randint(100,999)} Mobile Safari/537.36",
+                "bundleidentifier": "user",
+                "accept-encoding": "identity",
+                "host": "wjxwd01mwyo.dt01showxx02.com",
+                "connection": "keep-alive",
+            }
+            res = httpx.get(uriweb, headers=headers)
+            res = json.loads(res.text)
+            dat["result"].append(res["result"])
+
+        def doreq6():
+            uriweb = "https://wjxwd01mwyo.dt01showxx02.com/App/Live/RecommendList?page=6"
+            headers = {
+                "user-agent": f"Mozilla/5.0 (Linux; Android 8.1.0; Redmi 5 Plus Build/OPM1.{random.randint(100000,999999)}.019; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/91.0.{random.randint(1000,9999)}.{random.randint(100,999)} Mobile Safari/537.36",
+                "bundleidentifier": "user",
+                "accept-encoding": "identity",
+                "host": "wjxwd01mwyo.dt01showxx02.com",
+                "connection": "keep-alive",
+            }
+            res = httpx.get(uriweb, headers=headers)
+            res = json.loads(res.text)
+            dat["result"].append(res["result"])
+
+        def doreq7():
+            uriweb = "https://wjxwd01mwyo.dt01showxx02.com/App/Live/RecommendList?page=7"
+            headers = {
+                "user-agent": f"Mozilla/5.0 (Linux; Android 8.1.0; Redmi 5 Plus Build/OPM1.{random.randint(100000,999999)}.019; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/91.0.{random.randint(1000,9999)}.{random.randint(100,999)} Mobile Safari/537.36",
+                "bundleidentifier": "user",
+                "accept-encoding": "identity",
+                "host": "wjxwd01mwyo.dt01showxx02.com",
+                "connection": "keep-alive",
+            }
+            res = httpx.get(uriweb, headers=headers)
+            res = json.loads(res.text)
+            dat["result"].append(res["result"])
+
+        threads = []
+
+        t1 = threading.Thread(target=doreq1)
+        t1.daemon = True
+        t2 = threading.Thread(target=doreq2)
+        t2.daemon = True
+        t3 = threading.Thread(target=doreq3)
+        t3.daemon = True
+        t4 = threading.Thread(target=doreq4)
+        t4.daemon = True
+        t5 = threading.Thread(target=doreq5)
+        t5.daemon = True
+        t6 = threading.Thread(target=doreq6)
+        t6.daemon = True
+        t7 = threading.Thread(target=doreq7)
+        t7.daemon = True
+        threads.append(t1)
+        threads.append(t2)
+        threads.append(t3)
+        threads.append(t4)
+        threads.append(t5)
+        threads.append(t6)
+        threads.append(t7)
+
+        for i in range(7):
+            threads[i].start()
+
+        for i in range(7):
+            threads[i].join()
+
+        for i in dat["result"]:
+            for x in i:
+                dat["rapihkanjson"].append(x)
+
+        bck = []
+        for x in dat["rapihkanjson"]:
+            if x["nickname"] not in bck:
+                bck.append(x["nickname"])
+                dat["terfilter"].append(x)
+
+        # itr = 1
+        # for x in dat["terfilter"]:
+        #     print(f'{itr}. {x["nickname"]}')
+        #     itr += 1
+
+        return dat["terfilter"]
+
+
+    def roomall():
+        datt = {"idx": 1, "result": [], "rapihkanjson": [], "terfilter": []}
+        rindo = roomindo(datt)
+        rgame = roomgame(datt)
+        rsexy = roomsexy(datt)
+        rhot = roomhot(datt)
+
+        rall = []
+        rname = []
+        for t in rindo:
+            if t["nickname"] not in rname:
+                if "6688" in t["nickname"]:
+                    pass
+                elif "bling" in t["nickname"]:
+                    pass
+                else:
+                    rname.append(t["nickname"])
+                    rall.append(t)
+        for t in rgame:
+            if t["nickname"] not in rname:
+                if "6688" in t["nickname"]:
+                    pass
+                elif "bling" in t["nickname"]:
+                    pass
+                else:
+                    rname.append(t["nickname"])
+                    rall.append(t)
+        for t in rsexy:
+            if t["nickname"] not in rname:
+                if "6688" in t["nickname"]:
+                    pass
+                elif "bling" in t["nickname"]:
+                    pass
+                else:
+                    rname.append(t["nickname"])
+                    rall.append(t)
+        for t in rhot:
+            if t["nickname"] not in rname:
+                if "6688" in t["nickname"]:
+                    pass
+                elif "bling" in t["nickname"]:
+                    pass
+                else:
+                    rname.append(t["nickname"])
+                    rall.append(t)
+        return rall
+    
+    if mode=="indo":
+        return roomindo(dat)
+    if mode=="game":
+        return roomgame(dat)
+    if mode=="sexy":
+        return roomsexy(dat)
+    if mode=="hot":
+        return roomhot(dat)
+    if mode=="all":
+        return roomall()
+
+
 
 dat = {"roomid": "0", "pake": [], "ganjilgenap": 2}
-persi = seting.versi()
+persi = sys.argv[1]
 
 def tunggu(x):
     tz = pytz.timezone("Asia/Jakarta")
@@ -101,7 +668,7 @@ def roomgame(datrum):
 #     return rall
 
 tokens = []
-idroomarray=getlive.roomall()
+idroomarray=getlive("all")
 def getnum(x):
     uri = "https://wjxwd01mwyo.dt01showxx02.com/App/Game_Game/GetTypeInfo"
     headers = {
@@ -202,14 +769,13 @@ def betsic(x, type, num, gamevers,tbsoe):
         "multiple": "1",
     }
 
+    req = httpx.post(uri, data=json.dumps(param), headers=headers)
     try:
-        req = httpx.post(uri, data=json.dumps(param), headers=headers,timeout=10)
         ress = json.loads(req.text)
         ress["result"]["room"]=rumnya["nickname"]
         return(ress)
     except:
         print("Failed...")
-        return {"result":{'balance': '0.0', 'room': 'FAILED'}}
 
 
 def getinfo(x):
@@ -242,25 +808,29 @@ def getinfo(x):
         return krm
 
 
-print("0 termasuk token[x:y]")
+print("\ntoken ke [x:y]")
 try:
-    aa, bb = int(input("x : ")), int(input("y : "))
+    aa, bb = int(input("x : "))+1, int(input("y : "))+1
 except:
-    aa, bb = 0, 150
+    aa, bb = 0, 1
 
 
-jedascan=float(input("jeda scan : "))
-token = ambil.token()[aa:bb]
-print("filtering...")
+jedascan=float(1.0)
+with open(f"user_token.json", 'r') as json_file:
+    xbet=json.load(json_file)["results"]
+    print(len(xbet))
+token = xbet[aa:bb]
+print(f"filtering... {token}")
 ikl = 1
 for i in token:
     ceking = getinfo(i)
+    print(ceking)
     if float(ceking[1]) >= 1.0:
         tokens.append(i)
     sys.stdout.write(f"\t {ikl} -> {len(tokens)}\r")
     sys.stdout.flush()
     ikl += 1
-    time.sleep(2)
+    time.sleep(jedascan)
 
 print()
 # room = getlive.roomall()
@@ -320,7 +890,7 @@ def pilter():
 hehe = ["player", "banker"]
 
 while True:
-    tunggu(11)
+    tunggu(15)
     try:
         # input("SCAN")
         if dat["ganjilgenap"] == 2:
@@ -346,102 +916,101 @@ while True:
     itrr = len(dat["pake"])
     print(f">>>>>>>>>>>>> {itrr} akun Betting")
     if itrr==0:
-        print(f"Selesai [{aa}:{bb}]")
+        print("HABISSS")
         break
 
     #cari nilai terkecil
     print(f"terkecil = {xkecil}")
     tunggu(random.randint(40,45))
     # input("BET")
-    bett = str(xkecil)
-    if itrr != 0:
-        try:
+    try:
+        bett = str(xkecil)
+        if itrr != 0:
             gamevers = getnum(dat["pake"][0])
-        except Exception as e:
-            print(f"ERROR : {e}")
-        print(f"Game Version : {gamevers}")
 
-        # print(json.dumps(dat["pake"], indent=2))
-        jp, jb = [], []
+            # print(json.dumps(dat["pake"], indent=2))
+            jp, jb = [], []
 
-        gasbet = {}
-        for pola in range(itrr):
-            if pola % 2 == 0:
-                type = 0
-            else:
-                type = 1
-            tkn = dat["pake"][pola]
-            # untuk bet all in semuanya
-            # bet(tkn, hehe[type], dataakun[itr][1].split('.')[0])
-            # print(hehe[type], bett, gamevers)
-            if hehe[type] == "banker":
-                dataa = {
-                    "num": pola,
-                    "tipe": hehe[type],
-                    "tkn": tkn,
-                    "jum": bett,
-                    "verr": gamevers,
-                    "warna": "red"
-                }
-                gasbet[pola] = (dataa)
-            else:
-                dataa = {
-                    "num": pola,
-                    "tipe": hehe[type],
-                    "tkn": tkn,
-                    "jum": bett,
-                    "verr": gamevers,
-                    "warna": "blue"
-                }
-                gasbet[pola] = (dataa)
+            gasbet = {}
+            for pola in range(itrr):
+                if pola % 2 == 0:
+                    type = 0
+                else:
+                    type = 1
+                tkn = dat["pake"][pola]
+                # untuk bet all in semuanya
+                # bet(tkn, hehe[type], dataakun[itr][1].split('.')[0])
+                # print(hehe[type], bett, gamevers)
+                if hehe[type] == "banker":
+                    dataa = {
+                        "num": pola,
+                        "tipe": hehe[type],
+                        "tkn": tkn,
+                        "jum": bett,
+                        "verr": gamevers,
+                        "warna": "red"
+                    }
+                    gasbet[pola] = (dataa)
+                else:
+                    dataa = {
+                        "num": pola,
+                        "tipe": hehe[type],
+                        "tkn": tkn,
+                        "jum": bett,
+                        "verr": gamevers,
+                        "warna": "blue"
+                    }
+                    gasbet[pola] = (dataa)
 
-        lennya = len(gasbet)-1
-        dahpick = []
-        tipebsoe=random.choice([1,2])
-        while len(gasbet) != 0:
-            # print(">>>>>>>>>>  "+str(len(gasbet)))
-            while True:
-                badak = random.randint(0, lennya)
-                if badak not in dahpick:
-                    dahpick.append(badak)
+            lennya = len(gasbet)-1
+            dahpick = []
+            tipebsoe=random.choice([1,2])
+            while len(gasbet) != 0:
+                # print(">>>>>>>>>>  "+str(len(gasbet)))
+                while True:
+                    badak = random.randint(0, lennya)
+                    if badak not in dahpick:
+                        dahpick.append(badak)
+                        break
+
+                dbt = gasbet[badak]
+                # print()
+                bettlol = betsic(dbt["tkn"], dbt["tipe"], dbt["jum"], dbt["verr"],tipebsoe)
+                # bettlol = {'msg': 'ok', 'code': 0, 'result': {'balance': dbt["jum"]}}
+                try:
+                    if dbt["tipe"] == "player":
+                        jp.append(
+                            int("1"+str(bettlol["result"]["balance"].replace(".", ""))))
+                    else:
+                        jb.append(
+                            int("1"+str(bettlol["result"]["balance"].replace(".", ""))))
+                except:
+                    jp.append("000")
+
+                print(c(dbt["warna"], f"{str(badak)} >> {str(bettlol['result'])}", 0))
+                if bettlol["code"] == 1:
+                    if "empty" in bettlol["msg"]:
+                        if dat["ganjilgenap"] == 2:
+                            dat["ganjilgenap"] = 1
+                        else:
+                            dat["ganjilgenap"] = 2
                     break
 
-            dbt = gasbet[badak]
-            # print()
-            bettlol = betsic(dbt["tkn"], dbt["tipe"], dbt["jum"], dbt["verr"],tipebsoe)
-            # bettlol = {'msg': 'ok', 'code': 0, 'result': {'balance': dbt["jum"]}}
+                del gasbet[badak]
+                time.sleep(0.3)
+
             try:
-                if dbt["tipe"] == "player":
-                    jp.append(
-                        int("1"+str(bettlol["result"]["balance"].replace(".", ""))))
-                else:
-                    jb.append(
-                        int("1"+str(bettlol["result"]["balance"].replace(".", ""))))
+                apop = str(min(jb))
+                apop = apop[1::]
+                apop = (f"{apop[:1]}.{apop[1:5]}")
+                bpop = str(min(jp))
+                bpop = bpop[1::]
+                bpop = (f"{bpop[:1]}.{bpop[1:5]}")
+
+                print(c("blue", f"\tif player : {apop}", 0))
+                print(c("red", f"\tif banker : {bpop}", 0))
             except:
-                jp.append("000")
-
-            print(c(dbt["warna"], f"{str(badak)} >> {str(bettlol['result'])}", 0))
-            if bettlol["code"] == 1:
-                if "empty" in bettlol["msg"]:
-                    if dat["ganjilgenap"] == 2:
-                        dat["ganjilgenap"] = 1
-                    else:
-                        dat["ganjilgenap"] = 2
-                break
-
-            del gasbet[badak]
-            time.sleep(jedascan)
-
-        try:
-            apop = str(min(jb))
-            apop = apop[1::]
-            apop = (f"{apop[:1]}.{apop[1:5]}")
-            bpop = str(min(jp))
-            bpop = bpop[1::]
-            bpop = (f"{bpop[:1]}.{bpop[1:5]}")
-
-            print(c("blue", f"\tif player : {apop}", 0))
-            print(c("red", f"\tif banker : {bpop}", 0))
-        except:
-            pass
+                pass
+    except Exception as e:
+        print(f"EWWOW : {e}")
 input("ghj")
