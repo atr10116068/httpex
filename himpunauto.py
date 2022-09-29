@@ -819,6 +819,8 @@ except:
 
 
 tz = pytz.timezone("Asia/Jakarta")
+now = datetime.now(tz)
+jamend = int(now.strftime("%M%S"))+5
 while 1:
     if keyboard.is_pressed('backspace'):
         print()
@@ -840,12 +842,12 @@ while 1:
         print(f"Jumlah token : {len(xtknr)}")
         break
     now = datetime.now(tz)
-    jamm = now.strftime("%H:%M:%S")
-    sys.stdout.write(f" [{jamm}] tunggu sampai detik ke 0  \r")
+    jamm = int(now.strftime("%M%S"))
+    if jamend==jamm:
+        break
+    sys.stdout.write(f" tunggu {jamend-jamm}  \r")
     sys.stdout.flush()
     detik = now.strftime("%S")
-    if int(detik)==int(0):
-        break
     time.sleep(0.1)
 
 print("\ntoken ke [x:y]")
