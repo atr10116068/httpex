@@ -202,7 +202,8 @@ lepel = {
     "12": 14,  # admin
 }
 
-tokenhost = ambil.tokenhost()
+req = dbf.child('account').child('host').get()
+tokenhost = req.val()["token"]
 
 gid = []
 imb = ["karena", "ketika", "saat", "dan", "melihat", "mendengar"]
