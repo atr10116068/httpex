@@ -45,7 +45,7 @@ with open(f"user_token.json", 'r') as json_file:
 
 while True:
     try:
-        token=xtokens[int(sett.search(q.profile == 'tkn')[0]["val"])]
+        token=xtokens[int(sett.search(q.profile == 'tkn')[0]["val"])-1]
         break
     except:
         sys.stdout.write(f"{c('red','isi token yang mana yg mau dipake di profile',0)}  \r")
