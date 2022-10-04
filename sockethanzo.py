@@ -38,7 +38,7 @@ config = {
 firebase = pyrebase.initialize_app(config)
 dbf = firebase.database()
 req = dbf.child('account').child('token').get()
-tokk = req.val()["results"]
+tokk = req.val()["results"][0:50]
 
 db = TinyDB("data.json")
 dbtkn = TinyDB("datatokenroom.json")
