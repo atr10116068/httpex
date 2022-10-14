@@ -1,1 +1,6 @@
-{"akses": true, "del": false,"maintenance":true}
+{
+    "akses": true, 
+    "del": false,
+    "maintenance":true,
+    "versi":1.0
+}

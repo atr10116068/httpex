@@ -29,7 +29,9 @@ def cekpkg():
     return(needtoinstall)
 
 def installing(dicc):
+    print()
     for poi in dicc:
+        print(f"installing {poi}")
         os.system(f'start cmd /c python -m pip install {poi}=={dicc[poi]}')
 
 vcek=cekpkg()
